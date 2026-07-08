@@ -1,0 +1,10 @@
+{
+  "name": "Cambodia Smart-Route & Branch Locator",
+  "description": "Interactive map search for Cambodia branches, markets, and logistics routes by Metfone.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

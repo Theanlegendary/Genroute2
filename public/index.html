@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cambodia Smart-Route & Branch Locator // Metfone Logistics</title>
+  <meta name="description" content="Interactive map search for Cambodia branches, markets, and logistics routes by Metfone." />
+  
+  <!-- Google Fonts: Outfit (Headings) + Inter (UI/Body) + Noto Sans Khmer -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+  <!-- Custom Smart Metfone CSS -->
+  <link rel="stylesheet" href="style.css?v=15.0" />
+</head>
+<body>
+
+  <div class="app-layout">
+    
+    <!-- ── ASYMMETRIC SMART LOGISTICS DASHBOARD ── -->
+    <aside class="sidebar">
+
+      <!-- Section 01: Search Bar & Options -->
+      <section class="grid-section" style="padding-top: var(--space-4);">
+        <!-- Dropdown is now placed above search bar -->
+        <div class="search-options-row" style="margin-bottom: var(--space-2);">
+          <select id="provinceSelect" class="province-dropdown">
+            <option value="">All Provinces (Cambodia)</option>
+            <option value="Phnom Penh">Phnom Penh (ភ្នំពេញ)</option>
+            <option value="Banteay Meanchey">Banteay Meanchey (បន្ទាយមានជ័យ)</option>
+            <option value="Battambang">Battambang (បាត់ដំបង)</option>
+            <option value="Kampong Cham">Kampong Cham (កំពង់ចាម)</option>
+            <option value="Kampong Chhnang">Kampong Chhnang (កំពង់ឆ្នាំង)</option>
+            <option value="Kampong Speu">Kampong Speu (កំពង់ស្ពឺ)</option>
+            <option value="Kampong Thom">Kampong Thom (កំពង់ធំ)</option>
+            <option value="Kampot">Kampot (កំពត)</option>
+            <option value="Kandal">Kandal (កណ្តាល)</option>
+            <option value="Kep">Kep (កែប)</option>
+            <option value="Koh Kong">Koh Kong (កោះកុង)</option>
+            <option value="Kratie">Kratie (ក្រចេះ)</option>
+            <option value="Mondulkiri">Mondulkiri (មណ្ឌលគិរី)</option>
+            <option value="Otdar Meanchey">Otdar Meanchey (ឧត្តរមានជ័យ)</option>
+            <option value="Pailin">Pailin (ប៉ៃលិន)</option>
+            <option value="Preah Sihanouk">Preah Sihanouk (ព្រះសីហនុ)</option>
+            <option value="Preah Vihear">Preah Vihear (ព្រះវិហារ)</option>
+            <option value="Prey Veng">Prey Veng (ព្រៃវែង)</option>
+            <option value="Pursat">Pursat (ពោធិ៍សាត់)</option>
+            <option value="Ratanakiri">Ratanakiri (រតនគិរី)</option>
+            <option value="Siem Reap">Siem Reap (សៀមរាប)</option>
+            <option value="Stung Treng">Stung Treng (ស្ទឹងត្រែង)</option>
+            <option value="Svay Rieng">Svay Rieng (ស្វាយរៀង)</option>
+            <option value="Takeo">Takeo (តាកែវ)</option>
+            <option value="Tboung Khmum">Tboung Khmum (ត្បូងឃ្មុំ)</option>
+          </select>
+        </div>
+
+        <!-- Warning label explaining search best practices -->
+        <div class="search-remark">
+          <span>💡</span> ស្វែងរកបានជាភាសាខ្មែរ ឬ អង់គ្លេស — ជ្រើសខេត្ត (optional) ដើម្បីច្រោះលទ្ធផល (Search in Khmer or English. Pick a province to filter results.)
+        </div>
+
+        <div class="search-bar-wrapper">
+          <div class="search-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="ស្វែងរក ភូមិ ឃុំ ស្រុក ខណ្ឌ ខេត្ត ឬ Market, District, Province..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-clear" id="clearBtn" title="Clear Input">✕</button>
+          <button class="search-submit" id="searchBtn">Search</button>
+        </div>
+
+        <!-- Autocomplete Dropdown -->
+        <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+      </section>
+
+      <!-- Section 02: Directory Results -->
+      <section class="results-panel">
+        <!-- Results List -->
+        <div class="results-list" id="resultsList"></div>
+
+        <!-- States -->
+        <div class="state-container" id="stateLoading" style="display: none;">
+          <div class="eco-loader">
+            <div class="eco-leaf">🍃</div>
+          </div>
+          <p class="state-text">Searching location & finding nearby Metfone branches...</p>
+        </div>
+
+        <!-- Empty Welcome Container -->
+        <div class="state-container" id="stateWelcome">
+          <div class="welcome-box">
+            <div class="empty-icon">🗺️</div>
+            <h3>Metfone Express Grid</h3>
+            <p>Search for post office branch codes (e.g., PNPP014), local markets, or coordinates to find nearby routes.</p>
+            <div class="hint-chips">
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='PNPP014'; document.getElementById('searchBtn').click();">PNPP014</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='BATA026'; document.getElementById('searchBtn').click();">BATA026</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='BANA001'; document.getElementById('searchBtn').click();">BANA001</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="state-container" id="stateEmpty" style="display: none;">
+          <div class="empty-box">
+            <div class="empty-icon">🍃</div>
+            <h3>No Locations Found</h3>
+            <p>No matching locations found. Try adjusting your search term.</p>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- ── CARTOGRAPHIC MAP PANEL ── -->
+    <main class="map-container" id="map">
+      
+      <!-- Floating Glass HUD Bar -->
+      <div class="map-hud">
+        <div class="hud-item">
+          <span class="hud-icon">⚡</span>
+          <span class="hud-val">Smart Routing Active</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-icon">📍</span>
+          <span class="hud-val">Coverage: 25 Provinces</span>
+        </div>
+        <div class="hud-item hud-right">
+          <span class="hud-status-dot"></span>
+          <span class="hud-val">Metfone Logistics Network</span>
+        </div>
+      </div>
+
+      <!-- Floating Map style switcher -->
+      <div class="map-theme-switcher">
+        <button class="theme-btn active" data-theme="voyager">
+          <span class="theme-icon">🗺️</span> Map
+        </button>
+        <button class="theme-btn" data-theme="satellite">
+          <span class="theme-icon">🛰️</span> Hybrid
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <span class="theme-icon">🌑</span> Dark
+        </button>
+        <button class="theme-btn" data-theme="positron">
+          <span class="theme-icon">⚪</span> Gray
+        </button>
+      </div>
+
+      <!-- Floating Map Sticker Labels Controls -->
+      <div class="map-labels-control">
+        <div class="control-header">🏷️ Label Display</div>
+        <div class="control-row">
+          <label class="switch">
+            <input type="checkbox" id="toggleLabelsBtn" checked>
+            <span class="slider round"></span>
+          </label>
+          <span class="toggle-text">Show Labels</span>
+        </div>
+        <div class="control-row size-selector">
+          <span class="size-label">Size:</span>
+          <div class="size-btns">
+            <button class="size-btn" data-size="small">S</button>
+            <button class="size-btn active" data-size="normal">M</button>
+            <button class="size-btn" data-size="large">L</button>
+          </div>
+        </div>
+        <div class="control-row mode-selector">
+          <span class="mode-title">Content:</span>
+          <div class="mode-btns">
+            <button class="mode-btn" data-mode="name">Name</button>
+            <button class="mode-btn active" data-mode="id">ID Only</button>
+            <button class="mode-btn" data-mode="both">Both</button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </main>
+
+  </div>
+
+  <!-- Custom Modern Overlay Modal (Replaces unsafe window.alert/confirm for iframes) -->
+  <div id="customModal" class="custom-modal-overlay" style="display: none;">
+    <div class="custom-modal-box">
+      <div class="custom-modal-header">
+        <span id="customModalIcon" class="custom-modal-icon">🔔</span>
+        <h4 id="customModalTitle">Notification</h4>
+      </div>
+      <div class="custom-modal-body">
+        <p id="customModalMessage">Message goes here...</p>
+      </div>
+      <div class="custom-modal-footer">
+        <button id="customModalCancelBtn" class="modal-btn-secondary" style="display: none;">Cancel</button>
+        <button id="customModalOkBtn" class="modal-btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="app.js?v=15.0"></script>
+</body>
+</html>

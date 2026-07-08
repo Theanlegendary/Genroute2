@@ -1,0 +1,6 @@
+node_modules/
+.gemini/
+.agents/
+*.log
+public/tunnel.txt
+.DS_Store

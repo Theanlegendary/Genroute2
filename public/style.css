@@ -126,7 +126,7 @@ input, button, select, textarea {
 /* Brand Header */
 .sidebar-header {
   background: #0F172A; /* High-tech Carbon Black */
-  border-bottom: 2px solid var(--sage-600); /* Glowing Emerald Green Divider */
+  border-bottom: 2px solid var(--metfone-red); /* Glowing Metfone Red Divider */
   display: flex;
   flex-direction: column;
 }
@@ -145,7 +145,7 @@ input, button, select, textarea {
 }
 
 .meta-badge {
-  color: var(--sage-400);
+  color: var(--metfone-red);
 }
 
 .meta-status {
@@ -235,7 +235,7 @@ input, button, select, textarea {
   align-items: center;
   justify-content: center;
   padding: 0 8px 0 12px;
-  color: var(--sage-600);
+  color: var(--metfone-red);
 }
 
 .search-bar-wrapper input {
@@ -696,7 +696,7 @@ input:checked + .switch-track .switch-thumb {
 .label-mono {
   font-size: var(--text-2xs);
   font-weight: 600;
-  color: var(--sage-600);
+  color: var(--metfone-red);
   margin-right: 4px;
 }
 
@@ -1789,7 +1789,7 @@ input:checked + .slider:before {
 .map-sticker-tooltip {
   background: var(--metfone-red, #DA251D) !important;
   color: #ffffff !important;
-  border: 1.5px solid #b71c1c !important;
+  border: 2px solid #ffffff !important;
   border-radius: 9999px !important; /* Fully rounded pill shape */
   padding: 3px 10px !important;
   font-weight: 700 !important;

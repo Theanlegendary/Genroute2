@@ -232,9 +232,9 @@ async function loadStats() {
 async function loadClientData() {
   try {
     const [resRoutes, resBranches, resMarkets] = await Promise.all([
-      fetch('/data/routes.json').then(r => r.json()),
-      fetch('/data/pickup_branches.json').then(r => r.json()),
-      fetch('/data/famous_markets.json').then(r => r.json())
+      fetch(`/data/routes.json?t=${Date.now()}`).then(r => r.json()),
+      fetch(`/data/pickup_branches.json?t=${Date.now()}`).then(r => r.json()),
+      fetch(`/data/famous_markets.json?t=${Date.now()}`).then(r => r.json())
     ]);
 
     clientRoutes = resRoutes;
@@ -553,16 +553,21 @@ function setupEventListeners() {
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim();
     clearBtn.style.display = q ? 'block' : 'none';
-    clearTimeout(acDebounce);
-    acDebounce = setTimeout(() => {
-      showAutocomplete(q);
-    }, 200);
+    // Only show autocomplete on desktop
+    if (window.innerWidth > 768) {
+      clearTimeout(acDebounce);
+      acDebounce = setTimeout(() => {
+        showAutocomplete(q);
+      }, 200);
+    }
   });
 
-  // Show autocomplete on focus
+  // Show autocomplete on focus (desktop only)
   searchInput.addEventListener('focus', () => {
-    const q = searchInput.value.trim();
-    showAutocomplete(q);
+    if (window.innerWidth > 768) {
+      const q = searchInput.value.trim();
+      showAutocomplete(q);
+    }
   });
 
   // Enter key in search box
@@ -794,7 +799,8 @@ async function showAutocomplete(q) {
     const prov = provinceSelect ? provinceSelect.value : '';
     
     const localResults = clientSearch(searchQ, 'market', prov);
-    const branchResults = clientSearch(searchQ, 'branch', prov);
+    // Branch search always searches ALL provinces (PO codes are unique identifiers)
+    const branchResults = clientSearch(searchQ, 'branch', '');
 
     const googleUrl = `${API}/api/google-autocomplete?q=${encodeURIComponent(searchQ)}` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
     const googleData = await fetch(googleUrl)
@@ -1387,10 +1393,13 @@ async function runSmartFind() {
 
     // 1.5 FIRST: Check local database for exact/close post office branch ID match (e.g. Metfone branch ID like PNP01 or PNPP014)
     // This MUST run before geocoding, so branch ID queries center directly on the post office!
+    // Branch ID search always searches ALL provinces (ignores province filter)
     try {
       const branchMatch = clientBranches.find(r => r.branch_id && q.toLowerCase().replace(/[^a-z0-9]/g, '') === r.branch_id.toLowerCase().replace(/[^a-z0-9]/g, ''));
       
       if (branchMatch) {
+        // Reset province filter since branch IDs are unique across all provinces
+        if (provinceSelect) provinceSelect.value = '';
         showState('none');
         clearAllMapLayers();
         activeMarkers = [];
@@ -1549,19 +1558,34 @@ async function runSmartFind() {
           return;
         }
 
-        const selectedLoc = {
-          id: 'target_' + Date.now(),
-          market: coordsData.name || q,
-          latitude: coordsData.lat,
-          longitude: coordsData.lng,
-          province: coordsData.province || 'Google Location',
-          province_kh: coordsData.province_kh || '',
-          district: coordsData.district || '',
-          district_kh: coordsData.district_kh || '',
-          google_maps_url: `https://www.google.com/maps?q=${coordsData.lat},${coordsData.lng}`
-        };
-        selectLocationAndFindNearbyPOs(selectedLoc, [selectedLoc]);
-        return;
+        // Relevance check: if the geocoded name doesn't relate to the query at all, skip it
+        const geoName = normalizeKhmer(coordsData.name || '');
+        const queryNorm = normalizeKhmer(q);
+        const queryStripped = stripAdministrativePrefixes(queryNorm);
+        const isRelevant = geoName.includes(queryNorm) || queryNorm.includes(geoName) ||
+          (queryStripped && queryStripped.length >= 3 && geoName.includes(queryStripped)) ||
+          (geoName && queryStripped && queryStripped.length >= 3 && queryStripped.includes(geoName));
+        
+        // Also accept if query looks like a place name (has Khmer chars or common place patterns)
+        const hasKhmer = /[\u1780-\u17FF]/.test(q);
+        const looksLikePlace = hasKhmer || /phsar|market|village|commune|street|road|veal|boeng|tuol|prey/i.test(q);
+
+        if (isRelevant || looksLikePlace) {
+          const selectedLoc = {
+            id: 'target_' + Date.now(),
+            market: coordsData.name || q,
+            latitude: coordsData.lat,
+            longitude: coordsData.lng,
+            province: coordsData.province || 'Google Location',
+            province_kh: coordsData.province_kh || '',
+            district: coordsData.district || '',
+            district_kh: coordsData.district_kh || '',
+            google_maps_url: `https://www.google.com/maps?q=${coordsData.lat},${coordsData.lng}`
+          };
+          selectLocationAndFindNearbyPOs(selectedLoc, [selectedLoc]);
+          return;
+        }
+        // If not relevant, fall through to show "not found" recommendation
       }
     } catch (err) {
       console.warn('Google geocoder search failed, trying local DB fallback...');
@@ -1614,6 +1638,10 @@ async function runSmartFind() {
     clearAllMapLayers();
     activeMarkers = [];
     activeStickerMarkers = [];
+    // Reset map view to default Cambodia center so it doesn't get stuck on previous coordinates
+    if (map) {
+      map.setView([12.5657, 104.9910], 7.5);
+    }
 
     if (resultsCount) {
       if (prov) {
@@ -1875,11 +1903,11 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
   activeMarkers = [];
   activeStickerMarkers = [];
 
-  const mainColor = isOtherProvinceMatches ? '#3b82f6' : '#f59e0b';
-  const darkerColor = isOtherProvinceMatches ? '#1d4ed8' : '#b45309';
-  const lighterBg = isOtherProvinceMatches ? '#eff6ff' : '#fffbeb';
-  const lightBorder = isOtherProvinceMatches ? '#bfdbfe' : '#fef3c7';
-  const textColor = isOtherProvinceMatches ? '#1e3a8a' : '#78350f';
+  const mainColor = '#dc2626';
+  const darkerColor = '#991b1b';
+  const lighterBg = '#fef2f2';
+  const lightBorder = '#fecaca';
+  const textColor = '#1e293b';
 
   if (resultsCount) {
     if (isOtherProvinceMatches) {
@@ -2008,7 +2036,7 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
                 ${nameKh ? `<div style="font-family:var(--font-khmer); font-size:12px; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:1px;">${highlightMatch(nameKh, query)}</div>` : ''}
               </div>
               ${shortProv ? `
-                <span style="background-color: ${lighterBg}; color: ${darkerColor}; font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; border: 1.5px solid ${lightBorder}; white-space: nowrap; text-transform: uppercase; box-shadow: var(--shadow-sm); flex-shrink: 0; margin-top:2px;">
+                <span style="background-color: #dc2626; color: #ffffff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; text-transform: uppercase; flex-shrink: 0; margin-top:2px;">
                   ${escHtml(shortProv)}
                 </span>
               ` : ''}
@@ -2016,8 +2044,8 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
             <div style="margin-top:3px; background:${lighterBg}; border-radius:7px; padding:7px 9px; border:1px solid ${lightBorder};">
               ${addrHtml}
             </div>
-            <div style="margin-top: 4px; display: flex; justify-content: flex-end;">
-              <button style="background: ${mainColor}; color: #fff; border: none; padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 4px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 4px;">
+            <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
+              <button style="background: linear-gradient(135deg,#dc2626,#b91c1c); color: #fff; border: none; padding: 8px 18px; font-size: 12.5px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(220,38,38,0.3);">
                 Select &amp; Route →
               </button>
             </div>
@@ -2246,6 +2274,9 @@ window.triggerCorrectMarketCoords = async function(id, name, province) {
       const errData = await updateRes.json();
       throw new Error(errData.error || 'Failed to update coordinates');
     }
+
+    // Refresh client search index with the updated data
+    await loadClientData();
 
     await customAlert(`Success! Updated database coordinates for "${name}".`, "Coordinates Updated");
     

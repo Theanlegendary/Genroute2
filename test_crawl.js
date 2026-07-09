@@ -29,7 +29,7 @@ async function crawlGoogleMapsCoords(query) {
 }
 
 async function run() {
-  const res = await crawlGoogleMapsCoords('Kampong Cham Market, Cambodia');
+  const res = await crawlGoogleMapsCoords('Sesan, Stung Treng');
   console.log('Result:', res);
 }
 run();

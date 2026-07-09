@@ -18,19 +18,41 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
+// Serve the root data directory to guarantee frontend/backend synchronization
+app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Load data once at startup ──
 const DATA_PATH = path.join(__dirname, 'data', 'routes.json');
 const PICKUP_DATA_PATH = path.join(__dirname, 'data', 'pickup_branches.json');
 const FAMOUS_MARKETS_PATH = path.join(__dirname, 'data', 'famous_markets.json');
+const CACHE_PATH = path.join(__dirname, 'data', 'geocoding_cache.json');
+
 let routes = [];
 let pickupBranches = [];
 let famousMarkets = [];
+let geocodingCache = {};
 let fuse;
 let branchFuse;
 const translationDict = {};
 const khmerToEnglishDict = {};
+
+// Initialize Gemini API client
+let ai = null;
+try {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (apiKey && apiKey.trim()) {
+    const { GoogleGenAI } = require('@google/genai');
+    ai = new GoogleGenAI({ apiKey: apiKey.trim() });
+    console.log('✅ Gemini API client initialized successfully with key');
+  } else {
+    console.warn('⚠️  GEMINI_API_KEY environment variable not set. Gemini API geocoding fallback is disabled.');
+  }
+} catch (err) {
+  console.warn('⚠️  Failed to initialize Gemini API client:', err.message);
+  ai = null;
+}
+
 
 const KHMER_TO_ENGLISH_MANUAL = {
   'ព្រៃស': 'prey sar',
@@ -106,6 +128,20 @@ try {
 }
 
 initializeFuse();
+
+try {
+  if (fs.existsSync(CACHE_PATH)) {
+    geocodingCache = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf-8'));
+    console.log(`✅ Loaded geocoding cache with ${Object.keys(geocodingCache).length} entries`);
+  } else {
+    fs.writeFileSync(CACHE_PATH, '{}', 'utf-8');
+    geocodingCache = {};
+    console.log(`✅ Initialized new empty geocoding cache file`);
+  }
+} catch (err) {
+  console.error('❌ Failed to load geocoding_cache.json:', err.message);
+  geocodingCache = {};
+}
 
 // ──────────────────────────────────────────────────────────────────
 // HELPERS
@@ -1133,6 +1169,91 @@ async function parseGoogleMapsLink(urlStr) {
   return null;
 }
 
+function saveToGeocodingCache(query, lat, lng, displayName = '') {
+  if (!query || lat == null || lng == null) return;
+  const normQ = normalizeKhmer(query.trim());
+  
+  // Save by normalized query name
+  geocodingCache[normQ] = {
+    lat: parseFloat(lat),
+    lng: parseFloat(lng),
+    display_name: displayName || query
+  };
+
+  // Also save by coordinates string
+  const coordKey = `${parseFloat(lat).toFixed(6)},${parseFloat(lng).toFixed(6)}`;
+  geocodingCache[coordKey] = {
+    display_name: displayName || query
+  };
+
+  try {
+    fs.writeFileSync(CACHE_PATH, JSON.stringify(geocodingCache, null, 2), 'utf-8');
+    console.log(`💾 Saved "${query}" to geocoding cache`);
+  } catch (err) {
+    console.error('Failed to write to geocoding_cache.json:', err.message);
+  }
+}
+
+async function geocodeWithGemini(query, province = '') {
+  if (!ai) return null;
+  
+  const prompt = `You are an expert GIS and mapping assistant specialized in Cambodia geography.
+Given a user query (which may be in Khmer, English, or a mix) and an optional province name, resolve the location to its geographic coordinates (latitude and longitude) and administrative areas.
+User Query: "${query}"
+Province Hint: "${province}"
+
+Provide the coordinates and administrative names. If you cannot find the location, return null coordinates.
+You must return a JSON object with this schema:
+{
+  "lat": number or null,
+  "lng": number or null,
+  "name": "resolved english name",
+  "name_kh": "resolved khmer name",
+  "province": "english province",
+  "province_kh": "khmer province",
+  "district": "english district",
+  "district_kh": "khmer district",
+  "commune": "english commune",
+  "commune_kh": "khmer commune",
+  "village": "english village",
+  "village_kh": "khmer village"
+}
+Only return valid JSON conforming to the schema.`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json'
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) return null;
+
+    const data = JSON.parse(resultText);
+    if (data && data.lat && data.lng) {
+      return {
+        lat: parseFloat(data.lat),
+        lng: parseFloat(data.lng),
+        name: data.name || query,
+        province: data.province || '',
+        province_kh: data.province_kh || '',
+        district: data.district || '',
+        district_kh: data.district_kh || '',
+        commune: data.commune || '',
+        commune_kh: data.commune_kh || '',
+        village: data.village || '',
+        village_kh: data.village_kh || ''
+      };
+    }
+  } catch (err) {
+    console.error(`Gemini geocoding API error for "${query}":`, err.message);
+  }
+  return null;
+}
+
 async function resolveCoordsWithSpellingCorrection(query, province = '') {
   // 0. Support Google Maps Link parsing (e.g. https://maps.app.goo.gl/xxx or https://www.google.com/maps/...)
   if (/maps\.app\.goo\.gl|goo\.gl\/maps|google\.com\/maps/i.test(query)) {
@@ -1158,9 +1279,20 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     }
   }
 
+  // Check geocoding cache FIRST
   const processedQuery = preprocessSpelling(query);
   const normQ = normalizeKhmer(processedQuery);
   const normQuery = processedQuery.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  if (geocodingCache[normQ]) {
+    const cached = geocodingCache[normQ];
+    console.log(`🎯 Geocoding Cache Hit for: "${query}" -> (${cached.lat}, ${cached.lng})`);
+    return {
+      lat: cached.lat,
+      lng: cached.lng,
+      name: cached.display_name
+    };
+  }
 
   // Try searching in famousMarkets database first!
   const matchedFamous = famousMarkets.filter(m => {
@@ -1313,6 +1445,7 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
     if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
       console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
+      saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
       return googleCoords;
     }
   } catch (err) {
@@ -1351,7 +1484,7 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
       // Enrich with local inferred province/district fields
       const inf = inferProvinceAndDistrict(lat, lng);
       const addr = r.address || {};
-      return {
+      const resVal = {
         lat, lng,
         name: r.name || r.display_name.split(',')[0] || query,
         province:    inf.province    || addr.state || addr.county || '',
@@ -1363,6 +1496,8 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
         village:     '',
         village_kh:  ''
       };
+      saveToGeocodingCache(query, lat, lng, resVal.name);
+      return resVal;
     } else {
       return {
         type: 'multiple',
@@ -1419,10 +1554,14 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
       if (sugg.toLowerCase() !== autoQuery.toLowerCase()) {
         const suggCoords = await queryNominatim(sugg, 1);
         if (suggCoords && suggCoords.length > 0) {
+          const lat = parseFloat(suggCoords[0].lat);
+          const lng = parseFloat(suggCoords[0].lon);
           console.log(`✨ Corrected spelling "${autoQuery}" -> "${sugg}" and geocoded successfully!`);
+          saveToGeocodingCache(query, lat, lng, sugg);
+          saveToGeocodingCache(sugg, lat, lng, sugg);
           return {
-            lat: parseFloat(suggCoords[0].lat),
-            lng: parseFloat(suggCoords[0].lon),
+            lat,
+            lng,
             name: sugg
           };
         }
@@ -1432,7 +1571,19 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     console.error('Spelling correction autocomplete failed:', err.message);
   }
 
-  // 3. Fallback: return null since Google Maps was already queried first
+  // 3. Fallback: Try Gemini API geocoding
+  try {
+    const geminiCoords = await geocodeWithGemini(query, province);
+    if (geminiCoords && isWithinCambodia(geminiCoords.lat, geminiCoords.lng)) {
+      console.log(`🎯 Geocoded successfully via Gemini API: "${query}" -> (${geminiCoords.lat}, ${geminiCoords.lng})`);
+      saveToGeocodingCache(query, geminiCoords.lat, geminiCoords.lng, geminiCoords.name);
+      return geminiCoords;
+    }
+  } catch (err) {
+    console.error('Gemini API geocoding fallback failed:', err.message);
+  }
+
+  // 4. Fallback: return null since all methods failed
   return null;
 }
 
@@ -1701,24 +1852,30 @@ app.get('/api/smart-find', async (req, res) => {
 
   // 3. Fallback: Search saved place cache (geocoding_cache.json)
   if (!coords) {
-    try {
-      const cachePath = path.join(__dirname, '..', 'geocoding_cache.json');
-      if (fs.existsSync(cachePath)) {
-        const cache = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-        const normQ = normalizeKhmer(q.trim());
-        const cacheEntry = Object.entries(cache).find(([key, val]) => 
-          val.display_name && normalizeKhmer(val.display_name).includes(normQ)
-        );
-        if (cacheEntry) {
-          const [key] = cacheEntry;
+    const normQ = normalizeKhmer(q.trim());
+    
+    // First try exact key lookup in cache
+    if (geocodingCache[normQ]) {
+      const entry = geocodingCache[normQ];
+      coords = { lat: entry.lat, lng: entry.lng };
+      source = 'cache';
+      resolvedMarket = { market: entry.display_name };
+    } else {
+      // Fallback to substring matching in cache values
+      const cacheEntry = Object.entries(geocodingCache).find(([key, val]) => 
+        val.display_name && normalizeKhmer(val.display_name).includes(normQ)
+      );
+      if (cacheEntry) {
+        const [key, val] = cacheEntry;
+        if (val.lat && val.lng) {
+          coords = { lat: val.lat, lng: val.lng };
+        } else {
           const [lat, lng] = key.split(',').map(Number);
           coords = { lat, lng };
-          source = 'cache';
-          resolvedMarket = { market: cacheEntry[1].display_name };
         }
+        source = 'cache';
+        resolvedMarket = { market: val.display_name };
       }
-    } catch (err) {
-      console.error('Cache search error:', err.message);
     }
   }
 
@@ -1816,18 +1973,32 @@ app.post('/api/update-market-coords', (req, res) => {
   routes[idx].longitude = parseFloat(longitude);
   routes[idx].google_maps_url = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-  // Persist to routes.json
+  // Persist to appropriate database file
   try {
-    fs.writeFileSync(DATA_PATH, JSON.stringify(routes, null, 2), 'utf-8');
-    console.log(`💾 Persisted market correction for ID ${id}: (${latitude}, ${longitude})`);
+    const isFamous = (parseFloat(id) >= 9000);
+    if (isFamous) {
+      const fmIdx = famousMarkets.findIndex(m => String(m.id) === String(id));
+      if (fmIdx !== -1) {
+        famousMarkets[fmIdx].latitude = parseFloat(latitude);
+        famousMarkets[fmIdx].longitude = parseFloat(longitude);
+        famousMarkets[fmIdx].google_maps_url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      }
+      fs.writeFileSync(FAMOUS_MARKETS_PATH, JSON.stringify(famousMarkets, null, 2), 'utf-8');
+      console.log(`💾 Persisted market correction for Famous Market ID ${id} to famous_markets.json`);
+    } else {
+      // Exclude famous markets from routes.json to prevent duplicate propagation
+      const originalRoutesOnly = routes.filter(r => parseFloat(r.id) < 9000);
+      fs.writeFileSync(DATA_PATH, JSON.stringify(originalRoutesOnly, null, 2), 'utf-8');
+      console.log(`💾 Persisted market correction for Route ID ${id} to routes.json`);
+    }
     
     // Re-initialize search index
     initializeFuse();
     
     res.json({ success: true, message: 'Market coordinates updated successfully', updated: routes[idx] });
   } catch (err) {
-    console.error('Failed to write to routes.json:', err.message);
-    res.status(500).json({ error: 'Failed to persist updates to database file' });
+    console.error('Failed to write database updates:', err.message);
+    res.status(500).json({ error: 'Failed to persist updates to database files' });
   }
 });
 

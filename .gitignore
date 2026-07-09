@@ -4,3 +4,5 @@ node_modules/
 *.log
 public/tunnel.txt
 .DS_Store
+
+.vercel

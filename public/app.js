@@ -2327,12 +2327,12 @@ function refreshStickerLabels() {
       }
       
       if (finalLabel) {
-        marker.bindTooltip(finalLabel, {
+        marker.bindTooltip(`📍 ${finalLabel}`, {
           permanent: true,
           direction: 'top',
           className: `map-sticker-tooltip size-${labelSize}`,
           interactive: false,
-          offset: [0, -12]
+          offset: [0, -6]
         });
       }
     }

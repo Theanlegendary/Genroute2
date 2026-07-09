@@ -1940,7 +1940,7 @@ input:checked + .slider:before {
   color: #ffffff !important;
   border: 2px solid #ffffff !important;
   border-radius: 8px !important;
-  padding: 4px 10px !important;
+  padding: 5px 10px !important;
   font-weight: 700 !important;
   font-family: var(--font-heading), sans-serif !important;
   box-shadow: 0 2px 8px rgba(185, 28, 28, 0.35), 0 0 0 1px rgba(0,0,0,0.05) !important;
@@ -1957,7 +1957,7 @@ input:checked + .slider:before {
 
 .map-sticker-tooltip.size-normal {
   font-size: 11px !important;
-  padding: 4px 10px !important;
+  padding: 5px 10px !important;
 }
 
 .map-sticker-tooltip.size-large {
@@ -1965,8 +1965,15 @@ input:checked + .slider:before {
   padding: 5px 14px !important;
 }
 
+/* Hide the ugly arrow pointer */
+.map-sticker-tooltip::before,
 .map-sticker-tooltip:before {
-  border-top-color: #b91c1c !important;
+  display: none !important;
+}
+
+.leaflet-tooltip-top.map-sticker-tooltip::before,
+.leaflet-tooltip-bottom.map-sticker-tooltip::before {
+  display: none !important;
 }
 
 /* Candidate Card Choices Selection Styles */

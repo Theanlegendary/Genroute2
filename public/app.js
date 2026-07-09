@@ -998,23 +998,23 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
 
     // Add default registered PO at the top of the list if it exists
     if (defaultPO) {
-      const distToDefault = nearbyPOs.find(po => po.branch_id === defaultPO.branch_id)?.distance_km 
+      const distToDefault = nearbyPOs.find(po => (po.branch_id || po.store_code) === defaultPO.branch_id)?.distance_km 
         || haversine(selectedLoc.latitude, selectedLoc.longitude, defaultPO.latitude, defaultPO.longitude);
         
       poListHtml += `
-        <div class="popup-po-item" style="margin-top: 4px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6; padding-bottom: 3px; font-family: sans-serif; background-color: #eff6ff; padding: 2px 4px; border-radius: 4px; margin-bottom: 6px;">
-          <span style="color:#1e3a8a;"><b>📮 REG ZONE PO:</b> ${escHtml(getBilingualTitle(defaultPO))} (${defaultPO.branch_id})</span>
-          <span style="color:#1e3a8a; font-weight: 700; margin-left: 8px;">${formatDistance(distToDefault)}</span>
+        <div class="popup-po-item" style="margin-top: 4px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--metfone-red); padding-bottom: 3px; font-family: sans-serif; background-color: var(--metfone-red-light); padding: 4px 6px; border-radius: 6px; margin-bottom: 6px;">
+          <span style="color:var(--metfone-red); font-weight: 700;">📮 REG PO: ${escHtml(getBilingualTitle(defaultPO))} (${defaultPO.branch_id || defaultPO.store_code})</span>
+          <span style="color:var(--metfone-red); font-weight: 800; margin-left: 8px;">${formatDistance(distToDefault)}</span>
         </div>
       `;
     }
 
     nearbyPOs.forEach((nearPo, idx) => {
-      const isDefault = defaultPO && (defaultPO.branch_id === nearPo.branch_id);
+      const isDefault = defaultPO && (defaultPO.branch_id === nearPo.branch_id || defaultPO.branch_id === nearPo.store_code);
       poListHtml += `
-        <div class="popup-po-item" style="margin-top: 4px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 2px; font-family: sans-serif; ${isDefault ? 'background-color: #eff6ff;' : ''}">
-          <span style="color:#1e293b;"><b>${idx + 1}.</b> ${escHtml(getBilingualTitle(nearPo))} (${nearPo.branch_id})</span>
-          <span style="color:var(--metfone-red, #d32f2f); font-weight: 700; margin-left: 8px;">${formatDistance(nearPo.distance_km)}</span>
+        <div class="popup-po-item" style="margin-top: 4px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #f2f2f7; padding-bottom: 4px; font-family: sans-serif; ${isDefault ? 'background-color: var(--metfone-red-light); padding: 2px 4px; border-radius: 4px;' : ''}">
+          <span style="color:#1f2937;"><b>${idx + 1}.</b> ${escHtml(getBilingualTitle(nearPo))} (${nearPo.branch_id || nearPo.store_code || ''})</span>
+          <span style="color:var(--metfone-red); font-weight: 800; margin-left: 8px;">${formatDistance(nearPo.distance_km)}</span>
         </div>
       `;
     });
@@ -1022,19 +1022,21 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
     // Plot target location with Mushroom popup list
     const targetMarker = L.marker([selectedLoc.latitude, selectedLoc.longitude], { icon: selectedMarketIcon }).addTo(markerClusterGroup);
     targetMarker.bindPopup(`
-      <div class="map-popup-content" style="width: 260px;">
-        <div class="popup-header" style="background-color: #173020; margin-bottom: 6px;">
-          <span class="popup-badge" style="background-color: #173020; color: #fff;">TARGET LOCATION</span>
-          <span class="popup-coord">${selectedLoc.latitude.toFixed(4)}°, ${selectedLoc.longitude.toFixed(4)}°</span>
+      <div class="map-popup-content" style="width: 270px; padding: 4px 0;">
+        <div class="popup-header" style="background-color: var(--metfone-red); margin-bottom: 8px; border-radius: 6px 6px 0 0;">
+          <span class="popup-badge" style="background-color: var(--metfone-red); color: #fff; font-weight: 800;">TARGET LOCATION</span>
+          <span class="popup-coord" style="color: rgba(255,255,255,0.85);">${selectedLoc.latitude.toFixed(4)}°, ${selectedLoc.longitude.toFixed(4)}°</span>
         </div>
-        <h4 style="margin: 4px 0; font-size:13px; color:#1e293b;">📍 ${escHtml(targetTitle)}</h4>
-        <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11px; color: #64748b;">${escHtml([selectedLoc.district, selectedLoc.province].filter(Boolean).join(', ') || '')}</p>
+        <h4 style="margin: 4px 0; font-size: 13px; color: #1f2937; font-weight: 700; padding: 0 8px;">📍 ${escHtml(targetTitle)}</h4>
+        <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11.5px; color: #6b7280; padding: 0 8px;">${escHtml([selectedLoc.district, selectedLoc.province].filter(Boolean).join(', ') || '')}</p>
         
-        <div class="popup-po-list" style="margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 6px;">
-          <h5 style="margin: 0 0 4px 0; font-size: 11px; color: #0f172a; font-weight: 700; text-transform: uppercase;">🌱 Nearest Post Offices (Max 10)</h5>
-          ${poListHtml || '<p style="margin: 0; font-size: 11px; color: #94a3b8;">No post offices found within 30km.</p>'}
+        <div class="popup-po-list" style="margin-top: 8px; border-top: 1px solid #f2f2f7; padding: 8px 8px 0 8px;">
+          <h5 style="margin: 0 0 6px 0; font-size: 11px; color: var(--metfone-red); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em;">📮 Nearest Post Offices</h5>
+          <div style="max-height: 140px; overflow-y: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 2px;">
+            ${poListHtml || '<p style="margin: 0; font-size: 11px; color: #9ca3af;">No post offices found within 30km.</p>'}
+          </div>
         </div>
-        <a class="popup-gmaps-link" href="${selectedLoc.google_maps_url || `https://www.google.com/maps?q=${selectedLoc.latitude},${selectedLoc.longitude}`}" target="_blank" rel="noopener" style="margin-top: 8px; display: block; font-size:11px; text-align:right;">Open in Google Maps ↗</a>
+        <a class="popup-gmaps-link" href="${selectedLoc.google_maps_url || `https://www.google.com/maps?q=${selectedLoc.latitude},${selectedLoc.longitude}`}" target="_blank" rel="noopener" style="margin-top: 10px; display: block; font-size: 11.5px; text-align: right; color: var(--metfone-red); font-weight: 700; text-decoration: none; padding: 0 8px;">Open in Google Maps ↗</a>
       </div>
     `);
     activeMarkers.push({ id: selectedLoc.id, marker: targetMarker });
@@ -1702,9 +1704,29 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
             </div>
             <h4 style="margin: 0; font-size: 14.5px; font-weight: 700; color: #1e3a8a;">${highlightMatch(tTitle, q)}</h4>
             ${tTitleKh ? `<div style="font-family: var(--font-khmer); font-size: 12.5px; color: #4b5563; margin-top: 2px;">${highlightMatch(tTitleKh, q)}</div>` : ''}
-            <div style="font-size: 11px; color: #4b5563; margin-top: 6px; display: flex; align-items: center; gap: 4px;">
-              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" style="color: #2563eb;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              ${[targetLoc.village, targetLoc.commune, targetLoc.district, targetLoc.province].filter(Boolean).join(', ')}
+            
+            <!-- Apple style 2-row grid details block -->
+            <div class="card-address-block" style="margin-top: 8px; font-size: 11px; color: #4b5563; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; background: #eff6ff; border-radius: 12px; padding: 10px 14px; border: 1px solid #bfdbfe;">
+              <div>
+                <span style="font-weight: 700; color: #1e40af; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">Commune</span>
+                <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.commune_kh || ''} ${targetLoc.commune || ''}</span>
+              </div>
+              <div>
+                <span style="font-weight: 700; color: #1e40af; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">District</span>
+                <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.district_kh || ''} ${targetLoc.district || ''}</span>
+              </div>
+              <div style="grid-column: span 2; border-top: 1px solid #bfdbfe; padding-top: 4px; display: flex; justify-content: space-between;">
+                <div>
+                  <span style="font-weight: 700; color: #1e40af; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Province:</span>
+                  <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.province_kh || ''} ${targetLoc.province || ''}</span>
+                </div>
+                ${(targetLoc.village || targetLoc.village_kh) ? `
+                  <div>
+                    <span style="font-weight: 700; color: #1e40af; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Village:</span>
+                    <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.village_kh || ''} ${targetLoc.village || ''}</span>
+                  </div>
+                ` : ''}
+              </div>
             </div>
           </div>
           <button class="card-directions-btn" onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="Directions" style="border-color: #bfdbfe; color: #2563eb; margin-top: 2px; flex-shrink: 0; outline: none;">
@@ -1766,7 +1788,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         <div style="min-width: 0; flex: 1;">
           <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px; flex-wrap: wrap;">
             <span style="background: var(--metfone-red-light); color: var(--metfone-red); font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">POST OFFICE</span>
-            ${r.branch_id ? `<span style="background: #e2e8f0; color: #475569; font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">ID: ${highlightMatch(r.branch_id, q)}</span>` : ''}
+            ${r.branch_id || r.store_code ? `<span style="background: #e2e8f0; color: #475569; font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">ID: ${highlightMatch(r.branch_id || r.store_code, q)}</span>` : ''}
             <span style="font-size: 8.5px; font-weight: 700; color: #059669; padding: 2px 6px; background: #d1fae5; border-radius: 4px;">AI Match: ${confidence}%</span>
           </div>
           <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: #1f2937;">${highlightMatch(storeName, q)}</h3>
@@ -1782,14 +1804,28 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         ` : ''}
       </div>
       
-      <!-- Address Details Block -->
-      <div class="card-address-block" style="margin-top: 10px; font-size: 11.5px; color: #4b5563; display: flex; flex-direction: column; gap: 4px; background: #f8f9fa; border-radius: 10px; padding: 8px 12px; border: 1.5px solid #f2f2f7;">
-        ${(r.village || r.village_kh) ? `
-          <div><span style="font-weight: 700; color: #64748b;">Village:</span> ${r.village_kh ? escHtml(r.village_kh) : ''} ${r.village_kh && r.village ? '·' : ''} ${r.village ? escHtml(r.village) : ''}</div>
-        ` : ''}
-        <div><span style="font-weight: 700; color: #64748b;">Commune:</span> ${r.commune_kh ? escHtml(r.commune_kh) : ''} ${r.commune_kh && r.commune ? '·' : ''} ${r.commune ? escHtml(r.commune) : ''}</div>
-        <div><span style="font-weight: 700; color: #64748b;">District:</span> ${r.district_kh ? escHtml(r.district_kh) : ''} ${r.district_kh && r.district ? '·' : ''} ${r.district ? escHtml(r.district) : ''}</div>
-        <div><span style="font-weight: 700; color: #64748b;">Province:</span> ${r.province_kh ? escHtml(r.province_kh) : ''} ${r.province_kh && r.province ? '·' : ''} ${r.province ? escHtml(r.province) : ''}</div>
+      <!-- Apple style 2-row grid details block -->
+      <div class="card-address-block" style="margin-top: 8px; font-size: 11px; color: #4b5563; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; background: #fff5f5; border-radius: 12px; padding: 10px 14px; border: 1px solid #fecdd3;">
+        <div>
+          <span style="font-weight: 700; color: #991b1b; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">Commune</span>
+          <span style="font-weight: 600; color: #1f2937;">${r.commune_kh || ''} ${r.commune || ''}</span>
+        </div>
+        <div>
+          <span style="font-weight: 700; color: #991b1b; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">District</span>
+          <span style="font-weight: 600; color: #1f2937;">${r.district_kh || ''} ${r.district || ''}</span>
+        </div>
+        <div style="grid-column: span 2; border-top: 1px solid #fecdd3; padding-top: 4px; display: flex; justify-content: space-between;">
+          <div>
+            <span style="font-weight: 700; color: #991b1b; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Province:</span>
+            <span style="font-weight: 600; color: #1f2937;">${r.province_kh || ''} ${r.province || ''}</span>
+          </div>
+          ${(r.village || r.village_kh) ? `
+            <div>
+              <span style="font-weight: 700; color: #991b1b; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Village:</span>
+              <span style="font-weight: 600; color: #1f2937;">${r.village_kh || ''} ${r.village || ''}</span>
+            </div>
+          ` : ''}
+        </div>
       </div>
       
       <!-- Action Buttons Panel -->
@@ -2102,10 +2138,11 @@ function escHtml(str) {
 }
 
 function getBilingualTitle(item) {
-  const en = item.market || item.village || item.commune || 'Post Office';
-  const kh = item.market_kh || item.village_kh || item.commune_kh || '';
+  if (!item) return '';
+  const en = item.store_name || item.market || item.village || item.commune || 'Post Office';
+  const kh = item.store_name_kh || (item.store_name ? clientGetKhmerStoreName(item.store_name) : '') || item.market_kh || item.village_kh || item.commune_kh || '';
   if (kh && kh.toLowerCase() !== en.toLowerCase()) {
-    return `${kh} ${en}`;
+    return `${kh} (${en})`;
   }
   return en;
 }

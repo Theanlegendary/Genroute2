@@ -1202,7 +1202,11 @@ Given a user query (which may be in Khmer, English, or a mix) and an optional pr
 User Query: "${query}"
 Province Hint: "${province}"
 
-Provide the coordinates and administrative names. If you cannot find the location, return null coordinates.
+CRITICAL RULES:
+1. Only return coordinates if you are 100% sure of the exact location (e.g. major markets, temples, landmarks, cities, or provinces).
+2. For street names or numbered streets (e.g. "street 2004", "street 209", "st 371", "st 271") or specific road numbers, if you do not know the exact coordinates of that street, you MUST return null coordinates. Do not guess or hallucinate coordinates.
+3. If you cannot find the location or are unsure of the coordinates, return null coordinates.
+
 You must return a JSON object with this schema:
 {
   "lat": number or null,

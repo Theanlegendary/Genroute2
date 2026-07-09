@@ -28,20 +28,28 @@
       <!-- Left Navigation Rail (Google Maps Style) -->
       <div class="nav-rail">
         <button class="nav-item active" id="navSearch" title="Search Map">
-          <span class="nav-icon">🔍</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
           <span class="nav-label">Search</span>
         </button>
         <button class="nav-item" id="navSaved" title="Saved Branches">
-          <span class="nav-icon">🔖</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          </span>
           <span class="nav-label">Saved</span>
         </button>
         <button class="nav-item" id="navRecents" title="Recent Searches">
-          <span class="nav-icon">🕒</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </span>
           <span class="nav-label">Recents</span>
         </button>
         <div style="flex-grow: 1;" class="nav-spacer"></div>
         <button class="nav-item" id="navGetApp" title="Get Mobile App">
-          <span class="nav-icon">📱</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </span>
           <span class="nav-label">Get App</span>
         </button>
       </div>
@@ -126,12 +134,14 @@
         <!-- Empty Welcome Container -->
         <div class="state-container" id="stateWelcome">
           <div class="welcome-box">
-            <div class="empty-icon" style="background: rgba(218, 37, 29, 0.08); border-color: rgba(218, 37, 29, 0.2); color: var(--metfone-red);">🗺️</div>
+            <div class="empty-icon" style="background: rgba(218, 37, 29, 0.08); border-color: rgba(218, 37, 29, 0.2); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%;">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red);"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+            </div>
             <h3 style="font-family: var(--font-heading); color: var(--forest-900);">Metfone Express Grid</h3>
             <p style="margin-bottom: var(--space-4);">Search for post office branch codes (e.g., PNPP014), local markets, or coordinates to find nearby routes.</p>
             
             <h4 style="margin: 0 0 10px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--metfone-red); letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-heading);">
-              🔥 Top Searches Today (ការស្វែងរកពេញនិយម)
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red);"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> Top Searches Today (ការស្វែងរកពេញនិយម)
             </h4>
             <div class="hint-chips">
               <button class="hint-chip" onclick="document.getElementById('searchInput').value='ផ្សារធំថ្មី'; document.getElementById('searchBtn').click();">ផ្សារធំថ្មី (Phsar Thmey)</button>
@@ -161,11 +171,11 @@
       <!-- Floating Glass HUD Bar -->
       <div class="map-hud">
         <div class="hud-item">
-          <span class="hud-icon">⚡</span>
+          <span class="hud-icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
           <span class="hud-val">Smart Routing Active</span>
         </div>
         <div class="hud-item">
-          <span class="hud-icon">📍</span>
+          <span class="hud-icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
           <span class="hud-val">Coverage: 25 Provinces</span>
         </div>
         <div class="hud-item hud-right">
@@ -177,22 +187,22 @@
       <!-- Floating Map style switcher -->
       <div class="map-theme-switcher">
         <button class="theme-btn active" data-theme="voyager">
-          <span class="theme-icon">🗺️</span> Map
+          <span class="theme-icon"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon></svg></span> Map
         </button>
         <button class="theme-btn" data-theme="satellite">
-          <span class="theme-icon">🛰️</span> Hybrid
+          <span class="theme-icon"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg></span> Hybrid
         </button>
         <button class="theme-btn" data-theme="dark">
-          <span class="theme-icon">🌑</span> Dark
+          <span class="theme-icon"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> Dark
         </button>
         <button class="theme-btn" data-theme="positron">
-          <span class="theme-icon">⚪</span> Gray
+          <span class="theme-icon"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><circle cx="12" cy="12" r="10"></circle></svg></span> Gray
         </button>
       </div>
 
       <!-- Floating Map Sticker Labels Controls -->
       <div class="map-labels-control">
-        <div class="control-header">🏷️ Label Display</div>
+        <div class="control-header"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg> Label Display</div>
         <div class="control-row">
           <label class="switch">
             <input type="checkbox" id="toggleLabelsBtn" checked>

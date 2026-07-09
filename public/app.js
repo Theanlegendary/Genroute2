@@ -1698,7 +1698,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
       targetCard.innerHTML = `
         <div class="card-grid">
           <div class="card-index" style="background-color: #3b82f6; color: #fff; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
-            <span class="index-num" style="font-size: 1.1rem; line-height: 1;">🎯</span>
+            <span class="index-num" style="font-size: 1.1rem; line-height: 1; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
             <span class="type-badge" style="background-color: #1e3a8a; color: #fff; font-size: 8px; font-weight: 700; padding: 1px 3px; border-radius: 3px;">TARGET</span>
           </div>
           <div class="card-content">
@@ -1708,7 +1708,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
             </div>
             ${tTitleKh ? `<div class="card-title-kh">${highlightMatch(tTitleKh, q)}</div>` : ''}
             <div class="card-address">
-              <span class="label-mono">📍</span> ${highlightMatch([targetLoc.village, targetLoc.commune, targetLoc.district, targetLoc.province].filter(Boolean).join(', '), q)}
+              <span class="label-mono"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-top: -2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span> ${highlightMatch([targetLoc.village, targetLoc.commune, targetLoc.district, targetLoc.province].filter(Boolean).join(', '), q)}
             </div>
             ${targetLoc.village_kh || targetLoc.district_kh ? `
             <div class="card-address-kh">
@@ -1812,10 +1812,10 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
 
         ${r.distance_km != null ? `
           <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; width:100%;">
-            <span class="distance-badge" style="margin-left: 0; font-size: 10px;">📡 ចំងាយ Distance: ${formatDistance(r.distance_km)}</span>
+            <span class="distance-badge" style="margin-left: 0; font-size: 10px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-right: 4px; margin-top: -2px;"><path d="M12 2a10 10 0 0 1 10 10c0 2.45-1 4.8-2.68 6.48l-1.42-1.42A8 8 0 0 0 12 4V2z"></path><path d="M12 6a6 6 0 0 1 6 6c0 1.48-.6 2.88-1.63 3.91l-1.42-1.42A4 4 0 0 0 12 8V6z"></path><circle cx="12" cy="12" r="2"></circle></svg> ចំងាយ Distance: ${formatDistance(r.distance_km)}</span>
             <div style="display: flex; gap: 12px; align-items: center;">
               <button class="card-save-btn" style="background: transparent; border: none; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px; padding: 0; outline: none; ${isBranchSaved(r.id) ? 'color: var(--metfone-red); font-weight: 700;' : 'color: var(--text-light);'}" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');">
-                ${isBranchSaved(r.id) ? '🔖 Saved' : '🔖 Save'}
+                ${isBranchSaved(r.id) ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Saved' : '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save'}
               </button>
               <a class="card-gmaps-link" style="margin-top: 0; font-size: 10px;" href="${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
             </div>
@@ -1823,7 +1823,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         ` : `
           <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:space-between; align-items:center; width:100%;">
             <button class="card-save-btn" style="background: transparent; border: none; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px; padding: 0; outline: none; ${isBranchSaved(r.id) ? 'color: var(--metfone-red); font-weight: 700;' : 'color: var(--text-light);'}" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');">
-              ${isBranchSaved(r.id) ? '🔖 Saved' : '🔖 Save'}
+              ${isBranchSaved(r.id) ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Saved' : '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save'}
             </button>
             <a class="card-gmaps-link" style="margin-top: 0; font-size: 10px;" href="${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
           </div>

@@ -45,14 +45,14 @@
   --font-khmer:     'Noto Sans Khmer', sans-serif;
 
   /* Type Scale */
-  --text-2xs:   0.68rem;
-  --text-xs:    0.78rem;
-  --text-sm:    0.88rem;
-  --text-base:  1.00rem;
-  --text-md:    1.15rem;
-  --text-lg:    1.35rem;
-  --text-xl:    1.70rem;
-  --text-2xl:   2.20rem;
+  --text-2xs:   0.75rem;
+  --text-xs:    0.85rem;
+  --text-sm:    0.95rem;
+  --text-base:  1.08rem;
+  --text-md:    1.22rem;
+  --text-lg:    1.42rem;
+  --text-xl:    1.80rem;
+  --text-2xl:   2.35rem;
 
   /* Spacing */
   --space-1: 4px;

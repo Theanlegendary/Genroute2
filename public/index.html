@@ -103,13 +103,19 @@
         <!-- Empty Welcome Container -->
         <div class="state-container" id="stateWelcome">
           <div class="welcome-box">
-            <div class="empty-icon">🗺️</div>
-            <h3>Metfone Express Grid</h3>
-            <p>Search for post office branch codes (e.g., PNPP014), local markets, or coordinates to find nearby routes.</p>
+            <div class="empty-icon" style="background: rgba(218, 37, 29, 0.08); border-color: rgba(218, 37, 29, 0.2); color: var(--metfone-red);">🗺️</div>
+            <h3 style="font-family: var(--font-heading); color: var(--forest-900);">Metfone Express Grid</h3>
+            <p style="margin-bottom: var(--space-4);">Search for post office branch codes (e.g., PNPP014), local markets, or coordinates to find nearby routes.</p>
+            
+            <h4 style="margin: 0 0 10px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--metfone-red); letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-heading);">
+              🔥 Top Searches Today (ការស្វែងរកពេញនិយម)
+            </h4>
             <div class="hint-chips">
-              <button class="hint-chip" onclick="document.getElementById('searchInput').value='PNPP014'; document.getElementById('searchBtn').click();">PNPP014</button>
-              <button class="hint-chip" onclick="document.getElementById('searchInput').value='BATA026'; document.getElementById('searchBtn').click();">BATA026</button>
-              <button class="hint-chip" onclick="document.getElementById('searchInput').value='BANA001'; document.getElementById('searchBtn').click();">BANA001</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='ផ្សារធំថ្មី'; document.getElementById('searchBtn').click();">ផ្សារធំថ្មី (Phsar Thmey)</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='ផ្សារព្រែកជ្រៃ'; document.getElementById('searchBtn').click();">ផ្សារព្រែកជ្រៃ (Prek Chrey)</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='ចោមចៅ'; document.getElementById('searchBtn').click();">ចោមចៅ (Chom Chao)</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='អង្គរវត្ត'; document.getElementById('searchBtn').click();">អង្គរវត្ត (Angkor Wat)</button>
+              <button class="hint-chip" onclick="document.getElementById('searchInput').value='រង្វង់មូលធុរេន'; document.getElementById('searchBtn').click();">រង្វង់មូលធុរេន (Kampot)</button>
             </div>
           </div>
         </div>

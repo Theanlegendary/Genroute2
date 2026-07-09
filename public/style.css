@@ -1579,26 +1579,31 @@ strong {
   flex-wrap: wrap;
   gap: var(--space-2);
   justify-content: center;
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hint-chip {
-  background: var(--bg-card);
-  border: 1px solid var(--sage-200);
+  background: rgba(218, 37, 29, 0.04); /* Light red tint */
+  border: 1px solid rgba(218, 37, 29, 0.25); /* Subtle red border */
   border-radius: var(--radius-pill);
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: var(--text-2xs);
-  font-weight: 500;
-  color: var(--forest-800);
+  font-weight: 600;
+  color: var(--metfone-red); /* Metfone Red text */
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(218, 37, 29, 0.05);
 }
 
 .hint-chip:hover {
   background: var(--metfone-red);
   color: var(--white);
   border-color: var(--metfone-red);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--metfone-glow);
 }
 
 /* Floating Map Sticker Labels Controls */

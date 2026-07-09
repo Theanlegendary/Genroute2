@@ -12,6 +12,35 @@ let currentResults = [];
 let currentPage = 1;
 const limit = 50;
 
+// Client-Side Database Cache (for ultra-high scaling & instant offline search)
+let clientRoutes = [];
+let clientBranches = [];
+let clientMarkets = [];
+let clientMergedRoutes = [];
+let clientMarketFuse = null;
+let clientBranchFuse = null;
+const clientTranslationDict = {};
+const clientKhmerToEnglishDict = {};
+const clientKhmerToEnglishManual = {
+  'ព្រៃស': 'prey sar',
+  'ចោមចៅ': 'chom chao',
+  'ទឹកថ្លា': 'tuek thla',
+  'ស្ទឹងមានជ័យ': 'steung meanchey',
+  'បឹងកេងកង': 'boeng keng kang',
+  'ទួលគោក': 'tuol kouk',
+  'ដូនពេញ': 'daun penh',
+  'ប្រាំពីរមករា': 'prampir meakkara',
+  'សែនសុខ': 'sen sok',
+  'ដង្កោ': 'dangkao',
+  'មានជ័យ': 'meanchey',
+  'ជ្រោយចង្វារ': 'chroy changvar',
+  'ព្រែកព្នៅ': 'prek pnov',
+  'ច្បារអំពៅ': 'chbar ampov',
+  'កំបូល': 'kamboul',
+  'កោះដាច់': 'koh dach',
+  'ភ្នំពេញថ្មី': 'phnom penh thmei'
+};
+
 // Sticker Labels State
 let showLabelsToggle = true; // default on
 let labelSize = 'normal';    // default normal (medium)
@@ -75,6 +104,7 @@ const selectedMarketIcon = L.divIcon({
 (async function init() {
   initMap();
   setupThemeSwitcher();
+  await loadClientData();
   await loadStats();
   setupEventListeners();
   setupLabelsControl();
@@ -168,19 +198,249 @@ function setupThemeSwitcher() {
   });
 }
 
-// Load stats into footer
+// Load stats into footer using client data
 async function loadStats() {
   try {
-    const res = await fetch(`${API}/api/stats`);
-    const data = await res.json();
     if (footerStats) {
-      footerStats.innerHTML = `EXPRESS GRID: <span>${data.total_branches.toLocaleString()}</span> PO BRANCHES · <span>${(data.total_markets || 1888).toLocaleString()}</span> MARKETS`;
+      const branchesCount = clientBranches.length || 593;
+      const marketsCount = clientMarkets.length || 1888;
+      footerStats.innerHTML = `EXPRESS GRID: <span>${branchesCount.toLocaleString()}</span> PO BRANCHES · <span>${marketsCount.toLocaleString()}</span> MARKETS`;
     }
   } catch (e) {
     if (footerStats) {
       footerStats.textContent = 'METFONE EXPRESS GRID · ONLINE';
     }
   }
+}
+
+async function loadClientData() {
+  try {
+    const [resRoutes, resBranches, resMarkets] = await Promise.all([
+      fetch('/data/routes.json').then(r => r.json()),
+      fetch('/data/pickup_branches.json').then(r => r.json()),
+      fetch('/data/famous_markets.json').then(r => r.json())
+    ]);
+
+    clientRoutes = resRoutes;
+    clientBranches = resBranches;
+    clientMarkets = resMarkets;
+
+    // Merge famous markets into routes
+    const famousMarketsMerged = clientMarkets.map(m => ({
+      ...m,
+      isFamousMarket: true
+    }));
+    clientMergedRoutes = [...clientRoutes, ...famousMarketsMerged];
+
+    // Initialize Fuse.js on clientMergedRoutes (Markets / Routes)
+    clientMarketFuse = new Fuse(clientMergedRoutes, {
+      keys: [
+        { name: 'market',       weight: 0.35 },
+        { name: 'market_kh',    weight: 0.35 },
+        { name: 'commune',      weight: 0.10 },
+        { name: 'commune_kh',   weight: 0.10 },
+        { name: 'district',     weight: 0.05 },
+        { name: 'district_kh',  weight: 0.05 }
+      ],
+      threshold: 0.42,
+      includeScore: true,
+      minMatchCharLength: 2
+    });
+
+    // Initialize Fuse.js on clientBranches (Branches)
+    clientBranchFuse = new Fuse(clientBranches, {
+      keys: [
+        { name: 'store_code',          weight: 0.30 },
+        { name: 'store_name',          weight: 0.40 },
+        { name: 'district_kh',         weight: 0.15 },
+        { name: 'province_kh',         weight: 0.10 },
+        { name: 'raw_delivery_store',  weight: 0.20 }
+      ],
+      threshold: 0.42,
+      includeScore: true,
+      minMatchCharLength: 2
+    });
+
+    // Build translation dictionaries
+    const addTrans = (en, kh, isMarket = false) => {
+      const cen = stripAdministrativePrefixes(normalizeKhmer(en));
+      const ckh = stripAdministrativePrefixes(normalizeKhmer(kh));
+      if (cen && ckh && !clientTranslationDict[cen]) {
+        clientTranslationDict[cen] = ckh;
+      }
+      if (cen && ckh && !isMarket && !clientKhmerToEnglishDict[ckh]) {
+        clientKhmerToEnglishDict[ckh] = cen;
+      }
+    };
+
+    // Populate manual translations first
+    for (const [kh, en] of Object.entries(clientKhmerToEnglishManual)) {
+      const normKh = normalizeKhmer(kh);
+      const normEn = stripAdministrativePrefixes(normalizeKhmer(en));
+      if (normKh && normEn) {
+        clientKhmerToEnglishDict[normKh] = normEn;
+        clientTranslationDict[normEn] = normKh;
+      }
+    }
+
+    // Populate from routes
+    clientRoutes.forEach(r => {
+      addTrans(r.province, r.province_kh);
+      addTrans(r.district, r.district_kh);
+      addTrans(r.commune, r.commune_kh);
+      addTrans(r.village, r.village_kh);
+      addTrans(r.market, r.market_kh, true);
+    });
+
+    // Populate from pickup branches
+    clientBranches.forEach(b => {
+      addTrans(b.district_en, b.district_kh);
+    });
+
+    console.log(`✅ Loaded client-side search data successfully.`);
+  } catch (e) {
+    console.error('Failed to load client-side search datasets:', e);
+  }
+}
+
+function clientGetKhmerStoreName(storeName) {
+  if (!storeName) return '';
+  const cleanEn = storeName.trim().replace(/\b(Khan|Srok|Krong|Sangkat|Sangkat\/Commune|Commune|Village|Phsar|Psar|Market|District|Province|Capital)\b/gi, '').trim().toLowerCase();
+  const rawKh = clientTranslationDict[cleanEn];
+  if (rawKh) {
+    return stripKhmerPrefix(rawKh);
+  }
+  return '';
+}
+
+function stripKhmerPrefix(kh) {
+  if (!kh) return '';
+  return kh.replace(/^(ខណ្ឌ|សង្កាត់|ស្រុក|ក្រុង|រាជធានី|ខេត្ត|ភូមិ|ឃុំ|ផ្សារ)/g, '').trim();
+}
+
+function clientMatchesPickupBranchQuery(branch, q) {
+  const normQ = normalizeKhmer(q);
+  if (!normQ) return false;
+
+  const fields = [
+    branch.store_code,
+    branch.store_name,
+    clientGetKhmerStoreName(branch.store_name),
+    branch.province_kh,
+    branch.district_en,
+    branch.district_kh,
+    branch.raw_delivery_store
+  ];
+
+  const matched = fields.some(field => {
+    if (!field) return false;
+    return normalizeKhmer(field).includes(normQ);
+  });
+  if (matched) return true;
+
+  const strippedQ = stripAdministrativePrefixes(normQ);
+  if (strippedQ && strippedQ.length >= 2) {
+    return fields.some(field => {
+      if (!field) return false;
+      const strippedField = stripAdministrativePrefixes(normalizeKhmer(field));
+      return strippedField.includes(strippedQ);
+    });
+  }
+
+  return false;
+}
+
+function clientSearch(q, type, province = '') {
+  const processedQ = q.trim();
+  let results = [];
+  const isMarket = (type === 'market');
+
+  if (isMarket) {
+    let dataset = clientMergedRoutes;
+    if (province) {
+      const normProv = normalizeKhmer(province);
+      dataset = dataset.filter(r => 
+        (r.province && normalizeKhmer(r.province).includes(normProv)) ||
+        (r.province_kh && normalizeKhmer(r.province_kh).includes(normProv))
+      );
+    }
+    if (processedQ) {
+      if (clientMarketFuse) {
+        const fuseResults = clientMarketFuse.search(processedQ);
+        results = fuseResults.map(res => res.item);
+      }
+    } else {
+      results = dataset;
+    }
+  } else {
+    let dataset = clientBranches;
+    if (province) {
+      const normProv = normalizeKhmer(province);
+      dataset = dataset.filter(b => 
+        normalizeKhmer(b.province_kh).includes(normProv)
+      );
+    }
+    if (processedQ) {
+      const exactMatches = dataset.filter(b => clientMatchesPickupBranchQuery(b, processedQ));
+      let fuzzyMatches = [];
+      if (exactMatches.length < 15 && clientBranchFuse) {
+        const tempFuse = new Fuse(dataset, {
+          keys: [
+            { name: 'store_code', weight: 0.3 },
+            { name: 'store_name', weight: 0.4 },
+            { name: 'raw_delivery_store', weight: 0.3 }
+          ],
+          threshold: 0.5
+        });
+        fuzzyMatches = tempFuse.search(processedQ).map(res => res.item);
+      }
+      const combined = [...exactMatches, ...fuzzyMatches];
+      results = Array.from(new Set(combined));
+    } else {
+      results = dataset;
+    }
+  }
+  return results;
+}
+
+function clientGetNearbyPOs(lat, lng, radiusKm = 30, limitCount = 10) {
+  const POs = clientBranches.map(po => {
+    const dist = haversine(lat, lng, po.latitude, po.longitude);
+    return {
+      ...po,
+      distance_km: dist
+    };
+  });
+  return POs
+    .filter(po => po.distance_km <= radiusKm)
+    .sort((a, b) => a.distance_km - b.distance_km)
+    .slice(0, limitCount);
+}
+
+function clientTranslateKhmerToEnglish(query) {
+  const normQ = stripAdministrativePrefixes(normalizeKhmer(query));
+  if (!normQ) return '';
+
+  if (clientKhmerToEnglishDict[normQ]) {
+    return clientKhmerToEnglishDict[normQ];
+  }
+
+  let translated = normQ;
+  const keys = Object.keys(clientKhmerToEnglishDict).sort((a, b) => b.length - a.length);
+  let replaced = false;
+  
+  for (const k of keys) {
+    if (translated.includes(k)) {
+      const en = clientKhmerToEnglishDict[k];
+      translated = translated.replace(new RegExp(k, 'g'), ' ' + en + ' ');
+      replaced = true;
+    }
+  }
+
+  if (replaced) {
+    return translated.replace(/\s+/g, ' ').trim();
+  }
+  return '';
 }
 
 // Helper to check if string contains lat/lng coordinates (e.g. "11.556, 104.928")
@@ -344,25 +604,19 @@ async function showAutocomplete(q) {
       return;
     }
 
-    // 2. Fetch local database search & FREE Google Autocomplete proxy in parallel
+    // 2. Query local database & branches locally, and Google Autocomplete in parallel
     const prov = provinceSelect ? provinceSelect.value : '';
     
-    const localUrl = `${API}/api/search?q=${encodeURIComponent(searchQ)}&limit=50&type=market` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
-    const localPromise = fetch(localUrl)
-      .then(r => r.json())
-      .catch(() => ({ results: [] }));
-
-    const branchUrl = `${API}/api/search?q=${encodeURIComponent(searchQ)}&limit=50` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
-    const branchPromise = fetch(branchUrl)
-      .then(r => r.json())
-      .catch(() => ({ results: [] }));
+    const localResults = clientSearch(searchQ, 'market', prov);
+    const branchResults = clientSearch(searchQ, 'branch', prov);
 
     const googleUrl = `${API}/api/google-autocomplete?q=${encodeURIComponent(searchQ)}` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
-    const googlePromise = fetch(googleUrl)
+    const googleData = await fetch(googleUrl)
       .then(r => r.json())
       .catch(() => []);
 
-    const [localData, branchData, googleData] = await Promise.all([localPromise, branchPromise, googlePromise]);
+    const localData = { results: localResults };
+    const branchData = { results: branchResults };
 
     let suggestions = [];
 
@@ -628,31 +882,14 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
     const radius = 30; // Max 30km
     const province = provinceSelect ? provinceSelect.value : '';
 
-    // Fetch default PO for this location if it has branch_id
+    // Fetch default PO for this location locally if it has branch_id
     let defaultPO = null;
     if (selectedLoc.branch_id) {
-      try {
-        const resDef = await fetch(`${API}/api/search?branch_id=${selectedLoc.branch_id}`);
-        const dataDef = await resDef.json();
-        if (dataDef.results && dataDef.results.length > 0) {
-          defaultPO = dataDef.results[0];
-        }
-      } catch (err) {
-        console.warn('Failed to fetch default PO metadata:', err.message);
-      }
+      defaultPO = clientBranches.find(po => po.branch_id === selectedLoc.branch_id) || null;
     }
 
-    const nearbyParams = new URLSearchParams({
-      lat: selectedLoc.latitude,
-      lng: selectedLoc.longitude,
-      radius: radius,
-      limit: 10,
-      type: 'branch'
-    });
-
-    const res = await fetch(`${API}/api/nearby?${nearbyParams}`);
-    const data = await res.json();
-    const nearbyPOs = data.results;
+    // Calculate nearest POs client-side using our local branch cache
+    const nearbyPOs = clientGetNearbyPOs(selectedLoc.latitude, selectedLoc.longitude, radius, 10);
 
     showState('none');
 
@@ -868,10 +1105,7 @@ async function runSmartFind() {
     const isSearchAll = q === 'ស្វែងរកគ្រប់ទីតាំងទទួលឥវ៉ាន់មាននៅទីនេះ (Search all post)' || q.toLowerCase() === 'search all post' || q.toLowerCase() === 'all';
     if (isSearchAll) {
       try {
-        const res = await fetch(`${API}/api/search?limit=100`);
-        if (!res.ok) throw new Error('Failed to fetch branches');
-        const data = await res.json();
-        const branches = data.results || [];
+        const branches = clientBranches;
         
         if (branches.length === 0) {
           showState('empty');
@@ -961,9 +1195,7 @@ async function runSmartFind() {
     // 1.5 FIRST: Check local database for exact/close post office branch ID match (e.g. Metfone branch ID like PNP01 or PNPP014)
     // This MUST run before geocoding, so branch ID queries center directly on the post office!
     try {
-      const branchRes = await fetch(`${API}/api/search?q=${encodeURIComponent(q)}&limit=100`);
-      const branchData = await branchRes.json();
-      const branchMatch = branchData.results?.find(r => r.branch_id && q.toLowerCase().replace(/[^a-z0-9]/g, '') === r.branch_id.toLowerCase().replace(/[^a-z0-9]/g, ''));
+      const branchMatch = clientBranches.find(r => r.branch_id && q.toLowerCase().replace(/[^a-z0-9]/g, '') === r.branch_id.toLowerCase().replace(/[^a-z0-9]/g, ''));
       
       if (branchMatch) {
         showState('none');
@@ -1006,18 +1238,14 @@ async function runSmartFind() {
       const prov = provinceSelect ? provinceSelect.value : '';
       const strippedQ = stripAdministrativePrefixes(normQ);
 
-      // Search with full query AND stripped query to maximize hits
-      const [fullRes, strippedRes] = await Promise.all([
-        fetch(`${API}/api/search?q=${encodeURIComponent(q)}&limit=100&type=market` + (prov ? `&province=${encodeURIComponent(prov)}` : '')).then(r => r.json()).catch(() => ({ results: [] })),
-        strippedQ && strippedQ.length >= 2
-          ? fetch(`${API}/api/search?q=${encodeURIComponent(strippedQ)}&limit=100&type=market` + (prov ? `&province=${encodeURIComponent(prov)}` : '')).then(r => r.json()).catch(() => ({ results: [] }))
-          : Promise.resolve({ results: [] })
-      ]);
+      // Search locally with full query AND stripped query to maximize hits
+      const fullRes = clientSearch(q, 'market', prov);
+      const strippedRes = (strippedQ && strippedQ.length >= 2) ? clientSearch(strippedQ, 'market', prov) : [];
 
       // Merge unique results (full query first = higher priority)
       const seen = new Set();
       const merged = [];
-      for (const r of [...(fullRes.results || []), ...(strippedRes.results || [])]) {
+      for (const r of [...fullRes, ...strippedRes]) {
         if (!seen.has(r.id)) { seen.add(r.id); merged.push(r); }
       }
 
@@ -1063,11 +1291,9 @@ async function runSmartFind() {
     // This ensures "ផ្សារទំនប់ + Kampong Cham" uses our accurate local data, not a guessed geocode.
     try {
       const prov = provinceSelect ? provinceSelect.value : '';
-      const localPriorityRes = await fetch(
-        `${API}/api/search?q=${encodeURIComponent(q)}&limit=100&type=market` + (prov ? `&province=${encodeURIComponent(prov)}` : '')
-      ).then(r => r.json()).catch(() => ({ results: [] }));
+      const localPriorityResults = clientSearch(q, 'market', prov);
 
-      const localHits = (localPriorityRes.results || []).filter(r => {
+      const localHits = localPriorityResults.filter(r => {
         const mKh = normalizeKhmer(r.market_kh || '');
         const mEn = normalizeKhmer(r.market || '');
         const stripped = stripAdministrativePrefixes(normQ);
@@ -1150,15 +1376,9 @@ async function runSmartFind() {
 
     // 3. Fallback: Check local market AND branch databases if geocoding/branch matching returns nothing
     const prov = provinceSelect ? provinceSelect.value : '';
-    const localMarketPromise = fetch(`${API}/api/search?q=${encodeURIComponent(q)}&limit=100&type=market` + (prov ? `&province=${encodeURIComponent(prov)}` : ''))
-      .then(r => r.json())
-      .catch(() => ({ results: [] }));
-    const localBranchPromise = fetch(`${API}/api/search?q=${encodeURIComponent(q)}&limit=100` + (prov ? `&province=${encodeURIComponent(prov)}` : ''))
-      .then(r => r.json())
-      .catch(() => ({ results: [] }));
-
-    const [marketData, branchData] = await Promise.all([localMarketPromise, localBranchPromise]);
-    const combinedLocal = [...(marketData.results || []), ...(branchData.results || [])];
+    const marketData = clientSearch(q, 'market', prov);
+    const branchData = clientSearch(q, 'branch', prov);
+    const combinedLocal = [...marketData, ...branchData];
 
     const filteredLocal = combinedLocal.filter(r => {
       const marketEn = (r.market || '').toLowerCase();
@@ -1210,11 +1430,7 @@ async function runSmartFind() {
       }
     }
 
-    const fallbackUrl = `${API}/api/search?q=&limit=100` + (fallbackProv ? `&province=${encodeURIComponent(fallbackProv)}` : '');
-    const fallbackRes = await fetch(fallbackUrl);
-    if (fallbackRes.ok) {
-      const fallbackData = await fallbackRes.json();
-      const branches = fallbackData.results || [];
+    const branches = clientSearch('', 'branch', fallbackProv);
       
       if (branches.length > 0) {
         const noticeHeader = document.createElement('div');
@@ -1309,9 +1525,6 @@ async function runSmartFind() {
       } else {
         showState('empty');
       }
-    } else {
-      showState('empty');
-    }
   } catch (e) {
     console.error(e);
     showState('empty');

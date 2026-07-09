@@ -1696,26 +1696,28 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
       const q = normalizeKhmer(searchInput.value);
 
       targetCard.innerHTML = `
-        <div class="card-grid">
-          <div class="card-index" style="background-color: #3b82f6; color: #fff; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
-            <span class="index-num" style="font-size: 1.1rem; line-height: 1; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
-            <span class="type-badge" style="background-color: #1e3a8a; color: #fff; font-size: 8px; font-weight: 700; padding: 1px 3px; border-radius: 3px;">TARGET</span>
-          </div>
-          <div class="card-content">
-            <div class="card-top">
-              <span class="card-title" style="color: #1e3a8a; font-weight: 700;">${highlightMatch(tTitle, q)}</span>
-              ${targetLoc.branch_id ? `<span class="card-branch-tag" style="background-color: #dbeafe; color: #1e40af;">ID: ${highlightMatch(targetLoc.branch_id, q)}</span>` : ''}
+        <div class="card-content" style="padding: 4px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; width: 100%;">
+          <div style="flex: 1; min-width: 0;">
+            <div class="card-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 2px;">
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
+                <span class="card-title" style="color: #1e40af; font-weight: 700; font-size: 14px;">${highlightMatch(tTitle, q)}</span>
+                ${targetLoc.branch_id ? `<span class="card-branch-tag" style="background-color: #dbeafe; color: #1e40af; font-size: 9px; font-weight: 700; padding: 1.5px 5px; border-radius: 4px;">ID: ${highlightMatch(targetLoc.branch_id, q)}</span>` : ''}
+              </div>
+              <span style="background-color: #3b82f6; color: #fff; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">Origin Target</span>
             </div>
-            ${tTitleKh ? `<div class="card-title-kh">${highlightMatch(tTitleKh, q)}</div>` : ''}
-            <div class="card-address">
-              <span class="label-mono"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-top: -2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span> ${highlightMatch([targetLoc.village, targetLoc.commune, targetLoc.district, targetLoc.province].filter(Boolean).join(', '), q)}
+            ${tTitleKh ? `<div class="card-title-kh" style="font-family: var(--font-khmer); font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px;">${highlightMatch(tTitleKh, q)}</div>` : ''}
+            <div class="card-address" style="font-size: 11.5px; color: var(--text-light); margin-top: 4px; display: flex; align-items: center; gap: 4px;">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6; display: inline-block; vertical-align: middle;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> ${highlightMatch([targetLoc.village, targetLoc.commune, targetLoc.district, targetLoc.province].filter(Boolean).join(', '), q)}
             </div>
             ${targetLoc.village_kh || targetLoc.district_kh ? `
-            <div class="card-address-kh">
+            <div class="card-address-kh" style="font-family: var(--font-khmer); font-size: 11px; color: var(--text-light); margin-left: 15px; margin-top: 2px;">
               ${highlightMatch([targetLoc.village_kh, targetLoc.commune_kh, targetLoc.district_kh, targetLoc.province_kh].filter(Boolean).join(', '), q)}
             </div>` : ''}
-            <a class="card-gmaps-link" href="${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
           </div>
+          <!-- Google Maps Styled circular directions button -->
+          <button class="card-directions-btn" onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="Directions" style="margin-top: 2px; flex-shrink: 0; outline: none; border-color: #bfdbfe; color: #3b82f6;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.43 10.43L13.57 1.57c-.75-.75-2.07-.75-2.83 0l-8.8 8.8c-.76.76-.76 2.07 0 2.83l8.86 8.86c.38.38.88.57 1.38.57s1-.19 1.38-.57l8.86-8.86c.76-.76.76-2.07 0-2.83zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"></path></svg>
+          </button>
         </div>
       `;
 
@@ -1768,66 +1770,68 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
     const shortProv = r.province ? extractProvinceName(r.province) : '';
 
     card.innerHTML = `
-      <div class="card-content" style="padding: 4px 0;">
-        <div class="card-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 2px; width: 100%;">
-          <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
-            <span class="card-title" style="font-size: 14px; font-weight: 700; color: var(--forest-900); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${highlightMatch(title, q)}</span>
-            ${shortProv ? `
-              <span class="card-province-tag" style="background-color: #fef3c7; color: #b45309; font-size: 9px; font-weight: 700; padding: 1.5px 5px; border-radius: 4px; border: 1px solid #fde68a; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;">
-                ${escHtml(shortProv)}
-              </span>
+      <div class="card-content" style="padding: 4px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; width: 100%;">
+        <div style="flex: 1; min-width: 0;">
+          <div class="card-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 2px; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
+              <span class="card-title" style="font-size: 14px; font-weight: 700; color: var(--forest-900); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${highlightMatch(title, q)}</span>
+              ${shortProv ? `
+                <span class="card-province-tag" style="background-color: #fef3c7; color: #b45309; font-size: 9px; font-weight: 700; padding: 1.5px 5px; border-radius: 4px; border: 1px solid #fde68a; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;">
+                  ${escHtml(shortProv)}
+                </span>
+              ` : ''}
+            </div>
+            ${r.branch_id ? `<span class="card-branch-tag" style="background: var(--metfone-red); color: white; font-size: 9.5px; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill); white-space: nowrap; flex-shrink: 0;">ID: ${highlightMatch(r.branch_id, q)}</span>` : ''}
+          </div>
+          ${titleKh ? `<div class="card-title-kh" style="font-family: var(--font-khmer); font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px;">${highlightMatch(titleKh, q)}</div>` : ''}
+          
+          <!-- Modern Administrative Details Block -->
+          <div style="font-size: 11px; color: var(--forest-900); display: flex; flex-direction: column; gap: 4px; margin: 6px 0; background: var(--bg-canvas); border-radius: 6px; padding: 8px 10px; border: 1px solid var(--sage-200);">
+            ${(r.village || r.village_kh) ? `
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ភូមិ Village</span>
+                <span style="font-weight:600; font-size: 11px;">${r.village_kh ? escHtml(r.village_kh) : ''}${r.village_kh && r.village ? ' · ' : ''}${r.village ? escHtml(r.village) : ''}</span>
+              </div>
+            ` : ''}
+            ${(r.commune || r.commune_kh) ? `
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ឃុំ/សង្កាត់ Sangkat</span>
+                <span style="font-weight:600; font-size: 11px;">${r.commune_kh ? escHtml(r.commune_kh) : ''}${r.commune_kh && r.commune ? ' · ' : ''}${r.commune ? escHtml(r.commune) : ''}</span>
+              </div>
+            ` : ''}
+            ${(r.district || r.district_kh) ? `
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ស្រុក/ខណ្ឌ District</span>
+                <span style="font-weight:600; font-size: 11px;">${r.district_kh ? escHtml(r.district_kh) : ''}${r.district_kh && r.district ? ' · ' : ''}${r.district ? escHtml(r.district) : ''}</span>
+              </div>
+            ` : ''}
+            ${(r.province || r.province_kh) ? `
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ខេត្ត Province</span>
+                <span style="font-weight:600; font-size: 11px;">${r.province_kh ? escHtml(r.province_kh) : ''}${r.province_kh && r.province ? ' · ' : ''}${r.province ? escHtml(r.province) : ''}</span>
+              </div>
             ` : ''}
           </div>
-          ${r.branch_id ? `<span class="card-branch-tag" style="background: var(--metfone-red); color: white; font-size: 9.5px; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill); white-space: nowrap; flex-shrink: 0;">ID: ${highlightMatch(r.branch_id, q)}</span>` : ''}
-        </div>
-        ${titleKh ? `<div class="card-title-kh" style="font-family: var(--font-khmer); font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px;">${highlightMatch(titleKh, q)}</div>` : ''}
-        
-        <!-- Modern Administrative Details Block -->
-        <div style="font-size: 11px; color: var(--forest-900); display: flex; flex-direction: column; gap: 4px; margin: 6px 0; background: var(--bg-canvas); border-radius: 6px; padding: 8px 10px; border: 1px solid var(--sage-200);">
-          ${(r.village || r.village_kh) ? `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ភូមិ Village</span>
-              <span style="font-weight:600; font-size: 11px;">${r.village_kh ? escHtml(r.village_kh) : ''}${r.village_kh && r.village ? ' · ' : ''}${r.village ? escHtml(r.village) : ''}</span>
-            </div>
-          ` : ''}
-          ${(r.commune || r.commune_kh) ? `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ឃុំ/សង្កាត់ Sangkat</span>
-              <span style="font-weight:600; font-size: 11px;">${r.commune_kh ? escHtml(r.commune_kh) : ''}${r.commune_kh && r.commune ? ' · ' : ''}${r.commune ? escHtml(r.commune) : ''}</span>
-            </div>
-          ` : ''}
-          ${(r.district || r.district_kh) ? `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ស្រុក/ខណ្ឌ District</span>
-              <span style="font-weight:600; font-size: 11px;">${r.district_kh ? escHtml(r.district_kh) : ''}${r.district_kh && r.district ? ' · ' : ''}${r.district ? escHtml(r.district) : ''}</span>
-            </div>
-          ` : ''}
-          ${(r.province || r.province_kh) ? `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:8.5px; font-weight:800; color:#475569; background:#e2e8f0; padding:1px 4px; border-radius:3px; text-transform:uppercase; white-space:nowrap; line-height:1.4;">ខេត្ត Province</span>
-              <span style="font-weight:600; font-size: 11px;">${r.province_kh ? escHtml(r.province_kh) : ''}${r.province_kh && r.province ? ' · ' : ''}${r.province ? escHtml(r.province) : ''}</span>
-            </div>
-          ` : ''}
-        </div>
 
-        ${r.distance_km != null ? `
-          <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; width:100%;">
-            <span class="distance-badge" style="margin-left: 0; font-size: 10px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-right: 4px; margin-top: -2px;"><path d="M12 2a10 10 0 0 1 10 10c0 2.45-1 4.8-2.68 6.48l-1.42-1.42A8 8 0 0 0 12 4V2z"></path><path d="M12 6a6 6 0 0 1 6 6c0 1.48-.6 2.88-1.63 3.91l-1.42-1.42A4 4 0 0 0 12 8V6z"></path><circle cx="12" cy="12" r="2"></circle></svg> ចំងាយ Distance: ${formatDistance(r.distance_km)}</span>
-            <div style="display: flex; gap: 12px; align-items: center;">
+          ${r.distance_km != null ? `
+            <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; width:100%;">
+              <span class="distance-badge" style="margin-left: 0; font-size: 10px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--metfone-red); display: inline-block; vertical-align: middle; margin-right: 4px; margin-top: -2px;"><path d="M12 2a10 10 0 0 1 10 10c0 2.45-1 4.8-2.68 6.48l-1.42-1.42A8 8 0 0 0 12 4V2z"></path><path d="M12 6a6 6 0 0 1 6 6c0 1.48-.6 2.88-1.63 3.91l-1.42-1.42A4 4 0 0 0 12 8V6z"></path><circle cx="12" cy="12" r="2"></circle></svg> ចំងាយ Distance: ${formatDistance(r.distance_km)}</span>
               <button class="card-save-btn" style="background: transparent; border: none; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px; padding: 0; outline: none; ${isBranchSaved(r.id) ? 'color: var(--metfone-red); font-weight: 700;' : 'color: var(--text-light);'}" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');">
                 ${isBranchSaved(r.id) ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Saved' : '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save'}
               </button>
-              <a class="card-gmaps-link" style="margin-top: 0; font-size: 10px;" href="${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
             </div>
-          </div>
-        ` : `
-          <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:space-between; align-items:center; width:100%;">
-            <button class="card-save-btn" style="background: transparent; border: none; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px; padding: 0; outline: none; ${isBranchSaved(r.id) ? 'color: var(--metfone-red); font-weight: 700;' : 'color: var(--text-light);'}" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');">
-              ${isBranchSaved(r.id) ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Saved' : '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save'}
-            </button>
-            <a class="card-gmaps-link" style="margin-top: 0; font-size: 10px;" href="${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
-          </div>
-        `}
+          ` : `
+            <div style="border-top: 1px dashed var(--sage-200); padding-top: 6px; margin-top: 6px; display:flex; justify-content:flex-start; align-items:center; width:100%;">
+              <button class="card-save-btn" style="background: transparent; border: none; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px; padding: 0; outline: none; ${isBranchSaved(r.id) ? 'color: var(--metfone-red); font-weight: 700;' : 'color: var(--text-light);'}" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');">
+                ${isBranchSaved(r.id) ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Saved' : '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save'}
+              </button>
+            </div>
+          `}
+        </div>
+        <!-- Google Maps Styled circular directions button -->
+        <button class="card-directions-btn" onclick="event.stopPropagation(); window.open('${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}', '_blank');" title="Directions" style="margin-top: 2px; flex-shrink: 0; outline: none;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.43 10.43L13.57 1.57c-.75-.75-2.07-.75-2.83 0l-8.8 8.8c-.76.76-.76 2.07 0 2.83l8.86 8.86c.38.38.88.57 1.38.57s1-.19 1.38-.57l8.86-8.86c.76-.76.76-2.07 0-2.83zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"></path></svg>
+        </button>
       </div>
     `;
 

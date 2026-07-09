@@ -637,29 +637,43 @@ input:checked + .switch-track .switch-thumb {
   border-color: var(--metfone-red);
 }
 
-/* ─── Location Card (Eco-Organic Nature Card) ─── */
+/* ─── Location Card (Google Maps Style Flat List Item) ─── */
 .location-card {
   background: var(--white);
-  border: 1px solid var(--sage-200);
-  border-radius: var(--radius-md);
-  padding: var(--space-4);
+  border-bottom: 1.5px solid var(--sage-200);
+  padding: 16px 20px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.2s ease;
   position: relative;
-  box-shadow: var(--shadow-sm);
 }
 
 .location-card:hover {
-  background: var(--white);
-  border-color: var(--metfone-red);
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px -4px rgba(218, 37, 29, 0.14);
+  background: #f8f9fa; /* Google Maps active hover background */
 }
 
 .location-card.selected {
+  background: #f1f3f4; /* Selected background color */
+  border-bottom: 1.5px solid var(--sage-200);
+}
+
+.card-directions-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--sage-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--metfone-red);
+}
+
+.card-directions-btn:hover {
   background: var(--metfone-red-light);
-  border: 2px solid var(--metfone-red);
-  box-shadow: 0 10px 28px rgba(218, 37, 29, 0.18);
+  border-color: var(--metfone-red);
+  transform: scale(1.06);
 }
 
 .card-grid {

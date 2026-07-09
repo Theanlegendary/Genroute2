@@ -490,31 +490,10 @@ function setupEventListeners() {
     runSmartFind();
   });
 
-  // Search input typing with debounce for autocomplete
-  let debounceTimer;
+  // Search input typing - only update clear button visibility
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim();
     clearBtn.style.display = q ? 'block' : 'none';
-    
-    clearTimeout(debounceTimer);
-    if (!q) {
-      showAutocomplete('');
-      return;
-    }
-    debounceTimer = setTimeout(() => showAutocomplete(q), 250);
-  });
-
-  // Re-open autocomplete dropdown on focus
-  searchInput.addEventListener('focus', () => {
-    const q = searchInput.value.trim();
-    showAutocomplete(q);
-  });
-
-  // Close autocomplete when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!searchInput.contains(e.target) && !autocompleteDropdown.contains(e.target)) {
-      closeAutocomplete();
-    }
   });
 
   // Enter key in search box
@@ -1217,7 +1196,7 @@ async function runSmartFind() {
 
   addRecentSearch(q);
   showState('loading');
-  expandMobileDrawer('sheet-peeking');
+  expandMobileDrawer('sheet-expanded');
   closeAutocomplete();
 
   try {
@@ -1853,6 +1832,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
           }
         }
       }
+      expandMobileDrawer('sheet-peeking');
     });
 
     resultsList.appendChild(card);
@@ -2059,10 +2039,6 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
     listHtml += `
       <div class="location-card candidate-card" style="border-left: 4px solid ${mainColor}; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 12px; cursor: pointer; transition: all 0.2s ease; margin-bottom: 8px;" onclick="triggerSelectLocation('${r.id}')">
         <div style="display: flex; gap: 12px; align-items: flex-start;">
-          <div style="background-color: ${mainColor}; color: #fff; padding: 6px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 44px; height: 44px; flex-shrink: 0; box-shadow: 0 2px 4px rgba(${isOtherProvinceMatches ? '59, 130, 246' : '245, 158, 11'}, 0.25);">
-            <span style="font-size: 1.1rem; line-height: 1;">📍</span>
-            <span style="font-size: 8px; font-weight: 700; text-transform: uppercase;">CHOOSE</span>
-          </div>
           <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; overflow: hidden;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%;">
               <div style="min-width:0; flex:1;">
@@ -2220,6 +2196,7 @@ window.triggerSelectLocation = function(id) {
       }
     }
     selectLocationAndFindNearbyPOs(matched, currentResults);
+    expandMobileDrawer('sheet-peeking');
   }
 };
 

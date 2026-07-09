@@ -1670,7 +1670,7 @@ async function runSmartFind() {
             <li>Paste it into the search box above</li>
           </ol>
         </div>
-        <button onclick="searchInput.value=''; searchInput.focus(); clearBtn.style.display='none';" style="margin-top:14px; background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; border:none; padding:8px 20px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">Try Again</button>
+        <button onclick="searchInput.value=''; searchInput.focus(); clearBtn.style.display='none';" style="margin-top:14px; background:#dc2626; color:white; border:none; padding:8px 20px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">Try Again</button>
       </div>
     `;
     resultsList.innerHTML = '';
@@ -1732,7 +1732,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
     if (targetLoc) {
       const targetCard = document.createElement('div');
       targetCard.className = 'location-card apple-logistics-card target-location-card';
-      targetCard.style.cssText = 'background:linear-gradient(135deg,#eff6ff,#dbeafe); border:1.5px solid #93c5fd; margin-bottom:10px; padding:14px 16px; border-radius:12px;';
+      targetCard.style.cssText = 'background:#fef2f2; border:1.5px solid #fecaca; margin-bottom:10px; padding:14px 16px; border-radius:12px;';
 
       const tTitle = targetLoc.store_name || targetLoc.market || targetLoc.village || targetLoc.commune || 'Target Location';
       const tTitleKh = targetLoc.market_kh || targetLoc.village_kh || targetLoc.commune_kh || '';
@@ -1741,12 +1741,12 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         <div style="display:flex; align-items:center; gap:12px;">
           <div style="flex:1; min-width:0;">
             <div style="display:inline-flex; align-items:center; gap:6px; margin-bottom:5px;">
-              <span style="background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; font-size:10px; font-weight:800; padding:3px 10px; border-radius:6px; letter-spacing:0.03em;">📍 TARGET</span>
+              <span style="background:#dc2626; color:white; font-size:10px; font-weight:800; padding:4px 12px; border-radius:6px; letter-spacing:0.03em;">📍 TARGET</span>
             </div>
-            <div style="font-size:15px; font-weight:700; color:#1e3a8a; line-height:1.3;">${escHtml(tTitle)}${tTitleKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#3b82f6; font-size:13.5px;">${escHtml(tTitleKh)}</span>` : ''}</div>
+            <div style="font-size:15px; font-weight:700; color:#1e293b; line-height:1.3;">${escHtml(tTitle)}${tTitleKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#64748b; font-size:13.5px;">${escHtml(tTitleKh)}</span>` : ''}</div>
             <div style="font-size:12px; color:#475569; margin-top:3px;">${[targetLoc.commune_kh || targetLoc.commune, targetLoc.district_kh || targetLoc.district, targetLoc.province_kh || targetLoc.province].filter(Boolean).join(' · ')}</div>
           </div>
-          <button onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="View Route" style="border:none; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(37,99,235,0.35);">
+          <button onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="View Route" style="border:none; background:#dc2626; color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(220,38,38,0.3);">
             <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </button>
         </div>
@@ -1784,8 +1784,8 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
       <div style="display:flex; align-items:center; gap:12px;">
         <div style="flex:1; min-width:0;">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px; flex-wrap:wrap;">
-            ${poId ? `<span style="background:#fef2f2; color:#b91c1c; font-size:10.5px; font-weight:800; padding:3px 8px; border-radius:6px; border:1px solid #fecaca;">${escHtml(poId)}</span>` : ''}
-            ${distText ? `<span style="font-size:10.5px; font-weight:700; color:#dc2626; background:#fff5f5; padding:2px 6px; border-radius:4px;">${distText}</span>` : ''}
+            ${poId ? `<span style="background:#dc2626; color:#ffffff; font-size:10.5px; font-weight:800; padding:4px 10px; border-radius:6px;">${escHtml(poId)}</span>` : ''}
+            ${distText ? `<span style="font-size:10.5px; font-weight:700; color:#ffffff; background:#dc2626; padding:3px 8px; border-radius:6px;">${distText}</span>` : ''}
           </div>
           <div style="font-size:14.5px; font-weight:700; color:#1e293b; line-height:1.3; margin-bottom:4px;">${escHtml(storeName)}${storeNameKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#64748b; font-size:13.5px;">${escHtml(storeNameKh)}</span>` : ''}</div>
           <div style="font-size:11px; color:#475569; line-height:1.6;">
@@ -1795,10 +1795,10 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
           </div>
         </div>
         <div style="display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0;">
-          <button data-save-btn onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');" title="Save" style="border:1px solid ${isBranchSaved(r.id) ? '#fecaca' : '#e2e8f0'}; background:${isBranchSaved(r.id) ? '#fef2f2' : '#f8fafc'}; color:${isBranchSaved(r.id) ? '#dc2626' : '#94a3b8'}; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;">
+          <button data-save-btn onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');" title="Save" style="border:1.5px solid ${isBranchSaved(r.id) ? '#dc2626' : '#e2e8f0'}; background:${isBranchSaved(r.id) ? '#dc2626' : '#ffffff'}; color:${isBranchSaved(r.id) ? '#ffffff' : '#cbd5e1'}; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="${isBranchSaved(r.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
           </button>
-          <button onclick="event.stopPropagation(); window.open('${routeUrl}', '_blank');" title="View Route" style="border:none; background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(37,99,235,0.3); transition:all 0.2s;">
+          <button onclick="event.stopPropagation(); window.open('${routeUrl}', '_blank');" title="View Route" style="border:none; background:#dc2626; color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(220,38,38,0.3); transition:all 0.2s;">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </button>
         </div>

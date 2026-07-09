@@ -689,11 +689,11 @@ async function showAutocomplete(q) {
       autocompleteDropdown.appendChild(headerTrending);
       
       const trendingItems = [
-        { name: 'ផ្សារធំថ្មី (Phsar Thmey)', q: 'ផ្សារធំថ្មី' },
+        { name: 'PNPP014 (Doun Penh)', q: 'PNPP014' },
+        { name: 'ផ្សារធំថ្មី (Central Market)', q: 'ផ្សារធំថ្មី' },
         { name: 'ផ្សារព្រែកជ្រៃ (Prek Chrey)', q: 'ផ្សារព្រែកជ្រៃ' },
         { name: 'ចោមចៅ (Chom Chao)', q: 'ចោមចៅ' },
-        { name: 'អង្គរវត្ត (Angkor Wat)', q: 'អង្គរវត្ត' },
-        { name: 'រង្វង់មូលធុរេន (Kampot)', q: 'រង្វង់មូលធុរេន' }
+        { name: 'SREA001 (Siem Reap)', q: 'SREA001' }
       ];
       
       trendingItems.forEach(item => {

@@ -6,17 +6,17 @@
   <title>Cambodia Smart-Route & Branch Locator // Metfone Logistics</title>
   <meta name="description" content="Interactive map search for Cambodia branches, markets, and logistics routes by Metfone." />
   
-  <!-- Google Fonts: Outfit (Headings) + Inter (UI/Body) + Noto Sans Khmer -->
+  <!-- Google Fonts: Battambang (Khmer) + Inter (UI/Body) + Outfit (Headings) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Leaflet Map CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
   <!-- Custom Smart Metfone CSS -->
-  <link rel="stylesheet" href="style.css?v=17.1" />
+  <link rel="stylesheet" href="style.css?v=19.0" />
 </head>
 <body>
 
@@ -125,10 +125,10 @@
 
         <!-- States -->
         <div class="state-container" id="stateLoading" style="display: none;">
-          <div class="eco-loader">
-            <div class="eco-leaf">🍃</div>
+          <div class="eco-loader" style="border-color: rgba(220,38,38,0.15); border-top-color: #dc2626;">
+            <div class="eco-leaf" style="font-size:1.5rem;">📮</div>
           </div>
-          <p class="state-text">Searching location & finding nearby Metfone branches...</p>
+          <p class="state-text" style="color:#dc2626; font-weight:600;">Searching nearby branches...</p>
         </div>
 
         <!-- Empty Welcome Container -->
@@ -259,6 +259,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
-  <script src="app.js?v=17.2"></script>
+  <script src="app.js?v=19.0"></script>
 </body>
 </html>

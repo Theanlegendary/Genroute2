@@ -2036,7 +2036,7 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
                 ${nameKh ? `<div style="font-family:var(--font-khmer); font-size:12px; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:1px;">${highlightMatch(nameKh, query)}</div>` : ''}
               </div>
               ${shortProv ? `
-                <span style="background-color: #dc2626; color: #ffffff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; text-transform: uppercase; flex-shrink: 0; margin-top:2px;">
+                <span style="background-color: #dc2626; color: #ffffff; font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; white-space: nowrap; text-transform: uppercase; flex-shrink: 0; margin-top:2px; box-shadow: 0 2px 6px rgba(220,38,38,0.25);">
                   ${escHtml(shortProv)}
                 </span>
               ` : ''}
@@ -2044,8 +2044,8 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
             <div style="margin-top:3px; background:${lighterBg}; border-radius:7px; padding:7px 9px; border:1px solid ${lightBorder};">
               ${addrHtml}
             </div>
-            <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
-              <button style="background: linear-gradient(135deg,#dc2626,#b91c1c); color: #fff; border: none; padding: 8px 18px; font-size: 12.5px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(220,38,38,0.3);">
+            <div style="margin-top: 8px; display: flex; justify-content: flex-end;">
+              <button style="background: linear-gradient(135deg,#dc2626,#b91c1c); color: #fff; border: none; padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(220,38,38,0.3);">
                 Select &amp; Route →
               </button>
             </div>

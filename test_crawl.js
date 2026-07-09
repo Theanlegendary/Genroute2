@@ -29,7 +29,7 @@ async function crawlGoogleMapsCoords(query) {
 }
 
 async function run() {
-  const res = await crawlGoogleMapsCoords('Sesan, Stung Treng');
+  const res = await crawlGoogleMapsCoords('2004 street, Cambodia');
   console.log('Result:', res);
 }
 run();

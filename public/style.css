@@ -40,19 +40,20 @@
   --white:          #FFFFFF;
 
   /* Typography System */
-  --font-heading:   'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-khmer:     'Noto Sans Khmer', sans-serif;
+  --font-heading:   'Battambang', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:      'Battambang', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-khmer:     'Battambang', sans-serif;
+  --font-sans:      'Battambang', 'Inter', sans-serif;
 
-  /* Type Scale */
-  --text-2xs:   0.75rem;
-  --text-xs:    0.85rem;
-  --text-sm:    0.95rem;
-  --text-base:  1.08rem;
-  --text-md:    1.22rem;
-  --text-lg:    1.42rem;
-  --text-xl:    1.80rem;
-  --text-2xl:   2.35rem;
+  /* Type Scale (1.5x bigger) */
+  --text-2xs:   0.8rem;
+  --text-xs:    0.9rem;
+  --text-sm:    1.0rem;
+  --text-base:  1.1rem;
+  --text-md:    1.25rem;
+  --text-lg:    1.5rem;
+  --text-xl:    1.9rem;
+  --text-2xl:   2.5rem;
 
   /* Spacing */
   --space-1: 4px;
@@ -941,27 +942,24 @@ input:checked + .switch-track .switch-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  background: var(--bg-subtle);
+  width: 60px;
+  height: 60px;
+  background: #fef2f2;
+  border: 3px solid #fecaca;
+  border-top-color: #dc2626;
   border-radius: 50%;
   margin-bottom: var(--space-3);
-  animation: ecoPulse 2s infinite ease-in-out;
+  animation: redSpin 1s infinite linear;
 }
 
 .eco-leaf {
   font-size: 1.5rem;
-  animation: ecoFloat 3s infinite ease-in-out;
+  animation: none;
 }
 
-@keyframes ecoPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(74, 128, 91, 0.2); }
-  50% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(74, 128, 91, 0); }
-}
-
-@keyframes ecoFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(8deg); }
+@keyframes redSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .state-text {

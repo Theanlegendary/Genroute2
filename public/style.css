@@ -109,9 +109,9 @@ input, button, select, textarea {
   position: relative;
 }
 
-/* ─── EDITORIAL DASHBOARD (Sidebar - 514px with Nav Rail) ─── */
+/* ─── EDITORIAL DASHBOARD (Sidebar - wider flat layout) ─── */
 .sidebar {
-  width: 514px;
+  width: 620px;
   height: 100%;
   background: var(--bg-surface);
   border-right: 1px solid var(--sage-200);
@@ -1233,7 +1233,7 @@ strong {
 /* ─── RESPONSIVE DESIGN ─── */
 @media (max-width: 1024px) {
   .map-hud { top: 12px; left: 12px; font-size: var(--text-2xs); gap: var(--space-3); padding: 8px 14px; }
-  .sidebar { width: 380px; }
+  .sidebar { width: 440px; }
 }
 
 @media (max-width: 768px) {
@@ -1889,35 +1889,37 @@ input:checked + .slider:before {
 
 /* Leaflet Sticker Tooltips CSS */
 .map-sticker-tooltip {
-  background: var(--metfone-red, #DA251D) !important;
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
   color: #ffffff !important;
   border: 2px solid #ffffff !important;
-  border-radius: 9999px !important; /* Fully rounded pill shape */
-  padding: 3px 10px !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
   font-weight: 700 !important;
   font-family: var(--font-heading), sans-serif !important;
-  box-shadow: 0 3px 8px rgba(218, 37, 29, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.35), 0 0 0 1px rgba(0,0,0,0.05) !important;
   white-space: nowrap;
   opacity: 0.95 !important;
+  letter-spacing: 0.02em;
 }
 
 .map-sticker-tooltip.size-small {
-  font-size: 8.5px !important;
-  padding: 1px 6px !important;
+  font-size: 9px !important;
+  padding: 2px 7px !important;
+  border-radius: 6px !important;
 }
 
 .map-sticker-tooltip.size-normal {
   font-size: 11px !important;
-  padding: 3px 10px !important;
+  padding: 4px 10px !important;
 }
 
 .map-sticker-tooltip.size-large {
-  font-size: 13px !important;
-  padding: 4px 14px !important;
+  font-size: 13.5px !important;
+  padding: 5px 14px !important;
 }
 
 .map-sticker-tooltip:before {
-  border-top-color: var(--metfone-red, #d32f2f) !important;
+  border-top-color: #b91c1c !important;
 }
 
 /* Candidate Card Choices Selection Styles */
@@ -2225,29 +2227,28 @@ input:checked + .slider:before {
 /* ─── Apple Style Logistics Card ─── */
 .location-card.apple-logistics-card {
   background: var(--white);
-  border: 1px solid #f2f2f7;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
 .location-card.apple-logistics-card:hover {
-  background: var(--white);
-  border-color: var(--metfone-red-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(218, 37, 29, 0.07);
+  background: #fefefe;
+  border-color: #fca5a5;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.08);
 }
 
 .location-card.apple-logistics-card.selected {
-  border: 1.5px solid var(--metfone-red);
-  background: var(--white);
-  box-shadow: 0 8px 24px rgba(218, 37, 29, 0.12);
+  border: 1.5px solid #dc2626;
+  background: #fef2f2;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.12);
 }
 
 .apple-card-btn {

@@ -118,7 +118,10 @@ const selectedMarketIcon = L.divIcon({
 // Initialize Leaflet Map
 function initMap() {
   map = L.map('map', {
-    zoomControl: false
+    zoomControl: false,
+    maxBounds: L.latLngBounds([9.0, 101.5], [15.5, 108.5]),
+    maxBoundsViscosity: 0.9,
+    minZoom: 6
   }).setView([12.5657, 104.9910], 7.5);
 
   tileLayers.voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -225,7 +228,20 @@ async function loadClientData() {
     ]);
 
     clientRoutes = resRoutes;
-    clientBranches = resBranches;
+    // Map pickup branches to include branch_id and market fields for consistent rendering
+    clientBranches = resBranches.map(b => ({
+      ...b,
+      id: b.id || `po_${b.store_code}`,
+      branch_id: b.store_code,
+      market: b.store_name,
+      province: b.province || '',
+      district: b.district_en || '',
+      commune: '',
+      commune_kh: '',
+      village: '',
+      village_kh: '',
+      google_maps_url: `https://www.google.com/maps?q=${b.latitude},${b.longitude}`
+    }));
     clientMarkets = resMarkets;
 
     // Merge famous markets into routes
@@ -422,6 +438,38 @@ function clientGetNearbyPOs(lat, lng, radiusKm = 30, limitCount = 10) {
     .slice(0, limitCount);
 }
 
+// Show all POs in a selected province on the map and sidebar
+function showAllPOsInProvince(province) {
+  if (!province) return;
+  const normProv = normalizeKhmer(province);
+  
+  // Filter branches that belong to this province
+  const filtered = clientBranches.filter(b => {
+    const pKh = normalizeKhmer(b.province_kh || '');
+    const pEn = normalizeKhmer(b.province || '');
+    return pKh.includes(normProv) || pEn.includes(normProv);
+  });
+
+  if (filtered.length === 0) {
+    showState('empty');
+    if (resultsCount) resultsCount.innerHTML = `No POs found in <b>${escHtml(province)}</b>`;
+    return;
+  }
+
+  currentResults = filtered;
+  showState('none');
+  if (resultsCount) resultsCount.innerHTML = `${filtered.length} Post Offices in <b>${escHtml(province)}</b>`;
+
+  renderResultsList(filtered, false, null);
+  renderMapMarkers(filtered);
+
+  // Fit map to show all markers in the province
+  const bounds = L.latLngBounds(filtered.filter(b => b.latitude && b.longitude).map(b => [b.latitude, b.longitude]));
+  if (bounds.isValid()) {
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+  }
+}
+
 function clientTranslateKhmerToEnglish(query) {
   const normQ = stripAdministrativePrefixes(normalizeKhmer(query));
   if (!normQ) return '';
@@ -490,10 +538,21 @@ function setupEventListeners() {
     runSmartFind();
   });
 
-  // Search input typing - only update clear button visibility
+  // Search input typing - show autocomplete suggestions
+  let acDebounce = null;
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim();
     clearBtn.style.display = q ? 'block' : 'none';
+    clearTimeout(acDebounce);
+    acDebounce = setTimeout(() => {
+      showAutocomplete(q);
+    }, 200);
+  });
+
+  // Show autocomplete on focus
+  searchInput.addEventListener('focus', () => {
+    const q = searchInput.value.trim();
+    showAutocomplete(q);
   });
 
   // Enter key in search box
@@ -509,9 +568,31 @@ function setupEventListeners() {
   // Province dropdown change re-trigger search
   if (provinceSelect) {
     provinceSelect.addEventListener('change', () => {
-      if (searchInput.value.trim()) {
-        closeAutocomplete();
-        runSmartFind();
+      const prov = provinceSelect.value;
+      if (prov) {
+        // If there's a search query, re-run search filtered by province
+        if (searchInput.value.trim()) {
+          closeAutocomplete();
+          runSmartFind();
+        } else {
+          // No search query — show all POs in that province
+          showAllPOsInProvince(prov);
+        }
+      } else {
+        // Reset to "All Provinces" — clear results and go back to welcome
+        if (!searchInput.value.trim()) {
+          clearAllMapLayers();
+          activeMarkers = [];
+          currentResults = [];
+          showState('welcome');
+          if (resultsCount) {
+            resultsCount.textContent = 'Welcome to Metfone Express Grid';
+          }
+          map.setView([12.5657, 104.9910], 7.5);
+        } else {
+          closeAutocomplete();
+          runSmartFind();
+        }
       }
     });
   }
@@ -705,7 +786,7 @@ async function showAutocomplete(q) {
     const localResults = clientSearch(searchQ, 'market', prov);
     const branchResults = clientSearch(searchQ, 'branch', prov);
 
-    const googleUrl = `${API}/api/google-autocomplete?q=${encodeURIComponent(searchQ)}` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
+    const googleUrl = `${API}/api/google-autocomplete?q=${encodeURIComponent(searchQ + ' Cambodia')}` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
     const googleData = await fetch(googleUrl)
       .then(r => r.json())
       .catch(() => []);
@@ -1132,7 +1213,7 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
 
     // Update results metadata
     if (resultsCount) {
-      resultsCount.innerHTML = `📍 Near <b>${escHtml(targetTitle)}</b>: showing <span>${nearbyPOs.length}</span> nearby Metfone Express Branches`;
+      resultsCount.innerHTML = `Near <b>${escHtml(targetTitle)}</b> — ${nearbyPOs.length} branches found`;
     }
 
     // Draw 30km circle around selected location (subtle opacity so it doesn't distract)
@@ -1531,101 +1612,30 @@ async function runSmartFind() {
       }
     }
 
-    const branches = clientSearch('', 'branch', fallbackProv);
-      
-      if (branches.length > 0) {
-        const noticeHeader = document.createElement('div');
-        noticeHeader.style.cssText = 'padding: 16px; display: flex; flex-direction: column; gap: 8px; font-family: var(--font-sans);';
-        noticeHeader.innerHTML = `
-          <div style="background-color: #fef2f2; border: 1px solid #fee2e2; border-radius: var(--radius-lg); padding: var(--space-4); display: flex; align-items: flex-start; gap: var(--space-3); margin-bottom: 4px; box-shadow: var(--shadow-sm);">
-            <span style="font-size: 1.5rem; line-height: 1;">❌</span>
-            <div>
-              <h3 style="font-size: var(--text-sm); font-weight: 700; color: #991b1b; margin: 0 0 4px 0;">Location Not Found</h3>
-              <p style="font-size: var(--text-xs); color: #7f1d1d; margin: 0; line-height: 1.5;">
-                We couldn't find any location matching "${escHtml(q)}" in ${escHtml(prov ? prov + ' Province' : 'Cambodia')}. 
-                Below are all available <b>Metfone Post Office Branches</b> in <b>${escHtml(fallbackProv || 'Cambodia')}</b>:
-              </p>
-            </div>
-          </div>
-        `;
-        resultsList.innerHTML = '';
-        resultsList.appendChild(noticeHeader);
-
-        const branchBounds = [];
-        const branchIcon = L.divIcon({
-          html: `
-            <div class="eco-pin eco-pin--branch" style="filter: drop-shadow(0 6px 12px rgba(220, 38, 38, 0.45));">
-              <div class="eco-pin__bubble" style="background: #dc2626; border-color: #ffffff;"><span style="transform: rotate(45deg); display: inline-block;">📮</span></div>
-            </div>
-          `,
-          className: 'custom-eco-pin',
-          iconSize: [36, 42],
-          iconAnchor: [18, 42],
-          popupAnchor: [0, -38]
-        });
-
-        branches.forEach(b => {
-          const bLat = parseFloat(b.latitude);
-          const bLng = parseFloat(b.longitude);
-          if (!isNaN(bLat) && !isNaN(bLng)) {
-            branchBounds.push([bLat, bLng]);
-            const bMarker = L.marker([bLat, bLng], { icon: branchIcon }).addTo(markerClusterGroup);
-            
-            bMarker.bindPopup(`
-              <div class="map-popup-content" style="width: 240px; font-family: var(--font-sans); padding: 2px;">
-                <h4 style="margin: 4px 0 2px 0; font-size:13px; color:#991b1b; font-weight: 700;">📮 ${escHtml(getBilingualTitle(b))}</h4>
-                <p style="margin: 0 0 10px 0; font-size:11px; color:#7f1d1d; font-weight: 500; line-height: 1.3;">ID: ${b.branch_id || b.store_code}</p>
-              </div>
-            `);
-
-            activeMarkers.push({ id: b.id || b.branch_id, marker: bMarker });
-            activeStickerMarkers.push({ marker: bMarker, r: b });
-          }
-        });
-
-        if (branchBounds.length > 0) {
-          map.fitBounds(L.latLngBounds(branchBounds), { maxZoom: 13, padding: [60, 60] });
-        }
-
-        const branchesListContainer = document.createElement('div');
-        branchesListContainer.className = 'candidate-cards-list';
-        branchesListContainer.style.padding = '0 16px 16px 16px';
-        
-        branches.forEach(b => {
-          const bCard = document.createElement('div');
-          bCard.className = 'location-card';
-          bCard.style.cssText = 'border-left: 4px solid #dc2626; margin-bottom: 8px; cursor: pointer; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 12px;';
-          bCard.innerHTML = `
-            <div style="display: flex; gap: 12px; align-items: flex-start;">
-              <div style="background-color: #dc2626; color: #fff; padding: 6px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 44px; height: 44px; flex-shrink: 0; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.25);">
-                <span style="font-size: 1.1rem; line-height: 1;">📮</span>
-                <span style="font-size: 8px; font-weight: 700;">BRANCH</span>
-              </div>
-              <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
-                <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;">
-                  <span style="color: #991b1b; font-weight: 700; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escHtml(getBilingualTitle(b))}</span>
-                  <span style="background-color: #fecaca; color: #991b1b; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">ID: ${b.branch_id || b.store_code}</span>
-                </div>
-                <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
-                  ${escHtml([b.district_en, b.province_en].filter(Boolean).join(', '))}
-                </div>
-              </div>
-            </div>
-          `;
-          bCard.addEventListener('click', () => {
-            const markerObj = activeMarkers.find(am => am.id === (b.id || b.branch_id));
-            if (markerObj && b.latitude && b.longitude) {
-              map.flyTo([b.latitude, b.longitude], 16, { animate: true, duration: 1.2 });
-              setTimeout(() => markerObj.marker.openPopup(), 1200);
-            }
-          });
-          branchesListContainer.appendChild(bCard);
-        });
-        resultsList.appendChild(branchesListContainer);
-        refreshStickerLabels();
-      } else {
-        showState('empty');
-      }
+    const notFoundBox = document.createElement('div');
+    notFoundBox.style.cssText = 'padding: 20px 16px;';
+    notFoundBox.innerHTML = `
+      <div style="background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; padding:20px; text-align:center;">
+        <div style="font-size:2rem; margin-bottom:10px;">📍</div>
+        <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin:0 0 8px 0;">Location Not Found</h3>
+        <p style="font-size:12.5px; color:#64748b; margin:0 0 16px 0; line-height:1.5;">
+          We couldn't find "<b style="color:#dc2626;">${escHtml(q)}</b>" in our database.<br>
+          Try pasting a <b>Google Maps link</b> instead for exact location.
+        </p>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:12px; text-align:left;">
+          <p style="font-size:11px; font-weight:600; color:#475569; margin:0 0 8px 0;">💡 How to use Google Maps link:</p>
+          <ol style="font-size:11px; color:#64748b; margin:0; padding-left:18px; line-height:1.8;">
+            <li>Open <b>Google Maps</b> on your phone or browser</li>
+            <li>Find and tap the location you want</li>
+            <li>Tap <b>"Share"</b> and copy the link</li>
+            <li>Paste it into the search box above</li>
+          </ol>
+        </div>
+        <button onclick="searchInput.value=''; searchInput.focus(); clearBtn.style.display='none';" style="margin-top:14px; background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; border:none; padding:8px 20px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">Try Again</button>
+      </div>
+    `;
+    resultsList.innerHTML = '';
+    resultsList.appendChild(notFoundBox);
   } catch (e) {
     console.error(e);
     showState('empty');
@@ -1656,14 +1666,10 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
   if (isNearbyList && targetTitle) {
     const banner = document.createElement('div');
     banner.className = 'nearby-header-bar';
-    banner.style.padding = '12px 16px';
-    banner.style.borderBottom = '1px solid #f2f2f7';
-    banner.style.display = 'flex';
-    banner.style.justifyContent = 'space-between';
-    banner.style.alignItems = 'center';
+    banner.style.cssText = 'padding:10px 16px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center; background:#f8fafc;';
     banner.innerHTML = `
-      <span class="nearby-header-title" style="font-size: 13px; font-weight: 700; color: #1c1c1e;">📍 Nearby POs for <b>"${escHtml(targetTitle)}"</b></span>
-      <button class="nearby-back-btn" id="nearbyBackBtn" style="background: #f2f2f7; border: none; color: #007aff; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 11px;">← Back</button>
+      <span style="font-size:12.5px; font-weight:600; color:#334155;">Nearby POs for <b style="color:#dc2626;">"${escHtml(targetTitle)}"</b></span>
+      <button class="nearby-back-btn" id="nearbyBackBtn" style="background:white; border:1px solid #e2e8f0; color:#64748b; font-weight:600; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:11px; transition:all 0.2s;">← Back</button>
     `;
     resultsList.appendChild(banner);
 
@@ -1687,50 +1693,22 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
     if (targetLoc) {
       const targetCard = document.createElement('div');
       targetCard.className = 'location-card apple-logistics-card target-location-card';
-      targetCard.style.backgroundColor = '#f0f7ff';
-      targetCard.style.borderColor = '#bfdbfe';
-      targetCard.style.marginBottom = '12px';
+      targetCard.style.cssText = 'background:linear-gradient(135deg,#eff6ff,#dbeafe); border:1.5px solid #93c5fd; margin-bottom:10px; padding:14px 16px; border-radius:12px;';
 
       const tTitle = targetLoc.store_name || targetLoc.market || targetLoc.village || targetLoc.commune || 'Target Location';
-      const tTitleKh = targetLoc.store_name_kh || clientGetKhmerStoreName(tTitle) || targetLoc.market_kh || targetLoc.village_kh || targetLoc.commune_kh || '';
-      const q = normalizeKhmer(searchInput.value);
+      const tTitleKh = targetLoc.market_kh || targetLoc.village_kh || targetLoc.commune_kh || '';
 
       targetCard.innerHTML = `
-        <div style="padding: 4px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; width: 100%;">
-          <div style="flex: 1; min-width: 0;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-              <span style="background: #2563eb; color: white; font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">Origin Target</span>
-              <span style="font-size: 8.5px; font-weight: 700; color: #2563eb; padding: 2px 6px; background: #dbeafe; border-radius: 4px;">AI Confidence: ${getAiConfidence(targetLoc, true)}%</span>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="flex:1; min-width:0;">
+            <div style="display:inline-flex; align-items:center; gap:6px; margin-bottom:5px;">
+              <span style="background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; font-size:10px; font-weight:800; padding:3px 10px; border-radius:6px; letter-spacing:0.03em;">📍 TARGET</span>
             </div>
-            <h4 style="margin: 0; font-size: 14.5px; font-weight: 700; color: #1e3a8a;">${highlightMatch(tTitle, q)}</h4>
-            ${tTitleKh ? `<div style="font-family: var(--font-khmer); font-size: 12.5px; color: #4b5563; margin-top: 2px;">${highlightMatch(tTitleKh, q)}</div>` : ''}
-            
-            <!-- Apple style 2-row grid details block -->
-            <div class="card-address-block" style="margin-top: 8px; font-size: 11px; color: #4b5563; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; background: #eff6ff; border-radius: 12px; padding: 10px 14px; border: 1px solid #bfdbfe;">
-              <div>
-                <span style="font-weight: 700; color: #1e40af; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">Commune</span>
-                <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.commune_kh || ''} ${targetLoc.commune || ''}</span>
-              </div>
-              <div>
-                <span style="font-weight: 700; color: #1e40af; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">District</span>
-                <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.district_kh || ''} ${targetLoc.district || ''}</span>
-              </div>
-              <div style="grid-column: span 2; border-top: 1px solid #bfdbfe; padding-top: 4px; display: flex; justify-content: space-between;">
-                <div>
-                  <span style="font-weight: 700; color: #1e40af; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Province:</span>
-                  <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.province_kh || ''} ${targetLoc.province || ''}</span>
-                </div>
-                ${(targetLoc.village || targetLoc.village_kh) ? `
-                  <div>
-                    <span style="font-weight: 700; color: #1e40af; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Village:</span>
-                    <span style="font-weight: 600; color: #1e3a8a;">${targetLoc.village_kh || ''} ${targetLoc.village || ''}</span>
-                  </div>
-                ` : ''}
-              </div>
-            </div>
+            <div style="font-size:15px; font-weight:700; color:#1e3a8a; line-height:1.3;">${escHtml(tTitle)}${tTitleKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#3b82f6; font-size:13.5px;">${escHtml(tTitleKh)}</span>` : ''}</div>
+            <div style="font-size:12px; color:#475569; margin-top:3px;">${[targetLoc.commune_kh || targetLoc.commune, targetLoc.district_kh || targetLoc.district, targetLoc.province_kh || targetLoc.province].filter(Boolean).join(' · ')}</div>
           </div>
-          <button class="card-directions-btn" onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="Directions" style="border-color: #bfdbfe; color: #2563eb; margin-top: 2px; flex-shrink: 0; outline: none;">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.43 10.43L13.57 1.57c-.75-.75-2.07-.75-2.83 0l-8.8 8.8c-.76.76-.76 2.07 0 2.83l8.86 8.86c.38.38.88.57 1.38.57s1-.19 1.38-.57l8.86-8.86c.76-.76.76-2.07 0-2.83zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"></path></svg>
+          <button onclick="event.stopPropagation(); window.open('${targetLoc.google_maps_url || `https://www.google.com/maps?q=${targetLoc.latitude},${targetLoc.longitude}`}', '_blank');" title="View Route" style="border:none; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(37,99,235,0.35);">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </button>
         </div>
       `;
@@ -1750,25 +1728,6 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
       resultsList.appendChild(targetCard);
     }
 
-    // If there are multiple matched search targets, render the horizontal switch bar!
-    if (currentResults && currentResults.length > 1) {
-      const matchBar = document.createElement('div');
-      matchBar.className = 'search-matches-bar';
-      matchBar.innerHTML = `
-        <div class="matches-title">📍 Alternative Matches:</div>
-        <div class="matches-pills">
-          ${currentResults.map(r => {
-            const isActive = (r.market === targetTitle);
-            return `
-              <button class="match-pill ${isActive ? 'active' : ''}" onclick="triggerSelectLocation('${r.id}')">
-                ${escHtml(r.market)}
-              </button>
-            `;
-          }).join('')}
-        </div>
-      `;
-      resultsList.appendChild(matchBar);
-    }
   }
 
   results.forEach((r, idx) => {
@@ -1778,66 +1737,32 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
 
     const storeName = r.store_name || r.market || 'Metfone Post Office';
     const storeNameKh = r.store_name_kh || clientGetKhmerStoreName(storeName) || r.market_kh || '';
-    
-    const q = normalizeKhmer(searchInput.value);
-    const confidence = getAiConfidence(r, false);
+    const poId = r.branch_id || r.store_code || '';
+    const distText = r.distance_km != null ? formatDistance(r.distance_km) : '';
+    const routeUrl = r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`;
 
     card.innerHTML = `
-      <!-- Header Row: Title & Distance Badge -->
-      <div class="card-header-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; width: 100%;">
-        <div style="min-width: 0; flex: 1;">
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px; flex-wrap: wrap;">
-            <span style="background: var(--metfone-red-light); color: var(--metfone-red); font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">POST OFFICE</span>
-            ${r.branch_id || r.store_code ? `<span style="background: #e2e8f0; color: #475569; font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">ID: ${highlightMatch(r.branch_id || r.store_code, q)}</span>` : ''}
-            <span style="font-size: 8.5px; font-weight: 700; color: #059669; padding: 2px 6px; background: #d1fae5; border-radius: 4px;">AI Match: ${confidence}%</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px; flex-wrap:wrap;">
+            ${poId ? `<span style="background:#fef2f2; color:#b91c1c; font-size:10.5px; font-weight:800; padding:3px 8px; border-radius:6px; border:1px solid #fecaca;">${escHtml(poId)}</span>` : ''}
+            ${distText ? `<span style="font-size:10.5px; font-weight:700; color:#dc2626; background:#fff5f5; padding:2px 6px; border-radius:4px;">${distText}</span>` : ''}
           </div>
-          <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: #1f2937;">${highlightMatch(storeName, q)}</h3>
-          ${storeNameKh ? `<div style="font-family: var(--font-khmer); font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">${highlightMatch(storeNameKh, q)}</div>` : ''}
-        </div>
-        
-        <!-- Distance Badge -->
-        ${r.distance_km != null ? `
-          <div class="distance-badge-pill" style="background: var(--metfone-red); color: white; padding: 6px 12px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(218, 37, 29, 0.25);">
-            <span style="font-size: 13.5px; font-weight: 800; line-height: 1;">${formatDistance(r.distance_km).replace(' km','')}</span>
-            <span style="font-size: 7.5px; font-weight: 700; text-transform: uppercase; margin-top: 1.5px;">KM AWAY</span>
+          <div style="font-size:14.5px; font-weight:700; color:#1e293b; line-height:1.3; margin-bottom:4px;">${escHtml(storeName)}${storeNameKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#64748b; font-size:13.5px;">${escHtml(storeNameKh)}</span>` : ''}</div>
+          <div style="font-size:11px; color:#475569; line-height:1.6;">
+            ${(r.commune || r.commune_kh) ? `<div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">Commune:</span> <span style="font-weight:500;">${r.commune || ''}${r.commune_kh ? ' '+r.commune_kh : ''}</span></div>` : ''}
+            <div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">District:</span> <span style="font-weight:500;">${r.district || ''}${r.district_kh ? ' '+r.district_kh : ''}</span></div>
+            <div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">Province:</span> <span style="font-weight:500;">${r.province || ''}${r.province_kh ? ' '+r.province_kh : ''}</span></div>
           </div>
-        ` : ''}
-      </div>
-      
-      <!-- Apple style 2-row grid details block -->
-      <div class="card-address-block" style="margin-top: 8px; font-size: 11px; color: #4b5563; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; background: #fff5f5; border-radius: 12px; padding: 10px 14px; border: 1px solid #fecdd3;">
-        <div>
-          <span style="font-weight: 700; color: #991b1b; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">Commune</span>
-          <span style="font-weight: 600; color: #1f2937;">${r.commune_kh || ''} ${r.commune || ''}</span>
         </div>
-        <div>
-          <span style="font-weight: 700; color: #991b1b; display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px;">District</span>
-          <span style="font-weight: 600; color: #1f2937;">${r.district_kh || ''} ${r.district || ''}</span>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0;">
+          <button data-save-btn onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');" title="Save" style="border:1px solid ${isBranchSaved(r.id) ? '#fecaca' : '#e2e8f0'}; background:${isBranchSaved(r.id) ? '#fef2f2' : '#f8fafc'}; color:${isBranchSaved(r.id) ? '#dc2626' : '#94a3b8'}; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="${isBranchSaved(r.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          </button>
+          <button onclick="event.stopPropagation(); window.open('${routeUrl}', '_blank');" title="View Route" style="border:none; background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(37,99,235,0.3); transition:all 0.2s;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </button>
         </div>
-        <div style="grid-column: span 2; border-top: 1px solid #fecdd3; padding-top: 4px; display: flex; justify-content: space-between;">
-          <div>
-            <span style="font-weight: 700; color: #991b1b; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Province:</span>
-            <span style="font-weight: 600; color: #1f2937;">${r.province_kh || ''} ${r.province || ''}</span>
-          </div>
-          ${(r.village || r.village_kh) ? `
-            <div>
-              <span style="font-weight: 700; color: #991b1b; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Village:</span>
-              <span style="font-weight: 600; color: #1f2937;">${r.village_kh || ''} ${r.village || ''}</span>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-      
-      <!-- Action Buttons Panel -->
-      <div class="card-actions-panel" style="margin-top: 12px; display: flex; gap: 8px; justify-content: flex-end; align-items: center; border-top: 1px solid #f2f2f7; padding-top: 10px;">
-        <button class="apple-card-btn save-btn" onclick="event.stopPropagation(); toggleSaveBranch('${r.id}');" style="background: ${isBranchSaved(r.id) ? 'var(--metfone-red-light)' : '#f3f4f6'}; color: ${isBranchSaved(r.id) ? 'var(--metfone-red)' : '#4b5563'};">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" style="display: inline-block; vertical-align: middle; margin-right: 2px;"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-          ${isBranchSaved(r.id) ? 'Saved' : 'Save'}
-        </button>
-        <button class="apple-card-btn route-btn" onclick="event.stopPropagation(); window.open('${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}', '_blank');" style="background: var(--metfone-red); color: white;">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" style="display: inline-block; vertical-align: middle; margin-right: 2px;"><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          View Route
-        </button>
       </div>
     `;
 
@@ -2476,25 +2401,7 @@ function renderSingleTargetList(selectedLoc, allMatchedLocs) {
   resultsList.innerHTML = '';
   const targetTitle = selectedLoc.market || selectedLoc.village || selectedLoc.commune || 'Target Location';
 
-  // If there are multiple matches, render the switch bar
-  if (allMatchedLocs && allMatchedLocs.length > 1) {
-    const matchBar = document.createElement('div');
-    matchBar.className = 'search-matches-bar';
-    matchBar.innerHTML = `
-      <div class="matches-title">📍 Alternative Matches:</div>
-      <div class="matches-pills">
-        ${allMatchedLocs.map(r => {
-          const isActive = (r.market === targetTitle);
-          return `
-            <button class="match-pill ${isActive ? 'active' : ''}" onclick="triggerShowSingleLocation('${r.id}')">
-              ${escHtml(r.market)}
-            </button>
-          `;
-        }).join('')}
-      </div>
-    `;
-    resultsList.appendChild(matchBar);
-  }
+  // If there are multiple matches, skip the switch bar (keep it simple)
 
   const card = document.createElement('div');
   card.className = 'location-card selected';
@@ -2725,12 +2632,17 @@ function toggleSaveBranch(id) {
   if (currentTab === 'saved') {
     renderSavedBranchesList();
   } else {
-    const btn = document.querySelector(`.location-card[data-id="${id}"] .card-save-btn`);
-    if (btn) {
-      const saved = isBranchSaved(id);
-      btn.innerHTML = saved ? '🔖 Saved' : '🔖 Save';
-      btn.style.color = saved ? 'var(--metfone-red)' : 'var(--text-light)';
-      btn.style.fontWeight = saved ? '700' : 'normal';
+    // Update save button visual in the card
+    const card = document.querySelector(`.location-card[data-id="${id}"]`);
+    if (card) {
+      const saveBtn = card.querySelector('[data-save-btn]');
+      if (saveBtn) {
+        const saved = isBranchSaved(id);
+        saveBtn.style.border = saved ? '1px solid #fecaca' : '1px solid #e2e8f0';
+        saveBtn.style.background = saved ? '#fef2f2' : '#f8fafc';
+        saveBtn.style.color = saved ? '#dc2626' : '#94a3b8';
+        saveBtn.querySelector('svg').setAttribute('fill', saved ? 'currentColor' : 'none');
+      }
     }
   }
 }

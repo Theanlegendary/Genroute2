@@ -848,12 +848,27 @@ app.get('/api/stats', (req, res) => {
  * GET /api/google-autocomplete
  * Proxy Google's public search autocomplete engine
  */
+// Suggestions containing these words are almost never Cambodia place names —
+// filter them out so bare/ambiguous queries (like a lone number) don't return
+// generic web-search junk (e.g. "2004 chinese zodiac", "2004 tsunami").
+const IRRELEVANT_SUGGESTION_PATTERNS = [
+  /zodiac/i, /age in \d{4}/i, /tsunami/i, /movie/i, /song/i, /lyrics/i,
+  /wikipedia/i, /calendar/i, /horoscope/i, /olympics/i, /election/i,
+  /\bnba\b/i, /\bnfl\b/i, /stock price/i, /exchange rate/i
+];
+
 app.get('/api/google-autocomplete', async (req, res) => {
   const { q, province } = req.query;
   if (!q || !q.trim()) return res.json([]);
 
   const query = q.trim();
-  const searchString = province ? `${query}, ${province}` : query;
+  // Always anchor the search to Cambodia context. If a province is selected, use it
+  // (most specific). Otherwise default-bias towards Phnom Penh, since it's the most
+  // searched/most populous area — mirrors how a user would naturally refine a vague
+  // Google search like "2004 Phnom Penh" instead of just "2004".
+  const isBareNumberOrTooShort = /^\d+$/.test(query) || query.length <= 3;
+  const locationContext = province || (isBareNumberOrTooShort ? 'Phnom Penh, Cambodia' : 'Cambodia');
+  const searchString = `${query}, ${locationContext}`;
 
   try {
     const url = `https://clients1.google.com/complete/search?client=chrome&hl=km&gl=kh&q=${encodeURIComponent(searchString)}`;
@@ -866,7 +881,11 @@ app.get('/api/google-autocomplete', async (req, res) => {
     const data = await response.json();
     
     // Google suggestions format: [query, [sugg1, sugg2, ...]]
-    const suggestions = data[1] || [];
+    let suggestions = data[1] || [];
+
+    // Filter out obviously irrelevant/generic web-search suggestions
+    suggestions = suggestions.filter(s => !IRRELEVANT_SUGGESTION_PATTERNS.some(re => re.test(s)));
+
     res.json(suggestions);
   } catch (err) {
     console.error('Google Autocomplete Proxy Error:', err.message);

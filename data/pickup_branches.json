@@ -5928,5 +5928,465 @@
     "latitude": 11.796341,
     "longitude": 105.499489,
     "raw_delivery_store": "TBKS004 - Ampil Ta Pok"
+  },
+  {
+    "store_code": "KEPA001",
+    "store_name": "Chea Sophorn",
+    "province_kh": "កែប",
+    "district_en": "Kaeb",
+    "district_kh": "កែប",
+    "latitude": 10.55536,
+    "longitude": 104.2883,
+    "raw_delivery_store": "KEPA001 - Chea Sophorn"
+  },
+  {
+    "store_code": "KEPA002",
+    "store_name": "Damnak Chang Aeur",
+    "province_kh": "កែប",
+    "district_en": "Damnak Chang'aeu",
+    "district_kh": "ដំណាក់ចង្អើរ",
+    "latitude": 10.576537,
+    "longitude": 104.390497,
+    "raw_delivery_store": "KEPA002 - Damnak Chang Aeur"
+  },
+  {
+    "store_code": "KEPP001",
+    "store_name": "Bưu cục Kep",
+    "province_kh": "កែប",
+    "district_en": "Kaeb",
+    "district_kh": "កែប",
+    "latitude": 10.4828,
+    "longitude": 104.3167,
+    "raw_delivery_store": "KEPP001 - Bưu cục Kep"
+  },
+  {
+    "store_code": "PAIA001",
+    "store_name": "Pailin",
+    "province_kh": "ប៉ៃលិន",
+    "district_en": "Pailin",
+    "district_kh": "ប៉ៃលិន",
+    "latitude": 12.857257,
+    "longitude": 102.604963,
+    "raw_delivery_store": "PAIA001 - Pailin"
+  },
+  {
+    "store_code": "PAIA002",
+    "store_name": "Sala Krau",
+    "province_kh": "ប៉ៃលិន",
+    "district_en": "Sala Krau",
+    "district_kh": "សាលាក្រៅ",
+    "latitude": 12.948435,
+    "longitude": 102.591515,
+    "raw_delivery_store": "PAIA002 - Sala Krau"
+  },
+  {
+    "store_code": "PAIA003",
+    "store_name": "Stueng Kach",
+    "province_kh": "ប៉ៃលិន",
+    "district_en": "Sala Krau",
+    "district_kh": "សាលាក្រៅ",
+    "latitude": 12.934088,
+    "longitude": 102.501392,
+    "raw_delivery_store": "PAIA003 - Stueng Kach"
+  },
+  {
+    "store_code": "PAIS001",
+    "store_name": "Pailin",
+    "province_kh": "ប៉ៃលិន",
+    "district_en": "Pailin",
+    "district_kh": "ប៉ៃលិន",
+    "latitude": 12.857211,
+    "longitude": 102.604989,
+    "raw_delivery_store": "PAIS001 - Pailin"
+  },
+  {
+    "store_code": "PRHA001",
+    "store_name": "Pal Hal",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Preah Vihear",
+    "district_kh": "ព្រះវិហារ",
+    "latitude": 13.737871,
+    "longitude": 104.978647,
+    "raw_delivery_store": "PRHA001 - Pal Hal"
+  },
+  {
+    "store_code": "PRHA002",
+    "store_name": "Toek Kraham",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Choam Ksan",
+    "district_kh": "ជាំក្សាន្ដ",
+    "latitude": 14.148894,
+    "longitude": 105.082134,
+    "raw_delivery_store": "PRHA002 - Toek Kraham"
+  },
+  {
+    "store_code": "PRHA003",
+    "store_name": "Rumdaoh Srae",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Choam Ksan",
+    "district_kh": "ជាំក្សាន្ដ",
+    "latitude": 14.171889,
+    "longitude": 104.787173,
+    "raw_delivery_store": "PRHA003 - Rumdaoh Srae"
+  },
+  {
+    "store_code": "PRHA004",
+    "store_name": "Kantuot",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Choam Ksan",
+    "district_kh": "ជាំក្សាន្ដ",
+    "latitude": 14.238194,
+    "longitude": 104.728915,
+    "raw_delivery_store": "PRHA004 - Kantuot"
+  },
+  {
+    "store_code": "PRHA005",
+    "store_name": "Kuleaen Tboung",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Kuleaen",
+    "district_kh": "គូលែន",
+    "latitude": 13.818537,
+    "longitude": 104.702415,
+    "raw_delivery_store": "PRHA005 - Kuleaen Tboung"
+  },
+  {
+    "store_code": "PRHA006",
+    "store_name": "Choam Khsan",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Choam Ksan",
+    "district_kh": "ជាំក្សាន្ដ",
+    "latitude": 14.220675,
+    "longitude": 104.943625,
+    "raw_delivery_store": "PRHA006 - Choam Khsan"
+  },
+  {
+    "store_code": "PRHA007",
+    "store_name": "Kampong Sralau Pir",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Chhaeb",
+    "district_kh": "ឆែប",
+    "latitude": 13.975337,
+    "longitude": 105.848255,
+    "raw_delivery_store": "PRHA007 - Kampong Sralau Pir"
+  },
+  {
+    "store_code": "PRHA008",
+    "store_name": "Chamraeun",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Sangkum Thmei",
+    "district_kh": "សង្គមថ្មី",
+    "latitude": 13.579335,
+    "longitude": 104.896452,
+    "raw_delivery_store": "PRHA008 - Chamraeun"
+  },
+  {
+    "store_code": "PRHA009",
+    "store_name": "S'ang",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Chey Saen",
+    "district_kh": "ជ័យសែន",
+    "latitude": 13.653966,
+    "longitude": 105.260717,
+    "raw_delivery_store": "PRHA009 - S'ang"
+  },
+  {
+    "store_code": "PRHA010",
+    "store_name": "Preah Khleang",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Tbaeng Mean Chey",
+    "district_kh": "ត្បែងមានជ័យ",
+    "latitude": 13.620566,
+    "longitude": 105.030259,
+    "raw_delivery_store": "PRHA010 - Preah Khleang"
+  },
+  {
+    "store_code": "PRHA011",
+    "store_name": "Robieb",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Rovieng",
+    "district_kh": "រវៀង",
+    "latitude": 13.357681,
+    "longitude": 105.114889,
+    "raw_delivery_store": "PRHA011 - Robieb"
+  },
+  {
+    "store_code": "PRHA012",
+    "store_name": "Chhaeb Muoy",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Chhaeb",
+    "district_kh": "ឆែប",
+    "latitude": 13.768454,
+    "longitude": 105.408876,
+    "raw_delivery_store": "PRHA012 - Chhaeb Muoy"
+  },
+  {
+    "store_code": "PRHA013",
+    "store_name": "Rummeakney",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Rovieng",
+    "district_kh": "រវៀង",
+    "latitude": 13.304101,
+    "longitude": 105.002355,
+    "raw_delivery_store": "PRHA013 - Rummeakney"
+  },
+  {
+    "store_code": "PRHA015",
+    "store_name": "Phnum Tbaeng Pir",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Kuleaen",
+    "district_kh": "គូលែន",
+    "latitude": 13.716508,
+    "longitude": 104.77564,
+    "raw_delivery_store": "PRHA015 - Phnum Tbaeng Pir"
+  },
+  {
+    "store_code": "PRHA016",
+    "store_name": "Srayang",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Kuleaen",
+    "district_kh": "គូលែន",
+    "latitude": 13.705809,
+    "longitude": 104.545423,
+    "raw_delivery_store": "PRHA016 - Srayang"
+  },
+  {
+    "store_code": "PRHP001",
+    "store_name": "Preah Vihear",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Preah Vihear",
+    "district_kh": "ព្រះវិហារ",
+    "latitude": 13.794295,
+    "longitude": 104.97836,
+    "raw_delivery_store": "PRHP001 - Preah Vihear"
+  },
+  {
+    "store_code": "PRHS001",
+    "store_name": "Kampong Pranak",
+    "province_kh": "ព្រះវិហារ",
+    "district_en": "Preah Vihear",
+    "district_kh": "ព្រះវិហារ",
+    "latitude": 13.805255,
+    "longitude": 104.97862,
+    "raw_delivery_store": "PRHS001 - Kampong Pranak"
+  },
+  {
+    "store_code": "THOA001",
+    "store_name": "Srayouv",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stueng Saen",
+    "district_kh": "ស្ទឹងសែន",
+    "latitude": 12.657969,
+    "longitude": 104.919848,
+    "raw_delivery_store": "THOA001 - Srayouv"
+  },
+  {
+    "store_code": "THOA002",
+    "store_name": "Sou Young",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Tang Kouk",
+    "district_kh": "តាំងគោក",
+    "latitude": 12.247011,
+    "longitude": 105.123774,
+    "raw_delivery_store": "THOA002 - Sou Young"
+  },
+  {
+    "store_code": "THOA003",
+    "store_name": "Triel",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Tang Kouk",
+    "district_kh": "តាំងគោក",
+    "latitude": 12.333434,
+    "longitude": 105.105665,
+    "raw_delivery_store": "THOA003 - Triel"
+  },
+  {
+    "store_code": "THOA004",
+    "store_name": "Baray",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Baray",
+    "district_kh": "បារាយណ៍",
+    "latitude": 12.396384,
+    "longitude": 105.083396,
+    "raw_delivery_store": "THOA004 - Baray"
+  },
+  {
+    "store_code": "THOA005",
+    "store_name": "Bak Sna",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Baray",
+    "district_kh": "បារាយណ៍",
+    "latitude": 12.515992,
+    "longitude": 105.281484,
+    "raw_delivery_store": "THOA005 - Bak Sna"
+  },
+  {
+    "store_code": "THOA006",
+    "store_name": "Tbaeng",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Kampong Svay",
+    "district_kh": "កំពង់ស្វាយ",
+    "latitude": 12.793109,
+    "longitude": 104.78912,
+    "raw_delivery_store": "THOA006 - Tbaeng"
+  },
+  {
+    "store_code": "THOA007",
+    "store_name": "Tang Krasang",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Santuk",
+    "district_kh": "សន្ទុក",
+    "latitude": 12.56012,
+    "longitude": 105.04978,
+    "raw_delivery_store": "THOA007 - Tang Krasang"
+  },
+  {
+    "store_code": "THOA008",
+    "store_name": "San Ko",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Kampong Svay",
+    "district_kh": "កំពង់ស្វាយ",
+    "latitude": 12.80811,
+    "longitude": 104.738129,
+    "raw_delivery_store": "THOA008 - San Ko"
+  },
+  {
+    "store_code": "THOA009",
+    "store_name": "Tum Ring",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Sandan",
+    "district_kh": "សណ្ដាន់",
+    "latitude": 12.901008,
+    "longitude": 105.424327,
+    "raw_delivery_store": "THOA009 - Tum Ring"
+  },
+  {
+    "store_code": "THOA010",
+    "store_name": "Kraya",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Prasat Ballang",
+    "district_kh": "ប្រាសាទបល្ល័ង្គ",
+    "latitude": 13.118471,
+    "longitude": 104.762385,
+    "raw_delivery_store": "THOA010 - Kraya"
+  },
+  {
+    "store_code": "THOA011",
+    "store_name": "Sala Visai",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Prasat Ballang",
+    "district_kh": "ប្រាសាទបល្ល័ង្គ",
+    "latitude": 12.948858,
+    "longitude": 104.944323,
+    "raw_delivery_store": "THOA011 - Sala Visai"
+  },
+  {
+    "store_code": "THOA013",
+    "store_name": "Chhuk",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Prasat Sambour",
+    "district_kh": "ប្រាសាទសំបូរ",
+    "latitude": 12.931402,
+    "longitude": 105.164794,
+    "raw_delivery_store": "THOA013 - Chhuk"
+  },
+  {
+    "store_code": "THOA014",
+    "store_name": "Krava",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Baray",
+    "district_kh": "បារាយណ៍",
+    "latitude": 12.473985,
+    "longitude": 105.244491,
+    "raw_delivery_store": "THOA014 - Krava"
+  },
+  {
+    "store_code": "THOA015",
+    "store_name": "Kampong Chen Tboung",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stoung",
+    "district_kh": "ស្ទោង",
+    "latitude": 12.929947,
+    "longitude": 104.579938,
+    "raw_delivery_store": "THOA015 - Kampong Chen Tboung"
+  },
+  {
+    "store_code": "THOA016",
+    "store_name": "Chamna Kraom",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stoung",
+    "district_kh": "ស្ទោង",
+    "latitude": 12.848016,
+    "longitude": 104.635693,
+    "raw_delivery_store": "THOA016 - Chamna Kraom"
+  },
+  {
+    "store_code": "THOA017",
+    "store_name": "Steung Sean",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stueng Saen",
+    "district_kh": "ស្ទឹងសែន",
+    "latitude": 104.89055,
+    "longitude": 12.728917,
+    "raw_delivery_store": "THOA017 - Steung Sean"
+  },
+  {
+    "store_code": "THOA018",
+    "store_name": "Sambour",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Prasat Sambour",
+    "district_kh": "ប្រាសាទសំបូរ",
+    "latitude": 12.87017,
+    "longitude": 105.06897,
+    "raw_delivery_store": "THOA018 - Sambour"
+  },
+  {
+    "store_code": "THOP001",
+    "store_name": "Stueng Saen",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stueng Saen",
+    "district_kh": "ស្ទឹងសែន",
+    "latitude": 12.718887,
+    "longitude": 104.886428,
+    "raw_delivery_store": "THOP001 - Stueng Saen"
+  },
+  {
+    "store_code": "THOS001",
+    "store_name": "Prey Ta Hu",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stueng Saen",
+    "district_kh": "ស្ទឹងសែន",
+    "latitude": 12.718984,
+    "longitude": 104.886849,
+    "raw_delivery_store": "THOS001 - Prey Ta Hu"
+  },
+  {
+    "store_code": "THOS002",
+    "store_name": "Ballang",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Baray",
+    "district_kh": "បារាយណ៍",
+    "latitude": 12.4996,
+    "longitude": 105.125,
+    "raw_delivery_store": "THOS002 - Ballang"
+  },
+  {
+    "store_code": "THOS003",
+    "store_name": "Kampong Chen Cheung",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Stoung",
+    "district_kh": "ស្ទោង",
+    "latitude": 12.943729,
+    "longitude": 104.569481,
+    "raw_delivery_store": "THOS003 - Kampong Chen Cheung"
+  },
+  {
+    "store_code": "THOS004",
+    "store_name": "Sandan",
+    "province_kh": "កំពង់ធំ",
+    "district_en": "Sandan",
+    "district_kh": "សណ្ដាន់",
+    "latitude": 13.102497,
+    "longitude": 105.241223,
+    "raw_delivery_store": "THOS004 - Sandan"
   }
 ]

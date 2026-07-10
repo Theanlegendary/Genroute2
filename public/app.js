@@ -1,6 +1,41 @@
 /* ── Cambodia Route & Branch Maps JS // Metfone Express Customer Service ── */
 const API = '';
 
+// Copy to Clipboard Utility
+function copyToClipboard(text, element) {
+  if (!text) return;
+  if (!navigator.clipboard) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Fallback copy failed', err);
+    }
+    document.body.removeChild(textArea);
+  } else {
+    navigator.clipboard.writeText(text).catch(err => {
+      console.error('Async copy failed', err);
+    });
+  }
+
+  // Visual feedback
+  if (element) {
+    const originalHTML = element.innerHTML;
+    element.innerHTML = `<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    element.style.pointerEvents = 'none';
+    setTimeout(() => {
+      element.innerHTML = originalHTML;
+      element.style.pointerEvents = 'auto';
+    }, 1500);
+  }
+}
+
+
 // App State
 let map;
 let tileLayers = {};
@@ -1790,7 +1825,15 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
           <div style="font-size:14.5px; font-weight:700; color:#1e293b; line-height:1.3; margin-bottom:4px;">${escHtml(storeName)}${storeNameKh ? ` <span style="font-family:var(--font-khmer); font-weight:500; color:#64748b; font-size:13.5px;">${escHtml(storeNameKh)}</span>` : ''}</div>
           <div style="font-size:11px; color:#475569; line-height:1.6;">
             ${(r.commune || r.commune_kh) ? `<div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">Commune:</span> <span style="font-weight:500;">${r.commune || ''}${r.commune_kh ? ' '+r.commune_kh : ''}</span></div>` : ''}
-            <div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">District:</span> <span style="font-weight:500;">${r.district || ''}${r.district_kh ? ' '+r.district_kh : ''}</span></div>
+            <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+              <span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">District:</span> 
+              <span style="font-weight:500;">${r.district || ''}${r.district_kh ? ' '+r.district_kh : ''}</span>
+              ${(r.district || r.district_kh) ? `
+                <button onclick="event.stopPropagation(); copyToClipboard('${escHtml(r.district || r.district_kh || '')}', this);" title="Copy District" style="border:none; background:none; padding:2px; cursor:pointer; color:#94a3b8; display:inline-flex; align-items:center; transition:color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='#94a3b8'">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+              ` : ''}
+            </div>
             <div><span style="color:#94a3b8; font-weight:600; font-size:9.5px; text-transform:uppercase; letter-spacing:0.03em;">Province:</span> <span style="font-weight:500;">${r.province || ''}${r.province_kh ? ' '+r.province_kh : ''}</span></div>
           </div>
         </div>

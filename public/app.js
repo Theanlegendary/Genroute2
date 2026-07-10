@@ -1844,6 +1844,11 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
           <button onclick="event.stopPropagation(); window.open('${routeUrl}', '_blank');" title="View Route" style="border:none; background:#dc2626; color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(220,38,38,0.3); transition:all 0.2s;">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </button>
+          ${(r.store_code || r.branch_id) ? `
+          <button onclick="event.stopPropagation(); window.open('https://opsexpress.metfone.com.kh/tiep-nhan-don?mfe_prov=${encodeURIComponent(r.province || '')}&mfe_prov_kh=${encodeURIComponent(r.province_kh || '')}&mfe_dist=${encodeURIComponent(r.district || '')}&mfe_dist_kh=${encodeURIComponent(r.district_kh || '')}&mfe_store=${encodeURIComponent(r.store_code || r.branch_id || '')}', '_blank');" title="Autofill in Metfone Express" style="border:none; background:#f97316; color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(249,115,22,0.3); transition:all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          </button>
+          ` : ''}
         </div>
       </div>
     `;

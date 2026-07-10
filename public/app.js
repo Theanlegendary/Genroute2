@@ -1074,7 +1074,7 @@ async function showAutocomplete(q) {
                   <span class="popup-coord">${s.lat.toFixed(4)}°, ${s.lng.toFixed(4)}°</span>
                 </div>
                 <h4>📮 ${escHtml(s.raw.market)}</h4>
-                <p class="popup-addr">${escHtml([s.raw.district, s.raw.province].filter(Boolean).join(', '))}</p>
+                <p class="popup-addr">${getPopupAddressHtml(s.raw)}</p>
               </div>
             `);
             activeMarkers.push({ id: s.raw.id, marker });
@@ -1211,7 +1211,7 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
           <span class="popup-coord" style="color: rgba(255,255,255,0.85);">${selectedLoc.latitude.toFixed(4)}°, ${selectedLoc.longitude.toFixed(4)}°</span>
         </div>
         <h4 style="margin: 4px 0; font-size: 13px; color: #1f2937; font-weight: 700; padding: 0 8px;">📍 ${escHtml(targetTitle)}</h4>
-        <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11.5px; color: #6b7280; padding: 0 8px;">${escHtml([selectedLoc.district, selectedLoc.province].filter(Boolean).join(', ') || '')}</p>
+        <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11.5px; color: #6b7280; padding: 0 8px;">${getPopupAddressHtml(selectedLoc)}</p>
         
         <div class="popup-po-list" style="margin-top: 8px; border-top: 1px solid #f2f2f7; padding: 8px 8px 0 8px;">
           <h5 style="margin: 0 0 6px 0; font-size: 11px; color: var(--metfone-red); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em;">📮 Nearest Post Offices</h5>
@@ -1237,7 +1237,7 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
               <span class="popup-coord">${defaultPO.latitude.toFixed(4)}°, ${defaultPO.longitude.toFixed(4)}°</span>
             </div>
             <h4>📮 ${escHtml(defaultPO.market || defaultPO.store_name)}</h4>
-            <p class="popup-addr">${escHtml([defaultPO.district, defaultPO.province].filter(Boolean).join(', '))}</p>
+            <p class="popup-addr">${getPopupAddressHtml(defaultPO)}</p>
           </div>
         `);
         activeMarkers.push({ id: defaultPO.id, marker: marker });
@@ -1288,7 +1288,7 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
           </div>
           <h4>📮 ${escHtml(getBilingualTitle(po))}</h4>
           <div class="popup-divider"></div>
-          <p class="popup-addr">${escHtml(getBilingualAddress(po))}</p>
+          <p class="popup-addr">${getPopupAddressHtml(po)}</p>
           <p style="color: var(--metfone-red); font-weight: 700; margin-top: 4px;">📡 ចំងាយ Distance: ${formatDistance(po.distance_km)}</p>
           <a class="popup-gmaps-link" href="${po.google_maps_url || `https://www.google.com/maps?q=${po.latitude},${po.longitude}`}" target="_blank" rel="noopener">Open in Google Maps ↗</a>
         </div>
@@ -1501,7 +1501,7 @@ async function runSmartFind() {
               <span class="popup-coord">${branchMatch.latitude.toFixed(4)}°, ${branchMatch.longitude.toFixed(4)}°</span>
             </div>
             <h4>📮 ${escHtml(branchMatch.market)}</h4>
-            <p class="popup-addr">${escHtml([branchMatch.district, branchMatch.province].filter(Boolean).join(', '))}</p>
+            <p class="popup-addr">${getPopupAddressHtml(branchMatch)}</p>
           </div>
         `);
         activeMarkers.push({ id: branchMatch.id, marker });
@@ -1956,7 +1956,7 @@ function renderMapMarkers(results) {
         </div>
         <h4>${emoji}${escHtml(displayTitle)}</h4>
         <div class="popup-divider"></div>
-        <p class="popup-addr">${escHtml(displayAddr)}</p>
+        <p class="popup-addr">${getPopupAddressHtml(r)}</p>
         ${r.distance_km != null ? `<p style="color: var(--metfone-red); font-weight: 700; margin-top: 4px;">📡 ចំងាយ Distance: ${formatDistance(r.distance_km)}</p>` : ''}
         <a class="popup-gmaps-link" href="${r.google_maps_url || `https://www.google.com/maps?q=${r.latitude},${r.longitude}`}" target="_blank" rel="noopener">Open in Google Maps ↗</a>
       </div>
@@ -2219,10 +2219,44 @@ function getBilingualTitle(item) {
 }
 
 function getBilingualAddress(item) {
+  const provKh = item.province_kh || '';
+  const provEn = item.province || '';
+  const distKh = item.district_kh || '';
+  const distEn = item.district_en || item.district || '';
+
+  const provBilingual = (provKh && provEn && provKh !== provEn) ? `${provKh} ${provEn}` : (provKh || provEn);
+  const distBilingual = (distKh && distEn && distKh !== distEn) ? `${distKh} ${distEn}` : (distKh || distEn);
+
   const parts = [];
-  if (item.province_kh || item.province) parts.push(item.province_kh || item.province);
-  if (item.district_en || item.district) parts.push(item.district_en || item.district);
-  return parts.filter(Boolean).join(', ') + (parts.length > 0 ? ',' : '');
+  if (provBilingual) parts.push(provBilingual);
+  if (distBilingual) parts.push(distBilingual);
+
+  return parts.filter(Boolean).join(', ');
+}
+
+function getPopupAddressHtml(item) {
+  if (!item) return '';
+  const displayAddr = getBilingualAddress(item);
+  const districtVal = item.district_en || item.district || item.district_kh || '';
+  
+  let btnHtml = '';
+  if (districtVal) {
+    const escapedVal = escHtml(districtVal).replace(/'/g, "\\'");
+    btnHtml = `
+      <button onclick="event.stopPropagation(); copyToClipboard('${escapedVal}', this);" 
+              title="Copy District" 
+              style="margin-left: 4px; border: none; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; padding: 2px; color: #f97316; transition: transform 0.2s;"
+              onmouseover="this.style.transform='scale=1.15)'" 
+              onmouseout="this.style.transform='scale(1)'">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+        </svg>
+      </button>
+    `;
+  }
+  
+  return `<span style="display: inline-flex; align-items: center; gap: 4px;">${escHtml(displayAddr)}${btnHtml}</span>`;
 }
 
 // Khmer spelling unicode normalization helper
@@ -2522,7 +2556,7 @@ function showSingleTargetOnMap(selectedLoc, allMatchedLocs) {
         <span class="popup-coord">${selectedLoc.latitude.toFixed(4)}°, ${selectedLoc.longitude.toFixed(4)}°</span>
       </div>
       <h4 style="margin: 4px 0; font-size:13px; color:#1e293b;">📍 ${escHtml(targetTitle)}</h4>
-      <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11px; color: #64748b;">${escHtml([selectedLoc.district, selectedLoc.province].filter(Boolean).join(', ') || '')}</p>
+      <p class="popup-addr" style="margin: 2px 0 8px 0; font-size: 11px; color: #64748b;">${getPopupAddressHtml(selectedLoc)}</p>
       
       <button class="popup-find-nearby-btn" onclick="event.stopPropagation(); triggerSelectLocation('${selectedLoc.id}')" style="background-color: var(--metfone-red, #d32f2f); color: white; border: none; padding: 8px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; margin-top: 6px; width: 100%; font-weight: bold; text-align: center;">🔍 Find Nearby POs</button>
       <a class="popup-gmaps-link" href="${selectedLoc.google_maps_url || `https://www.google.com/maps?q=${selectedLoc.latitude},${selectedLoc.longitude}`}" target="_blank" rel="noopener" style="margin-top: 8px; display: block; font-size:11px; text-align:right;">Open in Google Maps ↗</a>

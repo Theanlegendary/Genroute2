@@ -1508,20 +1508,7 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     return mapboxResult;
   }
 
-  // 1. Try Google Maps HTML crawler geocoding next (gives the exact Google Maps coordinates & coverage)
-  try {
-    const qToCrawl = enSearchQuery || searchQuery;
-    const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
-    if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
-      console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
-      saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
-      return googleCoords;
-    }
-  } catch (err) {
-    console.error('Google Maps Crawler direct geocode failed:', err.message);
-  }
-
-  // 2. Try to geocode the query directly using Nominatim (with our high-precision User-Agent)
+  // 1. Try to geocode the query directly using Nominatim/Photon first (free, fast, and no rate limits)
   const qToNom = enSearchQuery || searchQuery;
   let nomResults = await queryNominatim(qToNom, 5);
   
@@ -1603,6 +1590,19 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
         })
       };
     }
+  }
+
+  // 2. Try Google Maps HTML crawler geocoding next as fallback (gives the exact Google Maps coordinates & coverage)
+  try {
+    const qToCrawl = enSearchQuery || searchQuery;
+    const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
+    if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
+      console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
+      saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
+      return googleCoords;
+    }
+  } catch (err) {
+    console.error('Google Maps Crawler direct geocode failed:', err.message);
   }
 
   // 2. If it fails, query Google Autocomplete suggestions to get the corrected spelling

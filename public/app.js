@@ -3263,10 +3263,13 @@ function switchTab(tabId) {
   const activeBtn = document.getElementById('nav' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
   if (activeBtn) activeBtn.classList.add('active');
   
-  const searchSection = document.querySelector('.grid-section');
+  // Only hide the search-options-row + search-remark, keep the search bar (with hamburger) always visible
+  const searchOptionsRow = document.querySelector('.search-options-row');
+  const searchRemark = document.querySelector('.search-remark');
   
   if (tabId === 'search') {
-    if (searchSection) searchSection.style.display = 'block';
+    if (searchOptionsRow) searchOptionsRow.style.display = 'block';
+    if (searchRemark) searchRemark.style.display = 'block';
     if (currentResults && currentResults.length > 0) {
       showState('welcome');
       renderResultsList(currentResults, false);
@@ -3277,15 +3280,18 @@ function switchTab(tabId) {
       expandMobileDrawer('sheet-peeking');
     }
   } else if (tabId === 'saved') {
-    if (searchSection) searchSection.style.display = 'none';
+    if (searchOptionsRow) searchOptionsRow.style.display = 'none';
+    if (searchRemark) searchRemark.style.display = 'none';
     renderSavedBranchesList();
     expandMobileDrawer('sheet-peeking');
   } else if (tabId === 'recents') {
-    if (searchSection) searchSection.style.display = 'none';
+    if (searchOptionsRow) searchOptionsRow.style.display = 'none';
+    if (searchRemark) searchRemark.style.display = 'none';
     renderRecentSearchesList();
     expandMobileDrawer('sheet-peeking');
   } else if (tabId === 'getApp') {
-    if (searchSection) searchSection.style.display = 'none';
+    if (searchOptionsRow) searchOptionsRow.style.display = 'none';
+    if (searchRemark) searchRemark.style.display = 'none';
     renderGetAppPage();
     expandMobileDrawer('sheet-peeking');
   }

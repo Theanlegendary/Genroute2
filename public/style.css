@@ -82,9 +82,14 @@
 /* ─── Base Reset & Layout ─── */
 html, body {
   height: 100%;
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
   background: var(--bg-canvas);
+  /* Prevent iOS Safari rubber-band / overscroll bounce on the document level */
+  overscroll-behavior: none;
+  /* Prevent accidental page scroll when interacting with the map or sheet */
+  touch-action: none;
 }
 
 body {
@@ -94,6 +99,7 @@ body {
   line-height: 1.5;
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; /* remove grey flash on tap */
 }
 
 input, button, select, textarea {

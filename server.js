@@ -1258,6 +1258,61 @@ Only return valid JSON conforming to the schema.`;
   return null;
 }
 
+async function queryMapboxGeocode(query, province = '') {
+  const token = process.env.MAPBOX_ACCESS_TOKEN;
+  if (!token || !token.trim()) return null;
+
+  try {
+    const searchQuery = province ? `${query}, ${province}, Cambodia` : `${query}, Cambodia`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?access_token=${token.trim()}&country=KH&limit=5`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`Mapbox Geocoding API failed: HTTP ${res.status}`);
+      return null;
+    }
+    const data = await res.json();
+    if (!data.features || data.features.length === 0) return null;
+
+    if (data.features.length === 1) {
+      const feat = data.features[0];
+      return {
+        lat: feat.center[1],
+        lng: feat.center[0],
+        name: feat.place_name.replace(', Cambodia', '').trim()
+      };
+    } else {
+      return {
+        type: 'multiple',
+        results: data.features.map((feat, idx) => {
+          const lat = feat.center[1];
+          const lng = feat.center[0];
+          const inf = inferProvinceAndDistrict(lat, lng);
+          return {
+            id: 'mapbox_' + idx + '_' + Date.now(),
+            market: feat.text,
+            market_kh: '',
+            latitude: lat,
+            longitude: lng,
+            province: inf.province || '',
+            province_kh: inf.province_kh || '',
+            district: inf.district || '',
+            district_kh: inf.district_kh || '',
+            commune: '',
+            commune_kh: '',
+            village: '',
+            village_kh: '',
+            display_name: feat.place_name,
+            google_maps_url: `https://www.google.com/maps?q=${lat},${lng}`
+          };
+        })
+      };
+    }
+  } catch (err) {
+    console.error('Failed to query Mapbox geocode:', err.message);
+    return null;
+  }
+}
+
 async function resolveCoordsWithSpellingCorrection(query, province = '') {
   // 0. Support Google Maps Link parsing (e.g. https://maps.app.goo.gl/xxx or https://www.google.com/maps/...)
   if (/maps\.app\.goo\.gl|goo\.gl\/maps|google\.com\/maps/i.test(query)) {
@@ -1443,7 +1498,17 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     ? `${translatedQuery}, ${province}, Cambodia` 
     : (translatedQuery ? `${translatedQuery}, Cambodia` : '');
 
-  // 1. Try Google Maps HTML crawler geocoding first (gives the exact Google Maps coordinates & coverage)
+  // 0.9 Try Mapbox Geocoding first (if token is available)
+  const mapboxResult = await queryMapboxGeocode(enSearchQuery || searchQuery);
+  if (mapboxResult) {
+    console.log(`🎯 Geocoded successfully via Mapbox: "${enSearchQuery || searchQuery}"`);
+    if (mapboxResult.type !== 'multiple') {
+      saveToGeocodingCache(query, mapboxResult.lat, mapboxResult.lng, mapboxResult.name);
+    }
+    return mapboxResult;
+  }
+
+  // 1. Try Google Maps HTML crawler geocoding next (gives the exact Google Maps coordinates & coverage)
   try {
     const qToCrawl = enSearchQuery || searchQuery;
     const googleCoords = await crawlGoogleMapsCoords(qToCrawl);

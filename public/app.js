@@ -723,13 +723,7 @@ async function showAutocomplete(q) {
       headerTrending.innerHTML = '🔥 Top Searches Today (ពេញនិយម)';
       autocompleteDropdown.appendChild(headerTrending);
       
-      const trendingItems = [
-        { name: 'PNPP014 (Doun Penh)', q: 'PNPP014' },
-        { name: 'ផ្សារធំថ្មី (Central Market)', q: 'ផ្សារធំថ្មី' },
-        { name: 'ផ្សារព្រែកជ្រៃ (Prek Chrey)', q: 'ផ្សារព្រែកជ្រៃ' },
-        { name: 'ចោមចៅ (Chom Chao)', q: 'ចោមចៅ' },
-        { name: 'SREA001 (Siem Reap)', q: 'SREA001' }
-      ];
+      const trendingItems = getTopSearches();
       
       trendingItems.forEach(item => {
         const acItem = document.createElement('div');
@@ -1430,7 +1424,12 @@ async function runSmartFind() {
     // This MUST run before geocoding, so branch ID queries center directly on the post office!
     // Branch ID search always searches ALL provinces (ignores province filter)
     try {
-      const branchMatch = clientBranches.find(r => r.branch_id && q.toLowerCase().replace(/[^a-z0-9]/g, '') === r.branch_id.toLowerCase().replace(/[^a-z0-9]/g, ''));
+      const branchMatch = clientBranches.find(r => {
+        if (!r.branch_id) return false;
+        const cleanedQ = q.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const cleanedId = r.branch_id.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return cleanedQ === cleanedId || (cleanedId.length >= 4 && cleanedQ.startsWith(cleanedId));
+      });
       
       if (branchMatch) {
         // Reset province filter since branch IDs are unique across all provinces
@@ -2137,6 +2136,10 @@ function showState(state) {
   if (state !== 'none') {
     resultsList.innerHTML = '';
   }
+
+  if (state === 'welcome') {
+    renderWelcomeHintChips();
+  }
 }
 
 // Escape HTML helper
@@ -2694,8 +2697,83 @@ function getRecentSearches() {
   }
 }
 
+function getTopSearches() {
+  const defaultTrending = [
+    { name: 'PNPP014 (Doun Penh)', q: 'PNPP014' },
+    { name: 'ផ្សារធំថ្មី (Central Market)', q: 'ផ្សារធំថ្មី' },
+    { name: 'ផ្សារព្រែកជ្រៃ (Prek Chrey)', q: 'ផ្សារព្រែកជ្រៃ' },
+    { name: 'ចោមចៅ (Chom Chao)', q: 'ចោមចៅ' },
+    { name: 'SREA001 (Siem Reap)', q: 'SREA001' }
+  ];
+
+  try {
+    const counts = JSON.parse(localStorage.getItem('metfone_search_counts')) || {};
+    const sorted = Object.entries(counts)
+      .map(([query, count]) => ({ q: query, name: query, count }))
+      .sort((a, b) => b.count - a.count);
+
+    if (sorted.length === 0) {
+      return defaultTrending;
+    }
+
+    const merged = [...sorted];
+    defaultTrending.forEach(item => {
+      if (!merged.some(m => m.q.toLowerCase() === item.q.toLowerCase())) {
+        merged.push(item);
+      }
+    });
+
+    return merged.slice(0, 5);
+  } catch (e) {
+    return defaultTrending;
+  }
+}
+
+function incrementSearchCount(query) {
+  if (!query) return;
+  const cleanQ = query.trim();
+  if (cleanQ.length < 2) return;
+  try {
+    const counts = JSON.parse(localStorage.getItem('metfone_search_counts')) || {};
+    counts[cleanQ] = (counts[cleanQ] || 0) + 1;
+    localStorage.setItem('metfone_search_counts', JSON.stringify(counts));
+  } catch (e) {
+    console.error('Failed to increment search count', e);
+  }
+}
+
+function renderWelcomeHintChips() {
+  const container = document.getElementById('welcomeHintChips');
+  if (!container) return;
+  
+  const topSearches = getTopSearches();
+  container.innerHTML = '';
+  topSearches.forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'hint-chip';
+    
+    let label = item.name;
+    const cleanQ = item.q.trim().toUpperCase();
+    const branch = clientBranches.find(b => b.branch_id && b.branch_id.toUpperCase() === cleanQ);
+    if (branch) {
+      label = `${branch.branch_id} (${branch.district || branch.district_kh})`;
+    }
+    
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      searchInput.value = item.q;
+      clearBtn.style.display = 'block';
+      closeAutocomplete();
+      runSmartFind();
+    });
+    container.appendChild(btn);
+  });
+}
+
 function addRecentSearch(query) {
   if (!query) return;
+  incrementSearchCount(query);
+  
   let recents = getRecentSearches();
   recents = recents.filter(item => item.query.toLowerCase() !== query.toLowerCase());
   recents.unshift({
@@ -2706,6 +2784,7 @@ function addRecentSearch(query) {
   if (recents.length > 10) recents.pop();
   localStorage.setItem('metfone_recent_searches', JSON.stringify(recents));
 }
+
 
 function clearRecentSearches() {
   localStorage.removeItem('metfone_recent_searches');

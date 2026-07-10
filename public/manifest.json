@@ -1,0 +1,36 @@
+﻿{
+  "name": "Metfone Express — Cambodia Branch Locator",
+  "short_name": "Metfone Express",
+  "description": "Find nearest Metfone post office branches and markets across Cambodia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#DA251D",
+  "lang": "km",
+  "categories": ["navigation", "logistics", "maps"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Search Branches",
+      "short_name": "Search",
+      "description": "Search for nearest Metfone post office",
+      "url": "/?tab=search",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

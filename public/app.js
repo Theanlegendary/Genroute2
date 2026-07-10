@@ -1,6 +1,28 @@
 /* ── Cambodia Route & Branch Maps JS // Metfone Express Customer Service ── */
 const API = '';
 
+// ── PWA Install Prompt (captured globally before user interaction) ────────────
+let deferredPwaInstallPrompt = null;
+let pwaInstalled = false;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPwaInstallPrompt = e;
+  console.log('[PWA] Install prompt ready');
+  // Update any visible install button
+  const installBtn = document.getElementById('pwaInstallBtn');
+  if (installBtn) {
+    installBtn.style.display = 'flex';
+    installBtn.textContent = '📲 Install App';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  pwaInstalled = true;
+  deferredPwaInstallPrompt = null;
+  console.log('[PWA] App installed successfully');
+});
+
 // Copy to Clipboard Utility
 function copyToClipboard(text, element) {
   if (!text) return;
@@ -217,6 +239,15 @@ function initMap() {
         map.invalidateSize({ animate: true });
       }
     }, 250);
+  });
+
+  // ── Google Maps-style: tap map → collapse bottom sheet ──────────────────────
+  // On mobile, when user taps/clicks the map, slide the bottom sheet down
+  // so the map fills the screen (just like Google Maps behavior).
+  map.on('click', () => {
+    if (window.innerWidth <= 768) {
+      expandMobileDrawer('sheet-collapsed');
+    }
   });
 }
 
@@ -939,10 +970,23 @@ async function showAutocomplete(q) {
 
       const strippedQ = stripAdministrativePrefixes(normQ);
       if (strippedQ && strippedQ.length >= 2) {
-        return stripAdministrativePrefixes(marketEn).includes(strippedQ) || 
-               stripAdministrativePrefixes(marketKh).includes(strippedQ) || 
-               stripAdministrativePrefixes(branchId).includes(strippedQ);
+        if (stripAdministrativePrefixes(marketEn).includes(strippedQ) ||
+            stripAdministrativePrefixes(marketKh).includes(strippedQ) ||
+            stripAdministrativePrefixes(branchId).includes(strippedQ)) return true;
       }
+
+      // Also check aliases and search_keywords for famous markets
+      if (r.aliases && r.aliases.some(a => {
+        const normA = normalizeKhmer(a);
+        return normA.includes(normQ) || normA.includes(normSearchQ) ||
+               (strippedQ && strippedQ.length >= 2 && stripAdministrativePrefixes(normA).includes(strippedQ));
+      })) return true;
+      if (r.search_keywords && r.search_keywords.some(k => {
+        const normK = normalizeKhmer(k);
+        return normK.includes(normQ) || normK.includes(normSearchQ) ||
+               (strippedQ && strippedQ.length >= 2 && stripAdministrativePrefixes(normK).includes(strippedQ));
+      })) return true;
+
       return false;
     });
 
@@ -1589,8 +1633,22 @@ async function runSmartFind() {
         const mEn = normalizeKhmer(r.market || '');
         const stripped = stripAdministrativePrefixes(normQ);
         // Strong match: market name contains the query, OR stripped query matches
-        return mKh.includes(normQ) || mEn.includes(normQ) ||
-               (stripped && stripped.length >= 2 && (mKh.includes(stripped) || mEn.includes(stripped)));
+        if (mKh.includes(normQ) || mEn.includes(normQ) ||
+            (stripped && stripped.length >= 2 && (mKh.includes(stripped) || mEn.includes(stripped)))) return true;
+
+        // Also match famous markets via aliases and search_keywords
+        if (r.aliases && r.aliases.some(a => {
+          const normA = normalizeKhmer(a);
+          return normA.includes(normQ) ||
+                 (stripped && stripped.length >= 2 && stripAdministrativePrefixes(normA).includes(stripped));
+        })) return true;
+        if (r.search_keywords && r.search_keywords.some(k => {
+          const normK = normalizeKhmer(k);
+          return normK.includes(normQ) ||
+                 (stripped && stripped.length >= 2 && stripAdministrativePrefixes(normK).includes(stripped));
+        })) return true;
+
+        return false;
       });
 
       if (localHits.length > 0) {
@@ -1689,7 +1747,22 @@ async function runSmartFind() {
     const filteredLocal = combinedLocal.filter(r => {
       const marketEn = (r.market || '').toLowerCase();
       const marketKh = (r.market_kh || '').toLowerCase();
-      return marketEn.includes(normQ) || marketKh.includes(normQ);
+      if (marketEn.includes(normQ) || marketKh.includes(normQ)) return true;
+
+      const strippedQ = stripAdministrativePrefixes(normQ);
+      // Also match famous markets via aliases and search_keywords
+      if (r.aliases && r.aliases.some(a => {
+        const normA = normalizeKhmer(a);
+        return normA.includes(normQ) ||
+               (strippedQ && strippedQ.length >= 2 && stripAdministrativePrefixes(normA).includes(strippedQ));
+      })) return true;
+      if (r.search_keywords && r.search_keywords.some(k => {
+        const normK = normalizeKhmer(k);
+        return normK.includes(normQ) ||
+               (strippedQ && strippedQ.length >= 2 && stripAdministrativePrefixes(normK).includes(strippedQ));
+      })) return true;
+
+      return false;
     });
 
     if (filteredLocal.length > 0) {
@@ -2715,7 +2788,7 @@ function setupMobileDrawer() {
     sidebar.classList.add('sheet-collapsed');
   }
 
-  // Double tap or click on peeking header/grab handle area to expand/collapse
+  // ── Tap grab handle zone → cycle through states ────────────────────────────
   sidebar.addEventListener('click', (e) => {
     if (window.innerWidth > 768) return;
 
@@ -2738,8 +2811,57 @@ function setupMobileDrawer() {
         sidebar.classList.remove('sheet-expanded');
         sidebar.classList.add('sheet-collapsed');
       }
+      // No invalidateSize needed: map is always 100dvh, sheet slides over it via transform
     }
   });
+
+  // ── Swipe-up / swipe-down gesture on the sheet handle ─────────────────────
+  // Matches Google Maps swipe-to-expand / swipe-to-collapse behavior.
+  const sidebarContent = sidebar.querySelector('.sidebar-content');
+  if (!sidebarContent) return;
+
+  let touchStartY = null;
+
+  sidebarContent.addEventListener('touchstart', (e) => {
+    const rect = sidebarContent.getBoundingClientRect();
+    const touchY = e.touches[0].clientY - rect.top;
+    // Only start a drag if user started in the handle zone (top 48px)
+    if (touchY >= 0 && touchY <= 48) {
+      touchStartY = e.touches[0].clientY;
+    } else {
+      touchStartY = null;
+    }
+  }, { passive: true });
+
+  sidebarContent.addEventListener('touchend', (e) => {
+    if (touchStartY === null) return;
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+    touchStartY = null;
+
+    // Require at least 30px swipe to trigger
+    if (Math.abs(deltaY) < 30) return;
+
+    if (deltaY < 0) {
+      // Swipe UP → expand
+      if (sidebar.classList.contains('sheet-collapsed')) {
+        sidebar.classList.remove('sheet-collapsed');
+        sidebar.classList.add('sheet-peeking');
+      } else if (sidebar.classList.contains('sheet-peeking')) {
+        sidebar.classList.remove('sheet-peeking');
+        sidebar.classList.add('sheet-expanded');
+      }
+    } else {
+      // Swipe DOWN → collapse
+      if (sidebar.classList.contains('sheet-expanded')) {
+        sidebar.classList.remove('sheet-expanded');
+        sidebar.classList.add('sheet-peeking');
+      } else if (sidebar.classList.contains('sheet-peeking')) {
+        sidebar.classList.remove('sheet-peeking');
+        sidebar.classList.add('sheet-collapsed');
+      }
+    }
+    // No invalidateSize needed: map container is always 100dvh, sheet overlays via transform
+  }, { passive: true });
 }
 
 // Mobile Hamburger Menu Control
@@ -2799,9 +2921,12 @@ function setupHamburgerMenu() {
   });
 }
 
+// Populates the "Browse by Province" dropdown inside the hamburger drawer
 function renderMobileQuickChips() {
-  const container = document.getElementById('mobileQuickChips');
-  if (!container) return;
+  const list = document.getElementById('drawerProvinceList');
+  const toggle = document.getElementById('drawerProvinceToggle');
+  const chevron = document.getElementById('drawerProvinceChevron');
+  if (!list || !toggle) return;
 
   const provinces = [
     { name: 'Phnom Penh', kh: 'ភ្នំពេញ' },
@@ -2810,15 +2935,18 @@ function renderMobileQuickChips() {
     { name: 'Siem Reap', kh: 'សៀមរាប' },
     { name: 'Kampong Cham', kh: 'កំពង់ចាម' },
     { name: 'Preah Sihanouk', kh: 'ព្រះសីហនុ' },
-    { name: 'Kampot', kh: 'កំពត' }
+    { name: 'Kampot', kh: 'កំពត' },
+    { name: 'Takeo', kh: 'តាកែវ' },
+    { name: 'Prey Veng', kh: 'ព្រៃវែង' }
   ];
 
-  container.innerHTML = '';
+  list.innerHTML = '';
   provinces.forEach(p => {
-    const chip = document.createElement('div');
-    chip.className = 'quick-chip';
-    chip.textContent = `📍 ${p.kh}`;
-    chip.addEventListener('click', (e) => {
+    const item = document.createElement('button');
+    item.className = 'drawer-province-item';
+    item.style.cssText = 'display:flex; align-items:center; gap:10px; padding:10px 20px 10px 44px; border:none; background:transparent; width:100%; text-align:left; font-size:13px; font-weight:500; color:#475569; cursor:pointer; transition:background 0.2s;';
+    item.innerHTML = `<span style="color:var(--metfone-red);">📍</span> <span>${p.name} (${p.kh})</span>`;
+    item.addEventListener('click', (e) => {
       e.stopPropagation();
       if (provinceSelect) {
         provinceSelect.value = p.name;
@@ -2827,26 +2955,24 @@ function renderMobileQuickChips() {
       searchInput.value = '';
       clearBtn.style.display = 'none';
       closeAutocomplete();
-      
-      // Auto expand bottom sheet drawer to show branches in that province!
+
+      // Close the drawer and expand results sheet
+      const drawer = document.getElementById('mobileHamburgerDrawer');
+      if (drawer) drawer.style.display = 'none';
       expandMobileDrawer('sheet-expanded');
     });
-    // Add touchstart event listener for instant response on mobile
-    chip.addEventListener('touchstart', (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      if (provinceSelect) {
-        provinceSelect.value = p.name;
-        provinceSelect.dispatchEvent(new Event('change'));
-      }
-      searchInput.value = '';
-      clearBtn.style.display = 'none';
-      closeAutocomplete();
-      expandMobileDrawer('sheet-expanded');
-    }, { passive: false });
-    
-    container.appendChild(chip);
+    list.appendChild(item);
   });
+
+  // Toggle dropdown open/close
+  if (toggle && !toggle.dataset.bound) {
+    toggle.dataset.bound = 'true';
+    toggle.addEventListener('click', () => {
+      const isOpen = list.style.display === 'flex';
+      list.style.display = isOpen ? 'none' : 'flex';
+      if (chevron) chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    });
+  }
 }
 
 function expandMobileDrawer(state = 'sheet-peeking') {
@@ -3166,42 +3292,98 @@ function switchTab(tabId) {
 }
 window.switchTab = switchTab;
 
+// PWA Install Trigger — called from the inline onclick in renderGetAppPage
+window.triggerPwaInstall = async function () {
+  if (!deferredPwaInstallPrompt) return;
+  deferredPwaInstallPrompt.prompt();
+  const { outcome } = await deferredPwaInstallPrompt.userChoice;
+  console.log('[PWA] User choice:', outcome);
+  if (outcome === 'accepted') {
+    pwaInstalled = true;
+    deferredPwaInstallPrompt = null;
+    // Refresh the Get App page to show "Installed!" state
+    renderGetAppPage();
+  }
+};
+
 function renderGetAppPage() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  const canInstall = !!deferredPwaInstallPrompt;
+
+  let installSection = '';
+
+  if (isInStandaloneMode) {
+    // Already installed as PWA
+    installSection = `
+      <div style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1.5px solid #86efac; border-radius: 12px; padding: 16px; width: 100%; max-width: 280px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 8px;">✅</div>
+        <p style="font-size: 13px; font-weight: 700; color: #15803d; margin: 0;">App Installed!</p>
+        <p style="font-size: 11.5px; color: #166534; margin: 6px 0 0 0;">You are running Metfone Express as an installed app.</p>
+      </div>`;
+  } else if (isIOS) {
+    // iOS Safari — no beforeinstallprompt, show manual steps
+    installSection = `
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 16px; width: 100%; max-width: 280px; text-align: left;">
+        <p style="font-size: 12px; font-weight: 700; color: #1e293b; margin: 0 0 12px 0; text-align: center;">📱 Install on iPhone / iPad</p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 11.5px; color: #475569;">
+            <span style="font-size: 1.2rem; flex-shrink: 0;">1️⃣</span>
+            <span>Tap the <strong>Share</strong> button <span style="font-size: 1rem;">⎏</span> at the bottom of Safari</span>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 11.5px; color: #475569;">
+            <span style="font-size: 1.2rem; flex-shrink: 0;">2️⃣</span>
+            <span>Scroll down and tap <strong>"Add to Home Screen"</strong></span>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 11.5px; color: #475569;">
+            <span style="font-size: 1.2rem; flex-shrink: 0;">3️⃣</span>
+            <span>Tap <strong>"Add"</strong> — the app will appear on your home screen!</span>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    // Android / Desktop — show install button (enabled when prompt is ready)
+    installSection = `
+      <button id="pwaInstallBtn" onclick="window.triggerPwaInstall()" style="
+        display: ${canInstall ? 'flex' : 'none'};
+        align-items: center; justify-content: center; gap: 10px;
+        width: 100%; max-width: 280px;
+        padding: 14px 20px;
+        background: linear-gradient(135deg, #DA251D, #b91c1c);
+        color: white; border: none; border-radius: 12px;
+        font-size: 14px; font-weight: 700; cursor: pointer;
+        box-shadow: 0 4px 16px rgba(218,37,29,0.35);
+        font-family: var(--font-heading);
+        transition: transform 0.15s, box-shadow 0.15s;
+      " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">
+        📲 Install App
+      </button>
+      ${!canInstall ? `<p style="font-size: 11px; color: #94a3b8; text-align: center; max-width: 240px;">Open this page in Chrome or Edge on Android to install it as an app.</p>` : ''}`;
+  }
+
   resultsList.innerHTML = `
-    <div style="padding: 24px var(--space-4); text-align: center; font-family: var(--font-sans); display: flex; flex-direction: column; align-items: center; gap: 16px;">
-      <div style="background: rgba(218, 37, 29, 0.08); border: 1.5px solid rgba(218, 37, 29, 0.2); display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 20px; font-size: 2rem; box-shadow: 0 4px 12px rgba(218,37,29,0.1);">
-        📲
+    <div style="padding: 24px var(--space-4); text-align: center; font-family: var(--font-sans); display: flex; flex-direction: column; align-items: center; gap: 18px;">
+
+      <!-- Icon -->
+      <img src="/icon-192.png" alt="Metfone Express" style="width: 76px; height: 76px; border-radius: 20px; box-shadow: 0 6px 24px rgba(218,37,29,0.2); border: 2px solid rgba(218,37,29,0.1);" />
+
+      <!-- Title -->
+      <div>
+        <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #1e293b; margin: 0 0 6px 0;">Metfone Express</h3>
+        <p style="font-size: 12px; color: #64748b; line-height: 1.5; margin: 0; max-width: 260px;">Install this app directly to your home screen — works offline, loads instantly, no App Store needed.</p>
       </div>
-      <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">Get Metfone Express App</h3>
-      <p style="font-size: 12.5px; color: #64748b; line-height: 1.5; margin: 0; max-width: 280px;">Scan the QR code below or tap to download the official logistics application for fast route calculation.</p>
-      
-      <!-- Styled mock QR Code using CSS/SVG -->
-      <div style="border: 2px dashed #cbd5e1; padding: 12px; border-radius: 16px; background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-top: 8px;">
-        <svg width="140" height="140" viewBox="0 0 100 100" style="color: #1e293b;">
-          <rect x="5" y="5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="10" y="10" width="15" height="15" fill="currentColor"/>
-          <rect x="70" y="5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="75" y="10" width="15" height="15" fill="currentColor"/>
-          <rect x="5" y="70" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="10" y="75" width="15" height="15" fill="currentColor"/>
-          <rect x="40" y="5" width="10" height="15" fill="currentColor"/>
-          <rect x="40" y="30" width="20" height="10" fill="currentColor"/>
-          <rect x="5" y="40" width="15" height="10" fill="currentColor"/>
-          <rect x="30" y="50" width="25" height="15" fill="currentColor"/>
-          <rect x="70" y="40" width="15" height="25" fill="currentColor"/>
-          <rect x="80" y="70" width="15" height="15" fill="currentColor"/>
-          <rect x="45" y="80" width="20" height="15" fill="currentColor"/>
-        </svg>
+
+      <!-- Feature Badges -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 280px;">
+        <span style="background: #f0fdf4; border: 1px solid #86efac; color: #15803d; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 20px;">⚡ Fast Load</span>
+        <span style="background: #eff6ff; border: 1px solid #93c5fd; color: #1d4ed8; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 20px;">📶 Works Offline</span>
+        <span style="background: #fef3c7; border: 1px solid #fde68a; color: #b45309; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 20px;">🏠 Home Screen</span>
+        <span style="background: #fdf2f8; border: 1px solid #f0abfc; color: #7e22ce; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 20px;">🔔 No App Store</span>
       </div>
-      
-      <div style="display: flex; gap: 10px; width: 100%; max-width: 280px; margin-top: var(--space-2);">
-        <a href="https://apps.apple.com" target="_blank" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: #000; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
-          🍎 App Store
-        </a>
-        <a href="https://play.google.com" target="_blank" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: #202124; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
-          🤖 Play Store
-        </a>
-      </div>
+
+      <!-- Install Section -->
+      ${installSection}
+
     </div>
   `;
 }

@@ -6,7 +6,16 @@
   <title>Cambodia Smart-Route & Branch Locator // Metfone Logistics</title>
   <meta name="description" content="Interactive map search for Cambodia branches, markets, and logistics routes by Metfone." />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#DA251D" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Metfone Express" />
   
   <!-- Google Fonts: Battambang (Khmer) + Inter (UI/Body) + Outfit (Headings) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +27,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
   <!-- Custom Smart Metfone CSS -->
-  <link rel="stylesheet" href="style.css?v=23.0" />
+  <link rel="stylesheet" href="style.css?v=25.0" />
 </head>
 <body>
 
@@ -122,8 +131,7 @@
           <button class="search-submit" id="searchBtn">Search</button>
         </div>
 
-        <!-- Mobile Quick Chips (Google Maps Category Style) -->
-        <div class="mobile-quick-chips" id="mobileQuickChips"></div>
+
 
         <!-- Autocomplete Dropdown -->
         <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
@@ -292,6 +300,14 @@
           <span class="menu-icon" style="font-size: 15px;">📲</span>
           <span class="menu-text">Get Mobile App</span>
         </button>
+
+        <!-- Browse by Province Dropdown -->
+        <button class="drawer-menu-item" id="drawerProvinceToggle" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border: none; background: transparent; width: 100%; text-align: left; font-size: 13.5px; font-weight: 600; color: #334155; cursor: pointer; transition: background 0.2s;">
+          <span class="menu-icon" style="font-size: 15px;">📍</span>
+          <span class="menu-text" style="flex:1;">Browse by Province</span>
+          <svg id="drawerProvinceChevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div id="drawerProvinceList" style="display: none; flex-direction: column; padding: 4px 0 8px 0; background: #fafafa;"></div>
       </div>
       <div class="drawer-footer" style="margin-top: auto; padding: var(--space-4); font-size: 10px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; font-family: var(--font-sans);">
         Metfone Logistics Network v2.0
@@ -302,6 +318,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
-  <script src="app.js?v=23.0"></script>
+  <script src="app.js?v=25.0"></script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+          .catch(err => console.warn('[PWA] Service Worker registration failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

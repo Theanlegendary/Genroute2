@@ -1236,11 +1236,16 @@ strong {
 
 @media (max-width: 768px) {
   .app-layout {
-    position: relative;
-    width: 100vw;
+    position: fixed;                  /* lock to viewport, prevents scroll bounce */
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
+    height: 100dvh;                   /* dynamic viewport — excludes browser chrome */
     overflow: hidden;
     display: block;
+    overscroll-behavior: none;        /* prevent iOS rubber-band bounce */
+    -webkit-overflow-scrolling: auto; /* prevent momentum scroll on the shell */
   }
   .sidebar {
     position: absolute;
@@ -1251,6 +1256,7 @@ strong {
     width: 100% !important;
     height: 100% !important;
     max-height: 100vh !important;
+    max-height: 100dvh !important;
     z-index: 999;
     background: transparent !important;
     border: none !important;
@@ -1285,34 +1291,45 @@ strong {
     display: none !important;
   }
 
-  /* Bottom sheet height toggle states */
-  /* Bottom sheet height toggle states on the content panel */
+  /* ── Bottom sheet: GPU-accelerated transform animation (no height reflow) ── */
   .sidebar-content {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
+    /* Fixed height = max expanded size. We slide it with translateY instead of
+       animating height — this avoids layout reflow and is compositor-only. */
+    height: 75vh;
+    height: 75dvh;
     background: var(--bg-card);
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     border-top: 1px solid #e2e8f0;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth GPU-accelerated slide */
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    transform: translateZ(0);         /* promote to own compositor layer */
     pointer-events: auto !important;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
 
+  /* Collapsed: show only grab handle (56px) */
   .sidebar.sheet-collapsed .sidebar-content {
-    height: 56px !important;
+    transform: translateY(calc(75vh - 56px));
+    transform: translateY(calc(75dvh - 56px));
   }
+  /* Peeking: show 45vh */
   .sidebar.sheet-peeking .sidebar-content {
-    height: 45vh !important;
+    transform: translateY(calc(75vh - 45vh));
+    transform: translateY(calc(75dvh - 45dvh));
   }
+  /* Expanded: fully open */
   .sidebar.sheet-expanded .sidebar-content {
-    height: 75vh !important;
+    transform: translateY(0);
   }
 
   /* Mobile Bottom Sheet Grab Handle / Indicator */
@@ -1331,7 +1348,9 @@ strong {
     cursor: pointer;
   }
 
-  /* Make the search box (grid-section) stick to the top of the mobile screen */
+  /* Make the search box (grid-section) stick to the top of the mobile screen.
+     Use transform: translateZ(0) to promote to own GPU layer → no repaints
+     when the bottom sheet animates behind it. */
   .sidebar .grid-section {
     position: fixed;
     top: 12px;
@@ -1345,6 +1364,7 @@ strong {
     padding: var(--space-2) var(--space-3) !important;
     margin: 0;
     border: 1px solid var(--sage-200);
+    transform: translateZ(0);       /* own compositor layer, prevents repaint flicker */
   }
 
   /* Result section below the floating search */
@@ -1353,9 +1373,12 @@ strong {
     padding-top: 18px; /* space for drag handle */
     flex-grow: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+    overscroll-behavior-y: contain;    /* prevent sheet scroll bleeding to page */
     display: flex;
     flex-direction: column;
     height: 100%;
+    touch-action: pan-y;               /* let finger scroll the list, not the map */
   }
 
   /* Position autocomplete dropdown below the floating search input */
@@ -1568,19 +1591,25 @@ strong {
     overflow: hidden;
   }
 
+  /* Results panel: always rendered (transform keeps sheet off-screen), 
+     only scrollable when visible — avoids display:none → display:block repaint flash */
   .results-panel {
-    display: none;
+    visibility: hidden;   /* hidden but keeps layout, no flash */
+    pointer-events: none;
   }
 
-  /* When sheet is peeking or expanded, show results */
-  .sidebar.sheet-peeking .sidebar-content,
-  .sidebar.sheet-expanded .sidebar-content {
-    overflow-y: auto;
-  }
-
+  /* When sheet is peeking or expanded, enable results panel */
   .sidebar.sheet-peeking .results-panel,
   .sidebar.sheet-expanded .results-panel {
+    visibility: visible !important;
+    pointer-events: auto !important;
     display: block !important;
+  }
+
+  /* sidebar-content scroll only when not collapsed */
+  .sidebar.sheet-peeking .sidebar-content,
+  .sidebar.sheet-expanded .sidebar-content {
+    overflow-y: visible;
   }
 
   /* The search grid-section is always visible (fixed at top) */
@@ -2364,7 +2393,9 @@ input:checked + .slider:before {
   
   /* Slide-out Drawer styles */
   .mobile-hamburger-drawer {
-    display: block !important;
+    /* NOTE: Do NOT set display:block here — JS controls visibility via inline style.
+       Forcing display:block would keep the drawer overlay rendered even when closed,
+       causing its .drawer-overlay child (pointer-events:auto) to block all touches. */
     position: fixed;
     top: 0;
     left: 0;
@@ -2418,47 +2449,7 @@ input:checked + .slider:before {
   }
 }
 
-/* Desktop default: hide mobile quick chips */
-.mobile-quick-chips {
-  display: none !important;
-}
-
-@media (max-width: 768px) {
-  .mobile-quick-chips {
-    display: flex !important;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 6px 2px 8px 2px;
-    margin-top: 8px;
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-  }
-  
-  .mobile-quick-chips::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Safari and Chrome */
-  }
-  
-  .quick-chip {
-    flex: 0 0 auto;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #334155;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    pointer-events: auto !important;
-  }
-  
-  .quick-chip:active {
-    background: #f1f5f9;
-    transform: scale(0.96);
-  }
+/* Province list inside hamburger drawer hover state */
+.drawer-province-item:hover {
+  background: #f1f5f9 !important;
 }

@@ -1244,22 +1244,20 @@ strong {
   }
   .sidebar {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     width: 100% !important;
-    height: 56px; /* Just nav bar height */
-    max-height: 80vh;
+    height: 100% !important;
+    max-height: 100vh !important;
     z-index: 999;
-    background: var(--bg-card);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-right: none;
-    border-top: 1px solid #e2e8f0;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
     display: flex;
     flex-direction: column;
-    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
   }
 
@@ -1285,24 +1283,37 @@ strong {
   }
 
   /* Bottom sheet height toggle states */
-  .sidebar.sheet-collapsed {
+  /* Bottom sheet height toggle states on the content panel */
+  .sidebar-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: var(--bg-card);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar.sheet-collapsed .sidebar-content {
     height: 56px !important;
   }
-  .sidebar.sheet-peeking {
+  .sidebar.sheet-peeking .sidebar-content {
     height: 45vh !important;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    overflow: visible;
   }
-  .sidebar.sheet-expanded {
+  .sidebar.sheet-expanded .sidebar-content {
     height: 75vh !important;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    overflow: visible;
   }
 
   /* Mobile Bottom Sheet Grab Handle / Indicator */
-  .sidebar::before {
+  .sidebar-content::before {
     content: "";
     display: block !important;
     position: absolute;

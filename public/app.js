@@ -2719,8 +2719,11 @@ function setupMobileDrawer() {
   sidebar.addEventListener('click', (e) => {
     if (window.innerWidth > 768) return;
 
-    // Detect if click happened in the top grab handle zone (top 32px)
-    const rect = sidebar.getBoundingClientRect();
+    const sidebarContent = sidebar.querySelector('.sidebar-content');
+    if (!sidebarContent) return;
+
+    // Detect if click happened in the top grab handle zone (top 38px of sidebar-content bottom sheet)
+    const rect = sidebarContent.getBoundingClientRect();
     const clickY = e.clientY - rect.top;
     
     if (clickY >= 0 && clickY <= 38) {

@@ -1260,6 +1260,9 @@ strong {
     flex-direction: column;
     overflow: hidden;
   }
+  .grid-section {
+    pointer-events: auto !important;
+  }
 
   .nav-rail {
     width: 100% !important;

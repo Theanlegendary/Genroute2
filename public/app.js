@@ -265,15 +265,12 @@ async function loadStats() {
 }
 
 async function loadClientData() {
+  // 1. Fetch pickup branches (authoritative post offices)
   try {
-    const [resRoutes, resBranches, resMarkets] = await Promise.all([
-      fetch(`/data/routes.json?t=${Date.now()}`).then(r => r.json()),
-      fetch(`/data/pickup_branches.json?t=${Date.now()}`).then(r => r.json()),
-      fetch(`/data/famous_markets.json?t=${Date.now()}`).then(r => r.json())
-    ]);
-
-    clientRoutes = resRoutes;
-    // Map pickup branches to include branch_id and market fields for consistent rendering
+    const resBranches = await fetch(`/data/pickup_branches.json?t=${Date.now()}`).then(r => {
+      if (!r.ok) throw new Error(`HTTP status ${r.status}`);
+      return r.json();
+    });
     clientBranches = resBranches.map(b => ({
       ...b,
       id: b.id || `po_${b.store_code}`,
@@ -287,9 +284,35 @@ async function loadClientData() {
       village_kh: '',
       google_maps_url: `https://www.google.com/maps?q=${b.latitude},${b.longitude}`
     }));
-    clientMarkets = resMarkets;
+    console.log(`✅ Loaded ${clientBranches.length} client branches`);
+  } catch (err) {
+    console.error('❌ Failed to load client branches database:', err);
+  }
 
-    // Merge famous markets into routes
+  // 2. Fetch routes
+  try {
+    clientRoutes = await fetch(`/data/routes.json?t=${Date.now()}`).then(r => {
+      if (!r.ok) throw new Error(`HTTP status ${r.status}`);
+      return r.json();
+    });
+    console.log(`✅ Loaded ${clientRoutes.length} client routes`);
+  } catch (err) {
+    console.error('❌ Failed to load client routes database:', err);
+  }
+
+  // 3. Fetch famous markets
+  try {
+    clientMarkets = await fetch(`/data/famous_markets.json?t=${Date.now()}`).then(r => {
+      if (!r.ok) throw new Error(`HTTP status ${r.status}`);
+      return r.json();
+    });
+    console.log(`✅ Loaded ${clientMarkets.length} client famous markets`);
+  } catch (err) {
+    console.error('❌ Failed to load client famous markets database:', err);
+  }
+
+  // 4. Merge famous markets into routes
+  try {
     const famousMarketsMerged = clientMarkets.map(m => ({
       ...m,
       isFamousMarket: true
@@ -311,8 +334,12 @@ async function loadClientData() {
       includeScore: true,
       minMatchCharLength: 2
     });
+  } catch (err) {
+    console.error('❌ Failed to initialize Fuse for markets:', err);
+  }
 
-    // Initialize Fuse.js on clientBranches (Branches)
+  // 5. Initialize Fuse.js on clientBranches (Branches)
+  try {
     clientBranchFuse = new Fuse(clientBranches, {
       keys: [
         { name: 'store_code',          weight: 0.30 },
@@ -325,6 +352,9 @@ async function loadClientData() {
       includeScore: true,
       minMatchCharLength: 2
     });
+  } catch (err) {
+    console.error('❌ Failed to initialize Fuse for branches:', err);
+  }
 
     // Build translation dictionaries
     const addTrans = (en, kh, isMarket = false) => {
@@ -711,7 +741,7 @@ async function showAutocomplete(q) {
         });
       }
       
-      // 2. Render Trending / Top Searches Today
+      // 2. Render Search by Province
       const headerTrending = document.createElement('div');
       headerTrending.style.padding = '10px 14px 4px 14px';
       headerTrending.style.fontSize = '9px';
@@ -720,12 +750,19 @@ async function showAutocomplete(q) {
       headerTrending.style.textTransform = 'uppercase';
       headerTrending.style.letterSpacing = '0.08em';
       headerTrending.style.fontFamily = 'var(--font-heading)';
-      headerTrending.innerHTML = '🔥 Top Searches Today (ពេញនិយម)';
+      headerTrending.innerHTML = '📍 Search by Province (ស្វែងរកតាមខេត្ត)';
       autocompleteDropdown.appendChild(headerTrending);
       
-      const trendingItems = getTopSearches();
+      const trendingProvinces = [
+        { name: 'Phnom Penh (ភ្នំពេញ)', value: 'Phnom Penh' },
+        { name: 'Kandal (កណ្តាល)', value: 'Kandal' },
+        { name: 'Battambang (បាត់ដំបង)', value: 'Battambang' },
+        { name: 'Siem Reap (សៀមរាប)', value: 'Siem Reap' },
+        { name: 'Prey Veng (ព្រៃវែង)', value: 'Prey Veng' },
+        { name: 'Takeo (តាកែវ)', value: 'Takeo' }
+      ];
       
-      trendingItems.forEach(item => {
+      trendingProvinces.forEach(item => {
         const acItem = document.createElement('div');
         acItem.className = 'ac-item';
         acItem.style.display = 'flex';
@@ -733,17 +770,20 @@ async function showAutocomplete(q) {
         acItem.style.padding = '8px 14px';
         acItem.style.cursor = 'pointer';
         acItem.innerHTML = `
-          <span class="ac-icon-marker" style="margin-right: 12px; font-size: 1.1rem; color: var(--metfone-red);">🔥</span>
+          <span class="ac-icon-marker" style="margin-right: 12px; font-size: 1.1rem; color: var(--metfone-red);">📍</span>
           <div class="ac-details" style="display: flex; flex-direction: column;">
             <span class="ac-label" style="font-size: 12.5px; font-weight: 600; color: #1e293b;">${item.name}</span>
           </div>
         `;
         acItem.addEventListener('click', (e) => {
           e.stopPropagation();
-          searchInput.value = item.q;
-          clearBtn.style.display = 'block';
+          if (provinceSelect) {
+            provinceSelect.value = item.value;
+            provinceSelect.dispatchEvent(new Event('change'));
+          }
+          searchInput.value = '';
+          clearBtn.style.display = 'none';
           closeAutocomplete();
-          runSmartFind();
         });
         autocompleteDropdown.appendChild(acItem);
       });
@@ -2698,35 +2738,13 @@ function getRecentSearches() {
 }
 
 function getTopSearches() {
-  const defaultTrending = [
-    { name: 'PNPP014 (Doun Penh)', q: 'PNPP014' },
-    { name: 'ផ្សារធំថ្មី (Central Market)', q: 'ផ្សារធំថ្មី' },
-    { name: 'ផ្សារព្រែកជ្រៃ (Prek Chrey)', q: 'ផ្សារព្រែកជ្រៃ' },
-    { name: 'ចោមចៅ (Chom Chao)', q: 'ចោមចៅ' },
-    { name: 'SREA001 (Siem Reap)', q: 'SREA001' }
+  return [
+    { name: 'Phnom Penh (ភ្នំពេញ)', q: 'PNPA001' },
+    { name: 'Battambang (បាត់ដំបង)', q: 'BATA001' },
+    { name: 'Siem Reap (សៀមរាប)', q: 'SREA001' },
+    { name: 'Kampong Cham (កំពង់ចាម)', q: 'KCHA001' },
+    { name: 'Kandal (កណ្តាល)', q: 'KAND001' }
   ];
-
-  try {
-    const counts = JSON.parse(localStorage.getItem('metfone_search_counts')) || {};
-    const sorted = Object.entries(counts)
-      .map(([query, count]) => ({ q: query, name: query, count }))
-      .sort((a, b) => b.count - a.count);
-
-    if (sorted.length === 0) {
-      return defaultTrending;
-    }
-
-    const merged = [...sorted];
-    defaultTrending.forEach(item => {
-      if (!merged.some(m => m.q.toLowerCase() === item.q.toLowerCase())) {
-        merged.push(item);
-      }
-    });
-
-    return merged.slice(0, 5);
-  } catch (e) {
-    return defaultTrending;
-  }
 }
 
 function incrementSearchCount(query) {
@@ -2746,25 +2764,28 @@ function renderWelcomeHintChips() {
   const container = document.getElementById('welcomeHintChips');
   if (!container) return;
   
-  const topSearches = getTopSearches();
+  const trendingProvinces = [
+    { name: 'Phnom Penh (ភ្នំពេញ)', value: 'Phnom Penh' },
+    { name: 'Kandal (កណ្តាល)', value: 'Kandal' },
+    { name: 'Battambang (បាត់ដំបង)', value: 'Battambang' },
+    { name: 'Siem Reap (សៀមរាប)', value: 'Siem Reap' },
+    { name: 'Prey Veng (ព្រៃវែង)', value: 'Prey Veng' },
+    { name: 'Takeo (តាកែវ)', value: 'Takeo' }
+  ];
+  
   container.innerHTML = '';
-  topSearches.forEach(item => {
+  trendingProvinces.forEach(item => {
     const btn = document.createElement('button');
     btn.className = 'hint-chip';
-    
-    let label = item.name;
-    const cleanQ = item.q.trim().toUpperCase();
-    const branch = clientBranches.find(b => b.branch_id && b.branch_id.toUpperCase() === cleanQ);
-    if (branch) {
-      label = `${branch.branch_id} (${branch.district || branch.district_kh})`;
-    }
-    
-    btn.textContent = label;
+    btn.textContent = item.name;
     btn.addEventListener('click', () => {
-      searchInput.value = item.q;
-      clearBtn.style.display = 'block';
+      if (provinceSelect) {
+        provinceSelect.value = item.value;
+        provinceSelect.dispatchEvent(new Event('change'));
+      }
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
       closeAutocomplete();
-      runSmartFind();
     });
     container.appendChild(btn);
   });

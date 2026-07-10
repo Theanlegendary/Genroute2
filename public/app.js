@@ -1426,7 +1426,11 @@ function learnLocationIfNew(selectedLoc) {
     if (!market || !latitude || !longitude) return;
 
     // Skip generic/placeholder names that aren't useful to remember
-    const genericNames = ['gps coordinates', 'google maps location', 'google maps link pin'];
+    const genericNames = [
+      'gps coordinates', 'google maps location', 'google maps link pin',
+      'google maps viewport', 'google maps query location', 'google maps url coordinates',
+      'google maps embedded coordinates', 'google maps page coordinates'
+    ];
     if (genericNames.some(g => market.toLowerCase().includes(g))) return;
 
     const source = google_maps_url && google_maps_url.includes('maps.app.goo.gl') ? 'google_maps_link'

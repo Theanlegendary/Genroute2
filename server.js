@@ -1071,6 +1071,27 @@ app.get('/api/google-geocode', async (req, res) => {
   res.status(404).json({ error: 'Coordinates not found' });
 });
 
+// Extracts the human-readable place name embedded in a Google Maps URL, if present.
+// Handles patterns like:
+//   /maps/place/Phsar+Chas/@11.56,104.92,17z/...
+//   /maps/place/ផ្សារចាស់/@...
+function extractPlaceNameFromUrl(urlStr) {
+  try {
+    const placeMatch = urlStr.match(/\/maps\/place\/([^\/@]+)/i);
+    if (placeMatch && placeMatch[1]) {
+      let name = decodeURIComponent(placeMatch[1].replace(/\+/g, ' ')).trim();
+      // Strip trailing coordinate-looking fragments or Place ID hashes just in case
+      name = name.replace(/^data=.*/i, '').trim();
+      if (name && !/^[-+]?\d+\.\d+,[-+]?\d+\.\d+$/.test(name)) {
+        return name;
+      }
+    }
+  } catch (e) {
+    // ignore malformed URL fragments
+  }
+  return null;
+}
+
 async function parseGoogleMapsLink(urlStr) {
   let targetUrl = urlStr.trim();
   try {
@@ -1095,6 +1116,9 @@ async function parseGoogleMapsLink(urlStr) {
     }
   }
 
+  // Try to extract the real place name embedded in the URL path (works for both short and long links once resolved)
+  const extractedName = extractPlaceNameFromUrl(targetUrl);
+
   // 1. Try to find !3d...!4d... parameters (more precise place pin location, choosing the last occurrence if multiple exist)
   const matches3d4d = [...targetUrl.matchAll(/!3d([-+]?\d+\.\d+)!4d([-+]?\d+\.\d+)/g)];
   if (matches3d4d.length > 0) {
@@ -1102,7 +1126,7 @@ async function parseGoogleMapsLink(urlStr) {
     return {
       lat: parseFloat(lastMatch[1]),
       lng: parseFloat(lastMatch[2]),
-      name: 'Google Maps Link Pin'
+      name: extractedName || 'Google Maps Link Pin'
     };
   }
 
@@ -1112,7 +1136,7 @@ async function parseGoogleMapsLink(urlStr) {
     return {
       lat: parseFloat(atCoords[1]),
       lng: parseFloat(atCoords[2]),
-      name: 'Google Maps Viewport'
+      name: extractedName || 'Google Maps Viewport'
     };
   }
 
@@ -1122,7 +1146,7 @@ async function parseGoogleMapsLink(urlStr) {
     return {
       lat: parseFloat(qCoords[2]),
       lng: parseFloat(qCoords[3]),
-      name: 'Google Maps Query Location'
+      name: extractedName || 'Google Maps Query Location'
     };
   }
 
@@ -1132,7 +1156,7 @@ async function parseGoogleMapsLink(urlStr) {
     return {
       lat: parseFloat(generalCoords[1]),
       lng: parseFloat(generalCoords[2]),
-      name: 'Google Maps URL Coordinates'
+      name: extractedName || 'Google Maps URL Coordinates'
     };
   }
 
@@ -1145,12 +1169,21 @@ async function parseGoogleMapsLink(urlStr) {
     });
     if (res.ok) {
       const html = await res.text();
+
+      // Try to pull the place name out of the page <title> as a last-resort name source
+      let titleName = null;
+      const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+      if (titleMatch && titleMatch[1]) {
+        titleName = titleMatch[1].replace(/\s*-\s*Google Maps\s*$/i, '').trim();
+        if (!titleName || /^google maps$/i.test(titleName)) titleName = null;
+      }
+
       const staticMapMatch = html.match(/center=([-+]?\d+\.\d+)(?:%2C|,)([-+]?\d+\.\d+)/i);
       if (staticMapMatch) {
         return {
           lat: parseFloat(staticMapMatch[1]),
           lng: parseFloat(staticMapMatch[2]),
-          name: 'Google Maps Embedded Coordinates'
+          name: extractedName || titleName || 'Google Maps Embedded Coordinates'
         };
       }
       const initMatch = html.match(/\[\[\s*([-+]?\d+\.\d+)\s*,\s*([-+]?\d+\.\d+)\s*\]/);
@@ -1158,7 +1191,7 @@ async function parseGoogleMapsLink(urlStr) {
         return {
           lat: parseFloat(initMatch[1]),
           lng: parseFloat(initMatch[2]),
-          name: 'Google Maps Page Coordinates'
+          name: extractedName || titleName || 'Google Maps Page Coordinates'
         };
       }
     }

@@ -333,6 +333,20 @@ async function loadClientData() {
     console.error('❌ Failed to load client routes database:', err);
   }
 
+  // 2.5 Fetch auto-learned locations (grown from user searches / pasted Google Maps links)
+  try {
+    const learned = await fetch(`/data/learned_locations.json?t=${Date.now()}`).then(r => {
+      if (!r.ok) return [];
+      return r.json();
+    });
+    if (Array.isArray(learned) && learned.length > 0) {
+      clientRoutes = [...clientRoutes, ...learned];
+      console.log(`✅ Merged ${learned.length} auto-learned locations into client routes`);
+    }
+  } catch (err) {
+    console.warn('⚠️ Could not load learned_locations.json (non-critical):', err.message);
+  }
+
   // 3. Fetch famous markets
   try {
     clientMarkets = await fetch(`/data/famous_markets.json?t=${Date.now()}`).then(r => {
@@ -1200,6 +1214,12 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
   currentResults = allMatchedLocs || [selectedLoc];
   showState('loading');
   expandMobileDrawer('sheet-peeking');
+
+  // Auto-learn: if this location came from an external geocoder (Google/Mapbox/Nominatim)
+  // or a pasted Google Maps link rather than our own local database, save it so future
+  // searches for the same place are instant and accurate.
+  learnLocationIfNew(selectedLoc);
+
   try {
     const radius = 30; // Max 30km
     const province = provinceSelect ? provinceSelect.value : '';
@@ -1386,6 +1406,47 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
     if (resultsCount) {
       resultsCount.textContent = `Error finding nearby branches: ${e.message}`;
     }
+  }
+}
+
+// Auto-grow the local database: silently save geocoded/pasted-link locations
+// (fire-and-forget, never blocks the UI, never shows errors to the user)
+function learnLocationIfNew(selectedLoc) {
+  try {
+    if (!selectedLoc || !selectedLoc.id) return;
+
+    // Only learn locations that came from an external geocoder or pasted link —
+    // those get a synthetic id starting with 'target_'. Locations already found
+    // in our own local database keep their original numeric/string id and don't
+    // need to be re-learned.
+    const isExternal = String(selectedLoc.id).startsWith('target_');
+    if (!isExternal) return;
+
+    const { market, market_kh, latitude, longitude, google_maps_url } = selectedLoc;
+    if (!market || !latitude || !longitude) return;
+
+    // Skip generic/placeholder names that aren't useful to remember
+    const genericNames = ['gps coordinates', 'google maps location', 'google maps link pin'];
+    if (genericNames.some(g => market.toLowerCase().includes(g))) return;
+
+    const source = google_maps_url && google_maps_url.includes('maps.app.goo.gl') ? 'google_maps_link'
+      : (google_maps_url && /maps\.google\.com|www\.google\.com\/maps/.test(google_maps_url) && selectedLoc.market && !selectedLoc.market.startsWith('GPS')) ? 'geocode'
+      : 'geocode';
+
+    fetch('/api/learn-location', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: market,
+        name_kh: market_kh || '',
+        latitude,
+        longitude,
+        source,
+        query: (searchInput && searchInput.value) ? searchInput.value.trim() : ''
+      })
+    }).catch(() => { /* silent — never bother the user with background learning failures */ });
+  } catch (e) {
+    // Never let learning errors affect the main search experience
   }
 }
 

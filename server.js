@@ -2095,6 +2095,94 @@ app.get('/api/smart-find', async (req, res) => {
 });
 
 /**
+ * POST /api/learn-location
+ * Automatically grows the local database with new locations discovered via
+ * geocoding results or user-pasted Google Maps links. Saves to a separate
+ * "learned_locations.json" file (kept apart from curated famous_markets.json
+ * so you can review/promote entries later if you want).
+ */
+const LEARNED_LOCATIONS_PATH = path.join(__dirname, 'data', 'learned_locations.json');
+let learnedLocations = [];
+try {
+  if (fs.existsSync(LEARNED_LOCATIONS_PATH)) {
+    learnedLocations = JSON.parse(fs.readFileSync(LEARNED_LOCATIONS_PATH, 'utf-8'));
+    console.log(`✅ Loaded ${learnedLocations.length} learned location records`);
+  }
+} catch (err) {
+  console.error('❌ Failed to load learned_locations.json:', err.message);
+  learnedLocations = [];
+}
+
+app.post('/api/learn-location', (req, res) => {
+  try {
+    const { name, name_kh, latitude, longitude, source, query } = req.body;
+
+    const lat = parseFloat(latitude);
+    const lng = parseFloat(longitude);
+
+    if (!name || isNaN(lat) || isNaN(lng)) {
+      return res.status(400).json({ error: 'name, latitude, and longitude are required' });
+    }
+    if (!isWithinCambodia(lat, lng)) {
+      return res.status(400).json({ error: 'Coordinates are outside Cambodia, skipped' });
+    }
+
+    const normName = normalizeKhmer(name);
+
+    // Dedup check against existing routes, famous markets, and already-learned locations
+    const existsNearby = (list) => list.some(item => {
+      const itemName = normalizeKhmer(item.market || item.name || '');
+      if (!itemName || itemName !== normName) return false;
+      const d = haversine(lat, lng, item.latitude, item.longitude);
+      return d < 0.5; // within 500m and same name = duplicate
+    });
+
+    if (existsNearby(routes) || existsNearby(famousMarkets) || existsNearby(learnedLocations)) {
+      return res.json({ success: true, message: 'Location already known, skipped duplicate' });
+    }
+
+    const newEntry = {
+      id: `learned_${Date.now()}`,
+      market: name,
+      market_kh: name_kh || '',
+      latitude: lat,
+      longitude: lng,
+      google_maps_url: `https://www.google.com/maps?q=${lat},${lng}`,
+      source: source || 'geocode',
+      original_query: query || '',
+      learned_at: new Date().toISOString()
+    };
+
+    learnedLocations.push(newEntry);
+
+    // Cap the file size defensively (keep most recent 5000 entries)
+    if (learnedLocations.length > 5000) {
+      learnedLocations = learnedLocations.slice(-5000);
+    }
+
+    fs.writeFileSync(LEARNED_LOCATIONS_PATH, JSON.stringify(learnedLocations, null, 2), 'utf-8');
+
+    // Merge into in-memory routes so it's searchable immediately without restart
+    routes.push({ ...newEntry, province: '', province_kh: '', district: '', district_kh: '' });
+    initializeFuse();
+
+    console.log(`📚 Learned new location: "${name}" (${lat}, ${lng}) from ${source || 'geocode'}`);
+    res.json({ success: true, message: 'Location learned and added to database', entry: newEntry });
+  } catch (err) {
+    console.error('Failed to learn new location:', err.message);
+    res.status(500).json({ error: 'Failed to save learned location' });
+  }
+});
+
+/**
+ * GET /api/learned-locations
+ * View all auto-learned locations (for review)
+ */
+app.get('/api/learned-locations', (req, res) => {
+  res.json({ total: learnedLocations.length, locations: learnedLocations });
+});
+
+/**
  * POST /api/update-market-coords
  * Update market coordinates and persist to routes.json
  */

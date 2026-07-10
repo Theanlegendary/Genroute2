@@ -2245,9 +2245,9 @@ function getPopupAddressHtml(item) {
     btnHtml = `
       <button onclick="event.stopPropagation(); copyToClipboard('${escapedVal}', this);" 
               title="Copy District" 
-              style="margin-left: 4px; border: none; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; padding: 2px; color: #f97316; transition: transform 0.2s;"
-              onmouseover="this.style.transform='scale=1.15)'" 
-              onmouseout="this.style.transform='scale(1)'">
+              style="margin-left: 2px; border: none; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; padding: 8px; border-radius: 50%; color: #f97316; transition: all 0.2s;"
+              onmouseover="this.style.transform='scale=1.15)'; this.style.backgroundColor='rgba(249,115,22,0.1)';" 
+              onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='transparent';">
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
           <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -2256,7 +2256,7 @@ function getPopupAddressHtml(item) {
     `;
   }
   
-  return `<span style="display: inline-flex; align-items: center; gap: 4px;">${escHtml(displayAddr)}${btnHtml}</span>`;
+  return `<span style="display: inline-flex; align-items: center; gap: 2px;">${escHtml(displayAddr)}${btnHtml}</span>`;
 }
 
 // Khmer spelling unicode normalization helper

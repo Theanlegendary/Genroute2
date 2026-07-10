@@ -602,10 +602,12 @@ function setupEventListeners() {
   const navSearch = document.getElementById('navSearch');
   const navSaved = document.getElementById('navSaved');
   const navRecents = document.getElementById('navRecents');
+  const navGetApp = document.getElementById('navGetApp');
   
   if (navSearch) navSearch.addEventListener('click', () => switchTab('search'));
   if (navSaved) navSaved.addEventListener('click', () => switchTab('saved'));
   if (navRecents) navRecents.addEventListener('click', () => switchTab('recents'));
+  if (navGetApp) navGetApp.addEventListener('click', () => switchTab('getApp'));
 
   // Clear search input
   clearBtn.addEventListener('click', () => {
@@ -3035,19 +3037,67 @@ function switchTab(tabId) {
     if (currentResults && currentResults.length > 0) {
       showState('welcome');
       renderResultsList(currentResults, false);
+      expandMobileDrawer('sheet-expanded');
     } else {
       showState('welcome');
       if (resultsCount) resultsCount.innerHTML = '';
+      expandMobileDrawer('sheet-peeking');
     }
   } else if (tabId === 'saved') {
     if (searchSection) searchSection.style.display = 'none';
     renderSavedBranchesList();
+    expandMobileDrawer('sheet-peeking');
   } else if (tabId === 'recents') {
     if (searchSection) searchSection.style.display = 'none';
     renderRecentSearchesList();
+    expandMobileDrawer('sheet-peeking');
+  } else if (tabId === 'getApp') {
+    if (searchSection) searchSection.style.display = 'none';
+    renderGetAppPage();
+    expandMobileDrawer('sheet-peeking');
   }
 }
 window.switchTab = switchTab;
+
+function renderGetAppPage() {
+  resultsList.innerHTML = `
+    <div style="padding: 24px var(--space-4); text-align: center; font-family: var(--font-sans); display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="background: rgba(218, 37, 29, 0.08); border: 1.5px solid rgba(218, 37, 29, 0.2); display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 20px; font-size: 2rem; box-shadow: 0 4px 12px rgba(218,37,29,0.1);">
+        📲
+      </div>
+      <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">Get Metfone Express App</h3>
+      <p style="font-size: 12.5px; color: #64748b; line-height: 1.5; margin: 0; max-width: 280px;">Scan the QR code below or tap to download the official logistics application for fast route calculation.</p>
+      
+      <!-- Styled mock QR Code using CSS/SVG -->
+      <div style="border: 2px dashed #cbd5e1; padding: 12px; border-radius: 16px; background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-top: 8px;">
+        <svg width="140" height="140" viewBox="0 0 100 100" style="color: #1e293b;">
+          <rect x="5" y="5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="10" y="10" width="15" height="15" fill="currentColor"/>
+          <rect x="70" y="5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="75" y="10" width="15" height="15" fill="currentColor"/>
+          <rect x="5" y="70" width="25" height="25" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="10" y="75" width="15" height="15" fill="currentColor"/>
+          <rect x="40" y="5" width="10" height="15" fill="currentColor"/>
+          <rect x="40" y="30" width="20" height="10" fill="currentColor"/>
+          <rect x="5" y="40" width="15" height="10" fill="currentColor"/>
+          <rect x="30" y="50" width="25" height="15" fill="currentColor"/>
+          <rect x="70" y="40" width="15" height="25" fill="currentColor"/>
+          <rect x="80" y="70" width="15" height="15" fill="currentColor"/>
+          <rect x="45" y="80" width="20" height="15" fill="currentColor"/>
+        </svg>
+      </div>
+      
+      <div style="display: flex; gap: 10px; width: 100%; max-width: 280px; margin-top: var(--space-2);">
+        <a href="https://apps.apple.com" target="_blank" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: #000; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
+          🍎 App Store
+        </a>
+        <a href="https://play.google.com" target="_blank" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: #202124; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
+          🤖 Play Store
+        </a>
+      </div>
+    </div>
+  `;
+}
 
 // Sidebar Resizer Handler
 function setupSidebarResizer() {

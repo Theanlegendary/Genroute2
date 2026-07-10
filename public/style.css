@@ -1301,9 +1301,17 @@ strong {
     overflow: visible;
   }
 
-  /* Hide drag handle on mobile */
+  /* Mobile Bottom Sheet Grab Handle / Indicator */
   .sidebar::before {
-    display: none !important;
+    content: "";
+    display: block !important;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 5px;
+    background-color: #cbd5e1;
     border-radius: 3px;
     z-index: 1001;
     cursor: pointer;
@@ -1492,9 +1500,9 @@ strong {
     display: none !important;
   }
 
-  /* Hide welcome state on mobile — user sees map directly */
+  /* Show welcome state on mobile when sheet is expanded/peeking */
   #stateWelcome {
-    display: none !important;
+    display: flex !important;
   }
 
   /* Hide search remark on mobile */

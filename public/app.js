@@ -273,6 +273,7 @@ const selectedMarketIcon = L.divIcon({
 
 // Initialize Application
 (async function init() {
+  const startTime = Date.now();
   initMap();
   setupThemeSwitcher();
   await loadClientData();
@@ -286,6 +287,23 @@ const selectedMarketIcon = L.divIcon({
   renderMobileQuickChips(); // Initialize category chips for mobile
   // Clear/empty map state at startup
   showState('welcome');
+
+  // Enforce a minimum of 4 seconds loading screen for branding & training presentation stability
+  const elapsed = Date.now() - startTime;
+  const minWait = 4000;
+  if (elapsed < minWait) {
+    await new Promise(resolve => setTimeout(resolve, minWait - elapsed));
+  }
+
+  // Fade out and hide the loading overlay
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 500);
+  }
 })();
 
 // Initialize Leaflet Map

@@ -28,8 +28,37 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
   <!-- Custom Smart Metfone CSS -->
   <link rel="stylesheet" href="style.css?v=30.0" />
+  <style>
+    @keyframes pulse-overlay {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(220, 38, 38, 0.45); }
+      50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(220, 38, 38, 0.7); }
+    }
+    @keyframes spin-overlay {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Full-Screen Loading Overlay -->
+  <div id="loadingOverlay" style="position: fixed; inset: 0; background: #0f172a; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; transition: opacity 0.5s ease, visibility 0.5s; font-family: 'Inter', sans-serif; text-align: center;">
+    <div style="max-width: 400px; padding: 20px;">
+      <!-- Metfone Express Styled Icon with Pulsing Effect -->
+      <div style="background: rgba(220, 38, 38, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; border: 2.5px solid #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.45); animation: pulse-overlay 2s infinite;">
+        <span style="font-size: 2.5rem; line-height: 1; transform: translateY(-2px);">📮</span>
+      </div>
+      <h2 style="font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 8px 0;">Metfone Express Grid</h2>
+      <p style="font-size: 13px; color: #fca5a5; margin-bottom: 24px; font-family: 'Battambang', sans-serif;">ប្រព័ន្ធស្វែងរកការិយាល័យប្រៃសណីយ៍</p>
+      
+      <!-- Spinner -->
+      <div style="width: 40px; height: 40px; border: 4px solid rgba(220, 38, 38, 0.25); border-top-color: #dc2626; border-radius: 50%; animation: spin-overlay 1s linear infinite; margin: 0 auto 24px auto;"></div>
+      
+      <p style="font-size: 12px; color: #94a3b8; font-weight: 500; line-height: 1.6;">
+        Loading database, please wait...<br>
+        <span style="font-family: 'Battambang', sans-serif;">កំពុងទាញយកទិន្នន័យ សូមរង់ចាំមួយភ្លែត</span>
+      </p>
+    </div>
+  </div>
 
   <div class="app-layout">
     

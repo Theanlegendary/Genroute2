@@ -522,6 +522,16 @@ function findNearestRouteMarket(lat, lng, maxDist = 3.0, province = '') {
 
 
 
+function convertKhmerToArabicDigits(str) {
+  if (!str) return "";
+  return str.replace(/[០-៩]/g, d => String.fromCharCode(d.charCodeAt(0) - 0x17E0 + 48));
+}
+
+function convertArabicToKhmerDigits(str) {
+  if (!str) return "";
+  return str.replace(/[0-9]/g, d => String.fromCharCode(d.charCodeAt(0) - 48 + 0x17E0));
+}
+
 /** Check if a route matches a free-text query (Unicode normalized and case-insensitive) */
 function normalizeKhmer(str) {
   if (!str) return "";
@@ -530,6 +540,8 @@ function normalizeKhmer(str) {
   normalized = normalized.replace(/\u17C1\u17B8/g, "\u17BE"); // decomposed vowel OE (េី -> ើ)
   normalized = normalized.replace(/\u17C1\u17B6/g, "\u17C4"); // decomposed vowel OO (េា -> ោ)
   normalized = normalized.replace(/\u200B/g, "");             // zero-width space
+  // Normalize Khmer numerals to Arabic numerals (០-៩ -> 0-9)
+  normalized = convertKhmerToArabicDigits(normalized);
   return normalized;
 }
 
@@ -1715,155 +1727,176 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     }
   }
 
-  // Build the search query string, restricting strictly to Cambodia
-  const searchQuery = province ? `${processedQuery}, ${province}, Cambodia` : `${processedQuery}, Cambodia`;
-  const enSearchQuery = (translatedQuery && province) 
-    ? `${translatedQuery}, ${province}, Cambodia` 
-    : (translatedQuery ? `${translatedQuery}, Cambodia` : '');
+  // Helper to generate search candidates for numeric queries (switching 2004 <-> ២០០៤ and trying street/st/ផ្លូវ prefixes)
+  function getGeocodeCandidates(qStr) {
+    const norm = qStr.trim();
+    const list = [norm];
 
-  // Check if query is a numeric or alphanumeric street name (like "24BT", "271", "2004", "10B")
-  const isStreetNum = /^[0-9០-៩a-zA-Z\s]+$/.test(processedQuery) && /[0-9០-៩]/.test(processedQuery) && !/\b(street|st|road|way|ផ្លូវ)\b/i.test(processedQuery);
+    const khmer = convertArabicToKhmerDigits(norm);
+    const arabic = convertKhmerToArabicDigits(norm);
+
+    if (khmer !== norm) list.push(khmer);
+    if (arabic !== norm && arabic !== khmer) list.push(arabic);
+
+    const isStreet = /^[0-9០-៩a-zA-Z\s]+$/.test(norm) && /[0-9០-៩]/.test(norm) && !/\b(street|st|road|way|ផ្លូវ)\b/i.test(norm);
+    if (isStreet) {
+      const addPrefixes = (val) => {
+        list.push(`street ${val}`);
+        list.push(`ផ្លូវ ${val}`);
+      };
+      addPrefixes(norm);
+      if (khmer !== norm) addPrefixes(khmer);
+      if (arabic !== norm && arabic !== khmer) addPrefixes(arabic);
+    }
+    return Array.from(new Set(list));
+  }
+
+  const candidates = getGeocodeCandidates(processedQuery);
+  console.log(`🔍 Geocode candidates for "${processedQuery}":`, candidates);
 
   // 0.8 Try Google Geocoding first (if API key is available) — most accurate, matches Google Maps app results
-  let googleResult = await queryGoogleGeocode(enSearchQuery || searchQuery, province);
-  if (!googleResult && isStreetNum) {
-    const streetQuery = `street ${processedQuery}`;
-    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
-    console.log(`🔍 Google geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
-    googleResult = await queryGoogleGeocode(streetSearchQuery, province);
-  }
-  if (googleResult) {
-    console.log(`🎯 Geocoded successfully via Google: "${enSearchQuery || searchQuery}"`);
-    if (googleResult.type !== 'multiple') {
-      saveToGeocodingCache(query, googleResult.lat, googleResult.lng, googleResult.name);
+  for (const cand of candidates) {
+    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
+    const candEnSearchQuery = (translatedQuery && province) 
+      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
+      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
+
+    const googleResult = await queryGoogleGeocode(candEnSearchQuery || candSearchQuery, province);
+    if (googleResult) {
+      console.log(`🎯 Geocoded successfully via Google: "${candEnSearchQuery || candSearchQuery}"`);
+      if (googleResult.type !== 'multiple') {
+        saveToGeocodingCache(query, googleResult.lat, googleResult.lng, googleResult.name);
+      }
+      return googleResult;
     }
-    return googleResult;
   }
 
   // 0.9 Try Mapbox Geocoding next (if token is available)
-  let mapboxResult = await queryMapboxGeocode(enSearchQuery || searchQuery);
-  if (!mapboxResult && isStreetNum) {
-    const streetQuery = `street ${processedQuery}`;
-    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
-    console.log(`🔍 Mapbox geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
-    mapboxResult = await queryMapboxGeocode(streetSearchQuery);
-  }
-  if (mapboxResult) {
-    console.log(`🎯 Geocoded successfully via Mapbox: "${enSearchQuery || searchQuery}"`);
-    if (mapboxResult.type !== 'multiple') {
-      saveToGeocodingCache(query, mapboxResult.lat, mapboxResult.lng, mapboxResult.name);
+  for (const cand of candidates) {
+    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
+    const candEnSearchQuery = (translatedQuery && province) 
+      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
+      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
+
+    const mapboxResult = await queryMapboxGeocode(candEnSearchQuery || candSearchQuery);
+    if (mapboxResult) {
+      console.log(`🎯 Geocoded successfully via Mapbox: "${candEnSearchQuery || candSearchQuery}"`);
+      if (mapboxResult.type !== 'multiple') {
+        saveToGeocodingCache(query, mapboxResult.lat, mapboxResult.lng, mapboxResult.name);
+      }
+      return mapboxResult;
     }
-    return mapboxResult;
   }
 
   // 1. Try to geocode the query directly using Nominatim/Photon first (free, fast, and no rate limits)
-  const qToNom = enSearchQuery || searchQuery;
-  let nomResults = await queryNominatim(qToNom, 5, province);
-  
-  if ((!nomResults || nomResults.length === 0) && isStreetNum) {
-    const streetQuery = `street ${processedQuery}`;
-    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
-    console.log(`🔍 Nominatim geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
-    nomResults = await queryNominatim(streetSearchQuery, 5, province);
-  }
+  for (const cand of candidates) {
+    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
+    const candEnSearchQuery = (translatedQuery && province) 
+      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
+      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
 
-  if (!nomResults || nomResults.length === 0) {
-    const strippedQuery = stripAdministrativePrefixes(processedQuery);
-    if (strippedQuery && strippedQuery !== processedQuery) {
-      const strippedSearchQuery = province ? `${strippedQuery}, ${province}, Cambodia` : `${strippedQuery}, Cambodia`;
-      console.log(`🔍 Direct geocode failed. Retrying with stripped prefixes: "${strippedSearchQuery}"`);
-      nomResults = await queryNominatim(strippedSearchQuery, 5, province);
-    }
-  }
-
-  if (nomResults && nomResults.length > 0) {
-    // Sort results: prioritize Phnom Penh matches first if no specific province is selected!
-    if (!province) {
-      nomResults.sort((a, b) => {
-        const aPP = (a.display_name || '').toLowerCase().includes('phnom penh');
-        const bPP = (b.display_name || '').toLowerCase().includes('phnom penh');
-        if (aPP && !bPP) return -1;
-        if (!aPP && bPP) return 1;
-        return 0;
-      });
+    const qToNom = candEnSearchQuery || candSearchQuery;
+    let nomResults = await queryNominatim(qToNom, 5, province);
+    
+    if (!nomResults || nomResults.length === 0) {
+      const strippedQuery = stripAdministrativePrefixes(cand);
+      if (strippedQuery && strippedQuery !== cand) {
+        const strippedSearchQuery = province ? `${strippedQuery}, ${province}, Cambodia` : `${strippedQuery}, Cambodia`;
+        console.log(`🔍 Direct geocode failed. Retrying with stripped prefixes: "${strippedSearchQuery}"`);
+        nomResults = await queryNominatim(strippedSearchQuery, 5, province);
+      }
     }
 
-    if (nomResults.length === 1) {
-      const r = nomResults[0];
-      const lat = parseFloat(r.lat);
-      const lng = parseFloat(r.lon);
-      // Enrich with local inferred province/district fields
-      const inf = inferProvinceAndDistrict(lat, lng);
-      const addr = r.address || {};
-      const resVal = {
-        lat, lng,
-        name: r.name || r.display_name.split(',')[0] || query,
-        province:    inf.province    || addr.state || addr.county || '',
-        province_kh: inf.province_kh || '',
-        district:    inf.district    || addr.city  || addr.town  || addr.village || '',
-        district_kh: inf.district_kh || '',
-        commune:     addr.suburb     || addr.neighbourhood || '',
-        commune_kh:  '',
-        village:     '',
-        village_kh:  ''
-      };
-      saveToGeocodingCache(query, lat, lng, resVal.name);
-      return resVal;
-    } else {
-      return {
-        type: 'multiple',
-        results: nomResults.map((r, idx) => {
-          const lat = parseFloat(r.lat);
-          const lng = parseFloat(r.lon);
-          const addr = r.address || {};
-          const inf = inferProvinceAndDistrict(lat, lng);
-          // Extract the most specific name from Nominatim's address hierarchy
-          const locName = r.name
-            || addr.hamlet || addr.village || addr.suburb
-            || addr.neighbourhood || addr.town || addr.city
-            || r.display_name.split(',')[0];
-          const commune = addr.suburb || addr.neighbourhood || addr.hamlet || '';
-          const district = inf.district || addr.city || addr.town || addr.village || addr.county || '';
-          const province = inf.province || addr.state || addr.county || '';
-          return {
-            id: 'target_' + idx + '_' + Date.now(),
-            market:      locName,
-            market_kh:   '',
-            latitude:    lat,
-            longitude:   lng,
-            province:    province,
-            province_kh: inf.province_kh || '',
-            district:    district,
-            district_kh: inf.district_kh || '',
-            commune:     commune,
-            commune_kh:  '',
-            village:     '',
-            village_kh:  '',
-            display_name: r.display_name,
-            google_maps_url: `https://www.google.com/maps?q=${lat},${lng}`
-          };
-        })
-      };
+    if (nomResults && nomResults.length > 0) {
+      // Sort results: prioritize Phnom Penh matches first if no specific province is selected!
+      if (!province) {
+        nomResults.sort((a, b) => {
+          const aPP = (a.display_name || '').toLowerCase().includes('phnom penh');
+          const bPP = (b.display_name || '').toLowerCase().includes('phnom penh');
+          if (aPP && !bPP) return -1;
+          if (!aPP && bPP) return 1;
+          return 0;
+        });
+      }
+
+      if (nomResults.length === 1) {
+        const r = nomResults[0];
+        const lat = parseFloat(r.lat);
+        const lng = parseFloat(r.lon);
+        // Enrich with local inferred province/district fields
+        const inf = inferProvinceAndDistrict(lat, lng);
+        const addr = r.address || {};
+        const resVal = {
+          lat, lng,
+          name: r.name || r.display_name.split(',')[0] || query,
+          province:    inf.province    || addr.state || addr.county || '',
+          province_kh: inf.province_kh || '',
+          district:    inf.district    || addr.city  || addr.town  || addr.village || '',
+          district_kh: inf.district_kh || '',
+          commune:     addr.suburb     || addr.neighbourhood || '',
+          commune_kh:  '',
+          village:     '',
+          village_kh:  ''
+        };
+        saveToGeocodingCache(query, lat, lng, resVal.name);
+        return resVal;
+      } else {
+        return {
+          type: 'multiple',
+          results: nomResults.map((r, idx) => {
+            const lat = parseFloat(r.lat);
+            const lng = parseFloat(r.lon);
+            const addr = r.address || {};
+            const inf = inferProvinceAndDistrict(lat, lng);
+            // Extract the most specific name from Nominatim's address hierarchy
+            const locName = r.name
+              || addr.hamlet || addr.village || addr.suburb
+              || addr.neighbourhood || addr.town || addr.city
+              || r.display_name.split(',')[0];
+            const commune = addr.suburb || addr.neighbourhood || addr.hamlet || '';
+            const district = inf.district || addr.city || addr.town || addr.village || addr.county || '';
+            const province = inf.province || addr.state || addr.county || '';
+            return {
+              id: 'target_' + idx + '_' + Date.now(),
+              market:      locName,
+              market_kh:   '',
+              latitude:    lat,
+              longitude:   lng,
+              province:    province,
+              province_kh: inf.province_kh || '',
+              district:    district,
+              district_kh: inf.district_kh || '',
+              commune:     commune,
+              commune_kh:  '',
+              village:     '',
+              village_kh:  '',
+              display_name: r.display_name,
+              google_maps_url: `https://www.google.com/maps?q=${lat},${lng}`
+            };
+          })
+        };
+      }
     }
   }
 
   // 2. Try Google Maps HTML crawler geocoding next as fallback (gives the exact Google Maps coordinates & coverage)
-  try {
-    const qToCrawl = enSearchQuery || searchQuery;
-    let googleCoords = await crawlGoogleMapsCoords(qToCrawl);
-    if (!googleCoords && isStreetNum) {
-      const streetQuery = `street ${processedQuery}`;
-      const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
-      console.log(`🔍 Google Maps Crawler geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
-      googleCoords = await crawlGoogleMapsCoords(streetSearchQuery);
+  for (const cand of candidates) {
+    try {
+      const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
+      const candEnSearchQuery = (translatedQuery && province) 
+        ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
+        : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
+
+      const qToCrawl = candEnSearchQuery || candSearchQuery;
+      const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
+      if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
+        console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
+        saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
+        return googleCoords;
+      }
+    } catch (err) {
+      console.error('Google Maps Crawler direct geocode failed:', err.message);
     }
-    if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
-      console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
-      saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
-      return googleCoords;
-    }
-  } catch (err) {
-    console.error('Google Maps Crawler direct geocode failed:', err.message);
   }
 
   // 2. If it fails, query Google Autocomplete suggestions to get the corrected spelling

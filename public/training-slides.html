@@ -1,296 +1,495 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Metfone Express — Training Slides</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Metfone Express — Map Search Training</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --red: #dc2626; --red-dark: #991b1b; --red-light: #fef2f2; --red-mid: #fecaca;
-    --white: #ffffff; --slate: #1e293b; --muted: #64748b; --bg: #0f172a;
+  :root{
+    --red:#D71920;
+    --red-2:#B91319;
+    --ink:#171717;
+    --muted:#6A6A6A;
+    --paper:#F5F3EF;
+    --white:#FFFFFF;
+    --line:#DAD7D2;
+    --line-strong:#B9B5AF;
+    --green:#167A45;
+    --amber:#A35A00;
+    --blue:#2B5F8B;
+    --shadow:0 18px 50px rgba(22,22,22,.10);
   }
-  html, body { width:100%; height:100%; overflow:hidden; font-family:'Inter','Hanuman',sans-serif; background:var(--bg); }
-  .deck { width:100vw; height:100vh; position:relative; }
-  .slide {
-    position:absolute; inset:0; display:flex; flex-direction:column;
-    justify-content:center; align-items:center; padding:48px 64px;
-    opacity:0; pointer-events:none; transform:translateX(60px);
-    transition:opacity 0.45s cubic-bezier(.4,0,.2,1), transform 0.45s cubic-bezier(.4,0,.2,1);
-    text-align:center;
+
+  *{box-sizing:border-box}
+  html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#111;color:var(--ink);font-family:"Segoe UI","Noto Sans Khmer","Khmer OS Battambang",Arial,sans-serif}
+  button{font:inherit}
+  svg{display:block}
+
+  .deck{position:relative;width:100vw;height:100vh;background:#111}
+  .slide{
+    position:absolute;inset:0;
+    display:grid;grid-template-columns:74px 1fr;
+    background:var(--paper);
+    opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .28s ease,transform .36s cubic-bezier(.2,.8,.2,1)
   }
-  .slide.active { opacity:1; pointer-events:all; transform:translateX(0); }
-  .slide.out-left { opacity:0; transform:translateX(-60px); }
-  .slide-hero  { background:linear-gradient(145deg,#1e0505 0%,#3b0e0e 40%,#7f1d1d 100%); }
-  .slide-light { background:linear-gradient(145deg,#fff8f8 0%,#fff 60%,#fef2f2 100%); }
-  .slide-dark  { background:linear-gradient(145deg,#0f172a 0%,#1e293b 100%); }
-  .slide-accent{ background:linear-gradient(145deg,#dc2626 0%,#7f1d1d 100%); }
-  .tag { display:inline-block; background:rgba(220,38,38,0.18); color:#fca5a5; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:5px 14px; border-radius:30px; margin-bottom:20px; border:1px solid rgba(220,38,38,0.3); }
-  .slide-hero .tag, .slide-accent .tag { background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.2); }
-  h1 { font-size:clamp(2.2rem,5vw,4rem); font-weight:900; line-height:1.1; }
-  h2 { font-size:clamp(1.6rem,3.5vw,2.8rem); font-weight:800; line-height:1.2; }
-  h3 { font-size:clamp(1.1rem,2.5vw,1.6rem); font-weight:700; line-height:1.3; }
-  p  { font-size:clamp(0.9rem,1.8vw,1.15rem); line-height:1.7; }
-  .kh { font-family:'Hanuman',sans-serif; }
-  .red { color:var(--red); } .muted { color:var(--muted); } .white { color:#fff; } .light-red { color:#fca5a5; }
-  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:900px; }
-  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; width:100%; max-width:960px; }
-  .grid-5 { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; width:100%; max-width:1000px; }
-  .card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:22px 20px; backdrop-filter:blur(10px); }
-  .card-light { background:#fff; border:1.5px solid #fee2e2; border-radius:16px; padding:22px 20px; box-shadow:0 4px 24px rgba(220,38,38,0.08); }
-  .method { display:flex; flex-direction:column; align-items:center; gap:10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:18px 12px; transition:transform 0.2s; }
-  .method:hover { transform:translateY(-3px); }
-  .method .icon { font-size:2rem; line-height:1; }
-  .method h4 { font-size:12px; font-weight:700; color:#fff; text-align:center; margin-top:2px; }
-  .method code { font-size:10px; background:rgba(220,38,38,0.25); color:#fca5a5; padding:3px 8px; border-radius:6px; font-family:monospace; text-align:center; word-break:break-all; }
-  .pill { display:inline-block; background:#fef2f2; border:1.5px solid #fecaca; color:#dc2626; font-weight:700; font-size:13px; padding:4px 14px; border-radius:20px; }
-  .pill-dark { display:inline-block; background:rgba(220,38,38,0.2); border:1px solid rgba(220,38,38,0.35); color:#fca5a5; font-weight:700; font-size:13px; padding:4px 14px; border-radius:20px; }
-  .do-dont { display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%; max-width:860px; }
-  .do-box   { background:#f0fdf4; border:2px solid #86efac; border-radius:14px; padding:20px; text-align:left; }
-  .dont-box { background:#fef2f2; border:2px solid #fecaca; border-radius:14px; padding:20px; text-align:left; }
-  .do-box h4   { color:#16a34a; font-size:13px; font-weight:800; letter-spacing:0.08em; margin-bottom:10px; }
-  .dont-box h4 { color:#dc2626; font-size:13px; font-weight:800; letter-spacing:0.08em; margin-bottom:10px; }
-  .do-box li, .dont-box li { font-size:13px; color:#334155; line-height:2; list-style:none; }
-  .do-box li::before { content:"✅ "; } .dont-box li::before { content:"❌ "; }
-  .prov-badge { display:inline-flex; align-items:center; gap:5px; background:#fef2f2; border:1.5px solid #fecaca; color:#dc2626; font-weight:700; font-size:13px; padding:4px 12px; border-radius:20px; }
-  .nav { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:100; background:rgba(15,23,42,0.85); border:1px solid rgba(255,255,255,0.1); padding:10px 20px; border-radius:40px; backdrop-filter:blur(12px); }
-  .nav-btn { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; transition:all 0.2s; }
-  .nav-btn:hover { background:var(--red); border-color:var(--red); }
-  .nav-dots { display:flex; gap:7px; align-items:center; }
-  .dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all 0.2s; }
-  .dot.active { background:var(--red); width:22px; border-radius:4px; }
-  .slide-num { position:fixed; top:22px; right:28px; font-size:12px; color:rgba(255,255,255,0.3); font-weight:600; z-index:100; }
-  .logo-badge { display:inline-flex; align-items:center; gap:10px; background:rgba(220,38,38,0.15); border:1px solid rgba(220,38,38,0.3); border-radius:12px; padding:8px 16px; margin-bottom:24px; }
-  .logo-text { font-size:14px; font-weight:800; color:#fca5a5; letter-spacing:0.05em; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .float { animation:float 3s ease-in-out infinite; }
-  .divider { width:60px; height:4px; background:var(--red); border-radius:2px; margin:16px auto; }
-  .big-emoji { font-size:clamp(3rem,8vw,5rem); line-height:1; margin-bottom:16px; }
-  .step { display:flex; align-items:flex-start; gap:14px; text-align:left; margin-bottom:14px; }
-  .step-num { flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--red); color:#fff; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; }
-  .step-text { font-size:14px; line-height:1.6; color:#334155; }
-  .step-text strong { color:#1e293b; }
+  .slide.active{opacity:1;pointer-events:auto;transform:none}
+  .slide.leaving{transform:translateX(-24px)}
+
+  .rail{
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+    padding:22px 0 20px;background:#EFECE7
+  }
+  .rail.red{background:var(--red);border-right:0;color:#fff}
+  .brand-mark{width:34px;height:34px;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px;letter-spacing:-.04em}
+  .rail.red .brand-mark{background:#fff;color:var(--red)}
+  .rail-num{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#777}
+  .rail.red .rail-num{color:rgba(255,255,255,.7)}
+  .rail-line{width:1px;height:120px;background:var(--line-strong)}
+  .rail.red .rail-line{background:rgba(255,255,255,.35)}
+  .rail-page{font-size:11px;font-weight:800;color:#777}
+  .rail.red .rail-page{color:#fff}
+
+  .page{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto;padding:30px 46px 26px 48px;position:relative;overflow:hidden}
+  .page.red-page{background:var(--red);color:#fff}
+  .page.white-page{background:#fff}
+
+  .top{display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;z-index:2}
+  .label{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--red)}
+  .red-page .label{color:rgba(255,255,255,.8)}
+  .meta{font-size:11px;color:#777}
+  .red-page .meta{color:rgba(255,255,255,.62)}
+
+  .stage{min-height:0;display:grid;align-items:center;position:relative;z-index:1}
+  .stage.two{grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);gap:46px}
+  .stage.two.wide-left{grid-template-columns:minmax(500px,1.12fr) minmax(360px,.88fr)}
+  .stage.split{grid-template-columns:1fr 1px 1fr;gap:40px}
+
+  h1,h2,h3,p{margin:0}
+  h1{font-size:clamp(3.3rem,7vw,7rem);line-height:.88;letter-spacing:-.065em;font-weight:860;max-width:880px}
+  h2{font-size:clamp(2.5rem,5.2vw,5.1rem);line-height:.96;letter-spacing:-.055em;font-weight:840;max-width:900px}
+  h3{font-size:clamp(1.12rem,1.7vw,1.45rem);line-height:1.25;letter-spacing:-.02em}
+  .lede{margin-top:22px;max-width:680px;font-size:clamp(1rem,1.55vw,1.24rem);line-height:1.65;color:var(--muted)}
+  .red-page .lede{color:rgba(255,255,255,.82)}
+  .kh{font-family:"Noto Sans Khmer","Khmer OS Battambang","Segoe UI",sans-serif}
+  .kh-block{display:block;margin-top:12px;font-size:.88em;line-height:1.7;letter-spacing:0}
+  .red-text{color:var(--red)}
+  .small-note{font-size:12px;line-height:1.55;color:#777}
+  .red-page .small-note{color:rgba(255,255,255,.64)}
+
+  .footer{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;position:relative;z-index:2}
+  .footer-rule{height:1px;background:var(--line);flex:1;margin-bottom:6px}
+  .red-page .footer-rule{background:rgba(255,255,255,.26)}
+  .footer-text{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888}
+  .red-page .footer-text{color:rgba(255,255,255,.58)}
+
+  /* cover */
+  .cover-copy{align-self:center;position:relative;z-index:2}
+  .cover-copy .overline{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:22px}
+  .cover-copy .overline::before{content:"";width:38px;height:3px;background:#fff}
+  .cover-sub{margin-top:28px;max-width:620px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.82)}
+  .cover-art{position:relative;width:100%;height:min(66vh,650px);min-height:440px;align-self:center}
+  .map-sheet{position:absolute;inset:6% 1% 2% 10%;background:#F1EEE8;border:1px solid rgba(255,255,255,.35);box-shadow:0 26px 70px rgba(79,0,4,.28);transform:rotate(1.2deg);overflow:hidden}
+  .map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,30,30,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,30,30,.06) 1px,transparent 1px);background-size:34px 34px}
+  .road{position:absolute;height:12px;background:#D9D5CE;border:1px solid #C9C4BC;transform-origin:left center}
+  .road.r1{width:82%;left:7%;top:25%;transform:rotate(18deg)}
+  .road.r2{width:70%;left:16%;top:71%;transform:rotate(-27deg)}
+  .road.r3{width:58%;left:38%;top:7%;transform:rotate(77deg)}
+  .river{position:absolute;left:52%;top:-12%;width:82px;height:130%;background:#C9D9E6;transform:rotate(11deg);border-left:1px solid #B8CAD8;border-right:1px solid #B8CAD8}
+  .pin-large{position:absolute;left:59%;top:46%;width:54px;height:54px;border-radius:50% 50% 50% 8px;background:var(--red);transform:rotate(-45deg);box-shadow:0 18px 28px rgba(215,25,32,.24)}
+  .pin-large::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;left:18px;top:18px}
+  .map-label{position:absolute;left:52%;top:65%;background:#fff;padding:12px 14px;border:1px solid #CFCBC4;font-size:12px;font-weight:800;box-shadow:0 10px 24px rgba(20,20,20,.10)}
+  .paper-note{position:absolute;right:1%;top:8%;background:#FFF7C6;color:#2A2618;padding:14px 16px;width:190px;box-shadow:0 10px 24px rgba(50,22,0,.16);transform:rotate(4deg);font-size:12px;line-height:1.45}
+  .paper-note b{display:block;margin-bottom:4px}
+  .search-strip{position:absolute;left:0;bottom:6%;width:76%;background:#fff;border:1px solid #D6D1C9;padding:16px 18px;display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:12px;box-shadow:0 18px 40px rgba(36,12,12,.18);transform:rotate(-1deg)}
+  .search-strip b{font-size:14px}.search-strip span{font-size:11px;color:#777}.search-action{background:var(--red);color:#fff;padding:10px 14px;font-size:11px;font-weight:800}
+
+  /* chat / inputs */
+  .chat-board{background:#EFEDE9;border:1px solid var(--line-strong);padding:24px 22px;min-height:470px;box-shadow:var(--shadow);position:relative}
+  .chat-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #D5D1CB;padding-bottom:14px;margin-bottom:20px}
+  .chat-person{display:flex;align-items:center;gap:11px}
+  .avatar{width:38px;height:38px;border-radius:50%;background:#D7D2CB;display:grid;place-items:center;font-size:12px;font-weight:900;color:#555}
+  .chat-person b{display:block;font-size:13px}.chat-person span{font-size:11px;color:#777}
+  .bubble{max-width:74%;padding:11px 14px;margin:10px 0;font-size:13px;line-height:1.45}
+  .bubble.in{background:#fff;border:1px solid #D5D1CB}
+  .bubble.out{background:#242424;color:#fff;margin-left:auto}
+  .bubble small{display:block;margin-top:4px;color:#8A8A8A;font-size:10px}
+  .bubble.out small{color:#BDBDBD}
+  .chat-footer{position:absolute;left:22px;right:22px;bottom:20px;height:46px;border:1px solid #D5D1CB;background:#fff;display:flex;align-items:center;padding:0 14px;color:#999;font-size:12px}
+  .input-list{display:grid;gap:0;border-top:1px solid var(--line-strong)}
+  .input-row{display:grid;grid-template-columns:48px 160px 1fr 90px;align-items:center;gap:16px;padding:17px 0;border-bottom:1px solid var(--line)}
+  .input-no{font-size:12px;font-weight:900;color:var(--red)}
+  .input-name{font-size:14px;font-weight:800}
+  .input-example{font-size:13px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .reliability{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;text-align:right}
+  .high{color:var(--green)}.mid{color:var(--amber)}
+
+  /* walkthrough */
+  .process{display:grid;grid-template-columns:1fr 38px 1fr 38px 1fr;align-items:stretch;gap:12px}
+  .process-step{background:#fff;border:1px solid var(--line-strong);padding:22px 20px;min-height:350px;display:flex;flex-direction:column}
+  .process-step .num{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.12em;text-transform:uppercase}
+  .process-step h3{margin-top:12px}.process-step p{margin-top:10px;font-size:12px;line-height:1.55;color:#6B6B6B}
+  .arrow{display:grid;place-items:center;color:#8A8680}
+  .mini-phone{margin-top:18px;border:1px solid #CFCBC4;background:#F5F4F1;padding:10px;flex:1}
+  .mini-phone .bar{height:14px;width:44%;background:#D7D3CD;margin-bottom:12px}
+  .mini-phone .line{height:9px;background:#E1DED8;margin:8px 0}.mini-phone .line.short{width:62%}
+  .mini-link{margin-top:18px;background:#F1EEE8;border:1px solid #D4D0C9;padding:12px;font-size:11px;line-height:1.5;word-break:break-all;color:#454545}
+  .mini-search{margin-top:18px;border:2px solid var(--red);background:#fff;padding:13px;font-size:12px}
+  .mini-result{margin-top:12px;border:1px solid #D4D0C9;background:#fff;padding:12px}.mini-result b{display:block;font-size:12px}.mini-result span{display:block;margin-top:5px;font-size:10px;color:#777}
+
+  /* verify result */
+  .result-panel{background:#fff;border:1px solid var(--line-strong);box-shadow:var(--shadow);padding:0;overflow:hidden}
+  .result-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);font-size:11px;color:#777}
+  .result-map{height:210px;background:#EEECE7;position:relative;overflow:hidden}
+  .result-map::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(30,30,30,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,30,30,.05) 1px,transparent 1px);background-size:28px 28px}
+  .result-map .mroad{position:absolute;height:10px;background:#D0CCC5;transform-origin:left center}.result-map .mroad.a{width:85%;left:4%;top:38%;transform:rotate(12deg)}.result-map .mroad.b{width:70%;left:20%;top:76%;transform:rotate(-24deg)}
+  .result-pin{position:absolute;left:57%;top:42%;width:28px;height:28px;border-radius:50% 50% 50% 4px;background:var(--red);transform:rotate(-45deg)}
+  .result-body{padding:18px 20px}
+  .result-title{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.result-title h3{font-size:19px}.distance{font-size:11px;font-weight:800;color:var(--green)}
+  .detail-table{margin-top:16px;border-top:1px solid var(--line)}
+  .detail-row{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .detail-row span:first-child{color:#777}.detail-row strong{font-weight:800}
+  .detail-row.province-row{margin:0 -20px;padding-left:20px;padding-right:20px;background:#FFF0F0;border-bottom:1px solid #F1C5C7}
+  .verify-list{margin-top:28px;display:grid;gap:16px}
+  .verify-item{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
+  .check{width:26px;height:26px;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:12px;font-weight:900}
+  .verify-item b{display:block;font-size:13px}.verify-item span{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:#707070}
+
+  /* ambiguity */
+  .split-line{width:1px;height:75%;background:var(--line-strong);align-self:center}
+  .place-case{padding:8px 12px 8px 0}
+  .place-case.right{padding:8px 0 8px 12px}
+  .case-tag{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+  .place-case h3{font-size:28px;margin-top:12px}.place-case .khname{font-size:17px;margin-top:6px;color:#555}
+  .case-map{margin-top:22px;height:180px;background:#EEECE7;border:1px solid var(--line-strong);position:relative;overflow:hidden}
+  .case-map::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(30,30,30,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,30,30,.05) 1px,transparent 1px);background-size:26px 26px}
+  .case-map .dotpin{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--red);left:58%;top:45%;box-shadow:0 0 0 7px rgba(215,25,32,.16)}
+  .case-data{margin-top:18px;display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:12px}.case-data dt{color:#777}.case-data dd{margin:0;font-weight:700}
+  .decision{margin-top:18px;border-left:3px solid var(--red);padding-left:14px;font-size:12px;line-height:1.55;color:#555}
+
+  /* recovery */
+  .recovery-grid{display:grid;grid-template-columns:260px 1fr;gap:34px}
+  .query-card{background:#1E1E1E;color:#fff;padding:20px;min-height:350px;display:flex;flex-direction:column;justify-content:space-between}
+  .query-card .query{font-size:28px;font-weight:850;letter-spacing:-.03em;word-break:break-word}.query-card .sub{margin-top:10px;font-size:12px;color:#BDBDBD;line-height:1.6}
+  .no-result{border-top:1px solid #454545;padding-top:16px;font-size:11px;color:#D7D7D7}
+  .cascade{border-top:1px solid var(--line-strong)}
+  .cascade-row{display:grid;grid-template-columns:54px 150px 1fr auto;gap:16px;align-items:center;padding:17px 0;border-bottom:1px solid var(--line)}
+  .cascade-row .stepn{font-size:11px;font-weight:900;color:#8A8580}.cascade-row.active .stepn{color:var(--red)}
+  .cascade-row b{font-size:13px}.cascade-row span{font-size:12px;color:#707070}.cascade-row .state{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.state.failed{color:#9B3A3A}.state.found{color:var(--green)}
+  .cascade-row.active{background:#FFF7F7;margin:0 -18px;padding-left:18px;padding-right:18px}
+
+  /* final */
+  .cheat{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
+  .checks{border-top:1px solid rgba(255,255,255,.4);margin-top:32px}
+  .check-row{display:grid;grid-template-columns:50px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.25)}
+  .check-row .n{font-size:11px;font-weight:900;color:rgba(255,255,255,.7)}.check-row b{display:block;font-size:16px}.check-row span{display:block;margin-top:5px;font-size:12px;color:rgba(255,255,255,.68);line-height:1.55}
+  .desk-card{background:#fff;color:var(--ink);padding:26px;box-shadow:0 22px 60px rgba(88,0,4,.28);transform:rotate(1deg)}
+  .desk-card .head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px}.desk-card .head b{font-size:12px}.desk-card .head span{font-size:10px;color:#777}
+  .final-search{margin-top:20px;border:1.5px solid #B9B5AF;padding:14px 15px;display:flex;justify-content:space-between;gap:10px;font-size:12px}.final-search button{border:0;background:var(--red);color:#fff;padding:8px 12px;font-size:10px;font-weight:900}
+  .final-result{margin-top:14px;border:1px solid var(--line);padding:14px}.final-result b{display:block;font-size:14px}.final-result span{display:block;margin-top:5px;font-size:11px;color:#777}
+  .approved{margin-top:18px;border:2px solid var(--green);color:var(--green);padding:11px;text-align:center;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-1deg)}
+
+  /* navigation */
+  .nav{position:fixed;right:24px;bottom:20px;z-index:100;display:flex;align-items:center;gap:7px;background:#171717;padding:7px}
+  .nav button{width:34px;height:34px;border:1px solid #3B3B3B;background:#222;color:#fff;cursor:pointer;display:grid;place-items:center;font-size:18px}
+  .nav button:hover{background:var(--red);border-color:var(--red)}
+  .progress{display:flex;gap:5px;padding:0 6px}.progress i{width:16px;height:2px;background:#555;display:block;cursor:pointer}.progress i.active{background:#fff}
+
+  .red-stroke{position:absolute;width:110px;height:12px;background:var(--red);opacity:.95;transform:rotate(-2deg)}
+  .hand-note{position:absolute;font-family:"Segoe Print","Comic Sans MS",cursive;font-size:13px;color:var(--red);transform:rotate(-4deg)}
+
+  @media (max-width:980px){
+    .slide{grid-template-columns:54px 1fr}.page{padding:24px 26px 22px 28px}.stage.two,.stage.two.wide-left,.cheat{grid-template-columns:1fr;gap:24px}.stage{overflow:auto;padding:20px 0}.cover-art{height:410px}.process{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.stage.split{grid-template-columns:1fr}.split-line{width:100%;height:1px}.recovery-grid{grid-template-columns:1fr}.query-card{min-height:230px}.chat-board{min-height:430px}.input-row{grid-template-columns:36px 120px 1fr}.reliability{display:none}.nav{right:12px;bottom:12px}
+  }
+  @media (max-width:640px){
+    .slide{grid-template-columns:1fr}.rail{display:none}.page{padding:20px 18px 72px}.top{align-items:flex-start}.meta{display:none}h1{font-size:3.5rem}h2{font-size:2.7rem}.cover-art{height:360px;min-height:360px}.paper-note{display:none}.search-strip{width:92%}.process-step{min-height:280px}.input-row{grid-template-columns:28px 100px 1fr;gap:8px}.case-data{grid-template-columns:90px 1fr}.result-map{height:160px}.nav{left:50%;right:auto;transform:translateX(-50%)}
+  }
 </style>
 </head>
 <body>
-<div class="slide-num" id="slideNum">1 / 8</div>
 <div class="deck" id="deck">
 
-  <!-- SLIDE 1: HERO -->
-  <div class="slide slide-hero active" data-slide="0">
-    <div class="logo-badge"><span style="font-size:18px;">📮</span><span class="logo-text">METFONE EXPRESS</span></div>
-    <h1 class="white float" style="max-width:800px;">ការប្រើប្រាស់ Map<br><span style="color:#fca5a5;">Search System</span></h1>
-    <div class="divider"></div>
-    <p class="light-red" style="margin-top:8px; max-width:560px;">Training Guide · ការណែនាំការប្រើប្រាស់<br><span style="opacity:0.6;font-size:0.85em;">Press → or click arrow to advance</span></p>
-    <div style="margin-top:36px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
-      <span class="pill-dark">📍 Find nearest PO branch</span>
-      <span class="pill-dark">🗺️ Map-based routing</span>
-      <span class="pill-dark">🔍 Smart search</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 2: 5 WAYS -->
-  <div class="slide slide-dark" data-slide="1">
-    <div class="tag">How to Search · របៀបស្វែងរក</div>
-    <h2 class="white" style="margin-bottom:8px;">5 Ways to Find a Location</h2>
-    <p class="muted" style="margin-bottom:28px;font-size:14px;">Use any of these methods — all work!</p>
-    <div class="grid-5">
-      <div class="method"><div class="icon">🏪</div><h4>Market Name</h4><code>ផ្សារថ្មី</code><code>psar thmey</code></div>
-      <div class="method"><div class="icon">📮</div><h4>Branch Code</h4><code>PNPP014</code><code>SRP001</code></div>
-      <div class="method"><div class="icon">🗺️</div><h4>Google Maps Link</h4><code>maps.app.goo.gl/...</code></div>
-      <div class="method"><div class="icon">📡</div><h4>GPS Coordinates</h4><code>11.5566, 104.9282</code></div>
-      <div class="method"><div class="icon">🏙️</div><h4>Province Dropdown</h4><code>Select from list</code></div>
-    </div>
-  </div>
-
-  <!-- SLIDE 3: GOOGLE MAPS LINK -->
-  <div class="slide slide-light" data-slide="2">
-    <div class="tag" style="background:#fee2e2;color:#dc2626;border-color:#fecaca;">Pro Tip · ល្អបំផុត</div>
-    <h2 style="color:#1e293b;">Google Maps Link = <span class="red">Always Works</span></h2>
-    <div class="divider"></div>
-    <p style="color:#475569;max-width:580px;margin-bottom:28px;">When you're not sure what to type — just copy the link from Google Maps.<br><span class="kh" style="color:#dc2626;font-weight:600;">នៅពេលមិនដឹងវាយអ្វី — ចម្លង link ពី Google Maps</span></p>
-    <div style="width:100%;max-width:700px;">
-      <div class="step"><div class="step-num">1</div><div class="step-text">Open <strong>Google Maps</strong> on your phone · <span class="kh">បើក Google Maps នៅលើទូរស័ព្ទ</span></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">Find the location and tap it · <span class="kh">រកឃើញកន្លែង ចុចលើវា</span></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text">Tap <strong>"Share"</strong> and copy the link · <span class="kh">ចុច "Share" ហើយចម្លង link</span></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-text">Paste into the search box · <span class="kh">ដាក់ link ក្នុងប្រអប់ស្វែងរក</span></div></div>
-    </div>
-    <div style="margin-top:20px;background:#fef2f2;border:2px solid #fecaca;border-radius:14px;padding:14px 20px;">
-      <p style="font-size:13px;color:#dc2626;font-weight:700;">📋 Example:</p>
-      <code style="font-size:12px;color:#7f1d1d;">https://maps.app.goo.gl/XYZ123ABC</code>
-    </div>
-  </div>
-
-  <!-- SLIDE 4: RED PROVINCE BADGE -->
-  <div class="slide slide-dark" data-slide="3">
-    <div class="tag">New Feature · លក្ខណៈថ្មី</div>
-    <h2 class="white">Province <span style="color:#fca5a5;">Highlighted in Red</span></h2>
-    <div class="divider"></div>
-    <p class="muted" style="max-width:600px;margin-bottom:28px;">Every result now shows the province as a <strong style="color:#fca5a5;">red pill badge</strong> — instantly verify you got the right location!<br><span class="kh" style="font-size:14px;">ខេត្តបង្ហាញជាស្លាកក្រហម — ងាយពិនិត្យ!</span></p>
-    <div class="grid-2" style="max-width:760px;">
-      <div class="card">
-        <p style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:10px;text-align:left;">📮 BRANCH RESULT CARD</p>
-        <div style="background:#1e293b;border-radius:10px;padding:14px;text-align:left;">
-          <div style="display:flex;gap:8px;margin-bottom:8px;"><span style="background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;">PNPP014</span><span style="background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;">2.3 km</span></div>
-          <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:4px;">ព្រៃសា Post Office</p>
-          <p style="color:#94a3b8;font-size:11px;margin-bottom:8px;">District: Dangkao · ដង្កោ</p>
-          <span class="prov-badge">📍 Phnom Penh · ភ្នំពេញ</span>
+  <!-- 01 COVER -->
+  <section class="slide active" data-index="0">
+    <aside class="rail red">
+      <div class="brand-mark">M</div>
+      <div class="rail-num">Metfone Express · Internal Training</div>
+      <div class="rail-line"></div>
+      <div class="rail-page">01</div>
+    </aside>
+    <main class="page red-page">
+      <header class="top"><div class="label">Map Search Training</div><div class="meta">Operations guide · 2026</div></header>
+      <div class="stage two">
+        <div class="cover-copy">
+          <div class="overline">Find the right destination</div>
+          <h1>Right branch.<br>First time.</h1>
+          <p class="cover-sub">A practical guide for finding a customer’s location, checking the province, and avoiding a wrong route.</p>
+          <p class="cover-sub kh" style="font-size:16px;margin-top:14px">ស្វែងរកទីតាំងឱ្យត្រឹមត្រូវ ពិនិត្យខេត្ត ហើយជៀសវាងការបញ្ជូនខុសផ្លូវ។</p>
         </div>
-      </div>
-      <div class="card">
-        <p style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:10px;text-align:left;">📍 PROVINCE PICKER</p>
-        <div style="background:#1e293b;border-radius:10px;padding:14px;text-align:left;">
-          <p style="color:#fca5a5;font-size:11px;margin-bottom:8px;">Found 2 Matches. Please choose:</p>
-          <div style="border-left:4px solid #dc2626;padding:10px;margin-bottom:8px;background:rgba(220,38,38,0.08);border-radius:6px;">
-            <p style="color:#fff;font-size:12px;font-weight:700;">ផ្សារចាស់ (Siem Reap)</p>
-            <span class="prov-badge" style="font-size:10px;margin-top:5px;display:inline-flex;">📍 Siem Reap · សៀមរាប</span>
+        <div class="cover-art" aria-label="Map search illustration">
+          <div class="map-sheet">
+            <div class="map-grid"></div><div class="river"></div><div class="road r1"></div><div class="road r2"></div><div class="road r3"></div>
+            <div class="pin-large"></div><div class="map-label">Chamkar Doung Branch<br><span style="font-weight:500;color:#777">Phnom Penh · 2.3 km</span></div>
           </div>
-          <div style="border-left:4px solid #dc2626;padding:10px;background:rgba(220,38,38,0.08);border-radius:6px;">
-            <p style="color:#fff;font-size:12px;font-weight:700;">ផ្សារចាស់ (Phnom Penh)</p>
-            <span class="prov-badge" style="font-size:10px;margin-top:5px;display:inline-flex;">📍 Phnom Penh · ភ្នំពេញ</span>
+          <div class="paper-note"><b>Before confirming</b>Check province, district and branch code.</div>
+          <div class="search-strip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D71920" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <div><b>ផ្សារទួលពង្រ</b><span>Search by Khmer, English or map link</span></div><div class="search-action">SEARCH</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <footer class="footer"><div class="footer-text">Metfone Express</div><div class="footer-rule"></div><div class="footer-text">Location & route accuracy</div></footer>
+    </main>
+  </section>
 
-  <!-- SLIDE 5: PSAR CHAS -->
-  <div class="slide slide-accent" data-slide="4">
-    <div class="tag">Smart Disambiguation · ការជ្រើសរើស</div>
-    <h2 class="white">ផ្សារចាស់ — Which Province?</h2>
-    <div class="divider" style="background:rgba(255,255,255,0.4);"></div>
-    <p style="color:rgba(255,255,255,0.85);max-width:580px;margin-bottom:28px;">"Psar Chas" exists in <strong>both Siem Reap and Phnom Penh.</strong><br>The system now asks you to choose — no more wrong province!</p>
-    <div class="grid-2" style="max-width:760px;">
-      <div style="background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.2);border-radius:16px;padding:22px;text-align:left;">
-        <div style="font-size:2rem;margin-bottom:10px;">🏛️</div>
-        <h3 class="white">Siem Reap</h3>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin-top:6px;line-height:1.6;">Near Pub Street · Tourist area<br>Souvenirs, silk, street food<br><strong style="color:#fde68a;">Most internationally famous</strong></p>
+  <!-- 02 START WITH WHAT CUSTOMER GIVES -->
+  <section class="slide" data-index="1">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Start with the customer</div><div class="rail-line"></div><div class="rail-page">02</div></aside>
+    <main class="page white-page">
+      <header class="top"><div class="label">01 · Receive the location</div><div class="meta">Do not guess the place from memory</div></header>
+      <div class="stage two wide-left">
+        <div>
+          <h2>Start with what the customer actually sends.</h2>
+          <p class="lede">A customer may send a market name, a branch code, a map link, or only the province. Use the strongest information first.</p>
+          <p class="lede kh" style="font-size:15px;margin-top:12px">អតិថិជនអាចផ្ញើឈ្មោះផ្សារ លេខកូដសាខា Link ផែនទី ឬខេត្តតែប៉ុណ្ណោះ។ ប្រើព័ត៌មានដែលច្បាស់ជាងគេមុន។</p>
+          <div class="input-list" style="margin-top:28px">
+            <div class="input-row"><div class="input-no">01</div><div class="input-name">Google Maps link</div><div class="input-example">maps.app.goo.gl/…</div><div class="reliability high">Most reliable</div></div>
+            <div class="input-row"><div class="input-no">02</div><div class="input-name">Branch code</div><div class="input-example">PNPP014</div><div class="reliability high">Exact</div></div>
+            <div class="input-row"><div class="input-no">03</div><div class="input-name">Coordinates</div><div class="input-example">11.5566, 104.9282</div><div class="reliability high">Exact point</div></div>
+            <div class="input-row"><div class="input-no">04</div><div class="input-name">Place name</div><div class="input-example">ផ្សារចាស់ / Psar Chas</div><div class="reliability mid">Verify province</div></div>
+          </div>
+        </div>
+        <div class="chat-board">
+          <div class="chat-head"><div class="chat-person"><div class="avatar">SK</div><div><b>Sokha Customer</b><span>Online now</span></div></div><span style="font-size:11px;color:#777">10:24 AM</span></div>
+          <div class="bubble in kh">បង ផ្ញើទៅផ្សារចាស់បានទេ?<small>Customer message</small></div>
+          <div class="bubble out kh">ផ្សារចាស់នៅខេត្តណាបង?<small>Ask one clear question</small></div>
+          <div class="bubble in kh">សៀមរាប ជិត Pub Street<small>Province + landmark</small></div>
+          <div class="bubble in">https://maps.app.goo.gl/…<small>Best input</small></div>
+          <div class="chat-footer">Type a reply…</div>
+          <div class="hand-note" style="right:22px;top:212px">Ask for province</div>
+        </div>
       </div>
-      <div style="background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.2);border-radius:16px;padding:22px;text-align:left;">
-        <div style="font-size:2rem;margin-bottom:10px;">🏙️</div>
-        <h3 class="white">Phnom Penh</h3>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin-top:6px;line-height:1.6;">Doun Penh District · Riverfront<br>Local market, everyday commerce<br><strong style="color:#fde68a;">Used by Cambodian locals</strong></p>
-      </div>
-    </div>
-    <p style="margin-top:22px;color:rgba(255,255,255,0.65);font-size:13px;">💡 Type <strong style="color:#fff;">"psar chas siem reap"</strong> or <strong style="color:#fff;">"psar chas phnom penh"</strong> to skip the picker</p>
-  </div>
+      <footer class="footer"><div class="footer-text">Rule</div><div class="footer-rule"></div><div class="small-note">Never choose a branch from a generic name alone.</div></footer>
+    </main>
+  </section>
 
-  <!-- SLIDE 6: DID YOU MEAN + CASCADE -->
-  <div class="slide slide-dark" data-slide="5">
-    <div class="tag">Smart Recovery · ការស្ទុះសង្គ្រោះ</div>
-    <h2 class="white">When Search Finds <span style="color:#fca5a5;">Nothing</span></h2>
-    <div class="divider"></div>
-    <div class="grid-2" style="max-width:860px;margin-top:10px;">
-      <div class="card" style="text-align:left;">
-        <div style="font-size:1.8rem;margin-bottom:10px;">🤔</div>
-        <h3 class="white" style="margin-bottom:8px;">Did You Mean?</h3>
-        <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-bottom:14px;">Typo? The system finds the closest matching name and shows clickable suggestion chips.</p>
-        <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.2);border-radius:10px;padding:12px;">
-          <p style="color:#fca5a5;font-size:11px;font-weight:700;margin-bottom:8px;">🤔 Did you mean?</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#eff6ff;border:1.5px solid #bfdbfe;color:#1d4ed8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">Phsar Thmey</span>
-            <span style="background:#eff6ff;border:1.5px solid #bfdbfe;color:#1d4ed8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">Phsar Kandal</span>
+  <!-- 03 PRIORITY -->
+  <section class="slide" data-index="2">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Choose the strongest input</div><div class="rail-line"></div><div class="rail-page">03</div></aside>
+    <main class="page">
+      <header class="top"><div class="label">02 · Choose the input</div><div class="meta">Fastest route to an accurate result</div></header>
+      <div class="stage two">
+        <div>
+          <h2>Use the fastest reliable input—not the most familiar one.</h2>
+          <p class="lede">Staff often type the market name because it feels easy. A map link or branch code is usually faster because it removes ambiguity.</p>
+          <div style="margin-top:30px;border-left:3px solid var(--red);padding-left:18px">
+            <h3>Recommended order</h3>
+            <p class="small-note" style="margin-top:8px">Map link → Branch code → Coordinates → Place name + province</p>
+          </div>
+        </div>
+        <div class="input-list">
+          <div class="input-row"><div class="input-no">A</div><div class="input-name">Map link</div><div class="input-example">Copy → paste → search</div><div class="reliability high">1 step</div></div>
+          <div class="input-row"><div class="input-no">B</div><div class="input-name">Branch code</div><div class="input-example">Search exact branch</div><div class="reliability high">1 step</div></div>
+          <div class="input-row"><div class="input-no">C</div><div class="input-name">Coordinates</div><div class="input-example">Use when link is unavailable</div><div class="reliability high">1 step</div></div>
+          <div class="input-row"><div class="input-no">D</div><div class="input-name">Khmer / English</div><div class="input-example">Add province or district</div><div class="reliability mid">2–3 steps</div></div>
+          <div class="input-row"><div class="input-no">E</div><div class="input-name">Province only</div><div class="input-example">Use as a filter, not final answer</div><div class="reliability mid">Needs review</div></div>
+        </div>
+      </div>
+      <footer class="footer"><div class="footer-text">Training note</div><div class="footer-rule"></div><div class="small-note kh">បើមាន Link ផែនទី សូមប្រើ Link មុនឈ្មោះទីតាំង។</div></footer>
+    </main>
+  </section>
+
+  <!-- 04 LINK WALKTHROUGH -->
+  <section class="slide" data-index="3">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Google Maps link workflow</div><div class="rail-line"></div><div class="rail-page">04</div></aside>
+    <main class="page white-page">
+      <header class="top"><div class="label">03 · Search from a map link</div><div class="meta">The safest workflow</div></header>
+      <div class="stage">
+        <div>
+          <h2 style="max-width:760px">Copy once. Paste once. Verify once.</h2>
+          <p class="lede" style="margin-bottom:28px">This is the preferred workflow when the customer shares a Google Maps location.</p>
+          <div class="process">
+            <div class="process-step">
+              <div class="num">Step 01</div><h3>Open the shared location</h3><p>Tap the link and confirm it opens the expected place in Google Maps.</p>
+              <div class="mini-phone"><div class="bar"></div><div class="line"></div><div class="line short"></div><div class="line"></div><div class="mini-link">https://maps.app.goo.gl/7nA…</div></div>
+            </div>
+            <div class="arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="process-step">
+              <div class="num">Step 02</div><h3>Paste it into Map Search</h3><p>Do not rewrite the address manually. Paste the full link directly.</p>
+              <div class="mini-phone"><div class="mini-search">maps.app.goo.gl/7nA…</div><div style="margin-top:12px;background:var(--red);color:#fff;padding:11px;text-align:center;font-size:11px;font-weight:900">SEARCH</div></div>
+            </div>
+            <div class="arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="process-step">
+              <div class="num">Step 03</div><h3>Check the result before confirming</h3><p>Match the province, district, and branch code with the customer’s location.</p>
+              <div class="mini-phone"><div class="mini-result"><b>Chamkar Doung Branch</b><span>PNPP014 · Dangkao</span></div><div class="mini-result" style="border-left:3px solid var(--red)"><b>Phnom Penh</b><span>Province verified</span></div></div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card" style="text-align:left;">
-        <div style="font-size:1.8rem;margin-bottom:10px;">📍</div>
-        <h3 class="white" style="margin-bottom:8px;">Admin Cascade</h3>
-        <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-bottom:14px;">Village not in DB? System auto-widens:<br>Village → Commune → District → Province</p>
-        <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.2);border-radius:10px;padding:12px;">
-          <p style="color:#fca5a5;font-size:12px;font-weight:600;line-height:1.6;">📍 No exact village found —<br>showing results for <strong style="color:#fff;">Dangkao (district)</strong></p>
+      <footer class="footer"><div class="footer-text">Preferred method</div><div class="footer-rule"></div><div class="small-note">Use the original link. Do not copy only the place title.</div></footer>
+    </main>
+  </section>
+
+  <!-- 05 VERIFY -->
+  <section class="slide" data-index="4">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Verify before confirming</div><div class="rail-line"></div><div class="rail-page">05</div></aside>
+    <main class="page">
+      <header class="top"><div class="label">04 · Verify the result</div><div class="meta">Accuracy check</div></header>
+      <div class="stage two">
+        <div class="result-panel">
+          <div class="result-toolbar"><span>Search result</span><span>2.3 km away</span></div>
+          <div class="result-map"><div class="mroad a"></div><div class="mroad b"></div><div class="result-pin"></div></div>
+          <div class="result-body">
+            <div class="result-title"><div><h3>Chamkar Doung Post Office</h3><div class="small-note" style="margin-top:5px">PNPP014</div></div><div class="distance">Nearest match</div></div>
+            <div class="detail-table">
+              <div class="detail-row"><span>District</span><strong>Dangkao · ដង្កោ</strong></div>
+              <div class="detail-row"><span>Commune</span><strong>Prey Sa · ព្រៃស</strong></div>
+              <div class="detail-row province-row"><span>Province</span><strong style="color:var(--red)">Phnom Penh · ភ្នំពេញ</strong></div>
+              <div class="detail-row"><span>Distance</span><strong>2.3 km</strong></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2>Pause for ten seconds before you confirm.</h2>
+          <p class="lede">A result can be close but still be in the wrong district or province. Check these three fields every time.</p>
+          <div class="verify-list">
+            <div class="verify-item"><div class="check">1</div><div><b>Province</b><span>Does it match what the customer said?</span></div></div>
+            <div class="verify-item"><div class="check">2</div><div><b>District or nearby landmark</b><span>Is the branch in the same service area?</span></div></div>
+            <div class="verify-item"><div class="check">3</div><div><b>Branch code</b><span>Use the code for routing and handover.</span></div></div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+      <footer class="footer"><div class="footer-text">Critical check</div><div class="footer-rule"></div><div class="small-note kh">កុំបញ្ជាក់លទ្ធផល មុនពេលពិនិត្យខេត្ត និងលេខកូដសាខា។</div></footer>
+    </main>
+  </section>
 
-  <!-- SLIDE 7: DO / DON'T -->
-  <div class="slide slide-light" data-slide="6">
-    <div class="tag" style="background:#fee2e2;color:#dc2626;border-color:#fecaca;">Common Mistakes · កំហុសសំខាន់</div>
-    <h2 style="color:#1e293b;margin-bottom:24px;">Do's and <span class="red">Don'ts</span></h2>
-    <div class="do-dont">
-      <div class="do-box">
-        <h4>✅ DO — ត្រូវវាយ</h4>
-        <ul>
-          <li>ផ្សារថ្មី <span style="color:#94a3b8;font-size:11px;">(Khmer name)</span></li>
-          <li>Phsar Thmey <span style="color:#94a3b8;font-size:11px;">(Romanized)</span></li>
-          <li>PNPP014 <span style="color:#94a3b8;font-size:11px;">(Branch code)</span></li>
-          <li>maps.app.goo.gl/... <span style="color:#94a3b8;font-size:11px;">(Maps link)</span></li>
-          <li>11.5566, 104.9282 <span style="color:#94a3b8;font-size:11px;">(GPS)</span></li>
-          <li>psar chas siem reap <span style="color:#94a3b8;font-size:11px;">(Be specific!)</span></li>
-        </ul>
+  <!-- 06 SAME NAME -->
+  <section class="slide" data-index="5">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Same name, different place</div><div class="rail-line"></div><div class="rail-page">06</div></aside>
+    <main class="page white-page">
+      <header class="top"><div class="label">05 · Resolve duplicate names</div><div class="meta">Example: ផ្សារចាស់ / Psar Chas</div></header>
+      <div class="stage split">
+        <article class="place-case">
+          <div class="case-tag">Result A</div><h3>Old Market — Siem Reap</h3><div class="khname kh">ផ្សារចាស់ សៀមរាប</div>
+          <div class="case-map"><div class="dotpin"></div></div>
+          <dl class="case-data"><dt>Province</dt><dd>Siem Reap</dd><dt>Area</dt><dd>Near Pub Street</dd><dt>Use when</dt><dd>Customer says tourist area or Siem Reap</dd></dl>
+          <div class="decision">Choose this only when the province or nearby landmark matches.</div>
+        </article>
+        <div class="split-line"></div>
+        <article class="place-case right">
+          <div class="case-tag">Result B</div><h3>Old Market — Phnom Penh</h3><div class="khname kh">ផ្សារចាស់ ភ្នំពេញ</div>
+          <div class="case-map"><div class="dotpin" style="left:40%;top:58%"></div></div>
+          <dl class="case-data"><dt>Province</dt><dd>Phnom Penh</dd><dt>Area</dt><dd>Doun Penh / Riverfront</dd><dt>Use when</dt><dd>Customer says Phnom Penh or riverside</dd></dl>
+          <div class="decision">Do not select the first result just because the name matches.</div>
+        </article>
       </div>
-      <div class="dont-box">
-        <h4>❌ DON'T — កុំវាយ</h4>
-        <ul>
-          <li>2004 <span style="color:#94a3b8;font-size:11px;">(years/numbers)</span></li>
-          <li>PP <span style="color:#94a3b8;font-size:11px;">(too short)</span></li>
-          <li>near me <span style="color:#94a3b8;font-size:11px;">(not supported)</span></li>
-          <li>12345 <span style="color:#94a3b8;font-size:11px;">(random numbers)</span></li>
-          <li>abc <span style="color:#94a3b8;font-size:11px;">(meaningless)</span></li>
-          <li>psar only <span style="color:#94a3b8;font-size:11px;">(too generic!)</span></li>
-        </ul>
+      <footer class="footer"><div class="footer-text">Search tip</div><div class="footer-rule"></div><div class="small-note">Type the place name together with province: “psar chas siem reap”.</div></footer>
+    </main>
+  </section>
+
+  <!-- 07 RECOVERY -->
+  <section class="slide" data-index="6">
+    <aside class="rail"><div class="brand-mark">M</div><div class="rail-num">Recover from no result</div><div class="rail-line"></div><div class="rail-page">07</div></aside>
+    <main class="page">
+      <header class="top"><div class="label">06 · When nothing appears</div><div class="meta">Widen the search carefully</div></header>
+      <div class="stage two wide-left">
+        <div>
+          <h2>No result does not mean no service.</h2>
+          <p class="lede">The village name may be missing or spelled differently. Move outward one level at a time instead of guessing another branch.</p>
+          <div class="recovery-grid" style="margin-top:28px">
+            <div class="query-card"><div><div class="label" style="color:#FFB9BC">Original search</div><div class="query kh" style="margin-top:14px">ភូមិចំណោមកើត</div><div class="sub">No exact location found in the database.</div></div><div class="no-result">Search status · 0 exact matches</div></div>
+            <div class="cascade">
+              <div class="cascade-row"><div class="stepn">01</div><b>Village</b><span>Chamnaom Kaeut</span><div class="state failed">No match</div></div>
+              <div class="cascade-row"><div class="stepn">02</div><b>Commune</b><span>Tuol Pongro</span><div class="state failed">No branch</div></div>
+              <div class="cascade-row active"><div class="stepn">03</div><b>District</b><span>Malai</span><div class="state found">Branch found</div></div>
+              <div class="cascade-row"><div class="stepn">04</div><b>Province</b><span>Banteay Meanchey</span><div class="state">Fallback</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="align-self:end;padding-bottom:30px">
+          <div style="border-top:3px solid var(--red);padding-top:18px">
+            <h3>Stop when the service area becomes clear.</h3>
+            <p class="small-note" style="margin-top:10px">Then show the nearest valid branch inside that district or province. Keep the original location visible for staff review.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div style="margin-top:20px;background:#fff7ed;border:2px solid #fed7aa;border-radius:12px;padding:12px 20px;">
-      <p style="font-size:13px;color:#c2410c;font-weight:600;">💡 Golden rule: <strong>not sure what to type? → paste the Google Maps link!</strong><br><span class="kh" style="color:#9a3412;font-size:12px;">មិនដឹងវាយអ្វី → ចម្លង link ពី Google Maps!</span></p>
-    </div>
-  </div>
+      <footer class="footer"><div class="footer-text">Recovery order</div><div class="footer-rule"></div><div class="small-note">Village → Commune → District → Province</div></footer>
+    </main>
+  </section>
 
-  <!-- SLIDE 8: CLOSING -->
-  <div class="slide slide-hero" data-slide="7">
-    <div class="big-emoji float">🎉</div>
-    <h1 class="white" style="max-width:700px;">Ready to Use!<br><span style="color:#fca5a5;" class="kh">រួចរាល់ហើយ!</span></h1>
-    <div class="divider"></div>
-    <p class="light-red" style="max-width:520px;margin-bottom:32px;">You now know everything to find any Metfone Express post office in Cambodia.<br><span style="opacity:0.7;font-size:0.9em;" class="kh">អ្នកដឹងគ្រប់អ្វីដើម្បីស្វែងរកការិយាល័យ Metfone Express</span></p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px;">
-      <div class="card" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:6px;">🏪</div><p style="color:#fca5a5;font-size:12px;font-weight:700;">Market name</p></div>
-      <div class="card" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:6px;">📮</div><p style="color:#fca5a5;font-size:12px;font-weight:700;">Branch code</p></div>
-      <div class="card" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:6px;">🗺️</div><p style="color:#fca5a5;font-size:12px;font-weight:700;">Maps link</p></div>
-    </div>
-    <p style="margin-top:28px;color:rgba(255,255,255,0.3);font-size:12px;">Metfone Express · ប្រៃសណីយ៍ Express · Training 2026</p>
-  </div>
-
+  <!-- 08 FINAL -->
+  <section class="slide" data-index="7">
+    <aside class="rail red"><div class="brand-mark">M</div><div class="rail-num">Final branch check</div><div class="rail-line"></div><div class="rail-page">08</div></aside>
+    <main class="page red-page">
+      <header class="top"><div class="label">Before you confirm</div><div class="meta">One-screen checklist</div></header>
+      <div class="stage">
+        <div class="cheat">
+          <div>
+            <h2>Four checks.<br>One correct route.</h2>
+            <div class="checks">
+              <div class="check-row"><div class="n">01</div><div><b>Use the strongest input</b><span>Map link or branch code before a generic place name.</span></div></div>
+              <div class="check-row"><div class="n">02</div><div><b>Confirm province</b><span>Never trust a duplicate place name without province.</span></div></div>
+              <div class="check-row"><div class="n">03</div><div><b>Check district and distance</b><span>The nearest result must still be in the correct service area.</span></div></div>
+              <div class="check-row"><div class="n">04</div><div><b>Use the branch code</b><span>Route and hand over using the verified code.</span></div></div>
+            </div>
+          </div>
+          <div class="desk-card">
+            <div class="head"><b>Map Search</b><span>Final review</span></div>
+            <div class="final-search"><span>maps.app.goo.gl/7nA…</span><button>SEARCH</button></div>
+            <div class="final-result"><b>Chamkar Doung Post Office</b><span>PNPP014 · Dangkao · Phnom Penh</span></div>
+            <div class="final-result"><b>Customer location</b><span>Prey Sa commune · 2.3 km from branch</span></div>
+            <div class="approved">Province verified · Ready to route</div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer"><div class="footer-text">Metfone Express · Training 2026</div><div class="footer-rule"></div><div class="footer-text kh">ស្វែងរកត្រឹមត្រូវ · បញ្ជូនត្រឹមត្រូវ</div></footer>
+    </main>
+  </section>
 </div>
 
-<div class="nav">
-  <button class="nav-btn" onclick="changeSlide(-1)">‹</button>
-  <div class="nav-dots" id="dots"></div>
-  <button class="nav-btn" onclick="changeSlide(1)">›</button>
-</div>
+<nav class="nav" aria-label="Slide navigation">
+  <button type="button" id="prev" aria-label="Previous slide">‹</button>
+  <div class="progress" id="progress"></div>
+  <button type="button" id="next" aria-label="Next slide">›</button>
+</nav>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const dotsEl = document.getElementById('dots');
-  const slideNum = document.getElementById('slideNum');
-  let current = 0, isAnimating = false;
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
-    dotsEl.appendChild(d);
+  const slides=[...document.querySelectorAll('.slide')];
+  const progress=document.getElementById('progress');
+  let current=0,locked=false,touchStart=0;
+
+  slides.forEach((_,i)=>{
+    const bar=document.createElement('i');
+    bar.className=i===0?'active':'';
+    bar.addEventListener('click',()=>go(i));
+    progress.appendChild(bar);
   });
-  function goTo(n) {
-    if (isAnimating || n === current) return;
-    isAnimating = true;
-    slides[current].classList.add('out-left');
-    slides[current].classList.remove('active');
-    current = (n + slides.length) % slides.length;
+
+  function go(index){
+    if(locked) return;
+    index=(index+slides.length)%slides.length;
+    if(index===current) return;
+    locked=true;
+    const old=slides[current];
+    old.classList.add('leaving');
+    old.classList.remove('active');
+    current=index;
     slides[current].classList.add('active');
-    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    slideNum.textContent = (current + 1) + ' / ' + slides.length;
-    setTimeout(() => { slides.forEach(s => s.classList.remove('out-left')); isAnimating = false; }, 480);
+    [...progress.children].forEach((b,i)=>b.classList.toggle('active',i===current));
+    setTimeout(()=>{old.classList.remove('leaving');locked=false},380);
   }
-  function changeSlide(dir) { goTo(current + dir); }
-  document.addEventListener('keydown', e => {
-    if (e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();changeSlide(1);}
-    if (e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();changeSlide(-1);}
+
+  document.getElementById('prev').addEventListener('click',()=>go(current-1));
+  document.getElementById('next').addEventListener('click',()=>go(current+1));
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(current+1)}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(current-1)}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(slides.length-1);
   });
-  let tx=0;
-  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => { const d=tx-e.changedTouches[0].clientX; if(Math.abs(d)>50) changeSlide(d>0?1:-1); });
+  document.addEventListener('touchstart',e=>touchStart=e.changedTouches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{const d=touchStart-e.changedTouches[0].clientX;if(Math.abs(d)>55)go(current+(d>0?1:-1))},{passive:true});
 </script>
 </body>
 </html>

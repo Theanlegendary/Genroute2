@@ -1721,8 +1721,17 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     ? `${translatedQuery}, ${province}, Cambodia` 
     : (translatedQuery ? `${translatedQuery}, Cambodia` : '');
 
+  // Check if query is a numeric or alphanumeric street name (like "24BT", "271", "2004", "10B")
+  const isStreetNum = /^[0-9០-៩a-zA-Z\s]+$/.test(processedQuery) && /[0-9០-៩]/.test(processedQuery) && !/\b(street|st|road|way|ផ្លូវ)\b/i.test(processedQuery);
+
   // 0.8 Try Google Geocoding first (if API key is available) — most accurate, matches Google Maps app results
-  const googleResult = await queryGoogleGeocode(enSearchQuery || searchQuery, province);
+  let googleResult = await queryGoogleGeocode(enSearchQuery || searchQuery, province);
+  if (!googleResult && isStreetNum) {
+    const streetQuery = `street ${processedQuery}`;
+    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
+    console.log(`🔍 Google geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
+    googleResult = await queryGoogleGeocode(streetSearchQuery, province);
+  }
   if (googleResult) {
     console.log(`🎯 Geocoded successfully via Google: "${enSearchQuery || searchQuery}"`);
     if (googleResult.type !== 'multiple') {
@@ -1732,7 +1741,13 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
   }
 
   // 0.9 Try Mapbox Geocoding next (if token is available)
-  const mapboxResult = await queryMapboxGeocode(enSearchQuery || searchQuery);
+  let mapboxResult = await queryMapboxGeocode(enSearchQuery || searchQuery);
+  if (!mapboxResult && isStreetNum) {
+    const streetQuery = `street ${processedQuery}`;
+    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
+    console.log(`🔍 Mapbox geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
+    mapboxResult = await queryMapboxGeocode(streetSearchQuery);
+  }
   if (mapboxResult) {
     console.log(`🎯 Geocoded successfully via Mapbox: "${enSearchQuery || searchQuery}"`);
     if (mapboxResult.type !== 'multiple') {
@@ -1745,6 +1760,13 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
   const qToNom = enSearchQuery || searchQuery;
   let nomResults = await queryNominatim(qToNom, 5, province);
   
+  if ((!nomResults || nomResults.length === 0) && isStreetNum) {
+    const streetQuery = `street ${processedQuery}`;
+    const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
+    console.log(`🔍 Nominatim geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
+    nomResults = await queryNominatim(streetSearchQuery, 5, province);
+  }
+
   if (!nomResults || nomResults.length === 0) {
     const strippedQuery = stripAdministrativePrefixes(processedQuery);
     if (strippedQuery && strippedQuery !== processedQuery) {
@@ -1828,7 +1850,13 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
   // 2. Try Google Maps HTML crawler geocoding next as fallback (gives the exact Google Maps coordinates & coverage)
   try {
     const qToCrawl = enSearchQuery || searchQuery;
-    const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
+    let googleCoords = await crawlGoogleMapsCoords(qToCrawl);
+    if (!googleCoords && isStreetNum) {
+      const streetQuery = `street ${processedQuery}`;
+      const streetSearchQuery = province ? `${streetQuery}, ${province}, Cambodia` : `${streetQuery}, Cambodia`;
+      console.log(`🔍 Google Maps Crawler geocode failed for numeric query "${processedQuery}". Retrying with "${streetQuery}"...`);
+      googleCoords = await crawlGoogleMapsCoords(streetSearchQuery);
+    }
     if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
       console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
       saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);

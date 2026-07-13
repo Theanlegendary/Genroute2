@@ -817,6 +817,7 @@ function setupEventListeners() {
   searchInput.addEventListener('focus', () => {
     const q = searchInput.value.trim();
     showAutocomplete(q);
+    expandMobileDrawer('sheet-expanded');
   });
 
   // Enter key in search box
@@ -3138,18 +3139,18 @@ function setupMobileDrawer() {
     sidebar.classList.add('sheet-collapsed');
   }
 
-  // ── Tap grab handle zone → cycle through states ────────────────────────────
-  sidebar.addEventListener('click', (e) => {
+  // ── Tap grab handle zone on sidebar-content → cycle through states ─────────
+  const sidebarContent = sidebar.querySelector('.sidebar-content');
+  if (!sidebarContent) return;
+
+  sidebarContent.addEventListener('click', (e) => {
     if (window.innerWidth > 768) return;
 
-    const sidebarContent = sidebar.querySelector('.sidebar-content');
-    if (!sidebarContent) return;
-
-    // Detect if click happened in the top grab handle zone (top 38px of sidebar-content bottom sheet)
+    // Detect if click happened in the top grab handle zone (top 60px of sidebar-content bottom sheet)
     const rect = sidebarContent.getBoundingClientRect();
     const clickY = e.clientY - rect.top;
     
-    if (clickY >= 0 && clickY <= 38) {
+    if (clickY >= 0 && clickY <= 60) {
       e.stopPropagation();
       if (sidebar.classList.contains('sheet-collapsed')) {
         sidebar.classList.remove('sheet-collapsed');
@@ -3161,22 +3162,18 @@ function setupMobileDrawer() {
         sidebar.classList.remove('sheet-expanded');
         sidebar.classList.add('sheet-collapsed');
       }
-      // No invalidateSize needed: map is always 100dvh, sheet slides over it via transform
     }
   });
 
   // ── Swipe-up / swipe-down gesture on the sheet handle ─────────────────────
   // Matches Google Maps swipe-to-expand / swipe-to-collapse behavior.
-  const sidebarContent = sidebar.querySelector('.sidebar-content');
-  if (!sidebarContent) return;
-
   let touchStartY = null;
 
   sidebarContent.addEventListener('touchstart', (e) => {
     const rect = sidebarContent.getBoundingClientRect();
     const touchY = e.touches[0].clientY - rect.top;
-    // Only start a drag if user started in the handle zone (top 48px)
-    if (touchY >= 0 && touchY <= 48) {
+    // Only start a drag if user started in the handle zone (top 60px)
+    if (touchY >= 0 && touchY <= 60) {
       touchStartY = e.touches[0].clientY;
     } else {
       touchStartY = null;
@@ -3210,7 +3207,6 @@ function setupMobileDrawer() {
         sidebar.classList.add('sheet-collapsed');
       }
     }
-    // No invalidateSize needed: map container is always 100dvh, sheet overlays via transform
   }, { passive: true });
 }
 

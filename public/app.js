@@ -2233,7 +2233,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         targetCard.classList.add('selected');
         if (targetLoc.latitude && targetLoc.longitude) {
           map.flyTo([targetLoc.latitude, targetLoc.longitude], 17, { animate: true, duration: 1.2 });
-          const am = activeMarkers.find(m => m.id === 'target_loc' || m.id === targetLoc.id);
+          const am = activeMarkers.find(m => String(m.id) === 'target_loc' || String(m.id) === String(targetLoc.id));
           if (am) {
             setTimeout(() => am.marker.openPopup(), 1200);
           }
@@ -2310,7 +2310,7 @@ function renderResultsList(results, isNearbyList = false, targetTitle = null, ta
         // If it is already a nearby Post Office or branch, just fly to it on map!
         if (r.latitude && r.longitude) {
           map.flyTo([r.latitude, r.longitude], 17, { animate: true, duration: 1.2 });
-          const am = activeMarkers.find(m => m.id === r.id);
+          const am = activeMarkers.find(m => String(m.id) === String(r.id));
           if (am) {
             setTimeout(() => am.marker.openPopup(), 1200);
           }
@@ -2549,7 +2549,7 @@ function presentProvinceSelection(results, query, isOtherProvinceMatches = false
               ${addrHtml}
             </div>
             <div style="margin-top: 8px; display: flex; justify-content: flex-end;">
-              <button onclick="event.stopPropagation(); selectLocationAndFindNearbyPOs(currentResults.find(r => r.id === '${r.id}'), currentResults);" style="background: linear-gradient(135deg,#dc2626,#b91c1c); color: #fff; border: none; padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(220,38,38,0.3);">
+              <button onclick="event.stopPropagation(); selectLocationAndFindNearbyPOs(currentResults.find(r => String(r.id) === '${r.id}'), currentResults);" style="background: linear-gradient(135deg,#dc2626,#b91c1c); color: #fff; border: none; padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(220,38,38,0.3);">
                 Select &amp; Route →
               </button>
             </div>
@@ -2737,7 +2737,7 @@ function highlightMatch(text, query) {
 
 // Global selector wrapper for Leaflet map popup select button clicks
 window.triggerSelectLocation = function(id) {
-  const matched = (currentResults || []).find(r => r.id === id);
+  const matched = (currentResults || []).find(r => String(r.id) === String(id));
   if (matched) {
     if (provinceSelect) {
       const currentVal = provinceSelect.value;
@@ -3038,7 +3038,7 @@ function renderSingleTargetList(selectedLoc, allMatchedLocs) {
         </div>` : ''}
         <a class="card-gmaps-link" href="${selectedLoc.google_maps_url || `https://www.google.com/maps?q=${selectedLoc.latitude},${selectedLoc.longitude}`}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open in Google Maps ↗</a>
         
-        <button class="card-nearby-action-btn" onclick="event.stopPropagation(); selectLocationAndFindNearbyPOs(currentResults.find(r => r.id === '${selectedLoc.id}'), currentResults)" style="background: var(--metfone-red, #d32f2f); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; width: 100%; margin-top: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <button class="card-nearby-action-btn" onclick="event.stopPropagation(); selectLocationAndFindNearbyPOs(currentResults.find(r => String(r.id) === '${selectedLoc.id}'), currentResults)" style="background: var(--metfone-red, #d32f2f); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; width: 100%; margin-top: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
           <span>🔍</span> Find Nearby Post Offices
         </button>
       </div>
@@ -3059,7 +3059,7 @@ function renderSingleTargetList(selectedLoc, allMatchedLocs) {
 
 // Global selector wrapper for alternative matches in single target view
 window.triggerShowSingleLocation = function(id) {
-  const matched = (currentResults || []).find(r => r.id === id);
+  const matched = (currentResults || []).find(r => String(r.id) === String(id));
   if (matched) {
     showSingleTargetOnMap(matched, currentResults);
   }
@@ -3347,7 +3347,7 @@ function getSavedBranches() {
 
 function saveBranch(branchId) {
   let saved = getSavedBranches();
-  if (!saved.includes(branchId)) {
+  if (!saved.map(String).includes(String(branchId))) {
     saved.push(branchId);
     localStorage.setItem('metfone_saved_branches', JSON.stringify(saved));
   }
@@ -3355,12 +3355,12 @@ function saveBranch(branchId) {
 
 function unsaveBranch(branchId) {
   let saved = getSavedBranches();
-  saved = saved.filter(id => id !== branchId);
+  saved = saved.filter(id => String(id) !== String(branchId));
   localStorage.setItem('metfone_saved_branches', JSON.stringify(saved));
 }
 
 function isBranchSaved(branchId) {
-  return getSavedBranches().includes(branchId);
+  return getSavedBranches().map(String).includes(String(branchId));
 }
 
 // Recent Searches LocalStorage manager

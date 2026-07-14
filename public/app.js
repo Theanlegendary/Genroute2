@@ -3151,6 +3151,7 @@ function setupMobileDrawer() {
   // Set default state on mobile: start collapsed (full map)
   if (window.innerWidth <= 768) {
     sidebar.classList.add('sheet-collapsed');
+    adjustMobileLayout(false); // Move search bar to sidebar top on load!
   }
 
   // ── Tap grab handle zone on sidebar-content → cycle through states ─────────
@@ -3258,9 +3259,10 @@ function adjustMobileLayout(isOpen) {
     sidebar.style.display = 'none';
   } else {
     // 1. Move everything back to the sidebar/sidebar-content
-    sidebarContent.insertBefore(gridSection, sidebarContent.firstChild);
-    sidebarContent.insertBefore(resultsPanel, gridSection.nextSibling);
-    sidebar.insertBefore(navRail, sidebarContent);
+    // Place gridSection directly inside sidebar (before sidebarContent) so it escapes the translate transform on mobile!
+    sidebar.insertBefore(gridSection, sidebarContent);
+    sidebarContent.insertBefore(resultsPanel, sidebarContent.firstChild);
+    sidebar.insertBefore(navRail, gridSection);
 
     // 2. Restore drawer menu list and footer display
     if (drawerMenuList) drawerMenuList.style.display = 'flex';

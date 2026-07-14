@@ -815,9 +815,19 @@ function setupEventListeners() {
 
   // Show autocomplete on focus on both mobile and desktop
   searchInput.addEventListener('focus', () => {
-    const q = searchInput.value.trim();
-    showAutocomplete(q);
-    expandMobileDrawer('sheet-expanded');
+    if (window.innerWidth <= 768 && typeof window.openMobileDrawer === 'function') {
+      window.openMobileDrawer();
+    } else {
+      const q = searchInput.value.trim();
+      showAutocomplete(q);
+      expandMobileDrawer('sheet-expanded');
+    }
+  });
+
+  searchInput.addEventListener('click', () => {
+    if (window.innerWidth <= 768 && typeof window.openMobileDrawer === 'function') {
+      window.openMobileDrawer();
+    }
   });
 
   // Enter key in search box
@@ -1378,6 +1388,9 @@ async function runSearch(page = 1) {
 // Select a market, village, commune, or district and find its nearest Post Offices (within 30km)
 // With Mushroom Network (Dashed Lines & Popup List) + Close Zoom!
 async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly = true) {
+  if (window.innerWidth <= 768 && typeof window.closeMobileDrawer === 'function') {
+    window.closeMobileDrawer();
+  }
   currentResults = allMatchedLocs || [selectedLoc];
   showState('loading');
   expandMobileDrawer('sheet-peeking');
@@ -3211,6 +3224,54 @@ function setupMobileDrawer() {
   }, { passive: true });
 }
 
+// Helper to move search bar, results, and tabs between map view and slide-out drawer on mobile
+function adjustMobileLayout(isOpen) {
+  if (window.innerWidth > 768) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarContent = document.querySelector('.sidebar-content');
+  const drawerContent = document.querySelector('#mobileHamburgerDrawer .drawer-content');
+  const drawerMenuList = document.querySelector('#mobileHamburgerDrawer .drawer-menu-list');
+  const navRail = document.querySelector('.nav-rail');
+  const gridSection = document.querySelector('.grid-section');
+  const resultsPanel = document.querySelector('.results-panel');
+
+  if (!sidebar || !sidebarContent || !drawerContent || !gridSection || !resultsPanel || !navRail) return;
+
+  if (isOpen) {
+    // 1. Move search bar (.grid-section) and results panel (.results-panel) into the drawer
+    const drawerHeader = drawerContent.querySelector('.drawer-header');
+    if (drawerHeader) {
+      drawerContent.insertBefore(gridSection, drawerHeader.nextSibling);
+      drawerContent.insertBefore(resultsPanel, gridSection.nextSibling);
+    }
+
+    // 2. Move navigation rail (.nav-rail) to the bottom of the drawer content
+    drawerContent.appendChild(navRail);
+
+    // 3. Hide the original menu list and footer inside the drawer to focus on search/results
+    if (drawerMenuList) drawerMenuList.style.display = 'none';
+    const drawerFooter = drawerContent.querySelector('.drawer-footer');
+    if (drawerFooter) drawerFooter.style.display = 'none';
+
+    // 4. Temporarily hide the main sidebar on the map to prevent overlapping
+    sidebar.style.display = 'none';
+  } else {
+    // 1. Move everything back to the sidebar/sidebar-content
+    sidebarContent.insertBefore(gridSection, sidebarContent.firstChild);
+    sidebarContent.insertBefore(resultsPanel, gridSection.nextSibling);
+    sidebar.insertBefore(navRail, sidebarContent);
+
+    // 2. Restore drawer menu list and footer display
+    if (drawerMenuList) drawerMenuList.style.display = 'flex';
+    const drawerFooter = drawerContent.querySelector('.drawer-footer');
+    if (drawerFooter) drawerFooter.style.display = 'block';
+
+    // 3. Show the main sidebar again
+    sidebar.style.display = 'flex';
+  }
+}
+
 // Mobile Hamburger Menu Control
 function setupHamburgerMenu() {
   const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
@@ -3219,22 +3280,34 @@ function setupHamburgerMenu() {
   const drawerOverlay = document.getElementById('drawerOverlay');
 
   const openDrawer = () => {
-    if (mobileHamburgerDrawer) {
+    if (mobileHamburgerDrawer && !mobileHamburgerDrawer.classList.contains('open')) {
+      adjustMobileLayout(true);
       mobileHamburgerDrawer.style.display = 'block';
       setTimeout(() => {
         mobileHamburgerDrawer.classList.add('open');
+        const input = document.getElementById('searchInput');
+        if (input) {
+          input.focus();
+          const val = input.value;
+          input.value = '';
+          input.value = val;
+        }
       }, 10);
     }
   };
 
   const closeDrawer = () => {
-    if (mobileHamburgerDrawer) {
+    if (mobileHamburgerDrawer && mobileHamburgerDrawer.classList.contains('open')) {
       mobileHamburgerDrawer.classList.remove('open');
       setTimeout(() => {
         mobileHamburgerDrawer.style.display = 'none';
+        adjustMobileLayout(false);
       }, 300);
     }
   };
+
+  window.openMobileDrawer = openDrawer;
+  window.closeMobileDrawer = closeDrawer;
 
   if (hamburgerMenuBtn) {
     const handleToggle = (e) => {

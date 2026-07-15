@@ -774,11 +774,15 @@ function setupEventListeners() {
   const navSaved = document.getElementById('navSaved');
   const navRecents = document.getElementById('navRecents');
   const navGetApp = document.getElementById('navGetApp');
+  const navPasteMaster = document.getElementById('navPasteMaster');
   
   if (navSearch) navSearch.addEventListener('click', () => switchTab('search'));
   if (navSaved) navSaved.addEventListener('click', () => switchTab('saved'));
   if (navRecents) navRecents.addEventListener('click', () => switchTab('recents'));
   if (navGetApp) navGetApp.addEventListener('click', () => switchTab('getApp'));
+  if (navPasteMaster) navPasteMaster.addEventListener('click', () => {
+    window.location.href = '/pastemaster';
+  });
 
   // Clear search input
   clearBtn.addEventListener('click', () => {

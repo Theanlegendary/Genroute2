@@ -1,4 +1,20 @@
 {
+  "វត្តព្រះកែវ": {
+    "lat": 11.464612,
+    "lng": 104.91421,
+    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
+  },
+  "11.464612,104.914210": {
+    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
+  },
+  "ផ្លូវ 6a": {
+    "lat": 11.6015,
+    "lng": 104.9279,
+    "display_name": "ផ្លូវជាតិលេខ៦អា ជ្រោយចង្វារ (National Road 6A - Chroy Changvar)"
+  },
+  "11.601500,104.927900": {
+    "display_name": "ផ្លូវជាតិលេខ៦អា ជ្រោយចង្វារ (National Road 6A - Chroy Changvar)"
+  },
   "ក្រោយវត្តស្ទឹងមានជ័យ": {
     "lat": 11.529285,
     "lng": 104.896791,
@@ -7,6 +23,14 @@
   "11.529285,104.896791": {
     "display_name": "វត្តស្ទឹងមានជ័យ (Wat Steung Meanchey)"
   },
+  "aeon mall meanchey": {
+    "lat": 13.8608,
+    "lng": 105.016806,
+    "display_name": "ត្បែងមានជ័យ, ព្រះវិហារ (Tbaeng Mean Chey, Preah Vihear)"
+  },
+  "13.860800,105.016806": {
+    "display_name": "ត្បែងមានជ័យ, ព្រះវិហារ (Tbaeng Mean Chey, Preah Vihear)"
+  },
   "បឹងកេងកង": {
     "lat": 11.5534,
     "lng": 104.9116,
@@ -14,45 +38,5 @@
   },
   "11.553400,104.911600": {
     "display_name": "បឹងកេងកង, ភ្នំពេញ (Boeng Keng Kang, Phnom Penh)"
-  },
-  "វត្តព្រែកថ្លឹង": {
-    "lat": 11.464612,
-    "lng": 104.91421,
-    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
-  },
-  "11.464612,104.914210": {
-    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
-  },
-  "ក្តាន់2": {
-    "lat": 11.572421,
-    "lng": 104.914311,
-    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
-  },
-  "11.572421,104.914311": {
-    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
-  },
-  "រោងចក្រអាវលឿង": {
-    "lat": 11.530511,
-    "lng": 104.851212,
-    "display_name": "រោងចក្រអាវលឿង (Yellow Shirt Factory)"
-  },
-  "11.530511,104.851212": {
-    "display_name": "រោងចក្រអាវលឿង (Yellow Shirt Factory)"
-  },
-  "ផ្សារព្រៃទា": {
-    "lat": 11.5490653,
-    "lng": 104.8295446,
-    "display_name": "ផ្សារព្រៃទា (Phsar Prey Tea)"
-  },
-  "11.549065,104.829545": {
-    "display_name": "ផ្សារព្រៃទា (Phsar Prey Tea)"
-  },
-  "វេងស្រេង ផ្សារដីថ្មី": {
-    "lat": 11.527311,
-    "lng": 104.858212,
-    "display_name": "ផ្សារដីថ្មី វេងស្រេង (Phsar Dei Thmei Veng Sreng)"
-  },
-  "11.527311,104.858212": {
-    "display_name": "ផ្សារដីថ្មី វេងស្រេង (Phsar Dei Thmei Veng Sreng)"
   }
 }

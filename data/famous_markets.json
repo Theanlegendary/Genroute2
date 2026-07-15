@@ -27,8 +27,7 @@
       "night market",
       "phnom penh",
       "daun penh",
-      "ផ្សារធំថ្មី",
-      "ផ្សារថ្មី"
+      "ផ្សារធំថ្មី"
     ],
     "priority_score": 100,
     "google_maps_url": "https://www.google.com/maps?q=11.5695,104.9211"
@@ -11364,5 +11363,143 @@
     "source": "curated_landmark",
     "confidence": 100,
     "is_verified": true
+  },
+  {
+    "id": 99001,
+    "market": "Wat Phnom",
+    "market_kh": "វត្តភ្នំ",
+    "object_type": "pagoda",
+    "aliases": [
+      "Phnom Temple",
+      "Vat Phnom",
+      "Wat Phnom Daun Penh",
+      "Phnom Penh Hill Temple"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "commune": "Wat Phnom",
+    "commune_kh": "វត្តភ្នំ",
+    "latitude": 11.5764,
+    "longitude": 104.9222,
+    "search_keywords": [
+      "wat phnom", "vat phnom", "phnom temple", "pagoda hill",
+      "daun penh", "phnom penh", "វត្តភ្នំ", "ភ្នំ"
+    ],
+    "priority_score": 100,
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true,
+    "google_maps_url": "https://www.google.com/maps?q=11.5764,104.9222"
+  },
+  {
+    "id": 99002,
+    "market": "Khmer-Soviet Friendship Hospital",
+    "market_kh": "មន្ទីរពេទ្យខ្មែររុស្ស៊ី",
+    "object_type": "hospital",
+    "aliases": [
+      "Russe Hospital",
+      "Russian Hospital",
+      "ពេទ្យរុស្ស៊ី",
+      "ពេទ្យម៉ៅ",
+      "ម.ព.ខ.រ",
+      "Khmer Soviet Hospital"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kork",
+    "district_kh": "ទួលគោក",
+    "commune": "Toul Sangke",
+    "commune_kh": "ទួលសង្កែ",
+    "latitude": 11.5714,
+    "longitude": 104.9146,
+    "search_keywords": [
+      "khmer soviet", "soviet friendship", "russe hospital", "russian hospital",
+      "ពេទ្យរុស្ស៊ី", "ពេទ្យម៉ៅ", "មន្ទីរពេទ្យ", "tuol kork"
+    ],
+    "priority_score": 95,
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true,
+    "google_maps_url": "https://www.google.com/maps?q=11.5714,104.9146"
+  },
+  {
+    "id": 99003,
+    "market": "Chroy Changvar Bridge",
+    "market_kh": "ស្ពានជ្រោយចង្វារ",
+    "object_type": "bridge",
+    "aliases": [
+      "Monivong Bridge",
+      "ស្ពានជ្រោយចង្វា",
+      "ស្ពានអ្នកវ៉ាន",
+      "Chroy Changwar Bridge"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.5891,
+    "longitude": 104.9255,
+    "search_keywords": [
+      "chroy changvar bridge", "monivong bridge", "chroy changwar",
+      "ស្ពានជ្រោយចង្វារ", "ស្ពានជ្រោយចង្វា", "ជ្រោយចង្វារ"
+    ],
+    "priority_score": 98,
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true,
+    "google_maps_url": "https://www.google.com/maps?q=11.5891,104.9255"
+  },
+  {
+    "id": 99004,
+    "market": "Prek Pnov Bridge",
+    "market_kh": "ស្ពានព្រែកព្នៅ",
+    "object_type": "bridge",
+    "aliases": [
+      "Prek Phnov Bridge",
+      "ស្ពានព្រែកព្នៅ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.6289,
+    "longitude": 104.9376,
+    "search_keywords": [
+      "prek pnov bridge", "prek phnov bridge",
+      "ស្ពានព្រែកព្នៅ", "ព្រែកព្នៅ"
+    ],
+    "priority_score": 90,
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true,
+    "google_maps_url": "https://www.google.com/maps?q=11.6289,104.9376"
+  },
+  {
+    "id": 99005,
+    "market": "Phnom Penh International Airport",
+    "market_kh": "អាកាសយានដ្ឋានអន្តរជាតិភ្នំពេញ",
+    "object_type": "airport",
+    "aliases": [
+      "Pochentong Airport",
+      "Phnom Penh Airport",
+      "International Airport Phnom Penh"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.5469,
+    "longitude": 104.8440,
+    "search_keywords": [
+      "phnom penh airport", "pochentong airport", "international airport",
+      "អាកាសយានដ្ឋានអន្តរជាតិ", "ភ្នំពេញ"
+    ],
+    "priority_score": 100,
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true,
+    "google_maps_url": "https://www.google.com/maps?q=11.5469,104.8440"
   }
 ]

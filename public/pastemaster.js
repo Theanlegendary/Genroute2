@@ -841,38 +841,46 @@ function plotPmLocationsOnMap() {
 function exportPmCsv() {
   if (pmRows.length === 0) return;
 
-  let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "Line,Raw Address,Status,Resolved Name,District Code,District Name,Commune Code,Commune Name,Latitude,Longitude,Nearest Post Office,PO Distance (km)\n";
+  // Use BOM for Excel UTF-8 compatibility
+  const BOM = '\uFEFF';
+  let csvContent = BOM;
+  csvContent += "Line,Raw Address,Status,Resolved Name,Province,District Code,District Name,Commune Code,Commune Name,Latitude,Longitude,Nearest PO ID,Nearest Post Office,PO Distance (km)\n";
 
   pmRows.forEach((row, idx) => {
-    const rawStr = row.rawText.replace(/"/g, '""');
-    const resStr = row.resolvedName.replace(/"/g, '""');
-    const status = row.status;
+    const rawStr = (row.rawText || '').replace(/"/g, '""').replace(/\n/g, ' ').replace(/\r/g, '');
+    const resStr = (row.resolvedName || '').replace(/"/g, '""');
+    const status = row.status || '';
     const lat = row.lat || '';
     const lng = row.lng || '';
     
+    const province = (row.province_kh || row.province || '').replace(/"/g, '""');
     const distCode = row.code ? row.code.substring(0, 4) : '';
     const distName = (row.district_kh || row.district || '').replace(/"/g, '""');
     const commCode = row.code ? row.code.substring(0, 6) : '';
     const commName = (row.commune_kh || row.commune || '').replace(/"/g, '""');
     
+    let poId = '';
     let poName = '';
     let poDist = '';
     if (row.nearestPo) {
-      poName = row.nearestPo.branch.store_name.replace(/"/g, '""');
-      poDist = row.nearestPo.distance.toFixed(3);
+      poId = row.nearestPo.branch.store_code || '';
+      poName = (row.nearestPo.branch.store_name || '').replace(/"/g, '""');
+      poDist = row.nearestPo.distance.toFixed(2);
     }
 
-    csvContent += `"${idx + 1}","${rawStr}","${status}","${resStr}","${distCode}","${distName}","${commCode}","${commName}","${lat}","${lng}","${poName}","${poDist}"\n`;
+    csvContent += `"${idx + 1}","${rawStr}","${status}","${resStr}","${province}","${distCode}","${distName}","${commCode}","${commName}","${lat}","${lng}","${poId}","${poName}","${poDist}"\n`;
   });
 
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", `paste_master_results_${Date.now()}.csv`);
-  document.body.appendChild(link); // Required for FF
+  // Use Blob for proper UTF-8 encoding (fixes Khmer characters in Excel)
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `paste_master_results_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 function findNearestPoForCoords(lat, lng) {

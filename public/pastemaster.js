@@ -481,6 +481,9 @@ async function resolveAddresses() {
             row.district_kh = geoData.district_kh || '';
             row.commune = geoData.commune || '';
             row.commune_kh = geoData.commune_kh || '';
+            row.confidence = geoData.confidence;
+            row.matchedFields = geoData.matchedFields;
+            row.reason = geoData.reason;
             row.nearestPo = findNearestPoForCoords(row.lat, row.lng);
 
             // Dynamically learn geocoded locations
@@ -518,6 +521,9 @@ async function resolveAddresses() {
         row.district_kh = match.district_kh || '';
         row.commune = match.commune || '';
         row.commune_kh = match.commune_kh || '';
+        row.confidence = match.confidence || 100;
+        row.matchedFields = match.matchedFields || ['local_database'];
+        row.reason = match.reason || "Local database exact match.";
         row.nearestPo = findNearestPoForCoords(row.lat, row.lng);
       } else if (uniqueCandidates.length > 1) {
         row.status = 'ambiguous';
@@ -582,6 +588,23 @@ function renderPmRow(index) {
       resolvedTd += `<span style="font-size: 10px; color: #64748b; margin-top: 1px;">📍 ${row.lat.toFixed(4)}, ${row.lng.toFixed(4)}</span>`;
     } else {
       resolvedTd += `<span style="font-size: 10px; color: #dc2626; font-weight: 700; margin-top: 1px;">⚠️ Coordinates missing (Click search online)</span>`;
+    }
+    
+    if (row.confidence !== undefined || row.reason) {
+      resolvedTd += `
+        <div style="margin-top: 4px; font-size: 10px; color: #64748b; line-height: 1.3;">
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 2px;">
+            <span style="display: inline-block; padding: 1px 4px; background: #f1f5f9; color: #475569; border-radius: 3px; font-weight: 700;">
+              Conf: ${row.confidence || 100}%
+            </span>
+            ${row.matchedFields && row.matchedFields.length ? `
+              <span style="color: #cbd5e1;">|</span>
+              <span style="color: #475569; font-weight: 600;">Fields: ${row.matchedFields.join(', ')}</span>
+            ` : ''}
+          </div>
+          ${row.reason ? `<span style="color: #475569; font-style: italic;">Reason: ${escHtml(row.reason)}</span>` : ''}
+        </div>
+      `;
     }
     resolvedTd += `</div>`;
     statusBadge = `<span class="pm-status-badge exact">Exact</span>`;
@@ -712,6 +735,9 @@ async function geocodeRow(rowIndex) {
       row.district_kh = data.district_kh || '';
       row.commune = data.commune || '';
       row.commune_kh = data.commune_kh || '';
+      row.confidence = data.confidence;
+      row.matchedFields = data.matchedFields;
+      row.reason = data.reason;
       row.nearestPo = findNearestPoForCoords(row.lat, row.lng);
 
       fetch('/api/learn-location', {

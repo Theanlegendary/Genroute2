@@ -4,6 +4,7 @@ const path    = require('path');
 const fs      = require('fs');
 const Fuse    = require('fuse.js');
 const fetch   = require('node-fetch'); // Import node-fetch for API/Geocoding proxying
+const fuzz    = require('fuzzball');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -43,12 +44,14 @@ app.get('/pastemaster.html', (req, res) => {
 const DATA_PATH = path.join(__dirname, 'data', 'routes.json');
 const PICKUP_DATA_PATH = path.join(__dirname, 'data', 'pickup_branches.json');
 const FAMOUS_MARKETS_PATH = path.join(__dirname, 'data', 'famous_markets.json');
+const CURATED_LANDMARKS_PATH = path.join(__dirname, 'data', 'curated_landmarks.json');
 const CACHE_PATH = path.join(__dirname, 'data', 'geocoding_cache.json');
 const NCDD_PATH = path.join(__dirname, 'data', 'ncdd_hierarchy.json');
 
 let routes = [];
 let pickupBranches = [];
 let famousMarkets = [];
+let curatedLandmarks = [];
 let geocodingCache = {};
 let ncddHierarchy = [];
 let flatNcddList = [];
@@ -119,6 +122,12 @@ try {
     famousMarkets = JSON.parse(fs.readFileSync(FAMOUS_MARKETS_PATH, 'utf-8'));
     console.log(`✅ Loaded ${famousMarkets.length} famous market records`);
     
+    if (fs.existsSync(CURATED_LANDMARKS_PATH)) {
+      curatedLandmarks = JSON.parse(fs.readFileSync(CURATED_LANDMARKS_PATH, 'utf-8'));
+      famousMarkets = [...famousMarkets, ...curatedLandmarks];
+      console.log(`Loaded ${curatedLandmarks.length} curated landmark records`);
+    }
+
     // Assign nearest branch to each famous market dynamically
     if (famousMarkets.length > 0 && pickupBranches.length > 0) {
       famousMarkets.forEach(m => {
@@ -219,6 +228,40 @@ function initializeNcddFlatList() {
       });
     });
   });
+
+  // Infer coordinates for NCDD divisions based on nearest local route matches
+  const normalizedRoutes = routes.map(r => ({
+    latitude: r.latitude,
+    longitude: r.longitude,
+    prov: normalizeKhmer(r.province_kh || r.province || '').toLowerCase(),
+    vill: normalizeKhmer(r.village_kh || r.village || '').toLowerCase(),
+    comm: normalizeKhmer(r.commune_kh || r.commune || '').toLowerCase(),
+    dist: normalizeKhmer(r.district_kh || r.district || '').toLowerCase()
+  }));
+
+  flatNcddList.forEach(item => {
+    const itemProv = normalizeKhmer(item.province_kh || '').toLowerCase();
+    const matchingRoute = normalizedRoutes.find(r => {
+      if (r.prov !== itemProv && !r.prov.includes(itemProv) && !itemProv.includes(r.prov)) return false;
+
+      if (item.type === 'village') {
+        const itemVill = normalizeKhmer(item.village_kh || '').toLowerCase();
+        return r.vill && (r.vill === itemVill || r.vill.includes(itemVill));
+      } else if (item.type === 'commune') {
+        const itemComm = normalizeKhmer(item.commune_kh || '').toLowerCase();
+        return r.comm && (r.comm === itemComm || r.comm.includes(itemComm));
+      } else if (item.type === 'district') {
+        const itemDist = normalizeKhmer(item.district_kh || '').toLowerCase();
+        return r.dist && (r.dist === itemDist || r.dist.includes(itemDist));
+      }
+      return false;
+    });
+    if (matchingRoute) {
+      item.latitude = matchingRoute.latitude;
+      item.longitude = matchingRoute.longitude;
+    }
+  });
+
   console.log(`✅ Pre-flattened ${flatNcddList.length} NCDD administrative records for fast search`);
 }
 
@@ -1238,10 +1281,10 @@ app.get('/api/google-geocode', async (req, res) => {
   
   if (coords) {
     if (coords.type === 'multiple') {
-      const filteredResults = (coords.results || []).filter(r => isWithinCambodia(r.latitude, r.longitude));
+      const filteredResults = (coords.results || []).filter(r => r.latitude === null || r.latitude === undefined || isWithinCambodia(r.latitude, r.longitude));
       if (filteredResults.length > 0) {
         const enrichedResults = filteredResults.map(r => {
-          const inf = inferProvinceAndDistrict(r.latitude, r.longitude);
+          const inf = (r.latitude !== null && r.latitude !== undefined) ? inferProvinceAndDistrict(r.latitude, r.longitude) : {};
           return {
             ...r,
             province: inf.province || r.province,
@@ -1284,7 +1327,7 @@ app.get('/api/google-geocode', async (req, res) => {
             }
           }
 
-          if (allInSameProvince) {
+          if (allInSameProvince && finalResults[0].source !== 'ncdd') {
             const best = findBestResult(finalResults, query);
             return res.json({
               lat: best.latitude || best.lat,
@@ -1314,8 +1357,8 @@ app.get('/api/google-geocode', async (req, res) => {
           });
         }
       }
-    } else if (isWithinCambodia(coords.lat, coords.lng)) {
-      const inf = inferProvinceAndDistrict(coords.lat, coords.lng);
+    } else if (coords.lat === null || coords.lat === undefined || isWithinCambodia(coords.lat, coords.lng)) {
+      const inf = (coords.lat !== null && coords.lat !== undefined) ? inferProvinceAndDistrict(coords.lat, coords.lng) : {};
       let matchProv = true;
       if (province) {
         const allowedProvinces = [province];
@@ -1325,19 +1368,30 @@ app.get('/api/google-geocode', async (req, res) => {
         if (enProv) allowedProvinces.push(enProv);
         const normAllowed = allowedProvinces.map(p => normalizeKhmer(p));
 
+        const targetProv = coords.province || inf.province || '';
+        const targetProvKh = coords.province_kh || inf.province_kh || '';
+
         matchProv = normAllowed.some(normP => 
-          (inf.province && normalizeKhmer(inf.province).includes(normP)) ||
-          (inf.province_kh && normalizeKhmer(inf.province_kh).includes(normP))
+          (targetProv && normalizeKhmer(targetProv).includes(normP)) ||
+          (targetProvKh && normalizeKhmer(targetProvKh).includes(normP))
         );
       }
 
       if (matchProv) {
         return res.json({
+          province: coords.province || '',
+          province_kh: coords.province_kh || '',
+          district: coords.district || '',
+          district_kh: coords.district_kh || '',
+          commune: coords.commune || '',
+          commune_kh: coords.commune_kh || '',
+          village: coords.village || '',
+          village_kh: coords.village_kh || '',
           ...coords,
-          province: inf.province,
-          province_kh: inf.province_kh,
-          district: inf.district,
-          district_kh: inf.district_kh
+          province: coords.province || inf.province || '',
+          province_kh: coords.province_kh || inf.province_kh || '',
+          district: coords.district || inf.district || '',
+          district_kh: coords.district_kh || inf.district_kh || ''
         });
       }
     }
@@ -1478,6 +1532,7 @@ async function parseGoogleMapsLink(urlStr) {
 }
 
 function saveToGeocodingCache(query, lat, lng, displayName = '') {
+  if (process.env.DISABLE_GEOCODING_CACHE === '1') return;
   if (!query || lat == null || lng == null) return;
   const normQ = normalizeKhmer(query.trim());
   
@@ -1684,6 +1739,182 @@ async function queryMapboxGeocode(query, province = '') {
   }
 }
 
+// Weighted fuzzy matching with length penalty to prevent accidental short substring matches
+function calculateScore(candName, query) {
+  const n1 = normalizeSearchText(candName);
+  const n2 = normalizeSearchText(query);
+  const c1 = normalizeCompactText(candName);
+  const c2 = normalizeCompactText(query);
+  if (!n1 || !n2) return 0;
+  if (n1 === n2 || (c1 && c1 === c2)) return 100;
+
+  const ratio = fuzz.ratio(n1, n2);
+  const tokenSet = fuzz.token_set_ratio(n1, n2);
+  
+  let finalScore = Math.max(ratio, tokenSet);
+  
+  // Apply penalty for length discrepancy if it's a tokenSet match
+  const lenDiff = Math.abs(n1.length - n2.length);
+  if (lenDiff > 0 && finalScore > ratio) {
+    const penalty = (lenDiff / Math.max(n1.length, n2.length)) * 40;
+    finalScore = Math.max(ratio, finalScore - penalty);
+  }
+  return finalScore;
+}
+
+function normalizeSearchText(value) {
+  return normalizeKhmer(value || '')
+    .toLowerCase()
+    .replace(/[()[\]{}.,#/\\:;'"`!?|_+=*~\-–—]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeCompactText(value) {
+  return normalizeSearchText(value).replace(/[^a-z0-9\u1780-\u17FF]/g, '');
+}
+
+function hasUsableCoords(candidate) {
+  const lat = Number(candidate && candidate.latitude);
+  const lng = Number(candidate && candidate.longitude);
+  return Number.isFinite(lat) && Number.isFinite(lng) && isWithinCambodia(lat, lng);
+}
+
+function getCandidateType(item) {
+  if (item.object_type) return item.object_type;
+
+  const nameLower = (item.market || item.name || '').toLowerCase();
+  const nameKhLower = item.market_kh || item.name_kh || '';
+  const haystack = normalizeSearchText(`${nameLower} ${nameKhLower} ${(item.aliases || []).join(' ')} ${(item.search_keywords || []).join(' ')}`);
+
+  if (/\b(bridge|flyover)\b/i.test(nameLower) || haystack.includes('\u179f\u17d2\u1796\u17b6\u1793')) return 'bridge';
+  if (/\b(wat|pagoda|temple)\b/i.test(nameLower) || haystack.includes('\u179c\u178f\u17d2\u178f')) return 'pagoda';
+  if (/\b(hospital|clinic)\b/i.test(nameLower) || haystack.includes('\u1796\u17c1\u1791\u17d2\u1799') || haystack.includes('\u1798\u1793\u17d2\u1791\u17b8\u179a\u1796\u17c1\u1791\u17d2\u1799')) return 'hospital';
+  if (/\b(school|university|rufa|itc|college|institute)\b/i.test(nameLower) || haystack.includes('\u179f\u17b6\u1780\u179b\u179c\u17b7\u1791\u17d2\u1799\u17b6\u179b\u17d0\u1799') || haystack.includes('\u179c\u17b7\u1791\u17d2\u1799\u17b6\u179f\u17d2\u1790\u17b6\u1793') || haystack.includes('\u179f\u17b6\u179b\u17b6')) return 'university';
+  if (/\b(airport)\b/i.test(nameLower) || haystack.includes('\u17a2\u17b6\u1780\u17b6\u179f\u1799\u17b6\u1793\u178a\u17d2\u178b\u17b6\u1793')) return 'airport';
+  if (/\b(monument|statue)\b/i.test(nameLower) || haystack.includes('\u179c\u17b7\u1798\u17b6\u1793')) return 'monument';
+  if (/\b(street|road|boulevard|national road|nr\d+|st\s*\d+)\b/i.test(nameLower) || haystack.includes('\u1795\u17d2\u179b\u17bc\u179c')) return 'road';
+  if (/\b(borey|buri)\b/i.test(nameLower) || haystack.includes('\u1794\u17bb\u179a\u17b8')) return 'borey';
+  if (/\b(factory|yellow shirt)\b/i.test(nameLower) || haystack.includes('\u179a\u17c4\u1784\u1785\u1780\u17d2\u179a')) return 'landmark';
+  if (/\b(market|phsar|psar|psah)\b/i.test(nameLower) || haystack.includes('\u1795\u17d2\u179f\u17b6\u179a')) return 'market';
+  return 'business';
+}
+
+function getQueryTypeIntents(query) {
+  const text = normalizeSearchText(query);
+  const compact = normalizeCompactText(query);
+  const intents = [];
+
+  if (text.includes('\u179f\u17d2\u1796\u17b6\u1793') || /\b(bridge|flyover)\b/.test(text)) intents.push('bridge');
+  if (text.includes('\u179c\u178f\u17d2\u178f') || /\b(wat|pagoda|temple)\b/.test(text)) intents.push('pagoda');
+  if (text.includes('\u1795\u17d2\u179f\u17b6\u179a') || /\b(phsar|psar|psah|market)\b/.test(text)) intents.push('market');
+  if (text.includes('\u1795\u17d2\u179b\u17bc\u179c') || /\b(street|st|road|boulevard|blvd|national road|nr)\b/.test(text) || /^st\d+/.test(compact)) intents.push('road');
+  if (text.includes('\u1796\u17c1\u1791\u17d2\u1799') || text.includes('\u1798\u1793\u17d2\u1791\u17b8\u179a\u1796\u17c1\u1791\u17d2\u1799') || /\b(hospital|clinic)\b/.test(text)) intents.push('hospital');
+  if (text.includes('\u179f\u17b6\u1780\u179b\u179c\u17b7\u1791\u17d2\u1799\u17b6\u179b\u17d0\u1799') || text.includes('\u179c\u17b7\u1791\u17d2\u1799\u17b6\u179f\u17d2\u1790\u17b6\u1793') || text.includes('\u179f\u17b6\u179b\u17b6') || /\b(university|school|institute|college)\b/.test(text)) intents.push('university');
+  if (text.includes('\u17a2\u17b6\u1780\u17b6\u179f\u1799\u17b6\u1793\u178a\u17d2\u178b\u17b6\u1793') || /\bairport\b/.test(text)) intents.push('airport');
+  if (text.includes('\u179c\u17b7\u1798\u17b6\u1793') || /\b(monument|statue)\b/.test(text)) intents.push('monument');
+  if (text.includes('\u1794\u17bb\u179a\u17b8') || /\b(borey|buri)\b/.test(text)) intents.push('borey');
+
+  return Array.from(new Set(intents));
+}
+
+function isTypeCompatible(candidateType, queryIntents) {
+  if (queryIntents.length === 0) return true;
+  if (queryIntents.includes(candidateType)) return true;
+  if (queryIntents.includes('university') && candidateType === 'school') return true;
+  if (queryIntents.includes('road') && candidateType === 'bridge') return true;
+  return false;
+}
+
+const CHAIN_BRANDS = [
+  { brand: 'AEON', aliases: ['aeon', '\u17a2\u17ca\u17b8\u17a2\u1793'] },
+  { brand: 'ABA', aliases: ['aba', '\u17a2\u17c1\u1794\u17ca\u17b8\u17a2\u17c1'] },
+  { brand: 'ACLEDA', aliases: ['acleda', '\u17a2\u17c1\u179f\u17ca\u17b8\u179b\u17b8\u178a\u17b6'] },
+  { brand: 'Wing', aliases: ['wing', '\u179c\u17b8\u1784'] }
+];
+
+function getMentionedChains(query) {
+  const compact = normalizeCompactText(query);
+  const upper = String(query || '').toUpperCase();
+  return CHAIN_BRANDS.filter(chain =>
+    upper.includes(chain.brand.toUpperCase()) ||
+    chain.aliases.some(alias => compact.includes(normalizeCompactText(alias)))
+  );
+}
+
+function hasAdditionalChainLocation(query, chain) {
+  let compact = normalizeCompactText(query);
+  chain.aliases.forEach(alias => {
+    const aliasCompact = normalizeCompactText(alias);
+    compact = compact.replace(new RegExp(aliasCompact, 'g'), '');
+  });
+
+  const genericWords = ['bank', 'branch', 'maxvalu', 'maxvalue', 'express', 'store', 'atm'];
+  genericWords.forEach(word => {
+    compact = compact.replace(new RegExp(word, 'g'), '');
+  });
+
+  return compact.length >= 3;
+}
+
+function candidateMatchesChain(candidate, chain) {
+  const compact = normalizeCompactText(`${candidate.name || ''} ${candidate.name_kh || ''} ${(candidate.matchedFields || []).join(' ')}`);
+  return chain.aliases.some(alias => compact.includes(normalizeCompactText(alias)));
+}
+
+function formatAmbiguousCandidate(candidate) {
+  return {
+    id: candidate.code || `c_${candidate.name}_${Date.now()}`,
+    source: candidate.source,
+    market: candidate.name,
+    market_kh: candidate.name_kh || '',
+    province: candidate.province,
+    province_kh: candidate.province_kh || '',
+    district: candidate.district,
+    district_kh: candidate.district_kh || '',
+    commune: candidate.commune || '',
+    commune_kh: candidate.commune_kh || '',
+    village: candidate.village || '',
+    village_kh: candidate.village_kh || '',
+    latitude: candidate.latitude,
+    longitude: candidate.longitude,
+    lat: candidate.latitude,
+    lon: candidate.longitude,
+    confidence: Math.round(candidate.finalScore || candidate.baseScore || 0),
+    matchedFields: candidate.matchedFields,
+    reason: candidate.reason || `Candidate match (confidence: ${Math.round(candidate.finalScore || candidate.baseScore || 0)}%)`,
+    display_name: `${candidate.name_kh || candidate.name}, ${candidate.commune || ''}, ${candidate.district || ''}, ${candidate.province || ''}, Cambodia`
+  };
+}
+
+function makeChainAmbiguityResult(chain, candidates) {
+  const chainCandidates = candidates
+    .filter(candidate => candidateMatchesChain(candidate, chain))
+    .filter(hasUsableCoords)
+    .slice(0, 8);
+
+  const results = chainCandidates.length > 0
+    ? chainCandidates.map(formatAmbiguousCandidate)
+    : [{
+        id: `chain_${chain.brand.toLowerCase()}_needs_location`,
+        market: `${chain.brand} - add branch or nearby location`,
+        market_kh: '',
+        province: '',
+        province_kh: '',
+        district: '',
+        district_kh: '',
+        latitude: null,
+        longitude: null,
+        lat: null,
+        lon: null,
+        confidence: 0,
+        matchedFields: ['chain_brand'],
+        reason: `${chain.brand} has many branches. Add a nearby market, road, sangkat, or branch name.`
+      }];
+
+  return { type: 'multiple', results };
+}
+
 async function resolveCoordsWithSpellingCorrection(query, province = '') {
   // 0. Support Google Maps Link parsing (e.g. https://maps.app.goo.gl/xxx or https://www.google.com/maps/...)
   if (/maps\.app\.goo\.gl|goo\.gl\/maps|google\.com\/maps/i.test(query)) {
@@ -1717,8 +1948,10 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
   const processedQuery = preprocessSpelling(cleanQ);
   const normQ = normalizeKhmer(processedQuery);
   const normQuery = processedQuery.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const queryIntents = getQueryTypeIntents(processedQuery);
+  const mentionedChains = getMentionedChains(processedQuery);
 
-  if (geocodingCache[normQ]) {
+  if (process.env.DISABLE_GEOCODING_CACHE !== '1' && geocodingCache[normQ]) {
     const cached = geocodingCache[normQ];
     console.log(`🎯 Geocoding Cache Hit for: "${query}" -> (${cached.lat}, ${cached.lng})`);
     return {
@@ -1728,374 +1961,328 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     };
   }
 
-  // Try searching in famousMarkets database first!
-  const matchedFamous = famousMarkets.filter(m => {
-    // 1. Khmer/Normalized Substring matching (Very precise)
-    const normMarket = normalizeKhmer(m.market);
-    const normMarketKh = normalizeKhmer(m.market_kh);
-    
-    let matchesMarket = false;
-    
-    if (normQ) {
-      if (normMarket.includes(normQ) || normMarketKh.includes(normQ) || 
-          (normMarket.length >= 4 && cleanQ.toLowerCase().includes(normMarket.toLowerCase())) || 
-          (normMarketKh.length >= 4 && cleanQ.includes(normMarketKh))) {
-        matchesMarket = true;
-      }
-      if (!matchesMarket && (m.aliases || []).some(a => {
-        const normA = normalizeKhmer(a);
-        return normA.includes(normQ) || (normA.length >= 4 && cleanQ.toLowerCase().includes(normA.toLowerCase()));
-      })) {
-        matchesMarket = true;
-      }
-      if (!matchesMarket && (m.search_keywords || []).some(k => {
-        const normK = normalizeKhmer(k);
-        return normK.includes(normQ) || (normK.length >= 4 && cleanQ.toLowerCase().includes(normK.toLowerCase()));
-      })) {
-        matchesMarket = true;
+  if (!normQuery && !normQ) {
+    return null;
+  }
+
+  // 1. Gather all candidates
+  const candidates = [];
+
+  // Gather NCDD candidates
+  flatNcddList.forEach(item => {
+    let score = 0;
+    const matchedFields = [];
+    const normNameKh = normalizeKhmer(item.name_kh || '').toLowerCase();
+    const normNameEn = normalizeKhmer(item.name_en || '').toLowerCase();
+
+    if (normNameKh && normNameKh.length >= 2 && normNameKh === normQ) {
+      score = 100;
+      matchedFields.push('name_kh');
+    } else if (normNameEn && normNameEn.length >= 2 && normNameEn === normQuery) {
+      score = 100;
+      matchedFields.push('name_en');
+    } else {
+      const scoreKh = (normNameKh && normNameKh.length >= 2) ? calculateScore(normNameKh, normQ) : 0;
+      const scoreEn = (normNameEn && normNameEn.length >= 2) ? calculateScore(normNameEn, normQuery) : 0;
+      score = Math.max(scoreKh, scoreEn);
+      if (score > 60) {
+        matchedFields.push('fuzzy_name');
       }
     }
 
-    // 2. Alphanumeric fallback (Only if normQuery is not empty to avoid matching everything)
-    if (!matchesMarket && normQuery) {
-      const alphaMarket = m.market.toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (alphaMarket && alphaMarket.includes(normQuery)) {
-        matchesMarket = true;
-      }
-      if (!matchesMarket && (m.aliases || []).some(a => {
-        const alphaA = a.toLowerCase().replace(/[^a-z0-9]/g, '');
-        return alphaA && alphaA.includes(normQuery);
-      })) {
-        matchesMarket = true;
-      }
-      if (!matchesMarket && (m.search_keywords || []).some(k => {
-        const alphaK = k.toLowerCase().replace(/[^a-z0-9]/g, '');
-        // To avoid generic keyword matches like 'phsar' matching 'phsar samaki' query,
-        // we check if the clean keyword contains normQuery, OR if it's an exact match
-        return alphaK && (alphaK.includes(normQuery) || alphaK === normQuery);
-      })) {
-        matchesMarket = true;
-      }
+    if (score > 60) {
+      candidates.push({
+        type: 'administrative',
+        source: 'ncdd',
+        name: item.path_en,
+        name_kh: item.path_kh,
+        code: item.code,
+        latitude: item.latitude || null,
+        longitude: item.longitude || null,
+        province: item.province_en,
+        province_kh: item.province_kh,
+        district: item.district_en,
+        district_kh: item.district_kh,
+        commune: item.commune_en,
+        commune_kh: item.commune_kh,
+        village: item.village_en,
+        village_kh: item.village_kh,
+        objectType: 'administrative',
+        baseScore: score,
+        matchedFields: matchedFields
+      });
     }
-                          
-    if (!matchesMarket) return false;
-    
-    // If a province is specified, we must also match the province!
-    if (province) {
-      const normProv = normalizeKhmer(province);
-      const provMatch = normalizeKhmer(m.province).includes(normProv) || normalizeKhmer(m.province_kh).includes(normProv);
-      return provMatch;
-    }
-    return true;
   });
 
-  if (matchedFamous.length > 0) {
-    if (matchedFamous.length === 1) {
-      const best = matchedFamous[0];
-      console.log(`🎯 Exact match found in local Famous Markets DB: "${best.market}"`);
-      return {
-        lat: best.latitude,
-        lng: best.longitude,
-        name: `${best.market} (${best.market_kh || ''})`
-      };
+  // Gather Famous Markets and Curated Landmarks candidates
+  famousMarkets.forEach(m => {
+    let score = 0;
+    const matchedFields = [];
+    const normMarket = normalizeKhmer(m.market || '').toLowerCase();
+    const normMarketKh = normalizeKhmer(m.market_kh || '').toLowerCase();
+
+    // Determine sub-type
+    let candType = getCandidateType(m);
+    const nameLower = (m.market || '').toLowerCase();
+    const nameKhLower = m.market_kh || '';
+    if (/\b(wat|pagoda)\b/i.test(nameLower) || nameKhLower.includes('វត្ត')) {
+      candType = 'pagoda';
+    } else if (/\b(hospital)\b/i.test(nameLower) || nameKhLower.includes('ពេទ្យ') || nameKhLower.includes('មន្ទីរពេទ្យ')) {
+      candType = 'hospital';
+    } else if (/\b(school|university|rufa|itc|college|institute)\b/i.test(nameLower) || nameKhLower.includes('សាលា') || nameKhLower.includes('សាកលវិទ្យាល័យ') || nameKhLower.includes('វិទ្យាស្ថាន')) {
+      candType = 'school';
+    } else if (/\b(bridge)\b/i.test(nameLower) || nameKhLower.includes('ស្ពាន')) {
+      candType = 'landmark';
+    } else if (/\b(borey|buri)\b/i.test(nameLower) || nameKhLower.includes('បុរី')) {
+      candType = 'borey';
+    } else if (/\b(factory|yellow shirt)\b/i.test(nameLower) || nameKhLower.includes('រោងចក្រ')) {
+      candType = 'landmark';
+    }
+
+    candType = getCandidateType(m);
+
+    // Exact match checks
+    if (normMarketKh && normMarketKh.length >= 2 && normMarketKh === normQ) {
+      score = 100;
+      matchedFields.push('market_kh');
+    } else if (normMarket && normMarket.length >= 2 && normMarket === normQuery) {
+      score = 100;
+      matchedFields.push('market_en');
     } else {
-      console.log(`🎯 Multiple matches found in local Famous Markets DB (${matchedFamous.length} matches)`);
-      return {
-        type: 'multiple',
-        results: matchedFamous.map(best => ({
-          id: `famous_${best.id}`,
-          market: best.market,
-          market_kh: best.market_kh,
-          province: best.province,
-          province_kh: best.province_kh,
-          district: best.district,
-          district_kh: best.district_kh,
-          latitude: best.latitude,
-          longitude: best.longitude,
-          lat: best.latitude,
-          lon: best.longitude,
-          display_name: `${best.market} (${best.market_kh || ''}), ${best.district}, ${best.province}, Cambodia`
-        }))
-      };
-    }
-  }
-  
-  // Static override for Ang Tasom (Angtasom / Angk Ta Saom) in Takeo Province
-  const isAngtasom = normQuery.includes('angtasom') || 
-                     normQuery.includes('angtarsom') || 
-                     normQuery.includes('angtasong') || 
-                     (normQuery.includes('ang') && normQuery.includes('tasom')) ||
-                     normQuery.includes('angktaasom') || 
-                     normQuery.includes('angkktasaom') ||
-                     processedQuery.includes('អង្គតាសោម');
-  if (isAngtasom) {
-    return {
-      lat: 11.0131,
-      lng: 104.6732,
-      name: "Angk Ta Saom (អង្គតាសោម)"
-    };
-  }
+      const scoreKh = (normMarketKh && normMarketKh.length >= 2) ? calculateScore(normMarketKh, normQ) : 0;
+      const scoreEn = (normMarket && normMarket.length >= 2) ? calculateScore(normMarket, normQuery) : 0;
+      score = Math.max(scoreKh, scoreEn);
+      if (score > 60) matchedFields.push('fuzzy_market');
 
-  const isPP = normQuery.includes('phnompenh') || normQuery.includes('pp') || province.toLowerCase().includes('phnom penh');
+      // Check aliases
+      (m.aliases || []).forEach(a => {
+        const normA = normalizeKhmer(a).toLowerCase();
+        if (normA && normA.length >= 2) {
+          const scoreA = calculateScore(normA, normQ);
+          if (scoreA > score) {
+            score = scoreA;
+            matchedFields.push('alias');
+          }
+        }
+      });
 
-  if (isPP) {
-    const isPhsarThmey = /p[h]?s[h]?ar.*t[h]?me[yi]/i.test(normQuery) || 
-                         normQuery.includes('centralmarket') || 
-                         processedQuery.includes('ផ្សារធំថ្មី') || 
-                         processedQuery.includes('ផ្សារថ្មី') || 
-                         processedQuery.includes('ផ្សារ ថ្មី') || 
-                         processedQuery.includes('ផ្សារ ធំ ថ្មី');
-    if (isPhsarThmey) {
-      return {
-        lat: 11.5696,
-        lng: 104.9211,
-        name: "Central Market (ផ្សារធំថ្មី)"
-      };
+      // Check search keywords
+      (m.search_keywords || []).forEach(k => {
+        const normK = normalizeKhmer(k).toLowerCase();
+        if (normK && normK.length >= 2) {
+          const scoreK = calculateScore(normK, normQ);
+          if (scoreK > score) {
+            score = scoreK;
+            matchedFields.push('keyword');
+          }
+        }
+      });
     }
-    const isDaeumKor = /p[h]?s[h]?ar.*d[a-z]+m.*ko/i.test(normQuery) || 
-                       processedQuery.includes('ផ្សារដើមគរ') || 
-                       processedQuery.includes('ផ្សារ ដើមគរ') || 
-                       processedQuery.includes('ផ្សារ ដើម គរ');
-    if (isDaeumKor) {
-      return {
-        lat: 11.5538,
-        lng: 104.9025,
-        name: "Phsar Daeum Kor (ផ្សារដើមគរ)"
-      };
+
+    if (score > 60) {
+      candidates.push({
+        type: candType,
+        source: 'famous_market',
+        name: m.market,
+        name_kh: m.market_kh,
+        latitude: m.latitude,
+        longitude: m.longitude,
+        province: m.province,
+        province_kh: m.province_kh,
+        district: m.district,
+        district_kh: m.district_kh,
+        objectType: candType,
+        priorityScore: Number(m.priority_score || m.confidence || 0),
+        baseScore: score,
+        matchedFields: matchedFields
+      });
     }
+  });
+
+  const chainNeedingLocation = mentionedChains.find(chain => !hasAdditionalChainLocation(processedQuery, chain));
+  if (chainNeedingLocation) {
+    return makeChainAmbiguityResult(chainNeedingLocation, candidates);
   }
 
-  // 1. Try translating Khmer to English using our dictionary
-  let translatedQuery = '';
-  const hasKhmer = /[\u1780-\u17FF]/.test(processedQuery);
-  if (hasKhmer) {
-    translatedQuery = translateKhmerToEnglish(processedQuery);
-    if (translatedQuery) {
-      console.log(`♻️ Translated Khmer query to English: "${processedQuery}" -> "${translatedQuery}"`);
-    }
-  }
+  // If no good local candidates, try online geocoding to discover candidates
+  const hasGoodLocal = candidates.some(c => c.baseScore >= 80);
+  if (!hasGoodLocal) {
+    try {
+      const geoResult = await queryGoogleGeocode(query, province);
+      if (geoResult) {
+        const resultsArray = geoResult.type === 'multiple' ? geoResult.results : [geoResult];
+        resultsArray.forEach(r => {
+          const candType = getCandidateType(r);
 
-  // Helper to generate search candidates for numeric queries (switching 2004 <-> ២០០៤ and trying street/st/ផ្លូវ prefixes)
-  function getGeocodeCandidates(qStr) {
-    const norm = qStr.trim();
-    const list = [norm];
-
-    const khmer = convertArabicToKhmerDigits(norm);
-    const arabic = convertKhmerToArabicDigits(norm);
-
-    if (khmer !== norm) list.push(khmer);
-    if (arabic !== norm && arabic !== khmer) list.push(arabic);
-
-    const isStreet = /^[0-9០-៩a-zA-Z\s]+$/.test(norm) && /[0-9០-៩]/.test(norm) && !/\b(street|st|road|way|ផ្លូវ)\b/i.test(norm);
-    if (isStreet) {
-      const addPrefixes = (val) => {
-        list.push(`street ${val}`);
-        list.push(`ផ្លូវ ${val}`);
-      };
-      addPrefixes(norm);
-      if (khmer !== norm) addPrefixes(khmer);
-      if (arabic !== norm && arabic !== khmer) addPrefixes(arabic);
-    }
-    return Array.from(new Set(list));
-  }
-
-  const candidates = getGeocodeCandidates(processedQuery);
-  console.log(`🔍 Geocode candidates for "${processedQuery}":`, candidates);
-
-  // 0.8 Try Google Geocoding first (if API key is available) — most accurate, matches Google Maps app results
-  for (const cand of candidates) {
-    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
-    const candEnSearchQuery = (translatedQuery && province) 
-      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
-      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
-
-    const googleResult = await queryGoogleGeocode(candEnSearchQuery || candSearchQuery, province);
-    if (googleResult) {
-      console.log(`🎯 Geocoded successfully via Google: "${candEnSearchQuery || candSearchQuery}"`);
-      if (googleResult.type !== 'multiple') {
-        saveToGeocodingCache(query, googleResult.lat, googleResult.lng, googleResult.name);
-      }
-      return googleResult;
-    }
-  }
-
-  // 0.9 Try Mapbox Geocoding next (if token is available)
-  for (const cand of candidates) {
-    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
-    const candEnSearchQuery = (translatedQuery && province) 
-      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
-      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
-
-    const mapboxResult = await queryMapboxGeocode(candEnSearchQuery || candSearchQuery);
-    if (mapboxResult) {
-      console.log(`🎯 Geocoded successfully via Mapbox: "${candEnSearchQuery || candSearchQuery}"`);
-      if (mapboxResult.type !== 'multiple') {
-        saveToGeocodingCache(query, mapboxResult.lat, mapboxResult.lng, mapboxResult.name);
-      }
-      return mapboxResult;
-    }
-  }
-
-  // 1. Try to geocode the query directly using Nominatim/Photon first (free, fast, and no rate limits)
-  for (const cand of candidates) {
-    const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
-    const candEnSearchQuery = (translatedQuery && province) 
-      ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
-      : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
-
-    const qToNom = candEnSearchQuery || candSearchQuery;
-    let nomResults = await queryNominatim(qToNom, 5, province);
-    
-    if (!nomResults || nomResults.length === 0) {
-      const strippedQuery = stripAdministrativePrefixes(cand);
-      if (strippedQuery && strippedQuery !== cand) {
-        const strippedSearchQuery = province ? `${strippedQuery}, ${province}, Cambodia` : `${strippedQuery}, Cambodia`;
-        console.log(`🔍 Direct geocode failed. Retrying with stripped prefixes: "${strippedSearchQuery}"`);
-        nomResults = await queryNominatim(strippedSearchQuery, 5, province);
-      }
-    }
-
-    if (nomResults && nomResults.length > 0) {
-      // Sort results: prioritize Phnom Penh matches first if no specific province is selected!
-      if (!province) {
-        nomResults.sort((a, b) => {
-          const aPP = (a.display_name || '').toLowerCase().includes('phnom penh');
-          const bPP = (b.display_name || '').toLowerCase().includes('phnom penh');
-          if (aPP && !bPP) return -1;
-          if (!aPP && bPP) return 1;
-          return 0;
+          const score = calculateScore(r.market || r.name || '', query);
+          candidates.push({
+            type: candType,
+            source: 'google_geocode',
+            name: r.market || r.name || query,
+            name_kh: r.market_kh || '',
+            latitude: r.latitude || r.lat,
+            longitude: r.longitude || r.lng,
+            province: r.province || '',
+            province_kh: r.province_kh || '',
+            district: r.district || '',
+            district_kh: r.district_kh || '',
+            objectType: candType,
+            baseScore: score,
+            matchedFields: ['google_geocode']
+          });
         });
       }
-
-      if (nomResults.length === 1) {
-        const r = nomResults[0];
-        const lat = parseFloat(r.lat);
-        const lng = parseFloat(r.lon);
-        // Enrich with local inferred province/district fields
-        const inf = inferProvinceAndDistrict(lat, lng);
-        const addr = r.address || {};
-        const resVal = {
-          lat, lng,
-          name: r.name || r.display_name.split(',')[0] || query,
-          province:    inf.province    || addr.state || addr.county || '',
-          province_kh: inf.province_kh || '',
-          district:    inf.district    || addr.city  || addr.town  || addr.village || '',
-          district_kh: inf.district_kh || '',
-          commune:     addr.suburb     || addr.neighbourhood || '',
-          commune_kh:  '',
-          village:     '',
-          village_kh:  ''
-        };
-        saveToGeocodingCache(query, lat, lng, resVal.name);
-        return resVal;
-      } else {
-        return {
-          type: 'multiple',
-          results: nomResults.map((r, idx) => {
-            const lat = parseFloat(r.lat);
-            const lng = parseFloat(r.lon);
-            const addr = r.address || {};
-            const inf = inferProvinceAndDistrict(lat, lng);
-            // Extract the most specific name from Nominatim's address hierarchy
-            const locName = r.name
-              || addr.hamlet || addr.village || addr.suburb
-              || addr.neighbourhood || addr.town || addr.city
-              || r.display_name.split(',')[0];
-            const commune = addr.suburb || addr.neighbourhood || addr.hamlet || '';
-            const district = inf.district || addr.city || addr.town || addr.village || addr.county || '';
-            const province = inf.province || addr.state || addr.county || '';
-            return {
-              id: 'target_' + idx + '_' + Date.now(),
-              market:      locName,
-              market_kh:   '',
-              latitude:    lat,
-              longitude:   lng,
-              province:    province,
-              province_kh: inf.province_kh || '',
-              district:    district,
-              district_kh: inf.district_kh || '',
-              commune:     commune,
-              commune_kh:  '',
-              village:     '',
-              village_kh:  '',
-              display_name: r.display_name,
-              google_maps_url: `https://www.google.com/maps?q=${lat},${lng}`
-            };
-          })
-        };
-      }
-    }
-  }
-
-  // 2. Try Google Maps HTML crawler geocoding next as fallback (gives the exact Google Maps coordinates & coverage)
-  for (const cand of candidates) {
-    try {
-      const candSearchQuery = province ? `${cand}, ${province}, Cambodia` : `${cand}, Cambodia`;
-      const candEnSearchQuery = (translatedQuery && province) 
-        ? `${translateKhmerToEnglish(cand) || translatedQuery}, ${province}, Cambodia` 
-        : (translatedQuery ? `${translateKhmerToEnglish(cand) || translatedQuery}, Cambodia` : '');
-
-      const qToCrawl = candEnSearchQuery || candSearchQuery;
-      const googleCoords = await crawlGoogleMapsCoords(qToCrawl);
-      if (googleCoords && isWithinCambodia(googleCoords.lat, googleCoords.lng)) {
-        console.log(`🎯 Geocoded successfully via Google Maps Crawler: "${qToCrawl}" -> (${googleCoords.lat}, ${googleCoords.lng})`);
-        saveToGeocodingCache(query, googleCoords.lat, googleCoords.lng, googleCoords.name);
-        return googleCoords;
-      }
     } catch (err) {
-      console.error('Google Maps Crawler direct geocode failed:', err.message);
+      console.warn('Online geocoder candidate discovery skipped:', err.message);
     }
   }
 
-  // 2. If it fails, query Google Autocomplete suggestions to get the corrected spelling
-  try {
-    const autoQuery = province ? `${processedQuery}, ${province}` : processedQuery;
-    const autocompleteUrl = `https://clients1.google.com/complete/search?client=chrome&hl=km&gl=kh&q=${encodeURIComponent(autoQuery)}`;
-    const autoRes = await fetch(autocompleteUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-        'Accept-Encoding': 'identity'
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  // 2. Filter candidates by requested Province (or default context)
+  let detectedProvince = province;
+  if (!detectedProvince) {
+    const provWords = [
+      { en: 'phnom penh', kh: 'ភ្នំពេញ' },
+      { en: 'kandal', kh: 'កណ្តាល' },
+      { en: 'siem reap', kh: 'សៀមរាប' },
+      { en: 'sihanoukville', kh: 'ព្រះសីហនុ' },
+      { en: 'kampong cham', kh: 'កំពង់ចាម' },
+      { en: 'battambang', kh: 'បាត់ដំបង' },
+      { en: 'takeo', kh: 'តាកែវ' },
+      { en: 'pursat', kh: 'ពោធិ៍សាត់' },
+      { en: 'prey veng', kh: 'ព្រៃវែង' },
+      { en: 'kampot', kh: 'កំពត' }
+    ];
+    for (const pw of provWords) {
+      if (normQuery.includes(pw.en.replace(/\s+/g, '')) || normQ.includes(pw.kh)) {
+        detectedProvince = pw.en;
+        break;
+      }
+    }
+  }
+
+  let filteredCandidates = candidates;
+  if (detectedProvince) {
+    const normDet = normalizeKhmer(detectedProvince).toLowerCase();
+    filteredCandidates = candidates.filter(c => {
+      const pEn = normalizeKhmer(c.province || '').toLowerCase();
+      const pKh = normalizeKhmer(c.province_kh || '').toLowerCase();
+      return pEn.includes(normDet) || normDet.includes(pEn) || pKh.includes(normDet) || normDet.includes(pKh);
+    });
+  } else {
+    filteredCandidates.forEach(c => {
+      const pEn = (c.province || '').toLowerCase();
+      if (pEn !== 'phnom penh' && pEn !== 'phnompenh') {
+        c.baseScore -= 15; // Penalty for province jumping!
       }
     });
-    const autoData = await autoRes.json();
-    const suggestions = autoData[1] || [];
-    
-    // Try to geocode the first 6 suggestions
-    for (const sugg of suggestions.slice(0, 6)) {
-      if (sugg.toLowerCase() !== autoQuery.toLowerCase()) {
-        const suggCoords = await queryNominatim(sugg, 1, province);
-        if (suggCoords && suggCoords.length > 0) {
-          const lat = parseFloat(suggCoords[0].lat);
-          const lng = parseFloat(suggCoords[0].lon);
-          console.log(`✨ Corrected spelling "${autoQuery}" -> "${sugg}" and geocoded successfully!`);
-          saveToGeocodingCache(query, lat, lng, sugg);
-          saveToGeocodingCache(sugg, lat, lng, sugg);
-          return {
-            lat,
-            lng,
-            name: sugg
-          };
-        }
-      }
-    }
-  } catch (err) {
-    console.error('Spelling correction autocomplete failed:', err.message);
   }
 
-  // 3. Fallback: Try Gemini API geocoding
-  try {
-    const geminiCoords = await geocodeWithGemini(query, province);
-    if (geminiCoords && isWithinCambodia(geminiCoords.lat, geminiCoords.lng)) {
-      console.log(`🎯 Geocoded successfully via Gemini API: "${query}" -> (${geminiCoords.lat}, ${geminiCoords.lng})`);
-      saveToGeocodingCache(query, geminiCoords.lat, geminiCoords.lng, geminiCoords.name);
-      return geminiCoords;
-    }
-  } catch (err) {
-    console.error('Gemini API geocoding fallback failed:', err.message);
+  filteredCandidates = filteredCandidates.filter(hasUsableCoords);
+
+  if (filteredCandidates.length === 0) {
+    return null;
   }
 
-  // 4. Fallback: return null since all methods failed
-  return null;
+  // 3. Apply Hierarchical Priority Scoring
+  filteredCandidates.forEach(c => {
+    let priorityBonus = 0;
+    const candidateType = c.objectType || c.type;
+    switch (candidateType) {
+      case 'administrative':
+        priorityBonus = 50;
+        break;
+      case 'bridge':
+        priorityBonus = 48;
+        break;
+      case 'landmark':
+        priorityBonus = 40;
+        break;
+      case 'pagoda':
+        priorityBonus = 35;
+        break;
+      case 'hospital':
+        priorityBonus = 32;
+        break;
+      case 'school':
+      case 'university':
+        priorityBonus = 30;
+        break;
+      case 'airport':
+        priorityBonus = 38;
+        break;
+      case 'monument':
+        priorityBonus = 34;
+        break;
+      case 'market':
+        priorityBonus = 25;
+        break;
+      case 'road':
+        priorityBonus = 22;
+        break;
+      case 'street':
+        priorityBonus = 15;
+        break;
+      case 'borey':
+        priorityBonus = 10;
+        break;
+      default:
+        priorityBonus = 0;
+    }
+
+    let intentAdjustment = 0;
+    if (queryIntents.length > 0) {
+      intentAdjustment = isTypeCompatible(candidateType, queryIntents) ? 12 : -35;
+    }
+
+    const curatedBonus = c.source === 'famous_market' ? 4 : 0;
+    const verifiedBonus = c.priorityScore >= 95 ? 3 : 0;
+    c.finalScore = Math.min(100, c.baseScore + priorityBonus / 5 + intentAdjustment + curatedBonus + verifiedBonus);
+    c.reason = isTypeCompatible(candidateType, queryIntents)
+      ? undefined
+      : `Type mismatch: query expects ${queryIntents.join(', ')}, candidate is ${candidateType}.`;
+  });
+
+  filteredCandidates.sort((a, b) => b.finalScore - a.finalScore);
+
+  const top = filteredCandidates[0];
+
+  // 4. Threshold Checking (90%)
+  if (top.finalScore < 90) {
+    const closeMatches = filteredCandidates.filter(c => Math.abs(c.finalScore - top.finalScore) < 5);
+    if (closeMatches.length > 1) {
+      return {
+        type: 'multiple',
+        results: closeMatches.slice(0, 5).map(formatAmbiguousCandidate)
+      };
+    }
+    return null;
+  }
+
+  // Save successful exact match to cache
+  const result = {
+    lat: top.latitude,
+    lng: top.longitude,
+    name: top.name_kh ? `${top.name_kh} (${top.name})` : top.name,
+    province: top.province || '',
+    province_kh: top.province_kh || '',
+    district: top.district || '',
+    district_kh: top.district_kh || '',
+    commune: top.commune || '',
+    commune_kh: top.commune_kh || '',
+    village: top.village || '',
+    village_kh: top.village_kh || '',
+    object_type: top.objectType || top.type,
+    confidence: Math.round(top.finalScore),
+    matchedFields: top.matchedFields,
+    reason: `Selected top candidate "${top.name}" (${top.objectType || top.type}) via matches on [${top.matchedFields.join(', ')}] with ${Math.round(top.finalScore)}% confidence.`
+  };
+
+  saveToGeocodingCache(query, result.lat, result.lng, result.name);
+  return result;
 }
 
 async function queryPhoton(query, limit = 1, province = '') {

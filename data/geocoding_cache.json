@@ -1,1 +1,58 @@
-{}
+{
+  "ក្រោយវត្តស្ទឹងមានជ័យ": {
+    "lat": 11.529285,
+    "lng": 104.896791,
+    "display_name": "វត្តស្ទឹងមានជ័យ (Wat Steung Meanchey)"
+  },
+  "11.529285,104.896791": {
+    "display_name": "វត្តស្ទឹងមានជ័យ (Wat Steung Meanchey)"
+  },
+  "បឹងកេងកង": {
+    "lat": 11.5534,
+    "lng": 104.9116,
+    "display_name": "បឹងកេងកង, ភ្នំពេញ (Boeng Keng Kang, Phnom Penh)"
+  },
+  "11.553400,104.911600": {
+    "display_name": "បឹងកេងកង, ភ្នំពេញ (Boeng Keng Kang, Phnom Penh)"
+  },
+  "វត្តព្រែកថ្លឹង": {
+    "lat": 11.464612,
+    "lng": 104.91421,
+    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
+  },
+  "11.464612,104.914210": {
+    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
+  },
+  "ក្តាន់2": {
+    "lat": 11.572421,
+    "lng": 104.914311,
+    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
+  },
+  "11.572421,104.914311": {
+    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
+  },
+  "រោងចក្រអាវលឿង": {
+    "lat": 11.530511,
+    "lng": 104.851212,
+    "display_name": "រោងចក្រអាវលឿង (Yellow Shirt Factory)"
+  },
+  "11.530511,104.851212": {
+    "display_name": "រោងចក្រអាវលឿង (Yellow Shirt Factory)"
+  },
+  "ផ្សារព្រៃទា": {
+    "lat": 11.5490653,
+    "lng": 104.8295446,
+    "display_name": "ផ្សារព្រៃទា (Phsar Prey Tea)"
+  },
+  "11.549065,104.829545": {
+    "display_name": "ផ្សារព្រៃទា (Phsar Prey Tea)"
+  },
+  "វេងស្រេង ផ្សារដីថ្មី": {
+    "lat": 11.527311,
+    "lng": 104.858212,
+    "display_name": "ផ្សារដីថ្មី វេងស្រេង (Phsar Dei Thmei Veng Sreng)"
+  },
+  "11.527311,104.858212": {
+    "display_name": "ផ្សារដីថ្មី វេងស្រេង (Phsar Dei Thmei Veng Sreng)"
+  }
+}

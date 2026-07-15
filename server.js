@@ -27,11 +27,14 @@ const DATA_PATH = path.join(__dirname, 'data', 'routes.json');
 const PICKUP_DATA_PATH = path.join(__dirname, 'data', 'pickup_branches.json');
 const FAMOUS_MARKETS_PATH = path.join(__dirname, 'data', 'famous_markets.json');
 const CACHE_PATH = path.join(__dirname, 'data', 'geocoding_cache.json');
+const NCDD_PATH = path.join(__dirname, 'data', 'ncdd_hierarchy.json');
 
 let routes = [];
 let pickupBranches = [];
 let famousMarkets = [];
 let geocodingCache = {};
+let ncddHierarchy = [];
+let flatNcddList = [];
 let fuse;
 let branchFuse;
 const translationDict = {};
@@ -132,6 +135,122 @@ try {
 }
 
 initializeFuse();
+
+// Initialize NCDD flat search list
+function initializeNcddFlatList() {
+  flatNcddList = [];
+  ncddHierarchy.forEach(p => {
+    flatNcddList.push({
+      type: 'province',
+      code: p.code,
+      name_en: p.name_en,
+      name_kh: p.name_kh,
+      path_en: p.name_en,
+      path_kh: p.name_kh,
+      province_en: p.name_en,
+      province_kh: p.name_kh
+    });
+    
+    p.districts.forEach(d => {
+      flatNcddList.push({
+        type: 'district',
+        code: d.code,
+        name_en: d.name_en,
+        name_kh: d.name_kh,
+        path_en: `${d.name_en}, ${p.name_en}`,
+        path_kh: `${d.name_kh}, ${p.name_kh}`,
+        province_en: p.name_en,
+        province_kh: p.name_kh,
+        district_en: d.name_en,
+        district_kh: d.name_kh
+      });
+      
+      d.communes.forEach(c => {
+        flatNcddList.push({
+          type: 'commune',
+          code: c.code,
+          name_en: c.name_en,
+          name_kh: c.name_kh,
+          path_en: `${c.name_en}, ${d.name_en}, ${p.name_en}`,
+          path_kh: `${c.name_kh}, ${d.name_kh}, ${p.name_kh}`,
+          province_en: p.name_en,
+          province_kh: p.name_kh,
+          district_en: d.name_en,
+          district_kh: d.name_kh,
+          commune_en: c.name_en,
+          commune_kh: c.name_kh
+        });
+        
+        c.villages.forEach(v => {
+          flatNcddList.push({
+            type: 'village',
+            code: v.code,
+            name_en: v.name_en,
+            name_kh: v.name_kh,
+            path_en: `${v.name_en}, ${c.name_en}, ${d.name_en}, ${p.name_en}`,
+            path_kh: `${v.name_kh}, ${c.name_kh}, ${d.name_kh}, ${p.name_kh}`,
+            province_en: p.name_en,
+            province_kh: p.name_kh,
+            district_en: d.name_en,
+            district_kh: d.name_kh,
+            commune_en: c.name_en,
+            commune_kh: c.name_kh,
+            village_en: v.name_en,
+            village_kh: v.name_kh
+          });
+        });
+      });
+    });
+  });
+  console.log(`✅ Pre-flattened ${flatNcddList.length} NCDD administrative records for fast search`);
+}
+
+// Search NCDD flat array using prefix/substring matches
+function searchNcdd(query, limit = 20) {
+  if (typeof normalizeKhmer !== 'function') return [];
+  const processedQ = typeof preprocessSpelling === 'function' ? preprocessSpelling(query) : query;
+  const normQ = normalizeKhmer(processedQ).toLowerCase();
+  if (!normQ) return [];
+  
+  const matches = [];
+  for (const item of flatNcddList) {
+    const mKh = normalizeKhmer(item.name_kh).toLowerCase();
+    const mEn = normalizeKhmer(item.name_en).toLowerCase();
+    
+    if (mKh.startsWith(normQ) || mEn.startsWith(normQ)) {
+      matches.push(item);
+    } else if (mKh.includes(normQ) || mEn.includes(normQ)) {
+      matches.push(item);
+    }
+    
+    if (matches.length >= limit * 2) break;
+  }
+  
+  matches.sort((a, b) => {
+    const aKh = normalizeKhmer(a.name_kh).toLowerCase();
+    const bKh = normalizeKhmer(b.name_kh).toLowerCase();
+    const aStartsWith = aKh.startsWith(normQ) || normalizeKhmer(a.name_en).toLowerCase().startsWith(normQ);
+    const bStartsWith = bKh.startsWith(normQ) || normalizeKhmer(b.name_en).toLowerCase().startsWith(normQ);
+    if (aStartsWith && !bStartsWith) return -1;
+    if (!aStartsWith && bStartsWith) return 1;
+    return a.path_en.length - b.path_en.length;
+  });
+  
+  return matches.slice(0, limit);
+}
+
+// Load NCDD hierarchy
+try {
+  if (fs.existsSync(NCDD_PATH)) {
+    ncddHierarchy = JSON.parse(fs.readFileSync(NCDD_PATH, 'utf-8'));
+    console.log(`✅ Loaded NCDD Hierarchy Database (${ncddHierarchy.length} provinces)`);
+    initializeNcddFlatList();
+  } else {
+    console.warn('⚠️ NCDD Hierarchy database file (ncdd_hierarchy.json) not found.');
+  }
+} catch (err) {
+  console.error('❌ Failed to load ncdd_hierarchy.json:', err.message);
+}
 
 try {
   if (fs.existsSync(CACHE_PATH)) {
@@ -2403,6 +2522,73 @@ app.post('/api/learn-location', (req, res) => {
  */
 app.get('/api/learned-locations', (req, res) => {
   res.json({ total: learnedLocations.length, locations: learnedLocations });
+});
+
+/**
+ * GET /api/ncdd/search
+ * Search NCDD hierarchy
+ */
+app.get('/api/ncdd/search', (req, res) => {
+  const { q = '', limit = 20 } = req.query;
+  const results = searchNcdd(q, parseInt(limit));
+  res.json(results);
+});
+
+/**
+ * GET /api/ncdd/provinces
+ * Get list of all provinces
+ */
+app.get('/api/ncdd/provinces', (req, res) => {
+  const list = ncddHierarchy.map(p => ({ code: p.code, name_en: p.name_en, name_kh: p.name_kh }));
+  res.json(list);
+});
+
+/**
+ * GET /api/ncdd/districts
+ * Get districts for a given province
+ */
+app.get('/api/ncdd/districts', (req, res) => {
+  const { provinceCode } = req.query;
+  if (!provinceCode) return res.status(400).json({ error: 'provinceCode is required' });
+  const prov = ncddHierarchy.find(p => p.code === provinceCode);
+  if (!prov) return res.status(404).json({ error: 'Province not found' });
+  const list = prov.districts.map(d => ({ code: d.code, name_en: d.name_en, name_kh: d.name_kh, type: d.type }));
+  res.json(list);
+});
+
+/**
+ * GET /api/ncdd/communes
+ * Get communes for a given district
+ */
+app.get('/api/ncdd/communes', (req, res) => {
+  const { districtCode } = req.query;
+  if (!districtCode) return res.status(400).json({ error: 'districtCode is required' });
+  const provCode = districtCode.substring(0, 2);
+  const prov = ncddHierarchy.find(p => p.code === provCode);
+  if (!prov) return res.status(404).json({ error: 'Province not found' });
+  const dist = prov.districts.find(d => d.code === districtCode);
+  if (!dist) return res.status(404).json({ error: 'District not found' });
+  const list = dist.communes.map(c => ({ code: c.code, name_en: c.name_en, name_kh: c.name_kh, type: c.type }));
+  res.json(list);
+});
+
+/**
+ * GET /api/ncdd/villages
+ * Get villages for a given commune
+ */
+app.get('/api/ncdd/villages', (req, res) => {
+  const { communeCode } = req.query;
+  if (!communeCode) return res.status(400).json({ error: 'communeCode is required' });
+  const provCode = communeCode.substring(0, 2);
+  const distCode = communeCode.substring(0, 4);
+  const prov = ncddHierarchy.find(p => p.code === provCode);
+  if (!prov) return res.status(404).json({ error: 'Province not found' });
+  const dist = prov.districts.find(d => d.code === distCode);
+  if (!dist) return res.status(404).json({ error: 'District not found' });
+  const comm = dist.communes.find(c => c.code === communeCode);
+  if (!comm) return res.status(404).json({ error: 'Commune not found' });
+  const list = comm.villages.map(v => ({ code: v.code, name_en: v.name_en, name_kh: v.name_kh }));
+  res.json(list);
 });
 
 /**

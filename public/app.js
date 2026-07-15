@@ -840,37 +840,8 @@ function setupEventListeners() {
     }
   });
 
-  // Province dropdown change re-trigger search
-  if (provinceSelect) {
-    provinceSelect.addEventListener('change', () => {
-      const prov = provinceSelect.value;
-      if (prov) {
-        // If there's a search query, re-run search filtered by province
-        if (searchInput.value.trim()) {
-          closeAutocomplete();
-          runSmartFind();
-        } else {
-          // No search query — show all POs in that province
-          showAllPOsInProvince(prov);
-        }
-      } else {
-        // Reset to "All Provinces" — clear results and go back to welcome
-        if (!searchInput.value.trim()) {
-          clearAllMapLayers();
-          activeMarkers = [];
-          currentResults = [];
-          showState('welcome');
-          if (resultsCount) {
-            resultsCount.textContent = 'Welcome to Metfone Express Grid';
-          }
-          map.setView([12.5657, 104.9910], 7.5);
-        } else {
-          closeAutocomplete();
-          runSmartFind();
-        }
-      }
-    });
-  }
+  // Set up NCDD Cascading Selectors
+  setupNcddCascadingSelectors();
 
   // Welcome hint chips click
   document.querySelectorAll('.hint-chip').forEach(chip => {
@@ -1069,9 +1040,11 @@ async function showAutocomplete(q) {
     const branchResults = clientSearch(searchQ, 'branch', '');
 
     const googleUrl = `${API}/api/google-autocomplete?q=${encodeURIComponent(searchQ)}` + (prov ? `&province=${encodeURIComponent(prov)}` : '');
-    const googleData = await fetch(googleUrl)
-      .then(r => r.json())
-      .catch(() => []);
+    const ncddUrl = `${API}/api/ncdd/search?q=${encodeURIComponent(searchQ)}&limit=10`;
+    const [googleData, ncddData] = await Promise.all([
+      fetch(googleUrl).then(r => r.json()).catch(() => []),
+      fetch(ncddUrl).then(r => r.json()).catch(() => [])
+    ]).catch(() => [[], []]);
 
     const localData = { results: localResults };
     const branchData = { results: branchResults };
@@ -1215,6 +1188,63 @@ async function showAutocomplete(q) {
         });
       }
     });
+
+    // 2.5 Add NCDD Administrative Suggestions
+    if (Array.isArray(ncddData)) {
+      ncddData.forEach(item => {
+        // Find if we have coordinates locally for this village/commune/district name
+        const localMatch = clientMergedRoutes.find(r => {
+          const itemProv = normalizeKhmer(item.province_kh).toLowerCase();
+          const routeProv = normalizeKhmer(r.province_kh || r.province || '').toLowerCase();
+          if (routeProv !== itemProv && !routeProv.includes(itemProv) && !itemProv.includes(routeProv)) return false;
+          
+          if (item.type === 'village') {
+            const itemVill = normalizeKhmer(item.village_kh).toLowerCase();
+            const routeVill = normalizeKhmer(r.village_kh || r.village || '').toLowerCase();
+            return routeVill && (routeVill === itemVill || routeVill.includes(itemVill));
+          } else if (item.type === 'commune') {
+            const itemComm = normalizeKhmer(item.commune_kh).toLowerCase();
+            const routeComm = normalizeKhmer(r.commune_kh || r.commune || '').toLowerCase();
+            return routeComm && (routeComm === itemComm || routeComm.includes(itemComm));
+          } else if (item.type === 'district') {
+            const itemDist = normalizeKhmer(item.district_kh).toLowerCase();
+            const routeDist = normalizeKhmer(r.district_kh || r.district || '').toLowerCase();
+            return routeDist && (routeDist === itemDist || routeDist.includes(itemDist));
+          }
+          return false;
+        });
+
+        const typeLabel = item.type === 'village' ? 'ភូមិ (Village)'
+          : item.type === 'commune' ? 'ឃុំ/សង្កាត់ (Commune)'
+          : item.type === 'district' ? 'ស្រុក/ខណ្ឌ (District)'
+          : 'ខេត្ត (Province)';
+          
+        const addressString = item.path_kh || [item.commune_kh || item.commune_en, item.district_kh || item.district_en, item.province_kh || item.province_en].filter(Boolean).join(', ');
+        
+        // Push suggestion with coordinates if available, else null for dynamic geocoding
+        suggestions.push({
+          isLocal: !!localMatch,
+          isBranch: false,
+          isNcdd: true,
+          label: `${item.path_en}, Cambodia`, // Full NCDD address path for geocoder fallback!
+          displayLabel: `${item.name_kh} (${item.name_en})`,
+          address: `${addressString} · 📍 NCDD ${typeLabel}`,
+          lat: localMatch ? localMatch.latitude : null,
+          lng: localMatch ? localMatch.longitude : null,
+          province: item.province_en,
+          raw: localMatch || {
+            province: item.province_en,
+            province_kh: item.province_kh,
+            district: item.district_en,
+            district_kh: item.district_kh,
+            commune: item.commune_en,
+            commune_kh: item.commune_kh,
+            village: item.village_en,
+            village_kh: item.village_kh
+          }
+        });
+      });
+    }
 
     // 3. Add Google Autocomplete suggestions (Tagged as "Google Maps Search")
     googleData.forEach(text => {
@@ -3902,6 +3932,170 @@ function setupSidebarCurtain() {
         if (map) map.invalidateSize();
       }
     }, 16);
+  });
+}
+
+// ─── NCDD Cascading Selectors Controller ─────────────────────────────────────
+let provNameToCodeMap = {};
+
+async function loadProvNameToCodeMap() {
+  try {
+    const res = await fetch('/api/ncdd/provinces');
+    if (res.ok) {
+      const provinces = await res.json();
+      provinces.forEach(p => {
+        // Normalize name to lowercase, no spaces, e.g. "siemreap" / "mondulkiri"
+        const key = p.name_en.replace(/\s+/g, '').toLowerCase();
+        provNameToCodeMap[key] = p.code;
+      });
+    }
+  } catch (e) {
+    console.warn('Failed to load NCDD provinces map:', e);
+  }
+}
+
+function setupNcddCascadingSelectors() {
+  const provinceSelect = document.getElementById('provinceSelect');
+  const districtSelect = document.getElementById('districtSelect');
+  const communeSelect = document.getElementById('communeSelect');
+  const villageSelect = document.getElementById('villageSelect');
+
+  if (!provinceSelect || !districtSelect || !communeSelect || !villageSelect) return;
+
+  loadProvNameToCodeMap();
+
+  provinceSelect.addEventListener('change', async () => {
+    const prov = provinceSelect.value;
+    
+    // Clear and hide child dropdowns
+    districtSelect.innerHTML = '<option value="">All Districts (Municipality/Khan)</option>';
+    districtSelect.style.display = 'none';
+    communeSelect.innerHTML = '<option value="">All Communes (Sangkat)</option>';
+    communeSelect.style.display = 'none';
+    villageSelect.innerHTML = '<option value="">All Villages (Phum)</option>';
+    villageSelect.style.display = 'none';
+
+    if (prov) {
+      const key = prov.replace(/\s+/g, '').toLowerCase();
+      const code = provNameToCodeMap[key];
+      if (code) {
+        try {
+          const res = await fetch(`/api/ncdd/districts?provinceCode=${code}`);
+          if (res.ok) {
+            const districts = await res.json();
+            districts.forEach(d => {
+              const opt = document.createElement('option');
+              opt.value = d.code;
+              opt.textContent = `${d.name_en} (${d.name_kh})`;
+              districtSelect.appendChild(opt);
+            });
+            districtSelect.style.display = 'block';
+          }
+        } catch (e) {
+          console.warn('Failed to fetch districts:', e);
+        }
+      }
+      
+      // Standard search logic: re-run search or show POs in province
+      if (searchInput.value.trim()) {
+        closeAutocomplete();
+        runSmartFind();
+      } else {
+        showAllPOsInProvince(prov);
+      }
+    } else {
+      if (!searchInput.value.trim()) {
+        clearAllMapLayers();
+        activeMarkers = [];
+        currentResults = [];
+        showState('welcome');
+        if (resultsCount) {
+          resultsCount.textContent = 'Welcome to Metfone Express Grid';
+        }
+        map.setView([12.5657, 104.9910], 7.5);
+      }
+    }
+  });
+
+  districtSelect.addEventListener('change', async () => {
+    const distCode = districtSelect.value;
+    
+    // Clear and hide child dropdowns
+    communeSelect.innerHTML = '<option value="">All Communes (Sangkat)</option>';
+    communeSelect.style.display = 'none';
+    villageSelect.innerHTML = '<option value="">All Villages (Phum)</option>';
+    villageSelect.style.display = 'none';
+
+    if (distCode) {
+      try {
+        const res = await fetch(`/api/ncdd/communes?districtCode=${distCode}`);
+        if (res.ok) {
+          const communes = await res.json();
+          communes.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.code;
+            opt.textContent = `${c.name_en} (${c.name_kh})`;
+            communeSelect.appendChild(opt);
+          });
+          communeSelect.style.display = 'block';
+        }
+      } catch (e) {
+        console.warn('Failed to fetch communes:', e);
+      }
+
+      // Auto-trigger search for selected district
+      const distName = districtSelect.options[districtSelect.selectedIndex].text.split(' (')[0];
+      searchInput.value = distName;
+      clearBtn.style.display = 'block';
+      runSmartFind();
+    }
+  });
+
+  communeSelect.addEventListener('change', async () => {
+    const commCode = communeSelect.value;
+    
+    // Clear and hide child dropdowns
+    villageSelect.innerHTML = '<option value="">All Villages (Phum)</option>';
+    villageSelect.style.display = 'none';
+
+    if (commCode) {
+      try {
+        const res = await fetch(`/api/ncdd/villages?communeCode=${commCode}`);
+        if (res.ok) {
+          const villages = await res.json();
+          villages.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.code;
+            opt.textContent = `${v.name_en} (${v.name_kh})`;
+            villageSelect.appendChild(opt);
+          });
+          villageSelect.style.display = 'block';
+        }
+      } catch (e) {
+        console.warn('Failed to fetch villages:', e);
+      }
+
+      // Auto-trigger search for selected commune
+      const commName = communeSelect.options[communeSelect.selectedIndex].text.split(' (')[0];
+      searchInput.value = commName;
+      clearBtn.style.display = 'block';
+      runSmartFind();
+    }
+  });
+
+  villageSelect.addEventListener('change', () => {
+    const villCode = villageSelect.value;
+    if (villCode) {
+      // Auto-trigger search for selected village
+      const villName = villageSelect.options[villageSelect.selectedIndex].text.split(' (')[0];
+      const commName = communeSelect.options[communeSelect.selectedIndex].text.split(' (')[0];
+      const distName = districtSelect.options[districtSelect.selectedIndex].text.split(' (')[0];
+      const provName = provinceSelect.value;
+      
+      searchInput.value = `${villName}, ${commName}, ${distName}, ${provName}`;
+      clearBtn.style.display = 'block';
+      runSmartFind();
+    }
   });
 }
 

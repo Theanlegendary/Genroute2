@@ -4,14 +4,24 @@
     "market": "Wat Phnom",
     "market_kh": "វត្តភ្នំ",
     "object_type": "pagoda",
-    "aliases": ["វត្តភ្នំ", "Wat Phnom", "Wat Phnom Daun Penh", "Phnom Pagoda"],
+    "aliases": [
+      "វត្តភ្នំ",
+      "Wat Phnom",
+      "Wat Phnom Daun Penh",
+      "Phnom Pagoda"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Daun Penh",
     "district_kh": "ដូនពេញ",
     "latitude": 11.57662,
     "longitude": 104.92313,
-    "search_keywords": ["វត្តភ្នំ", "wat phnom", "phnom pagoda", "daun penh"],
+    "search_keywords": [
+      "វត្តភ្នំ",
+      "wat phnom",
+      "phnom pagoda",
+      "daun penh"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.57662,104.92313",
     "source": "curated_landmark",
     "confidence": 100,
@@ -22,14 +32,27 @@
     "market": "Chroy Changvar Bridge",
     "market_kh": "ស្ពានជ្រោយចង្វា",
     "object_type": "bridge",
-    "aliases": ["ស្ពានជ្រោយចង្វា", "ស្ពានមិត្តភាពកម្ពុជា-ជប៉ុន", "ស្ពានមិត្តភាពកម្ពុជា ជប៉ុន", "Cambodia-Japan Friendship Bridge", "Cambodia Japan Friendship Bridge", "Chroy Changvar Bridge"],
+    "aliases": [
+      "ស្ពានជ្រោយចង្វា",
+      "ស្ពានមិត្តភាពកម្ពុជា-ជប៉ុន",
+      "ស្ពានមិត្តភាពកម្ពុជា ជប៉ុន",
+      "Cambodia-Japan Friendship Bridge",
+      "Cambodia Japan Friendship Bridge",
+      "Chroy Changvar Bridge"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Chroy Changvar",
     "district_kh": "ជ្រោយចង្វារ",
     "latitude": 11.58494,
     "longitude": 104.93003,
-    "search_keywords": ["ស្ពានជ្រោយចង្វា", "ស្ពានមិត្តភាពកម្ពុជា-ជប៉ុន", "cambodia japan friendship bridge", "chroy changvar bridge", "japanese bridge"],
+    "search_keywords": [
+      "ស្ពានជ្រោយចង្វា",
+      "ស្ពានមិត្តភាពកម្ពុជា-ជប៉ុន",
+      "cambodia japan friendship bridge",
+      "chroy changvar bridge",
+      "japanese bridge"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.58494,104.93003",
     "source": "curated_landmark",
     "confidence": 100,
@@ -40,14 +63,23 @@
     "market": "Steung Meanchey Flyover",
     "market_kh": "ស្ពានអាកាសស្ទឹងមានជ័យ",
     "object_type": "bridge",
-    "aliases": ["ស្ពានអាកាសស្ទឹងមានជ័យ", "Steung Meanchey Flyover", "Stung Meanchey Flyover", "ស្ពានស្ទឹងមានជ័យ"],
+    "aliases": [
+      "ស្ពានអាកាសស្ទឹងមានជ័យ",
+      "Steung Meanchey Flyover",
+      "Stung Meanchey Flyover",
+      "ស្ពានស្ទឹងមានជ័យ"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Mean Chey",
     "district_kh": "មានជ័យ",
     "latitude": 11.5382,
     "longitude": 104.8898,
-    "search_keywords": ["ស្ពានអាកាសស្ទឹងមានជ័យ", "steung meanchey flyover", "stung meanchey flyover"],
+    "search_keywords": [
+      "ស្ពានអាកាសស្ទឹងមានជ័យ",
+      "steung meanchey flyover",
+      "stung meanchey flyover"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5382,104.8898",
     "source": "curated_landmark",
     "confidence": 100,
@@ -58,14 +90,23 @@
     "market": "Monivong Bridge",
     "market_kh": "ស្ពានព្រះមុនីវង្ស",
     "object_type": "bridge",
-    "aliases": ["ស្ពានព្រះមុនីវង្ស", "ស្ពានមុនីវង្ស", "Monivong Bridge", "Preah Monivong Bridge"],
+    "aliases": [
+      "ស្ពានព្រះមុនីវង្ស",
+      "ស្ពានមុនីវង្ស",
+      "Monivong Bridge",
+      "Preah Monivong Bridge"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Chbar Ampov",
     "district_kh": "ច្បារអំពៅ",
     "latitude": 11.5265,
     "longitude": 104.9406,
-    "search_keywords": ["monivong bridge", "preah monivong bridge", "ស្ពានមុនីវង្ស"],
+    "search_keywords": [
+      "monivong bridge",
+      "preah monivong bridge",
+      "ស្ពានមុនីវង្ស"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5265,104.9406",
     "source": "curated_landmark",
     "confidence": 100,
@@ -76,14 +117,24 @@
     "market": "Tsubasa Bridge",
     "market_kh": "ស្ពានអ្នកលឿង",
     "object_type": "bridge",
-    "aliases": ["ស្ពានអ្នកលឿង", "ស្ពានត្សឹបាសា", "Tsubasa Bridge", "Neak Loeung Bridge", "Neak Leung Bridge"],
+    "aliases": [
+      "ស្ពានអ្នកលឿង",
+      "ស្ពានត្សឹបាសា",
+      "Tsubasa Bridge",
+      "Neak Loeung Bridge",
+      "Neak Leung Bridge"
+    ],
     "province": "Prey Veng",
     "province_kh": "ព្រៃវែង",
     "district": "Peam Ro",
     "district_kh": "ពាមរក៍",
     "latitude": 11.2519,
     "longitude": 105.2801,
-    "search_keywords": ["tsubasa bridge", "neak loeung bridge", "ស្ពានអ្នកលឿង"],
+    "search_keywords": [
+      "tsubasa bridge",
+      "neak loeung bridge",
+      "ស្ពានអ្នកលឿង"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.2519,105.2801",
     "source": "curated_landmark",
     "confidence": 100,
@@ -94,14 +145,22 @@
     "market": "Kizuna Bridge",
     "market_kh": "ស្ពានគីហ្សូណា",
     "object_type": "bridge",
-    "aliases": ["ស្ពានគីហ្សូណា", "Kizuna Bridge", "Kampong Cham Bridge"],
+    "aliases": [
+      "ស្ពានគីហ្សូណា",
+      "Kizuna Bridge",
+      "Kampong Cham Bridge"
+    ],
     "province": "Kampong Cham",
     "province_kh": "កំពង់ចាម",
     "district": "Kampong Cham",
     "district_kh": "កំពង់ចាម",
     "latitude": 11.9997,
     "longitude": 105.4627,
-    "search_keywords": ["kizuna bridge", "kampong cham bridge", "ស្ពានគីហ្សូណា"],
+    "search_keywords": [
+      "kizuna bridge",
+      "kampong cham bridge",
+      "ស្ពានគីហ្សូណា"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.9997,105.4627",
     "source": "curated_landmark",
     "confidence": 100,
@@ -112,14 +171,24 @@
     "market": "Phnom Penh International Airport",
     "market_kh": "អាកាសយានដ្ឋានអន្តរជាតិភ្នំពេញ",
     "object_type": "airport",
-    "aliases": ["អាកាសយានដ្ឋានអន្តរជាតិភ្នំពេញ", "Phnom Penh International Airport", "Pochentong Airport", "ពោធិ៍ចិនតុង"],
+    "aliases": [
+      "អាកាសយានដ្ឋានអន្តរជាតិភ្នំពេញ",
+      "Phnom Penh International Airport",
+      "Pochentong Airport",
+      "ពោធិ៍ចិនតុង"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "latitude": 11.5466,
     "longitude": 104.8441,
-    "search_keywords": ["phnom penh airport", "pochentong airport", "អាកាសយានដ្ឋានភ្នំពេញ", "ពោធិ៍ចិនតុង"],
+    "search_keywords": [
+      "phnom penh airport",
+      "pochentong airport",
+      "អាកាសយានដ្ឋានភ្នំពេញ",
+      "ពោធិ៍ចិនតុង"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5466,104.8441",
     "source": "curated_landmark",
     "confidence": 100,
@@ -130,14 +199,22 @@
     "market": "Siem Reap Angkor International Airport",
     "market_kh": "អាកាសយានដ្ឋានអន្តរជាតិសៀមរាបអង្គរ",
     "object_type": "airport",
-    "aliases": ["អាកាសយានដ្ឋានអន្តរជាតិសៀមរាបអង្គរ", "Siem Reap Angkor International Airport", "SAI Airport"],
+    "aliases": [
+      "អាកាសយានដ្ឋានអន្តរជាតិសៀមរាបអង្គរ",
+      "Siem Reap Angkor International Airport",
+      "SAI Airport"
+    ],
     "province": "Siem Reap",
     "province_kh": "សៀមរាប",
     "district": "Sotr Nikum",
     "district_kh": "សូទ្រនិគម",
     "latitude": 13.3694,
     "longitude": 104.2231,
-    "search_keywords": ["siem reap airport", "siem reap angkor international airport", "sai airport"],
+    "search_keywords": [
+      "siem reap airport",
+      "siem reap angkor international airport",
+      "sai airport"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=13.3694,104.2231",
     "source": "curated_landmark",
     "confidence": 100,
@@ -148,14 +225,22 @@
     "market": "Calmette Hospital",
     "market_kh": "មន្ទីរពេទ្យកាល់ម៉ែត",
     "object_type": "hospital",
-    "aliases": ["មន្ទីរពេទ្យកាល់ម៉ែត", "Calmette Hospital", "Calmette"],
+    "aliases": [
+      "មន្ទីរពេទ្យកាល់ម៉ែត",
+      "Calmette Hospital",
+      "Calmette"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Daun Penh",
     "district_kh": "ដូនពេញ",
     "latitude": 11.5786,
     "longitude": 104.9174,
-    "search_keywords": ["calmette hospital", "calmette", "មន្ទីរពេទ្យកាល់ម៉ែត"],
+    "search_keywords": [
+      "calmette hospital",
+      "calmette",
+      "មន្ទីរពេទ្យកាល់ម៉ែត"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5786,104.9174",
     "source": "curated_landmark",
     "confidence": 100,
@@ -166,14 +251,23 @@
     "market": "Khmer-Soviet Friendship Hospital",
     "market_kh": "មន្ទីរពេទ្យមិត្តភាពខ្មែរ-សូវៀត",
     "object_type": "hospital",
-    "aliases": ["មន្ទីរពេទ្យមិត្តភាពខ្មែរ-សូវៀត", "ពេទ្យរុស្ស៊ី", "Khmer-Soviet Friendship Hospital", "Russian Hospital"],
+    "aliases": [
+      "មន្ទីរពេទ្យមិត្តភាពខ្មែរ-សូវៀត",
+      "ពេទ្យរុស្ស៊ី",
+      "Khmer-Soviet Friendship Hospital",
+      "Russian Hospital"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Chamkar Mon",
     "district_kh": "ចំការមន",
     "latitude": 11.5367,
     "longitude": 104.9007,
-    "search_keywords": ["khmer soviet friendship hospital", "russian hospital", "ពេទ្យរុស្ស៊ី"],
+    "search_keywords": [
+      "khmer soviet friendship hospital",
+      "russian hospital",
+      "ពេទ្យរុស្ស៊ី"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5367,104.9007",
     "source": "curated_landmark",
     "confidence": 100,
@@ -184,14 +278,22 @@
     "market": "Royal Phnom Penh Hospital",
     "market_kh": "មន្ទីរពេទ្យរ៉ូយ៉ាល់ភ្នំពេញ",
     "object_type": "hospital",
-    "aliases": ["មន្ទីរពេទ្យរ៉ូយ៉ាល់ភ្នំពេញ", "Royal Phnom Penh Hospital", "Royal Hospital"],
+    "aliases": [
+      "មន្ទីរពេទ្យរ៉ូយ៉ាល់ភ្នំពេញ",
+      "Royal Phnom Penh Hospital",
+      "Royal Hospital"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Sen Sok",
     "district_kh": "សែនសុខ",
     "latitude": 11.5621,
     "longitude": 104.8855,
-    "search_keywords": ["royal phnom penh hospital", "royal hospital", "មន្ទីរពេទ្យរ៉ូយ៉ាល់"],
+    "search_keywords": [
+      "royal phnom penh hospital",
+      "royal hospital",
+      "មន្ទីរពេទ្យរ៉ូយ៉ាល់"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5621,104.8855",
     "source": "curated_landmark",
     "confidence": 100,
@@ -202,14 +304,22 @@
     "market": "Royal University of Phnom Penh",
     "market_kh": "សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ",
     "object_type": "university",
-    "aliases": ["សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ", "Royal University of Phnom Penh", "RUPP"],
+    "aliases": [
+      "សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ",
+      "Royal University of Phnom Penh",
+      "RUPP"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "latitude": 11.5686,
     "longitude": 104.8905,
-    "search_keywords": ["rupp", "royal university of phnom penh", "សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ"],
+    "search_keywords": [
+      "rupp",
+      "royal university of phnom penh",
+      "សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5686,104.8905",
     "source": "curated_landmark",
     "confidence": 100,
@@ -220,14 +330,24 @@
     "market": "Institute of Technology of Cambodia",
     "market_kh": "វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា",
     "object_type": "university",
-    "aliases": ["វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា", "Institute of Technology of Cambodia", "ITC", "Techno"],
+    "aliases": [
+      "វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា",
+      "Institute of Technology of Cambodia",
+      "ITC",
+      "Techno"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "latitude": 11.5702,
     "longitude": 104.8976,
-    "search_keywords": ["itc", "techno", "institute of technology of cambodia", "វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា"],
+    "search_keywords": [
+      "itc",
+      "techno",
+      "institute of technology of cambodia",
+      "វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5702,104.8976",
     "source": "curated_landmark",
     "confidence": 100,
@@ -238,14 +358,22 @@
     "market": "Independence Monument",
     "market_kh": "វិមានឯករាជ្យ",
     "object_type": "monument",
-    "aliases": ["វិមានឯករាជ្យ", "Independence Monument", "Vimean Ekareach"],
+    "aliases": [
+      "វិមានឯករាជ្យ",
+      "Independence Monument",
+      "Vimean Ekareach"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Boeng Keng Kang",
     "district_kh": "បឹងកេងកង",
     "latitude": 11.5564,
     "longitude": 104.9282,
-    "search_keywords": ["independence monument", "vimean ekareach", "វិមានឯករាជ្យ"],
+    "search_keywords": [
+      "independence monument",
+      "vimean ekareach",
+      "វិមានឯករាជ្យ"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5564,104.9282",
     "source": "curated_landmark",
     "confidence": 100,
@@ -256,14 +384,26 @@
     "market": "Street 2004",
     "market_kh": "ផ្លូវ២០០៤",
     "object_type": "road",
-    "aliases": ["ផ្លូវ2004", "ផ្លូវ២០០៤", "Street 2004", "St 2004", "Road 2004"],
+    "aliases": [
+      "ផ្លូវ2004",
+      "ផ្លូវ២០០៤",
+      "Street 2004",
+      "St 2004",
+      "Road 2004"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "latitude": 11.5487,
     "longitude": 104.8667,
-    "search_keywords": ["street 2004", "st 2004", "road 2004", "ផ្លូវ2004", "ផ្លូវ២០០៤"],
+    "search_keywords": [
+      "street 2004",
+      "st 2004",
+      "road 2004",
+      "ផ្លូវ2004",
+      "ផ្លូវ២០០៤"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.5487,104.8667",
     "source": "curated_landmark",
     "confidence": 95,
@@ -274,14 +414,27 @@
     "market": "National Road 6A - Chroy Changvar",
     "market_kh": "ផ្លូវជាតិលេខ៦អា ជ្រោយចង្វារ",
     "object_type": "road",
-    "aliases": ["ផ្លូវ៦A", "ផ្លូវ6A", "ផ្លូវជាតិលេខ៦អា", "National Road 6A", "NR6A", "Road 6A"],
+    "aliases": [
+      "ផ្លូវ៦A",
+      "ផ្លូវ6A",
+      "ផ្លូវជាតិលេខ៦អា",
+      "National Road 6A",
+      "NR6A",
+      "Road 6A"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Chroy Changvar",
     "district_kh": "ជ្រោយចង្វារ",
     "latitude": 11.6015,
     "longitude": 104.9279,
-    "search_keywords": ["national road 6a", "nr6a", "road 6a", "ផ្លូវ៦a", "ជ្រោយចង្វារ"],
+    "search_keywords": [
+      "national road 6a",
+      "nr6a",
+      "road 6a",
+      "ផ្លូវ៦a",
+      "ជ្រោយចង្វារ"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.6015,104.9279",
     "source": "curated_landmark",
     "confidence": 90,
@@ -292,14 +445,23 @@
     "market": "Russian Federation Boulevard",
     "market_kh": "មហាវិថីសហព័ន្ធរុស្ស៊ី",
     "object_type": "road",
-    "aliases": ["មហាវិថីសហព័ន្ធរុស្ស៊ី", "Russian Federation Boulevard", "Russian Blvd", "Confederation de la Russie"],
+    "aliases": [
+      "មហាវិថីសហព័ន្ធរុស្ស៊ី",
+      "Russian Federation Boulevard",
+      "Russian Blvd",
+      "Confederation de la Russie"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Sen Sok",
     "district_kh": "សែនសុខ",
     "latitude": 11.558,
     "longitude": 104.875,
-    "search_keywords": ["russian federation boulevard", "russian boulevard", "មហាវិថីសហព័ន្ធរុស្ស៊ី"],
+    "search_keywords": [
+      "russian federation boulevard",
+      "russian boulevard",
+      "មហាវិថីសហព័ន្ធរុស្ស៊ី"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.558,104.875",
     "source": "curated_landmark",
     "confidence": 90,
@@ -310,15 +472,2432 @@
     "market": "Monivong Boulevard",
     "market_kh": "មហាវិថីព្រះមុនីវង្ស",
     "object_type": "road",
-    "aliases": ["មហាវិថីព្រះមុនីវង្ស", "Monivong Boulevard", "Preah Monivong Blvd"],
+    "aliases": [
+      "មហាវិថីព្រះមុនីវង្ស",
+      "Monivong Boulevard",
+      "Preah Monivong Blvd"
+    ],
     "province": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district": "Boeng Keng Kang",
     "district_kh": "បឹងកេងកង",
     "latitude": 11.552,
     "longitude": 104.923,
-    "search_keywords": ["monivong boulevard", "preah monivong boulevard", "មហាវិថីព្រះមុនីវង្ស"],
+    "search_keywords": [
+      "monivong boulevard",
+      "preah monivong boulevard",
+      "មហាវិថីព្រះមុនីវង្ស"
+    ],
     "google_maps_url": "https://www.google.com/maps?q=11.552,104.923",
+    "source": "curated_landmark",
+    "confidence": 90,
+    "is_verified": true
+  },
+  {
+    "id": 11019,
+    "market": "Aeon Mall Phnom Penh",
+    "market_kh": "ផ្សារទំនើបអ៉ីអន ភ្នំពេញ",
+    "object_type": "mall",
+    "aliases": [
+      "Aeon 1",
+      "Aeon Mall 1",
+      "ផ្សារអ៊ីអន១",
+      "Aeon Phnom Penh",
+      "ផ្សារទំនើបអ៉ីអន១"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5469,
+    "longitude": 104.9317,
+    "search_keywords": [
+      "aeon 1",
+      "aeon mall phnom penh",
+      "ផ្សារអ៉ីអន១",
+      "aeon mall 1"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5469,104.9317",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11020,
+    "market": "Aeon Mall Sen Sok City",
+    "market_kh": "ផ្សារទំនើបអ៉ីអន សែនសុខ",
+    "object_type": "mall",
+    "aliases": [
+      "Aeon 2",
+      "Aeon Mall 2",
+      "ផ្សារអ៊ីអន២",
+      "Aeon Sen Sok",
+      "ផ្សារទំនើបអ៉ីអន២"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.5947,
+    "longitude": 104.8872,
+    "search_keywords": [
+      "aeon 2",
+      "aeon mall sen sok",
+      "ផ្សារអ៉ីអន២",
+      "aeon sen sok"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5947,104.8872",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11021,
+    "market": "Aeon Mall Meanchey",
+    "market_kh": "ផ្សារទំនើបអ៉ីអន មានជ័យ",
+    "object_type": "mall",
+    "aliases": [
+      "Aeon 3",
+      "Aeon Mall 3",
+      "ផ្សារអ៊ីអន៣",
+      "Aeon Meanchey",
+      "ផ្សារទំនើបអ៉ីអន៣"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Mean Chey",
+    "district_kh": "មានជ័យ",
+    "latitude": 11.5243,
+    "longitude": 104.9312,
+    "search_keywords": [
+      "aeon 3",
+      "aeon meanchey",
+      "aeon mall meanchey",
+      "ផ្សារអ៉ីអន៣"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5243,104.9312",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11022,
+    "market": "Chip Mong 271 Mega Mall",
+    "market_kh": "ផ្សារទំនើប ជីប ម៉ុង ២៧១",
+    "object_type": "mall",
+    "aliases": [
+      "Chip Mong 271",
+      "Chip Mong Mall 271",
+      "ជីបម៉ុង២៧១",
+      "Chip Mong Mega Mall"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Mean Chey",
+    "district_kh": "មានជ័យ",
+    "latitude": 11.5342,
+    "longitude": 104.9185,
+    "search_keywords": [
+      "chip mong 271",
+      "chip mong mega mall",
+      "ជីបម៉ុង២៧១"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5342,104.9185",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11023,
+    "market": "Royal Palace Phnom Penh",
+    "market_kh": "ព្រះបរមរាជវាំង",
+    "object_type": "landmark",
+    "aliases": [
+      "ព្រះបរមរាជវាំង",
+      "Royal Palace",
+      "Preah Barum Reachea Veang"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5625,
+    "longitude": 104.9318,
+    "search_keywords": [
+      "royal palace",
+      "ព្រះបរមរាជវាំង",
+      "palace phnom penh"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5625,104.9318",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11024,
+    "market": "National Museum of Cambodia",
+    "market_kh": "សារមន្ទីរជាតិ",
+    "object_type": "museum",
+    "aliases": [
+      "សារមន្ទីរជាតិ",
+      "National Museum",
+      "National Museum Phnom Penh"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5658,
+    "longitude": 104.9304,
+    "search_keywords": [
+      "national museum",
+      "សារមន្ទីរជាតិ",
+      "museum phnom penh"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5658,104.9304",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11025,
+    "market": "Wat Botum Vatey",
+    "market_kh": "វត្តបុទុមវតី",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តបុទុម",
+      "Wat Botum",
+      "Wat Botum Vatey",
+      "Wat Botum Park"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5587,
+    "longitude": 104.9313,
+    "search_keywords": [
+      "wat botum",
+      "វត្តបុទុម",
+      "botum pagoda"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5587,104.9313",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11026,
+    "market": "Wat Langka",
+    "market_kh": "វត្តលង្កា",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តលង្កា",
+      "Wat Langka",
+      "Wat Langka Pagoda"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Boeng Keng Kang",
+    "district_kh": "បឹងកេងកង",
+    "latitude": 11.5552,
+    "longitude": 104.9271,
+    "search_keywords": [
+      "wat langka",
+      "វត្តលង្កា",
+      "langka pagoda"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5552,104.9271",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11027,
+    "market": "Kbal Thnal Flyover",
+    "market_kh": "ស្ពានអាកាសក្បាលថ្នល់",
+    "object_type": "bridge",
+    "aliases": [
+      "ស្ពានអាកាសក្បាលថ្នល់",
+      "Kbal Thnal Flyover",
+      "Kbal Thnal Overpass"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5321,
+    "longitude": 104.9348,
+    "search_keywords": [
+      "kbal thnal flyover",
+      "ស្ពានអាកាសក្បាលថ្នល់",
+      "kbal thnal"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5321,104.9348",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11028,
+    "market": "7 Makara Flyover - Dei Huy",
+    "market_kh": "ស្ពានអាកាស ៧ មករា (ដីហុយ)",
+    "object_type": "bridge",
+    "aliases": [
+      "ស្ពានអាកាស ៧ មករា",
+      "ស្ពានអាកាសដីហុយ",
+      "7 Makara Flyover",
+      "Dei Huy Flyover"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.5645,
+    "longitude": 104.8698,
+    "search_keywords": [
+      "7 makara flyover",
+      "dei huy flyover",
+      "ស្ពានអាកាសដីហុយ",
+      "ស្ពានអាកាស៧មករា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5645,104.8698",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11029,
+    "market": "5 Pram Makara Flyover",
+    "market_kh": "ស្ពានអាកាស ៥ មករា",
+    "object_type": "bridge",
+    "aliases": [
+      "ស្ពានអាកាស ៥ មករា",
+      "5 Pram Makara Flyover",
+      "Techno Flyover",
+      "ស្ពានអាកាសតិចណូ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kouk",
+    "district_kh": "ទួលគោក",
+    "latitude": 11.5698,
+    "longitude": 104.8962,
+    "search_keywords": [
+      "5 makara flyover",
+      "techno flyover",
+      "ស្ពានអាកាសតិចណូ",
+      "ស្ពានអាកាស៥មករា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5698,104.8962",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11030,
+    "market": "Chaom Chau Flyover",
+    "market_kh": "ស្ពានអាកាសចោមចៅ",
+    "object_type": "bridge",
+    "aliases": [
+      "ស្ពានអាកាសចោមចៅ",
+      "Chaom Chau Flyover",
+      "Chom Chao Flyover",
+      "Chom Chao Roundabout"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.5288,
+    "longitude": 104.8194,
+    "search_keywords": [
+      "chaom chau flyover",
+      "chom chao flyover",
+      "ស្ពានអាកាសចោមចៅ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5288,104.8194",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11031,
+    "market": "Koh Norea Cable Bridge",
+    "market_kh": "ស្ពានកោះនរា",
+    "object_type": "bridge",
+    "aliases": [
+      "ស្ពានកោះនរា",
+      "Koh Norea Bridge",
+      "Koh Norea Cable Stayed Bridge"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chbar Ampov",
+    "district_kh": "ច្បារអំពៅ",
+    "latitude": 11.5472,
+    "longitude": 104.9458,
+    "search_keywords": [
+      "koh norea bridge",
+      "ស្ពានកោះនរា",
+      "koh norea cable bridge"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5472,104.9458",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11032,
+    "market": "Borey Peng Huoth Boeung Snor",
+    "market_kh": "បុរីប៉េងហួត បឹងស្នោ",
+    "object_type": "borey",
+    "aliases": [
+      "បុរីប៉េងហួត បឹងស្នោ",
+      "Peng Huoth Boeung Snor",
+      "Borey Peng Houth Grand Star Platinum"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chbar Ampov",
+    "district_kh": "ច្បារអំពៅ",
+    "latitude": 11.5367,
+    "longitude": 104.9654,
+    "search_keywords": [
+      "borey peng huoth boeung snor",
+      "បុរីប៉េងហួត បឹងស្នោ",
+      "peng huoth boeung snor"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5367,104.9654",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11033,
+    "market": "Borey Piphup Thmey Chom Chao",
+    "market_kh": "បុរីពិភពថ្មី ចោមចៅ",
+    "object_type": "borey",
+    "aliases": [
+      "បុរីពិភពថ្មី ចោមចៅ",
+      "New World Chom Chao",
+      "Borey Piphup Thmey Chom Chao 1"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.5215,
+    "longitude": 104.8152,
+    "search_keywords": [
+      "borey piphup thmey chom chao",
+      "បុរីពិភពថ្មី ចោមចៅ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5215,104.8152",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11034,
+    "market": "Angkor Wat",
+    "market_kh": "ប្រាសាទអង្គរវត្ត",
+    "object_type": "landmark",
+    "aliases": [
+      "ប្រាសាទអង្គរវត្ត",
+      "Angkor Wat Temple",
+      "Angkor Wat Siem Reap"
+    ],
+    "province": "Siem Reap",
+    "province_kh": "សៀមរាប",
+    "district": "Siem Reap Municipality",
+    "district_kh": "ក្រុងសៀមរាប",
+    "latitude": 13.4125,
+    "longitude": 103.867,
+    "search_keywords": [
+      "angkor wat",
+      "ប្រាសាទអង្គរវត្ត",
+      "angkor temple"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=13.4125,103.8670",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11035,
+    "market": "Preah Vihear Temple",
+    "market_kh": "ប្រាសាទព្រះវិហារ",
+    "object_type": "landmark",
+    "aliases": [
+      "ប្រាសាទព្រះវិហារ",
+      "Preah Vihear Temple",
+      "Prasat Preah Vihear"
+    ],
+    "province": "Preah Vihear",
+    "province_kh": "ព្រះវិហារ",
+    "district": "Choam Khsant",
+    "district_kh": "ជាំក្សាន្ត",
+    "latitude": 14.3917,
+    "longitude": 104.68,
+    "search_keywords": [
+      "preah vihear temple",
+      "ប្រាសាទព្រះវិហារ",
+      "prasat preah vihear"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=14.3917,104.6800",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11036,
+    "market": "Kampot Durian Roundabout",
+    "market_kh": "រង្វង់មូលផ្លែទុเรียนកំពត",
+    "object_type": "landmark",
+    "aliases": [
+      "រង្វង់មូលទុเรียนកំពត",
+      "Kampot Durian Roundabout",
+      "Durian Statue Kampot"
+    ],
+    "province": "Kampot",
+    "province_kh": "កំពត",
+    "district": "Kampot Municipality",
+    "district_kh": "ក្រុងកំពត",
+    "latitude": 10.6104,
+    "longitude": 104.1812,
+    "search_keywords": [
+      "kampot durian roundabout",
+      "រង្វង់មូលទុเรียนកំពត",
+      "durian kampot"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=10.6104,104.1812",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11037,
+    "market": "Sihanoukville Golden Lions Roundabout",
+    "market_kh": "រង្វង់មូលតោពីរ ព្រះសីហនុ",
+    "object_type": "landmark",
+    "aliases": [
+      "រង្វង់មូលតោពីរ",
+      "Sihanoukville Golden Lions",
+      "Golden Lions Roundabout"
+    ],
+    "province": "Preah Sihanouk",
+    "province_kh": "ព្រះសីហនុ",
+    "district": "Preah Sihanouk Municipality",
+    "district_kh": "ក្រុងព្រះសីហនុ",
+    "latitude": 10.6108,
+    "longitude": 103.5242,
+    "search_keywords": [
+      "golden lions sihanoukville",
+      "រង្វង់មូលតោពីរ",
+      "golden lions roundabout"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=10.6108,103.5242",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11038,
+    "market": "Battambang Ta Dambong Krahoum Statue",
+    "market_kh": "រូបសំណាកលោកតាដំបងគ្រញូង",
+    "object_type": "landmark",
+    "aliases": [
+      "លោកតាដំបងគ្រញូង",
+      "Ta Dambong Krahoum Statue",
+      "Battambang Black Statue"
+    ],
+    "province": "Battambang",
+    "province_kh": "បាត់ដំបង",
+    "district": "Battambang Municipality",
+    "district_kh": "ក្រុងបាត់ដំបង",
+    "latitude": 13.1009,
+    "longitude": 103.2052,
+    "search_keywords": [
+      "ta dambong krahoum",
+      "លោកតាដំបងគ្រញូង",
+      "battambang statue"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=13.1009,103.2052",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11039,
+    "market": "Preah Ket Mealea Hospital",
+    "market_kh": "មន្ទីរពេទ្យព្រះកេតុមាលា",
+    "object_type": "hospital",
+    "aliases": [
+      "មន្ទីរពេទ្យព្រះកេតុមាលា",
+      "ពេទ្យប៉ែកខាង",
+      "Preah Ket Mealea Hospital",
+      "Ket Mealea Hospital"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5762,
+    "longitude": 104.9275,
+    "search_keywords": [
+      "preah ket mealea hospital",
+      "ពេទ្យប៉ែកខាង",
+      "ket mealea hospital"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5762,104.9275",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11040,
+    "market": "Ang Duong Hospital",
+    "market_kh": "មន្ទីរពេទ្យព្រះអង្គឌួង",
+    "object_type": "hospital",
+    "aliases": [
+      "មន្ទីរពេទ្យព្រះអង្គឌួង",
+      "Ang Duong Hospital",
+      "Angdoung Hospital"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5682,
+    "longitude": 104.9238,
+    "search_keywords": [
+      "ang duong hospital",
+      "មន្ទីរពេទ្យព្រះអង្គឌួង",
+      "angdoung hospital"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5682,104.9238",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11041,
+    "market": "Kantha Bopha Hospital Phnom Penh",
+    "market_kh": "មន្ទីរពេទ្យគន្ធបុប្ផា ភ្នំពេញ",
+    "object_type": "hospital",
+    "aliases": [
+      "មន្ទីរពេទ្យគន្ធបុប្ផា",
+      "Kantha Bopha Hospital",
+      "Jayavarman VII Hospital"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5741,
+    "longitude": 104.9255,
+    "search_keywords": [
+      "kantha bopha hospital",
+      "មន្ទីរពេទ្យគន្ធបុប្ផា",
+      "kantha bopha"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5741,104.9255",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11042,
+    "market": "Techo Takhmao International Airport",
+    "market_kh": "អាកាសយានដ្ឋានអន្តរជាតិតេជោ",
+    "object_type": "airport",
+    "aliases": [
+      "អាកាសយានដ្ឋានអន្តរជាតិតេជោ",
+      "Techo Takhmao International Airport",
+      "New Phnom Penh Airport",
+      "Kandal Airport"
+    ],
+    "province": "Kandal",
+    "province_kh": "កណ្តាល",
+    "district": "Kandal Stueng",
+    "district_kh": "កណ្តាលស្ទឹង",
+    "latitude": 11.365,
+    "longitude": 104.912,
+    "search_keywords": [
+      "techo airport",
+      "techo takhmao airport",
+      "អាកាសយានដ្ឋានតេជោ",
+      "new phnom penh airport"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.3650,104.9120",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11050,
+    "market": "Virak Buntham Express Central (VET Orussey)",
+    "market_kh": "វីរៈ ប៊ុនថាំ អុចស្ព្រេស អូរឫស្សី",
+    "object_type": "bus_station",
+    "aliases": [
+      "VET Central",
+      "Virak Buntham Orussey",
+      "វីរៈប៊ុនថាំ អូរឫស្សី",
+      "Virak Buntham Express"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prampir Meakkara",
+    "district_kh": "ប្រាំពីរមករា",
+    "latitude": 11.562,
+    "longitude": 104.9148,
+    "search_keywords": [
+      "virak buntham",
+      "vet express",
+      "orussey bus",
+      "វីរៈប៊ុនថាំ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5620,104.9148",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11051,
+    "market": "Capitol Bus Station Orussey",
+    "market_kh": "បេនឡាន កាពីតូល អូរឫស្សី",
+    "object_type": "bus_station",
+    "aliases": [
+      "Capitol Bus",
+      "Capitol Express",
+      "បេនឡានកាពីតូល",
+      "Capitol Tour"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prampir Meakkara",
+    "district_kh": "ប្រាំពីរមករា",
+    "latitude": 11.5608,
+    "longitude": 104.9155,
+    "search_keywords": [
+      "capitol bus",
+      "capitol express",
+      "កាពីតូល",
+      "orussey bus"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5608,104.9155",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11052,
+    "market": "Larryta Express Phnom Penh",
+    "market_kh": "ឡារីតា អិចស្ព្រេស ភ្នំពេញ",
+    "object_type": "bus_station",
+    "aliases": [
+      "Larryta Express",
+      "Larryta Bus",
+      "ឡារីតា",
+      "Larryta Night Bus"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5718,
+    "longitude": 104.9205,
+    "search_keywords": [
+      "larryta express",
+      "larryta bus",
+      "ឡារីតា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5718,104.9205",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11053,
+    "market": "Phnom Penh Sorya Transport Terminal",
+    "market_kh": "បេនឡាន សូរិយា ផ្សារធំថ្មី",
+    "object_type": "bus_station",
+    "aliases": [
+      "Sorya Bus Station",
+      "Sorya Express",
+      "បេនឡានសូរិយា",
+      "Sorya Transport"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5688,
+    "longitude": 104.9202,
+    "search_keywords": [
+      "sorya bus",
+      "sorya transport",
+      "បេនឡានសូរិយា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5688,104.9202",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11054,
+    "market": "Borey Peng Huoth Star Premier (598)",
+    "market_kh": "បុរីប៉េងហួត ផ្លូវ៥៩៨",
+    "object_type": "borey",
+    "aliases": [
+      "Borey Peng Huoth 598",
+      "Peng Huoth Star Premier",
+      "បុរីប៉េងហួត ៥៩៨"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.605,
+    "longitude": 104.881,
+    "search_keywords": [
+      "borey peng huoth 598",
+      "peng huoth star premier",
+      "បុរីប៉េងហួត៥៩៨"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6050,104.8810",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11055,
+    "market": "Borey Chip Mong Land 598",
+    "market_kh": "បុរីជីបម៉ុង ផ្លូវ៥៩៨",
+    "object_type": "borey",
+    "aliases": [
+      "Chip Mong Land 598",
+      "Borey Chip Mong 598",
+      "បុរីជីបម៉ុង ៥៩៨"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.608,
+    "longitude": 104.8835,
+    "search_keywords": [
+      "borey chip mong 598",
+      "chip mong 598",
+      "បុរីជីបម៉ុង៥៩៨"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6080,104.8835",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11056,
+    "market": "Borey Chip Mong Land 6A",
+    "market_kh": "បុរីជីបម៉ុង ផ្លូវ៦អា ជ្រោយចង្វារ",
+    "object_type": "borey",
+    "aliases": [
+      "Chip Mong 6A",
+      "Borey Chip Mong Chroy Changvar",
+      "បុរីជីបម៉ុង ៦អា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.621,
+    "longitude": 104.935,
+    "search_keywords": [
+      "borey chip mong 6a",
+      "chip mong 6a",
+      "បុរីជីបម៉ុង៦អា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6210,104.9350",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11057,
+    "market": "Borey Piphup Thmey Veng Sreng",
+    "market_kh": "បុរីពិភពថ្មី វេងស្រេង",
+    "object_type": "borey",
+    "aliases": [
+      "Borey New World Veng Sreng",
+      "Borey Piphup Thmey Veng Sreng 1",
+      "បុរីពិភពថ្មីវេងស្រេង"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.5305,
+    "longitude": 104.851,
+    "search_keywords": [
+      "borey piphup thmey veng sreng",
+      "veng sreng new world",
+      "បុរីពិភពថ្មីវេងស្រេង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5305,104.8510",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11058,
+    "market": "Borey Piphup Thmey Kamboul",
+    "market_kh": "បុរីពិភពថ្មី កំបូល",
+    "object_type": "borey",
+    "aliases": [
+      "Borey New World Kamboul",
+      "Borey Piphup Thmey Kamboul 1",
+      "បុរីពិភពថ្មីកំបូល"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Kamboul",
+    "district_kh": "កំបូល",
+    "latitude": 11.518,
+    "longitude": 104.765,
+    "search_keywords": [
+      "borey piphup thmey kamboul",
+      "kamboul new world",
+      "បុរីពិភពថ្មីកំបូល"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5180,104.7650",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11059,
+    "market": "Borey Piphup Thmey Kour Srov",
+    "market_kh": "បុរីពិភពថ្មី គួរស្រូវ",
+    "object_type": "borey",
+    "aliases": [
+      "Borey New World Kour Srov",
+      "Borey Piphup Thmey Kour Srov 2",
+      "បុរីពិភពថ្មីគួរស្រូវ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Dangkao",
+    "district_kh": "ដង្កោ",
+    "latitude": 11.455,
+    "longitude": 104.882,
+    "search_keywords": [
+      "borey piphup thmey kour srov",
+      "kour srov new world",
+      "បុរីពិភពថ្មីគួរស្រូវ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.4550,104.8820",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11060,
+    "market": "Borey Orkide Villa Botanic City",
+    "market_kh": "បុរីអរគីដេ វីឡា បូតានិកស៊ីធី",
+    "object_type": "borey",
+    "aliases": [
+      "Orkide Botanic City",
+      "Borey Orkide 6A",
+      "បុរីអរគីដេ៦អា",
+      "Orkide Villa 6A"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.645,
+    "longitude": 104.938,
+    "search_keywords": [
+      "orkide botanic city",
+      "borey orkide 6a",
+      "បុរីអរគីដេ៦អា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6450,104.9380",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11061,
+    "market": "Borey Orkide Villa Pochentong",
+    "market_kh": "បុរីអរគីដេ វីឡា ពោធិ៍ចិនតុង",
+    "object_type": "borey",
+    "aliases": [
+      "Orkide Pochentong",
+      "Borey Orkide 2004",
+      "បុរីអរគីដេ២០០៤",
+      "Orkide Street 2004"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.551,
+    "longitude": 104.862,
+    "search_keywords": [
+      "orkide pochentong",
+      "borey orkide 2004",
+      "បុរីអរគីដេ២០០៤"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5510,104.8620",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11062,
+    "market": "Institute of Foreign Languages (IFL)",
+    "market_kh": "វិទ្យាស្ថានភាសាបរទេស",
+    "object_type": "university",
+    "aliases": [
+      "IFL",
+      "RUPP IFL",
+      "វិទ្យាស្ថានភាសាបរទេស",
+      "IFL Campus"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kouk",
+    "district_kh": "ទួលគោក",
+    "latitude": 11.5695,
+    "longitude": 104.8942,
+    "search_keywords": [
+      "ifl",
+      "ifl phnom penh",
+      "វិទ្យាស្ថានភាសាបរទេស",
+      "rupp ifl"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5695,104.8942",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11063,
+    "market": "Royal University of Law and Economics (RULE)",
+    "market_kh": "សាកលវិទ្យាល័យភូមិន្ទនីតិសាស្ត្រ និងវិទ្យាសាស្ត្រសេដ្ឋកិច្ច",
+    "object_type": "university",
+    "aliases": [
+      "RULE",
+      "សាលាច្បាប់",
+      "Law University",
+      "RULE Campus"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5362,
+    "longitude": 104.922,
+    "search_keywords": [
+      "rule",
+      "rule university",
+      "សាលាច្បាប់",
+      "សាកលវិទ្យាល័យភូមិន្ទនីតិសាស្ត្រ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5362,104.9220",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11064,
+    "market": "National University of Management (NUM)",
+    "market_kh": "សាកលវិទ្យាល័យជាតិគ្រប់គ្រង",
+    "object_type": "university",
+    "aliases": [
+      "NUM",
+      "NUM University",
+      "សាកលវិទ្យាល័យជាតិគ្រប់គ្រង"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5725,
+    "longitude": 104.9198,
+    "search_keywords": [
+      "num",
+      "num university",
+      "សាកលវិទ្យាល័យជាតិគ្រប់គ្រង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5725,104.9198",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11065,
+    "market": "Royal University of Agriculture (RUA - Chamkar Daung)",
+    "market_kh": "សាកលវិទ្យាល័យភូមិន្ទកសិកម្ម ចំការដូង",
+    "object_type": "university",
+    "aliases": [
+      "RUA",
+      "Chamkar Daung University",
+      "សាកលវិទ្យាល័យចំការដូង",
+      "RUA Campus"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Dangkao",
+    "district_kh": "ដង្កោ",
+    "latitude": 11.512,
+    "longitude": 104.8975,
+    "search_keywords": [
+      "rua",
+      "chamkar daung university",
+      "សាកលវិទ្យាល័យចំការដូង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5120,104.8975",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11066,
+    "market": "Norton University Chroy Changvar",
+    "market_kh": "សាកលវិទ្យាល័យ ន័រតុន ជ្រោយចង្វារ",
+    "object_type": "university",
+    "aliases": [
+      "Norton University",
+      "Norton Campus",
+      "សាកលវិទ្យាល័យ ន័រតុន"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.5895,
+    "longitude": 104.934,
+    "search_keywords": [
+      "norton university",
+      "norton",
+      "សាកលវិទ្យាល័យន័រតុន"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5895,104.9340",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11067,
+    "market": "Paññāsāstra University of Cambodia (PUC)",
+    "market_kh": "សាកលវិទ្យាល័យ បញ្ញាសាស្ត្រ កម្ពុជា",
+    "object_type": "university",
+    "aliases": [
+      "PUC",
+      "Pannasastra University",
+      "PUC Toul Tom Poung",
+      "សាកលវិទ្យាល័យបញ្ញាសាស្ត្រ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.534,
+    "longitude": 104.9195,
+    "search_keywords": [
+      "puc",
+      "pannasastra university",
+      "បញ្ញាសាស្ត្រ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5340,104.9195",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11068,
+    "market": "Preah Kossamak Hospital (168 Hospital)",
+    "market_kh": "មន្ទីរពេទ្យព្រះកុសុមៈ (ពេទ្យលោកសង្ឃ)",
+    "object_type": "hospital",
+    "aliases": [
+      "ពេទ្យលោកសង្ឃ",
+      "មន្ទីរពេទ្យព្រះកុសុមៈ",
+      "Preah Kossamak Hospital",
+      "168 Hospital",
+      "Lok Sang Hospital"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kouk",
+    "district_kh": "ទួលគោក",
+    "latitude": 11.567,
+    "longitude": 104.8965,
+    "search_keywords": [
+      "ពេទ្យលោកសង្ឃ",
+      "preah kossamak hospital",
+      "lok sang hospital",
+      "មន្ទីរពេទ្យព្រះកុសុមៈ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5670,104.8965",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11069,
+    "market": "Cho Ray Phnom Penh Hospital",
+    "market_kh": "មន្ទីរពេទ្យជោរៃភ្នំពេញ",
+    "object_type": "hospital",
+    "aliases": [
+      "មន្ទីរពេទ្យជោរៃ",
+      "Cho Ray Hospital",
+      "Cho Ray Phnom Penh"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Mean Chey",
+    "district_kh": "មានជ័យ",
+    "latitude": 11.5285,
+    "longitude": 104.9425,
+    "search_keywords": [
+      "cho ray hospital",
+      "មន្ទីរពេទ្យជោរៃ",
+      "cho ray phnom penh"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5285,104.9425",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11070,
+    "market": "Sunrise Japan Hospital Phnom Penh",
+    "market_kh": "មន្ទីរពេទ្យជប៉ុន សាន់រ៉ាយស៍",
+    "object_type": "hospital",
+    "aliases": [
+      "មន្ទីរពេទ្យជប៉ុន",
+      "Sunrise Japan Hospital",
+      "Sunrise Hospital Chroy Changvar"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.591,
+    "longitude": 104.9325,
+    "search_keywords": [
+      "sunrise japan hospital",
+      "មន្ទីរពេទ្យជប៉ុន",
+      "sunrise hospital"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5910,104.9325",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11071,
+    "market": "Pasteur Institute of Cambodia",
+    "market_kh": "វិទ្យាស្ថានប៉ាស្ទ័រកម្ពុជា",
+    "object_type": "hospital",
+    "aliases": [
+      "វិទ្យាស្ថានប៉ាស្ទ័រ",
+      "Institut Pasteur du Cambodge",
+      "Pasteur Institute"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.577,
+    "longitude": 104.9168,
+    "search_keywords": [
+      "pasteur institute",
+      "វិទ្យាស្ថានប៉ាស្ទ័រ",
+      "institut pasteur"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5770,104.9168",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11072,
+    "market": "Ministry of Interior (Norodom Blvd)",
+    "market_kh": "ក្រសួងមហាផ្ទៃ",
+    "object_type": "government",
+    "aliases": [
+      "ក្រសួងមហាផ្ទៃ",
+      "Ministry of Interior",
+      "MOI Cambodia"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.545,
+    "longitude": 104.9285,
+    "search_keywords": [
+      "ministry of interior",
+      "ក្រសួងមហាផ្ទៃ",
+      "moi cambodia"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5450,104.9285",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11073,
+    "market": "Passport Office Aeon Mall Sen Sok",
+    "market_kh": "ការិយាល័យធ្វើលិខិតឆ្លងដែន អ៉ីអន២",
+    "object_type": "government",
+    "aliases": [
+      "Passport Office Aeon 2",
+      "ធ្វើប៉ាសស្ព័រ អ៉ីអន២",
+      "Aeon 2 Passport Center"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.595,
+    "longitude": 104.8875,
+    "search_keywords": [
+      "passport office aeon 2",
+      "ធ្វើប៉ាសស្ព័រ",
+      "passport center aeon 2"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5950,104.8875",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11074,
+    "market": "Morodok Techo National Stadium",
+    "market_kh": "ពហុកីឡដ្ឋានជាតិមរតកតេជោ",
+    "object_type": "stadium",
+    "aliases": [
+      "ពហុកីឡដ្ឋានជាតិមរតកតេជោ",
+      "Morodok Techo Stadium",
+      "Techo National Stadium"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.6785,
+    "longitude": 104.882,
+    "search_keywords": [
+      "morodok techo stadium",
+      "ពហុកីឡដ្ឋានជាតិមរតកតេជោ",
+      "techo stadium"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6785,104.8820",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11075,
+    "market": "Koh Pich Convention and Exhibition Center",
+    "market_kh": "មជ្ឈមណ្ឌលពិព័រណ៍កោះពេជ្រ",
+    "object_type": "exhibition",
+    "aliases": [
+      "មជ្ឈមណ្ឌលកោះពេជ្រ",
+      "Koh Pich Exhibition Center",
+      "Diamond Island Exhibition Center"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5535,
+    "longitude": 104.939,
+    "search_keywords": [
+      "koh pich exhibition center",
+      "មជ្ឈមណ្ឌលកោះពេជ្រ",
+      "diamond island exhibition"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5535,104.9390",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11076,
+    "market": "Siem Reap Pub Street",
+    "market_kh": "ផ្លូវ ផាប់ ស្ទ្រីត សៀមរាប",
+    "object_type": "landmark",
+    "aliases": [
+      "Pub Street",
+      "Pub Street Siem Reap",
+      "ផាប់ស្ទ្រីត"
+    ],
+    "province": "Siem Reap",
+    "province_kh": "សៀមរាប",
+    "district": "Siem Reap Municipality",
+    "district_kh": "ក្រុងសៀមរាប",
+    "latitude": 13.3548,
+    "longitude": 103.8545,
+    "search_keywords": [
+      "pub street",
+      "pub street siem reap",
+      "ផាប់ស្ទ្រីត"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=13.3548,103.8545",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11077,
+    "market": "Battambang Phsar Nat",
+    "market_kh": "ផ្សារណាត់ បាត់ដំបង",
+    "object_type": "market",
+    "aliases": [
+      "Phsar Nat Battambang",
+      "Psar Nat",
+      "ផ្សារណាត់"
+    ],
+    "province": "Battambang",
+    "province_kh": "បាត់ដំបង",
+    "district": "Battambang Municipality",
+    "district_kh": "ក្រុងបាត់ដំបង",
+    "latitude": 13.1025,
+    "longitude": 103.199,
+    "search_keywords": [
+      "phsar nat battambang",
+      "psar nat",
+      "ផ្សារណាត់"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=13.1025,103.1990",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11078,
+    "market": "Sihanoukville Phsar Leu",
+    "market_kh": "ផ្សារលើ ព្រះសីហនុ",
+    "object_type": "market",
+    "aliases": [
+      "Phsar Leu Sihanoukville",
+      "Psar Leu Kampong Som",
+      "ផ្សារលើព្រះសីហនុ"
+    ],
+    "province": "Preah Sihanouk",
+    "province_kh": "ព្រះសីហនុ",
+    "district": "Preah Sihanouk Municipality",
+    "district_kh": "ក្រុងព្រះសីហនុ",
+    "latitude": 10.628,
+    "longitude": 103.531,
+    "search_keywords": [
+      "phsar leu sihanoukville",
+      "psar leu kampong som",
+      "ផ្សារលើព្រះសីហនុ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=10.6280,103.5310",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11079,
+    "market": "Poipet International Border Checkpoint",
+    "market_kh": "ច្រកទ្វារអន្តរជាតិប៉ោយប៉ែត",
+    "object_type": "border",
+    "aliases": [
+      "ច្រកប៉ោយប៉ែត",
+      "Poipet Border",
+      "Poipet Border Checkpoint"
+    ],
+    "province": "Banteay Meanchey",
+    "province_kh": "បន្ទាយមានជ័យ",
+    "district": "Poipet Municipality",
+    "district_kh": "ក្រុងប៉ោយប៉ែត",
+    "latitude": 13.661,
+    "longitude": 102.553,
+    "search_keywords": [
+      "poipet border",
+      "ច្រកប៉ោយប៉ែត",
+      "poipet checkpoint"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=13.6610,102.5530",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11080,
+    "market": "Bavet International Border Checkpoint",
+    "market_kh": "ច្រកទ្វារអន្តរជាតិបាវិត",
+    "object_type": "border",
+    "aliases": [
+      "ច្រកបាវិត",
+      "Bavet Border",
+      "Bavet Border Checkpoint"
+    ],
+    "province": "Svay Rieng",
+    "province_kh": "ស្វាយរៀង",
+    "district": "Bavet Municipality",
+    "district_kh": "ក្រុងបាវិត",
+    "latitude": 11.0815,
+    "longitude": 106.171,
+    "search_keywords": [
+      "bavet border",
+      "ច្រកបាវិត",
+      "bavet checkpoint"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.0815,106.1710",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11101,
+    "market": "Vattanac Capital Tower",
+    "market_kh": "អគារវឌ្ឍនៈ ខាភីថល",
+    "object_type": "commercial_building",
+    "aliases": [
+      "Vattanac Tower",
+      "Vattanac Capital",
+      "អគារវឌ្ឍនៈ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5712,
+    "longitude": 104.9195,
+    "search_keywords": [
+      "vattanac capital",
+      "vattanac tower",
+      "អគារវឌ្ឍនៈ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5712,104.9195",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11102,
+    "market": "Canadia Tower",
+    "market_kh": "អគារកាណាឌីយ៉ា",
+    "object_type": "commercial_building",
+    "aliases": [
+      "Canadia Tower Phnom Penh",
+      "Canadia Bank Head Office",
+      "អគារកាណាឌីយ៉ា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5718,
+    "longitude": 104.919,
+    "search_keywords": [
+      "canadia tower",
+      "canadia bank",
+      "អគារកាណាឌីយ៉ា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5718,104.9190",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11103,
+    "market": "TK Avenue Tuol Kouk",
+    "market_kh": "ផ្សារទំនើប ធីខេ អេវេនញូ ទួលគោក",
+    "object_type": "mall",
+    "aliases": [
+      "TK Avenue",
+      "TK Avenue Mall",
+      "ផ្សារធីខេ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kouk",
+    "district_kh": "ទួលគោក",
+    "latitude": 11.5768,
+    "longitude": 104.898,
+    "search_keywords": [
+      "tk avenue",
+      "tk avenue mall",
+      "ផ្សារធីខេ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5768,104.8980",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11104,
+    "market": "Chip Mong Noro Mall",
+    "market_kh": "ផ្សារទំនើប ជីប ម៉ុង នរោ ម៉ល",
+    "object_type": "mall",
+    "aliases": [
+      "Chip Mong Noro Mall",
+      "Chip Mong Norodom",
+      "ជីបម៉ុងនរោ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5495,
+    "longitude": 104.927,
+    "search_keywords": [
+      "chip mong noro mall",
+      "chip mong norodom",
+      "ជីបម៉ុងនរោ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5495,104.9270",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11105,
+    "market": "Chip Mong Sen Sok Mall",
+    "market_kh": "ផ្សារទំនើប ជីប ម៉ុង សែនសុខ",
+    "object_type": "mall",
+    "aliases": [
+      "Chip Mong Sen Sok",
+      "Chip Mong Mall Sen Sok",
+      "ជីបម៉ុងសែនសុខ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.593,
+    "longitude": 104.883,
+    "search_keywords": [
+      "chip mong sen sok mall",
+      "chip mong sen sok",
+      "ជីបម៉ុងសែនសុខ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5930,104.8830",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11106,
+    "market": "Midtown Mall Street 2004",
+    "market_kh": "ផ្សារទំនើប មីដថោន ផ្លូវ២០០៤",
+    "object_type": "mall",
+    "aliases": [
+      "Midtown Mall",
+      "Midtown Mall 2004",
+      "ផ្សារមីដថោន"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Pur SenChey",
+    "district_kh": "ពោធិ៍សែនជ័យ",
+    "latitude": 11.5515,
+    "longitude": 104.8685,
+    "search_keywords": [
+      "midtown mall",
+      "midtown 2004",
+      "ផ្សារមីដថោន"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5515,104.8685",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11107,
+    "market": "Cambodia Post Head Office (Wat Phnom)",
+    "market_kh": "ប្រៃសណីយ៍កម្ពុជា វត្តភ្នំ",
+    "object_type": "post_office",
+    "aliases": [
+      "Cambodia Post",
+      "Post Office Wat Phnom",
+      "ប្រៃសណីយ៍កម្ពុជា",
+      "Central Post Office"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5738,
+    "longitude": 104.9242,
+    "search_keywords": [
+      "cambodia post",
+      "post office wat phnom",
+      "ប្រៃសណីយ៍កម្ពុជា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5738,104.9242",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11108,
+    "market": "J&T Express Cambodia Main Hub",
+    "market_kh": "ជេ និង ធី អិចស្ព្រេស ភ្នំពេញ",
+    "object_type": "courier",
+    "aliases": [
+      "J&T Express",
+      "J&T Hub Phnom Penh",
+      "J&T Cambodia",
+      "ជេនិងធី"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.575,
+    "longitude": 104.872,
+    "search_keywords": [
+      "j&t express",
+      "j&t cambodia",
+      "ជេនិងធី"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5750,104.8720",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11109,
+    "market": "Kerry Express Cambodia Head Office",
+    "market_kh": "ខេរី អិចស្ព្រេស ផ្លូវ២៧១",
+    "object_type": "courier",
+    "aliases": [
+      "Kerry Express",
+      "Kerry Express Cambodia",
+      "ខេរីអិចស្ព្រេស"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Mean Chey",
+    "district_kh": "មានជ័យ",
+    "latitude": 11.541,
+    "longitude": 104.908,
+    "search_keywords": [
+      "kerry express",
+      "kerry cambodia",
+      "ខេរីអិចស្ព្រេស"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5410,104.9080",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11110,
+    "market": "Preah Sisowath High School",
+    "market_kh": "វិទ្យាល័យ ព្រះស៊ីសុវត្ថិ",
+    "object_type": "school",
+    "aliases": [
+      "សាលាស៊ីសុវត្ថិ",
+      "Sisowath High School",
+      "Preah Sisowath High School"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5665,
+    "longitude": 104.9248,
+    "search_keywords": [
+      "sisowath high school",
+      "សាលាស៊ីសុវត្ថិ",
+      "វិទ្យាល័យព្រះស៊ីសុវត្ថិ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5665,104.9248",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11111,
+    "market": "Bak Touk High School",
+    "market_kh": "វិទ្យាល័យ បាក់ទូក",
+    "object_type": "school",
+    "aliases": [
+      "សាលាបាក់ទូក",
+      "Bak Touk High School",
+      "Bak Touk School"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prampir Meakkara",
+    "district_kh": "ប្រាំពីរមករា",
+    "latitude": 11.566,
+    "longitude": 104.916,
+    "search_keywords": [
+      "bak touk high school",
+      "សាលាបាក់ទូក",
+      "វិទ្យាល័យបាក់ទូក"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5660,104.9160",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11112,
+    "market": "Beltei International University (Steung Meanchey)",
+    "market_kh": "សាកលវិទ្យាល័យ ប៊ែលធី អន្តរជាតិ ស្ទឹងមានជ័យ",
+    "object_type": "university",
+    "aliases": [
+      "Beltei University",
+      "Beltei Steung Meanchey",
+      "សាកលវិទ្យាល័យប៊ែលធី"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Mean Chey",
+    "district_kh": "មានជ័យ",
+    "latitude": 11.5365,
+    "longitude": 104.889,
+    "search_keywords": [
+      "beltei university",
+      "beltei steung meanchey",
+      "ប៊ែលធី"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5365,104.8890",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11113,
+    "market": "Asia Euro University (AEU)",
+    "market_kh": "សាកលវិទ្យាល័យ អាស៊ី អឺរ៉ុប",
+    "object_type": "university",
+    "aliases": [
+      "AEU",
+      "Asia Euro University",
+      "សាកលវិទ្យាល័យអាស៊ីអឺរ៉ុប"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.572,
+    "longitude": 104.8815,
+    "search_keywords": [
+      "aeu",
+      "asia euro university",
+      "អាស៊ីអឺរ៉ុប"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5720,104.8815",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11114,
+    "market": "Vanda Institute Phnom Penh",
+    "market_kh": "វិទ្យាស្ថាន វ៉ាន់ដា ភ្នំពេញ",
+    "object_type": "university",
+    "aliases": [
+      "Vanda Institute",
+      "Vanda Accounting",
+      "វិទ្យាស្ថានវ៉ាន់ដា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.542,
+    "longitude": 104.917,
+    "search_keywords": [
+      "vanda institute",
+      "vanda accounting",
+      "វិទ្យាស្ថានវ៉ាន់ដា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5420,104.9170",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11115,
+    "market": "Tuol Sleng Genocide Museum (S-21)",
+    "market_kh": "សារមន្ទីរឧក្រិដ្ឋកម្មប្រល័យពូជសាសន៍ទួលស្លែង",
+    "object_type": "museum",
+    "aliases": [
+      "Tuol Sleng Museum",
+      "S21 Museum",
+      "សារមន្ទីរទួលស្លែង",
+      "Tuol Sleng"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Boeng Keng Kang",
+    "district_kh": "បឹងកេងកង",
+    "latitude": 11.549,
+    "longitude": 104.9175,
+    "search_keywords": [
+      "tuol sleng museum",
+      "s21 museum",
+      "សារមន្ទីរទួលស្លែង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5490,104.9175",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11116,
+    "market": "Phsar Takhmao Kandal",
+    "market_kh": "ផ្សារតាខ្មៅ កណ្តាល",
+    "object_type": "market",
+    "aliases": [
+      "Takhmao Market",
+      "Phsar Takhmao",
+      "ផ្សារតាខ្មៅ"
+    ],
+    "province": "Kandal",
+    "province_kh": "កណ្តាល",
+    "district": "Takhmao Municipality",
+    "district_kh": "ក្រុងតាខ្មៅ",
+    "latitude": 11.482,
+    "longitude": 104.9485,
+    "search_keywords": [
+      "phsar takhmao",
+      "takhmao market",
+      "ផ្សារតាខ្មៅ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.4820,104.9485",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11117,
+    "market": "Phsar Kampong Chhnang",
+    "market_kh": "ផ្សារលើ កំពង់ឆ្នាំង",
+    "object_type": "market",
+    "aliases": [
+      "Kampong Chhnang Market",
+      "Phsar Chhnang",
+      "ផ្សារកំពង់ឆ្នាំង"
+    ],
+    "province": "Kampong Chhnang",
+    "province_kh": "កំពង់ឆ្នាំង",
+    "district": "Kampong Chhnang Municipality",
+    "district_kh": "ក្រុងកំពង់ឆ្នាំង",
+    "latitude": 12.251,
+    "longitude": 104.668,
+    "search_keywords": [
+      "phsar kampong chhnang",
+      "kampong chhnang market",
+      "ផ្សារកំពង់ឆ្នាំង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=12.2510,104.6680",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11118,
+    "market": "Phsar Kampong Speu",
+    "market_kh": "ផ្សារកំពង់ស្ពឺ",
+    "object_type": "market",
+    "aliases": [
+      "Kampong Speu Market",
+      "Phsar Chbar Mon",
+      "ផ្សារកំពង់ស្ពឺ"
+    ],
+    "province": "Kampong Speu",
+    "province_kh": "កំពង់ស្ពឺ",
+    "district": "Chbar Mon Municipality",
+    "district_kh": "ក្រុងច្បារមន",
+    "latitude": 11.454,
+    "longitude": 104.521,
+    "search_keywords": [
+      "phsar kampong speu",
+      "kampong speu market",
+      "ផ្សារកំពង់ស្ពឺ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.4540,104.5210",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11119,
+    "market": "Phsar Kampong Thom",
+    "market_kh": "ផ្សារកំពង់ធំ",
+    "object_type": "market",
+    "aliases": [
+      "Kampong Thom Market",
+      "Phsar Stung Saen",
+      "ផ្សារកំពង់ធំ"
+    ],
+    "province": "Kampong Thom",
+    "province_kh": "កំពង់ធំ",
+    "district": "Stung Saen Municipality",
+    "district_kh": "ក្រុងស្ទឹងសែន",
+    "latitude": 12.711,
+    "longitude": 104.888,
+    "search_keywords": [
+      "phsar kampong thom",
+      "kampong thom market",
+      "ផ្សារកំពង់ធំ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=12.7110,104.8880",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11120,
+    "market": "Phsar Kampot Crab Market (Kep)",
+    "market_kh": "ផ្សារក្តាម កែប",
+    "object_type": "market",
+    "aliases": [
+      "Kep Crab Market",
+      "Phsar Kdam Kep",
+      "ផ្សារក្តាមកែប",
+      "Crab Market"
+    ],
+    "province": "Kep",
+    "province_kh": "កែប",
+    "district": "Kep Municipality",
+    "district_kh": "ក្រុងកែប",
+    "latitude": 10.4825,
+    "longitude": 104.298,
+    "search_keywords": [
+      "kep crab market",
+      "phsar kdam kep",
+      "ផ្សារក្តាមកែប"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=10.4825,104.2980",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11201,
+    "market": "ABA Bank Head Office (Preah Sihanouk Blvd)",
+    "market_kh": "ធនាគារ អេ ប៊ី អេ អាគារកណ្តាល",
+    "object_type": "bank",
+    "aliases": [
+      "ABA Head Office",
+      "ABA Bank Sihanouk Blvd",
+      "ABA Central",
+      "ធនាគារ ABA"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Boeng Keng Kang",
+    "district_kh": "បឹងកេងកង",
+    "latitude": 11.5545,
+    "longitude": 104.925,
+    "search_keywords": [
+      "aba bank",
+      "aba head office",
+      "aba central",
+      "ធនាគារ aba"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5545,104.9250",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11202,
+    "market": "Wing Bank Tower (Monivong Blvd)",
+    "market_kh": "អគារ វីង ប៊ែង តាវ៉ឺ",
+    "object_type": "bank",
+    "aliases": [
+      "Wing Bank Head Office",
+      "Wing Tower",
+      "Wing Bank Monivong",
+      "អគារធនាគារវីង"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Boeng Keng Kang",
+    "district_kh": "បឹងកេងកង",
+    "latitude": 11.547,
+    "longitude": 104.9228,
+    "search_keywords": [
+      "wing bank",
+      "wing tower",
+      "wing head office",
+      "ធនាគារ វីង"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5470,104.9228",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11203,
+    "market": "ACLEDA Bank Head Office (St. 271 / St. 598)",
+    "market_kh": "ធនាគារ អេស៊ីលីដា អាគារកណ្តាល",
+    "object_type": "bank",
+    "aliases": [
+      "ACLEDA Head Office",
+      "ACLEDA Bank HQ",
+      "ធនាគារអេស៊ីលីដា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.5835,
+    "longitude": 104.8865,
+    "search_keywords": [
+      "acleda bank",
+      "acleda head office",
+      "អេស៊ីលីដា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5835,104.8865",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11204,
+    "market": "Sathapana Tower (Norodom Blvd)",
+    "market_kh": "អគារ ស្ថាបនា តាវ៉ឺ",
+    "object_type": "bank",
+    "aliases": [
+      "Sathapana Bank HQ",
+      "Sathapana Tower",
+      "អគារស្ថាបនា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.564,
+    "longitude": 104.9268,
+    "search_keywords": [
+      "sathapana tower",
+      "sathapana bank",
+      "ស្ថាបនា"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5640,104.9268",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11205,
+    "market": "Borey Peng Huoth Euro Park (Boeung Snor)",
+    "market_kh": "បុរីប៉េងហួត យូរ៉ូផាក បឹងស្នោ",
+    "object_type": "borey",
+    "aliases": [
+      "Euro Park Peng Huoth",
+      "Euro Park Phnom Penh",
+      "យូរ៉ូផាក ប៉េងហួត"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chbar Ampov",
+    "district_kh": "ច្បារអំពៅ",
+    "latitude": 11.5385,
+    "longitude": 104.968,
+    "search_keywords": [
+      "euro park",
+      "borey peng huoth euro park",
+      "យូរ៉ូផាក"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5385,104.9680",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11206,
+    "market": "Borey Peng Huoth Grand Phnom Penh (598)",
+    "market_kh": "បុរីប៉េងហួត ក្រង់ភ្នំពេញ ផ្លូវ៥៩៨",
+    "object_type": "borey",
+    "aliases": [
+      "Grand Phnom Penh City",
+      "Grand Phnom Penh 598",
+      "ក្រង់ភ្នំពេញ"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.615,
+    "longitude": 104.872,
+    "search_keywords": [
+      "grand phnom penh",
+      "peng huoth grand phnom penh",
+      "ក្រង់ភ្នំពេញ"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6150,104.8720",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11207,
+    "market": "Borey Chip Mong Land 1928 (Sen Sok)",
+    "market_kh": "បុរីជីបម៉ុង ១៩២៨ សែនសុខ",
+    "object_type": "borey",
+    "aliases": [
+      "Chip Mong 1928",
+      "Chip Mong Land 1928",
+      "បុរីជីបម៉ុង១៩២៨"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Sen Sok",
+    "district_kh": "សែនសុខ",
+    "latitude": 11.598,
+    "longitude": 104.876,
+    "search_keywords": [
+      "chip mong 1928",
+      "borey chip mong 1928",
+      "បុរីជីបម៉ុង១៩២៨"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5980,104.8760",
+    "source": "curated_landmark",
+    "confidence": 95,
+    "is_verified": true
+  },
+  {
+    "id": 11208,
+    "market": "Wat Sampov Meas",
+    "market_kh": "វត្តសំពៅមាស",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តសំពៅមាស",
+      "Wat Sampov Meas",
+      "Sampov Meas Pagoda"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prampir Meakkara",
+    "district_kh": "ប្រាំពីរមករា",
+    "latitude": 11.558,
+    "longitude": 104.9125,
+    "search_keywords": [
+      "wat sampov meas",
+      "វត្តសំពៅមាស",
+      "sampov meas"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5580,104.9125",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11209,
+    "market": "Wat Koh",
+    "market_kh": "វត្តកោះ",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តកោះ",
+      "Wat Koh",
+      "Wat Koh Pagoda"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Daun Penh",
+    "district_kh": "ដូនពេញ",
+    "latitude": 11.5662,
+    "longitude": 104.9215,
+    "search_keywords": [
+      "wat koh",
+      "វត្តកោះ",
+      "koh pagoda"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5662,104.9215",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11210,
+    "market": "Wat Moha Montrei",
+    "market_kh": "វត្តមហាមន្ត្រី",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តមហាមន្ត្រី",
+      "Wat Moha Montrei",
+      "Moha Montrei Pagoda"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prampir Meakkara",
+    "district_kh": "ប្រាំពីរមករា",
+    "latitude": 11.5548,
+    "longitude": 104.914,
+    "search_keywords": [
+      "wat moha montrei",
+      "វត្តមហាមន្ត្រី",
+      "moha montrei"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5548,104.9140",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11211,
+    "market": "Wat Tuol Tom Poung",
+    "market_kh": "វត្តទួលទំពូង",
+    "object_type": "pagoda",
+    "aliases": [
+      "វត្តទួលទំពូង",
+      "Wat Tuol Tom Poung",
+      "Toul Tom Poung Pagoda"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chamkar Mon",
+    "district_kh": "ចំការមន",
+    "latitude": 11.5332,
+    "longitude": 104.9145,
+    "search_keywords": [
+      "wat tuol tom poung",
+      "វត្តទួលទំពូង",
+      "tuol tom poung pagoda"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5332,104.9145",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11212,
+    "market": "Santhormok High School",
+    "market_kh": "វិទ្យាល័យ សន្ធរម៉ុក",
+    "object_type": "school",
+    "aliases": [
+      "សាលាសន្ធរម៉ុក",
+      "Santhormok High School",
+      "Santhormok School"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Tuol Kouk",
+    "district_kh": "ទួលគោក",
+    "latitude": 11.5678,
+    "longitude": 104.8985,
+    "search_keywords": [
+      "santhormok high school",
+      "សាលាសន្ធរម៉ុក",
+      "វិទ្យាល័យសន្ធរម៉ុក"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5678,104.8985",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11213,
+    "market": "CamTech University (Chroy Changvar)",
+    "market_kh": "សាកលវិទ្យាល័យ ខេមថិច ជ្រោយចង្វារ",
+    "object_type": "university",
+    "aliases": [
+      "CamTech University",
+      "CamTech",
+      "សាកលវិទ្យាល័យខេមថិច"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.642,
+    "longitude": 104.935,
+    "search_keywords": [
+      "camtech university",
+      "camtech",
+      "ខេមថិច"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6420,104.9350",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11214,
+    "market": "CADT - Cambodia Academy of Digital Technology",
+    "market_kh": "បណ្ឌិត្យសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា",
+    "object_type": "university",
+    "aliases": [
+      "CADT",
+      "NIPTICT",
+      "បណ្ឌិត្យសភាឌីជីថលកម្ពុជា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Prek Pnov",
+    "district_kh": "ព្រែកព្នៅ",
+    "latitude": 11.658,
+    "longitude": 104.895,
+    "search_keywords": [
+      "cadt",
+      "niptict",
+      "cadt cambodia"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6580,104.8950",
+    "source": "curated_landmark",
+    "confidence": 100,
+    "is_verified": true
+  },
+  {
+    "id": 11215,
+    "market": "PTT Station Chroy Changvar (NR6A)",
+    "market_kh": "ស្ថានីយប្រេងឥន្ធនៈ ភីធីធី ជ្រោយចង្វារ",
+    "object_type": "gas_station",
+    "aliases": [
+      "PTT 6A",
+      "PTT Chroy Changvar",
+      "ស្ថានីយប្រេង PTT ៦អា"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Chroy Changvar",
+    "district_kh": "ជ្រោយចង្វារ",
+    "latitude": 11.6025,
+    "longitude": 104.9288,
+    "search_keywords": [
+      "ptt 6a",
+      "ptt chroy changvar",
+      "ptt station"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.6025,104.9288",
+    "source": "curated_landmark",
+    "confidence": 90,
+    "is_verified": true
+  },
+  {
+    "id": 11216,
+    "market": "TotalEnergies Monivong (Bokor Roundabout)",
+    "market_kh": "ស្ថានីយប្រេងឥន្ធនៈ ផ្កាយសរ មុនីវង្ស",
+    "object_type": "gas_station",
+    "aliases": [
+      "Total Monivong",
+      "Total Bokor",
+      "ស្ថានីយប្រេង Total មុនីវង្ស"
+    ],
+    "province": "Phnom Penh",
+    "province_kh": "ភ្នំពេញ",
+    "district": "Boeng Keng Kang",
+    "district_kh": "បឹងកេងកង",
+    "latitude": 11.5435,
+    "longitude": 104.922,
+    "search_keywords": [
+      "total monivong",
+      "total bokor",
+      "totalenergies"
+    ],
+    "google_maps_url": "https://www.google.com/maps?q=11.5435,104.9220",
     "source": "curated_landmark",
     "confidence": 90,
     "is_verified": true

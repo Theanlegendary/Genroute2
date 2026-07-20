@@ -1,11 +1,8 @@
 {
-  "វត្តព្រះកែវ": {
-    "lat": 11.464612,
-    "lng": 104.91421,
-    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
-  },
-  "11.464612,104.914210": {
-    "display_name": "វត្តព្រែកថ្លឹង (Wat Prek Thleung)"
+  "aeon mall meanchey": {
+    "lat": 11.5243,
+    "lng": 104.9312,
+    "display_name": "AEON Mall Meanchey"
   },
   "ផ្លូវ 6a": {
     "lat": 11.6015,
@@ -23,14 +20,6 @@
   "11.529285,104.896791": {
     "display_name": "វត្តស្ទឹងមានជ័យ (Wat Steung Meanchey)"
   },
-  "aeon mall meanchey": {
-    "lat": 13.8608,
-    "lng": 105.016806,
-    "display_name": "ត្បែងមានជ័យ, ព្រះវិហារ (Tbaeng Mean Chey, Preah Vihear)"
-  },
-  "13.860800,105.016806": {
-    "display_name": "ត្បែងមានជ័យ, ព្រះវិហារ (Tbaeng Mean Chey, Preah Vihear)"
-  },
   "បឹងកេងកង": {
     "lat": 11.5534,
     "lng": 104.9116,
@@ -39,28 +28,28 @@
   "11.553400,104.911600": {
     "display_name": "បឹងកេងកង, ភ្នំពេញ (Boeng Keng Kang, Phnom Penh)"
   },
-  "ផ្ទះនៅជិតក្បែរខាងក្រោយទល់មុខច្រកចូលទីតាំងម្ដុំភូមិត្រពាំងល្វា": {
-    "lat": 11.5764,
-    "lng": 104.9222,
-    "display_name": "វត្តភ្នំ (Wat Phnom)"
+  "081391155 ក្បែរស្ពានជ្រោយចង្វារ": {
+    "lat": 11.5891,
+    "lng": 104.9255,
+    "display_name": "ស្ពានជ្រោយចង្វារ (Chroy Changvar Bridge)"
   },
-  "11.576400,104.922200": {
-    "display_name": "វត្តភ្នំ (Wat Phnom)"
+  "11.589100,104.925500": {
+    "display_name": "ស្ពានជ្រោយចង្វារ (Chroy Changvar Bridge)"
   },
-  "ផ្ទះនៅជិតក្បែរខាងក្រោយទល់មុខច្រកចូលទីតាំងម្ដុំបុរីភ្នំពេញផាក": {
-    "lat": 11.642112,
-    "lng": 104.935412,
-    "display_name": "បុរីភ្នំពេញផាក (Borey Phnom Penh Park)"
+  "aeon mall ភ្នំពេញ": {
+    "lat": 11.5469,
+    "lng": 104.9317,
+    "display_name": "ផ្សារទំនើបអ៉ីអន ភ្នំពេញ (Aeon Mall Phnom Penh)"
   },
-  "11.642112,104.935412": {
-    "display_name": "បុរីភ្នំពេញផាក (Borey Phnom Penh Park)"
+  "11.546900,104.931700": {
+    "display_name": "ផ្សារទំនើបអ៉ីអន ភ្នំពេញ (Aeon Mall Phnom Penh)"
   },
-  "ang tasom": {
-    "lat": 11.0131,
-    "lng": 104.6732,
-    "display_name": "ផ្សារអង្គតាសោម (Ang Ta Som Market)"
+  "ក្តាន់ 2 landmark": {
+    "lat": 11.572421,
+    "lng": 104.914311,
+    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
   },
-  "11.013100,104.673200": {
-    "display_name": "ផ្សារអង្គតាសោម (Ang Ta Som Market)"
+  "11.572421,104.914311": {
+    "display_name": "ក្តាន់២ (Kdan 2 Landmark)"
   }
 }

@@ -1355,8 +1355,8 @@ async function showAutocomplete(q) {
             }
             map.setView([s.lat, s.lng], 17);
             marker.openPopup(); // Auto-open branch popup
-          } else {
-            // Local Partner Market Click
+          } else if (s.lat != null && s.lng != null) {
+            // Local Partner Market Click — coordinates already known
             const selectedLoc = {
               id: 'target_' + Date.now(),
               market: s.label,
@@ -1367,6 +1367,37 @@ async function showAutocomplete(q) {
               google_maps_url: `https://www.google.com/maps?q=${s.lat},${s.lng}`
             };
             selectLocationAndFindNearbyPOs(selectedLoc, [selectedLoc]);
+          } else {
+            // Local item (e.g. NCDD admin area) with no coordinates yet — geocode it
+            showState('loading');
+            try {
+              const prov = provinceSelect ? provinceSelect.value : (s.raw && s.raw.province ? s.raw.province : '');
+              const geoRes = await fetch(`${API}/api/google-geocode?q=${encodeURIComponent(s.label)}` + (prov ? `&province=${encodeURIComponent(prov)}` : ''));
+              if (!geoRes.ok) throw new Error('Geocoding failed');
+              const coords = await geoRes.json();
+
+              if (coords.type === 'multiple') {
+                presentProvinceSelection(coords.results, s.label);
+                return;
+              }
+
+              const selectedLoc = {
+                id: 'target_' + Date.now(),
+                market: s.displayLabel || s.label,
+                latitude: coords.lat,
+                longitude: coords.lng,
+                province: coords.province || (s.raw && s.raw.province) || 'Cambodia',
+                province_kh: coords.province_kh || (s.raw && s.raw.province_kh) || '',
+                district: coords.district || (s.raw && s.raw.district) || '',
+                district_kh: coords.district_kh || (s.raw && s.raw.district_kh) || '',
+                google_maps_url: `https://www.google.com/maps?q=${coords.lat},${coords.lng}`
+              };
+              selectLocationAndFindNearbyPOs(selectedLoc, [selectedLoc]);
+            } catch (err) {
+              console.error(err);
+              showState('empty');
+              if (resultsCount) resultsCount.textContent = 'Location coordinates could not be loaded.';
+            }
           }
         } else {
           // Dynamically geocode the Google suggestion for FREE!
@@ -3378,6 +3409,14 @@ function setupHamburgerMenu() {
       });
     }
   });
+
+  const drawerItemPasteMaster = document.getElementById('drawerItemPasteMaster');
+  if (drawerItemPasteMaster) {
+    drawerItemPasteMaster.addEventListener('click', () => {
+      window.location.href = '/pastemaster';
+      closeDrawer();
+    });
+  }
 }
 
 // Populates the "Browse by Province" dropdown inside the hamburger drawer

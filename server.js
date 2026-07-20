@@ -471,6 +471,17 @@ function translateKhmerToEnglish(query) {
 function resolveMarketLocal(q, province = '') {
   if (!fuse) return null;
   let searchResults = fuse.search(q);
+  
+  // Apply numeric token filtering on local fuzzy database search
+  const queryNums = extractNumericTokens(q);
+  if (queryNums.length > 0) {
+    searchResults = searchResults.filter(res => {
+      const candText = `${res.item.market || ''} ${res.item.market_kh || ''} ${(res.item.aliases || []).join(' ')} ${(res.item.search_keywords || []).join(' ')}`;
+      const candNums = extractNumericTokens(candText);
+      return queryNums.every(qNum => candNums.includes(qNum));
+    });
+  }
+
   if (province) {
     const normProv = normalizeKhmer(province);
     searchResults = searchResults.filter(res => 
@@ -495,6 +506,13 @@ function resolveMarketLocal(q, province = '') {
       (r.province && normalizeKhmer(r.province).includes(normProv)) ||
       (r.province_kh && normalizeKhmer(r.province_kh).includes(normProv))
     );
+  }
+  if (queryNums.length > 0) {
+    exactList = exactList.filter(r => {
+      const candText = `${r.market || ''} ${r.market_kh || ''} ${(r.aliases || []).join(' ')} ${(r.search_keywords || []).join(' ')}`;
+      const candNums = extractNumericTokens(candText);
+      return queryNums.every(qNum => candNums.includes(qNum));
+    });
   }
   const exact = exactList.find(r => {
     const mEn = normalizeKhmer(r.market);
@@ -1332,7 +1350,12 @@ app.get('/api/google-geocode', async (req, res) => {
             (r.matchedFields || []).includes('chain_brand') || r.market?.includes('add branch')
           );
 
-          if (allInSameProvince && finalResults[0].source !== 'ncdd' && !hasChainPlaceholder) {
+          // Do not auto-flatten if the resolver returned multiple candidates due to close scores (gap < 3) or generic name
+          const hasCloseScores = finalResults.length > 1 && 
+                                 Math.abs((finalResults[0].confidence || 0) - (finalResults[1].confidence || 0)) < 3;
+          const isGeneric = isGenericName(query);
+
+          if (allInSameProvince && finalResults[0].source !== 'ncdd' && !hasChainPlaceholder && !hasCloseScores && !isGeneric) {
 
             const best = findBestResult(finalResults, query);
             return res.json({
@@ -1347,6 +1370,14 @@ app.get('/api/google-geocode', async (req, res) => {
           }
 
           if (finalResults.length === 1) {
+            const isPlaceholder = finalResults[0].market?.includes('add branch') || 
+                                (finalResults[0].matchedFields || []).includes('chain_brand');
+            if (isPlaceholder) {
+              return res.json({
+                type: 'multiple',
+                results: finalResults
+              });
+            }
             return res.json({
               lat: finalResults[0].latitude,
               lng: finalResults[0].longitude,
@@ -1745,6 +1776,47 @@ async function queryMapboxGeocode(query, province = '') {
   }
 }
 
+const KHMER_TYPE_PREFIXES = ['វត្ត', 'ផ្សារ', 'ផ្លូវ', 'ស្ពាន', 'សាលា', 'មន្ទីរពេទ្យ', 'ពេទ្យ', 'បុរី', 'អាកាសយានដ្ឋាន', 'វិមាន'];
+const ENGLISH_TYPE_PREFIXES = ['wat', 'phsar', 'psar', 'st', 'street', 'road', 'bridge', 'school', 'hospital', 'clinic', 'borey', 'buri', 'airport', 'monument'];
+
+function stripTypePrefixes(str, isKhmer) {
+  if (!str) return '';
+  const prefixes = isKhmer ? KHMER_TYPE_PREFIXES : ENGLISH_TYPE_PREFIXES;
+  let result = str.trim();
+  for (const prefix of prefixes) {
+    if (result.startsWith(prefix)) {
+      result = result.substring(prefix.length).trim();
+      break;
+    }
+  }
+  return result;
+}
+
+function naiveRomanizeKhmer(str) {
+  if (!str) return '';
+  let s = str.normalize('NFC');
+  
+  const charMap = {
+    'ក': 'k', 'ខ': 'kh', 'គ': 'k', 'ឃ': 'kh', 'ង': 'ng',
+    'ច': 'ch', 'ឆ': 'chh', 'ជ': 'ch', 'ឈ': 'chh', 'ញ': 'nh',
+    'ដ': 'd', 'ឋ': 'th', 'ឌ': 'd', 'ឍ': 'th', 'ណ': 'n',
+    'ត': 't', 'ថ': 'th', 'ទ': 't', 'ធ': 'th', 'ន': 'n',
+    'ប': 'b', 'ផ': 'ph', 'ព': 'p', 'ភ': 'ph', 'ម': 'm',
+    'យ': 'y', 'រ': 'r', 'ល': 'l', 'វ': 'v', 'ស': 's', 'ហ': 'h', 'ឡ': 'l', 'អ': 'o',
+    '្': '',
+    'ា': 'a', 'ិ': 'i', 'ី': 'i', 'ឹ': 'ue', 'ឺ': 'ue', 'ុ': 'u', 'ូ': 'u', 'ួ': 'ua',
+    'ើ': 'oe', 'ឿ': 'oea', 'ៀ': 'ie', 'េ': 'e', 'ែ': 'ae', 'ៃ': 'ai', 'ោ': 'o', 'ៅ': 'au',
+    'ំ': 'om', 'ះ': 'ah', 'ៈ': 'a', '៉': '', '៊': '', '់': '', '៌': '', '៍': '', '៏': '', '័': 'a', 'ិ៍': 'i'
+  };
+
+  let res = '';
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    res += charMap[c] !== undefined ? charMap[c] : c;
+  }
+  return res;
+}
+
 // Weighted fuzzy matching with length penalty to prevent accidental short substring matches
 function calculateScore(candName, query) {
   const n1 = normalizeSearchText(candName);
@@ -1753,6 +1825,20 @@ function calculateScore(candName, query) {
   const c2 = normalizeCompactText(query);
   if (!n1 || !n2) return 0;
   if (n1 === n2 || (c1 && c1 === c2)) return 100;
+
+  // Prefix-Stripping Matching Logic
+  const isKhmer = /[\u1780-\u17FF]/.test(candName) || /[\u1780-\u17FF]/.test(query);
+  const strippedCand = stripTypePrefixes(n1, isKhmer);
+  const strippedQuery = stripTypePrefixes(n2, isKhmer);
+
+  if (strippedCand && strippedQuery) {
+    const val1 = isKhmer ? naiveRomanizeKhmer(strippedCand) : strippedCand;
+    const val2 = isKhmer ? naiveRomanizeKhmer(strippedQuery) : strippedQuery;
+    const strippedRatio = fuzz.ratio(val1, val2);
+    if (strippedRatio < 55) {
+      return 0; // Lock to 0 to prevent incorrect matches due to prefix overlap (e.g. វត្តព្រះកែវ vs វត្តព្រែកថ្លឹង)
+    }
+  }
 
   const ratio = fuzz.ratio(n1, n2);
   const tokenSet = fuzz.token_set_ratio(n1, n2);
@@ -2257,7 +2343,7 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
 
     // Use searchQueryKh (extracted entity) if available, otherwise use normQ
     const matchTargetKh = searchQueryKh || normQ;
-    const matchTargetEn = (searchQuery || processedQuery).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const matchTargetEn = (searchQuery || processedQuery).toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 
     if (normNameKh && normNameKh.length >= 2 && normNameKh === matchTargetKh) {
       score = 100;
@@ -2310,7 +2396,7 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
 
     // Use searchQueryKh (extracted entity) if available, otherwise use normQ
     const matchTargetKh = searchQueryKh || normQ;
-    const matchTargetEn = (searchQuery || processedQuery).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const matchTargetEn = (searchQuery || processedQuery).toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 
     // Exact match checks
     if (normMarketKh && normMarketKh.length >= 2 && normMarketKh === matchTargetKh) {

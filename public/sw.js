@@ -9,8 +9,8 @@ const CACHE_NAME = 'metfone-express-v3.1.7-nocache';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/style.css?v=3.1.6',
-  '/app.js?v=3.1.6',
+  '/style.css?v=3.1.7',
+  '/app.js?v=3.1.7',
   '/icon-192.png',
   '/icon-512.png',
   '/manifest.json',

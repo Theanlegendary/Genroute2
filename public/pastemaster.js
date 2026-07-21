@@ -86,7 +86,7 @@ let pmLang = 'en';
 const pmDict = {
   en: {
     headerTitle: "Paste Master Excel Address Resolver",
-    networkVersion: "Metfone Logistics Network v3.1.6",
+    networkVersion: "Metfone Logistics Network v3.1.7",
     goBack: "Go back",
     inputLabel: "1. Raw Address Input (One per line)",
     inputPlaceholder: "Paste address keywords here. Example:\nផ្ទះបងនៅម្ដុំបាលីរីសតភូមិត្រពាំងល្វាសង្កាត់កាកាប ពោធិ៍សែនជ័យ\nបឹងកេងកង\nផ្សារទួលពង្រ\nក្រោយវត្តស្ទឹងមានជ័យ",
@@ -107,7 +107,7 @@ const pmDict = {
   },
   kh: {
     headerTitle: "កម្មវិធីស្វែងរកអាសយដ្ឋាន Paste Master",
-    networkVersion: "បណ្តាញដឹកជញ្ជូន Metfone Logistics v3.1.6",
+    networkVersion: "បណ្តាញដឹកជញ្ជូន Metfone Logistics v3.1.7",
     goBack: "ត្រឡប់ក្រោយ",
     inputLabel: "១. បញ្ចូលអាសយដ្ឋាន (១ បន្ទាត់ម្ដង)",
     inputPlaceholder: "ចម្លងអាសយដ្ឋានដាក់នៅទីនេះ។ ឧទាហរណ៍៖\nផ្ទះបងនៅម្ដុំបាលីរីសតភូមិត្រពាំងល្វាសង្កាត់កាកាប ពោធិ៍សែនជ័យ\nបឹងកេងកង\nផ្សារទួលពង្រ\nក្រោយវត្តស្ទឹងមានជ័យ",

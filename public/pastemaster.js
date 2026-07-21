@@ -696,11 +696,11 @@ function renderPmRow(index) {
 
   const distDisplay = row.district_kh 
     ? `<span style="font-weight:700; color:#0369a1;">${escHtml(row.district_kh)}</span> <span style="font-size:11px; color:#64748b;">(${escHtml(row.district || '')})</span>` 
-    : (row.district ? escHtml(row.district) : '<span style="color:#94a3b8; font-style:italic;">-</span>');
+    : (row.district ? escHtml(row.district) : (row.province_kh || '<span style="color:#94a3b8; font-style:italic;">-</span>'));
   
-  const commDisplay = row.commune_kh 
-    ? `<span style="font-weight:700; color:#047857;">${escHtml(row.commune_kh)}</span> <span style="font-size:11px; color:#64748b;">(${escHtml(row.commune || '')})</span>` 
-    : (row.commune ? escHtml(row.commune) : '<span style="color:#94a3b8; font-style:italic;">-</span>');
+  const commDisplay = (row.commune_kh || row.commune)
+    ? `<span style="font-weight:700; color:#047857;">${escHtml(row.commune_kh || row.commune)}</span> ${row.commune && row.commune !== row.commune_kh ? `<span style="font-size:11px; color:#64748b;">(${escHtml(row.commune)})</span>` : ''}` 
+    : (row.district_kh ? `<span style="font-weight:700; color:#047857;">${escHtml(row.district_kh)}</span>` : '<span style="color:#94a3b8; font-style:italic;">-</span>');
 
   const copyBtnTd = `
     <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">

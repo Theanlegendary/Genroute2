@@ -3,7 +3,7 @@
 // Caches core app shell for offline/fast load. Data APIs always go network-first.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const CACHE_NAME = 'metfone-express-v3.1.6';
+const CACHE_NAME = 'metfone-express-v3.1.7-nocache';
 
 // App shell files to pre-cache on install
 const PRECACHE_URLS = [
@@ -52,10 +52,29 @@ self.addEventListener('fetch', (event) => {
   const isApiCall = url.pathname.startsWith('/api/') || url.pathname.startsWith('/data/');
   if (isApiCall) {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        // If offline and it is a JSON data file, try cache as fallback
-        return caches.match(event.request);
-      })
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Network-First for HTML pages & JS scripts so users NEVER need Ctrl+F5 on refresh!
+  const isPageOrScript = event.request.mode === 'navigate' || 
+                         url.pathname.endsWith('.html') || 
+                         url.pathname.endsWith('.js') || 
+                         url.pathname.includes('/pastemaster') || 
+                         url.pathname === '/';
+
+  if (isPageOrScript) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const toCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, toCache));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
@@ -78,18 +97,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For app shell: cache-first with network fallback
+  // Default fallback: Network-first
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || response.type === 'opaque') {
-          return response;
-        }
-        const toCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, toCache));
-        return response;
-      });
-    })
+    fetch(event.request)
+      .then((networkResponse) => networkResponse)
+      .catch(() => caches.match(event.request))
   );
 });

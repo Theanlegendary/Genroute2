@@ -32,12 +32,12 @@ app.get('/training-slides.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'train.html'));
 });
 
-app.get('/pastemaster', (req, res) => {
+app.get(['/pastemaster', '/pastemaster.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pastemaster.html'));
 });
 
-app.get('/pastemaster.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pastemaster.html'));
+app.get(['/pastemaster-training', '/pastemaster_training.html'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pastemaster_training.html'));
 });
 
 // ── Load data once at startup ──

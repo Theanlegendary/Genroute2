@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function initMap() {
+  const container = document.getElementById('pmMap');
+  if (!container || typeof L === 'undefined') return;
   pmMap = L.map('pmMap', {
     zoomControl: true,
     attributionControl: true
@@ -106,7 +108,7 @@ function setupPasteMasterController() {
       if (pmPlotBtn) pmPlotBtn.disabled = true;
       if (pmExportBtn) pmExportBtn.disabled = true;
       if (pmCopyAllBtn) pmCopyAllBtn.disabled = true;
-      markerClusterGroup.clearLayers();
+      if (markerClusterGroup) markerClusterGroup.clearLayers();
       activeMarkers = [];
       updatePmStats();
     });
@@ -789,7 +791,7 @@ function updatePmStats() {
 }
 
 function plotPmLocationsOnMap() {
-  if (pmRows.length === 0) return;
+  if (!pmMap || !markerClusterGroup || pmRows.length === 0) return;
 
   const validRows = pmRows.filter(r => r.status === 'exact' && r.lat && r.lng);
   if (validRows.length === 0) return;

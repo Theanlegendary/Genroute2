@@ -86,6 +86,8 @@ function setupPasteMasterController() {
   const pmExportBtn = document.getElementById('pmExportBtn');
   const pmRawInput = document.getElementById('pmRawInput');
 
+  const pmCopyAllBtn = document.getElementById('pmCopyAllBtn');
+
   if (pmClearBtn) {
     pmClearBtn.addEventListener('click', () => {
       if (pmRawInput) pmRawInput.value = '';
@@ -94,7 +96,7 @@ function setupPasteMasterController() {
       if (body) {
         body.innerHTML = `
           <tr>
-            <td colspan="5" class="pm-empty-cell">
+            <td colspan="8" class="pm-empty-cell">
               <div style="font-size: 2.5rem; margin-bottom: 8px;">📋</div>
               No data resolved. Paste address list on the left and click "Resolve Addresses".
             </td>
@@ -103,6 +105,7 @@ function setupPasteMasterController() {
       }
       if (pmPlotBtn) pmPlotBtn.disabled = true;
       if (pmExportBtn) pmExportBtn.disabled = true;
+      if (pmCopyAllBtn) pmCopyAllBtn.disabled = true;
       markerClusterGroup.clearLayers();
       activeMarkers = [];
       updatePmStats();
@@ -119,6 +122,10 @@ function setupPasteMasterController() {
 
   if (pmExportBtn) {
     pmExportBtn.addEventListener('click', exportPmCsv);
+  }
+
+  if (pmCopyAllBtn) {
+    pmCopyAllBtn.addEventListener('click', copyAllPmResults);
   }
 }
 
@@ -583,6 +590,8 @@ async function resolveAddresses() {
   const hasExact = pmRows.some(r => r.status === 'exact' && r.lat && r.lng);
   if (pmPlotBtn) pmPlotBtn.disabled = !hasExact;
   if (pmExportBtn) pmExportBtn.disabled = pmRows.length === 0;
+  const pmCopyAllBtn = document.getElementById('pmCopyAllBtn');
+  if (pmCopyAllBtn) pmCopyAllBtn.disabled = pmRows.length === 0;
 
   updatePmStats();
 }
@@ -693,6 +702,13 @@ function renderPmRow(index) {
     ? `<span style="font-weight:700; color:#047857;">${escHtml(row.commune_kh)}</span> <span style="font-size:11px; color:#64748b;">(${escHtml(row.commune || '')})</span>` 
     : (row.commune ? escHtml(row.commune) : '<span style="color:#94a3b8; font-style:italic;">-</span>');
 
+  const copyBtnTd = `
+    <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+      <button class="pm-btn" style="padding:3px 6px; font-size:10px; background:#0284c7; color:white; border-radius:4px; font-weight:700; width:100%; border:none; cursor:pointer; font-family:var(--font-sans);" onclick="copyRowDistrictCommune(${row.index}, this)">📋 Dis/Com</button>
+      <button class="pm-btn" style="padding:3px 6px; font-size:10px; background:#475569; color:white; border-radius:4px; font-weight:700; width:100%; border:none; cursor:pointer; font-family:var(--font-sans);" onclick="copyFullRowData(${row.index}, this)">📋 Row</button>
+    </div>
+  `;
+
   tr.innerHTML = `
     <td style="text-align: center; font-weight: 700; color: #475569;">${row.index + 1}</td>
     <td style="font-weight: 600; color: #334155;">${escHtml(row.rawText)}</td>
@@ -701,6 +717,7 @@ function renderPmRow(index) {
     <td id="pm-row-val-${row.index}">${resolvedTd}</td>
     <td style="text-align: center;">${statusBadge}</td>
     <td id="pm-row-po-${row.index}">${poTd}</td>
+    <td style="text-align: center;">${copyBtnTd}</td>
   `;
 }
 
@@ -1035,10 +1052,81 @@ function scoreCandidate(c, query) {
     const mentionsSiemReap = qLower.includes('siem reap') || qLower.includes('សៀមរាប') || qLower.includes('sr');
     const candIsSiemReap = nameLower.includes('siem reap') || (c.province && c.province.toLowerCase() === 'siem reap');
     
-    if (candIsSiemReap && !mentionsSiemReap) {
+  if (candIsSiemReap && !mentionsSiemReap) {
       score -= 800; // Major penalty to prevent province jumping!
     }
   }
   
   return score;
+}
+
+// ─── 1-CLICK COPY HELPER FUNCTIONS ──────────────────────────────────────────────
+function copyTextWithToast(text, btn) {
+  if (!text) return;
+  const origText = btn.innerHTML;
+  const origBg = btn.style.background;
+  
+  const handleSuccess = () => {
+    btn.innerHTML = '✅ Copied!';
+    btn.style.background = '#16a34a';
+    setTimeout(() => {
+      btn.innerHTML = origText;
+      btn.style.background = origBg;
+    }, 1500);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(handleSuccess).catch(() => {
+      fallbackCopy(text, handleSuccess);
+    });
+  } else {
+    fallbackCopy(text, handleSuccess);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+function copyRowDistrictCommune(index, btn) {
+  const row = pmRows[index];
+  if (!row) return;
+  const dist = row.district_kh ? `${row.district_kh} (${row.district || ''})` : (row.district || '');
+  const comm = row.commune_kh ? `${row.commune_kh} (${row.commune || ''})` : (row.commune || '');
+  const text = `${dist}\t${comm}`;
+  copyTextWithToast(text, btn);
+}
+
+function copyFullRowData(index, btn) {
+  const row = pmRows[index];
+  if (!row) return;
+  const raw = row.rawText || '';
+  const dist = row.district_kh ? `${row.district_kh} (${row.district || ''})` : (row.district || '');
+  const comm = row.commune_kh ? `${row.commune_kh} (${row.commune || ''})` : (row.commune || '');
+  const res = row.resolvedName || '';
+  const po = row.nearestPo ? `${row.nearestPo.branch.store_name} (${row.nearestPo.branch.store_code})` : '';
+  const text = `${raw}\t${dist}\t${comm}\t${res}\t${po}`;
+  copyTextWithToast(text, btn);
+}
+
+function copyAllPmResults() {
+  const pmCopyAllBtn = document.getElementById('pmCopyAllBtn');
+  if (pmRows.length === 0) return;
+  let text = "Line\tRaw Address\tDestination District (Khan)\tDestination Commune (Sangkat)\tResolved Location\tStatus\tNearest Post Office\n";
+  pmRows.forEach((row, idx) => {
+    const raw = (row.rawText || '').replace(/\t/g, ' ').replace(/\n/g, ' ');
+    const dist = row.district_kh ? `${row.district_kh} (${row.district || ''})` : (row.district || '');
+    const comm = row.commune_kh ? `${row.commune_kh} (${row.commune || ''})` : (row.commune || '');
+    const res = (row.resolvedName || '').replace(/\t/g, ' ');
+    const status = row.status || '';
+    const po = row.nearestPo ? `${row.nearestPo.branch.store_name} (${row.nearestPo.branch.store_code})` : '';
+    text += `${idx + 1}\t${raw}\t${dist}\t${comm}\t${res}\t${status}\t${po}\n`;
+  });
+  copyTextWithToast(text, pmCopyAllBtn);
 }

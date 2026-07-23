@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenRoute · 10km Spatial Branch Assigner & Keyword Search</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+  <style>
+    :root {
+      --primary: #d9251d; /* Metfone Red */
+      --primary-hover: #b91c1c;
+      --navy: #0f172a;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --excel-green: #107c41;
+      --accent-blue: #2563eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Hanuman', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Header */
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--primary);
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .badge-10km {
+      background: #059669;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Main Container Layout */
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar / Search Column */
+    .sidebar {
+      width: 420px;
+      background: var(--card-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Search Box Container */
+    .search-box {
+      position: relative;
+    }
+
+    .search-label {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: block;
+      color: var(--navy);
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(217, 37, 29, 0.15);
+    }
+
+    /* Live Search Dropdown Suggestions */
+    .suggestions-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+      max-height: 280px;
+      overflow-y: auto;
+      z-index: 1000;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+
+    .suggestion-item:hover, .suggestion-item.active {
+      background: #fee2e2;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .sug-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--navy);
+    }
+
+    .sug-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .sug-tag {
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Selection Result Card */
+    .assigned-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15);
+      border-left: 5px solid #10b981;
+    }
+
+    .assigned-card.no-match {
+      border-left-color: #ef4444;
+    }
+
+    .card-header-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .status-badge {
+      background: #10b981;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .branch-code {
+      font-size: 24px;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .branch-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin: 4px 0 12px 0;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      color: #94a3b8;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .meta-val {
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    /* Nearby Branches Table */
+    .nearby-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nearby-table-wrapper {
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table.nearby-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    table.nearby-table th {
+      background: #f1f5f9;
+      color: var(--navy);
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+    }
+
+    table.nearby-table td {
+      padding: 8px 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    table.nearby-table tr.selected {
+      background: #dcfce7;
+      font-weight: 600;
+    }
+
+    /* Map Column */
+    .map-col {
+      flex: 1;
+      position: relative;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Batch Paste Section */
+    .batch-btn {
+      background: var(--excel-green);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .batch-btn:hover {
+      background: #0e6b37;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">METFONE</div>
+      <div class="brand-title">Branch Auto-Assigner Engine</div>
+      <span class="badge-10km">10KM MAX LOGIC</span>
+    </div>
+    <div style="font-size: 12px; opacity: 0.8;">
+      650 Pickup Branches · 1,701 Mapped Locations
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    
+    <!-- Left Sidebar / Search -->
+    <div class="sidebar">
+      
+      <!-- Keyword Search Box -->
+      <div class="search-box">
+        <label class="search-label">🔍 Search Location Keyword (Market, Village, Sangkat):</label>
+        <div class="search-input-wrapper">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Type e.g. Phsar Thmei, ផ្សារទួលពង្រ, ស្ទឹងមានជ័យ..." 
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Suggestions Dropdown -->
+        <div id="suggestionsMenu" class="suggestions-menu"></div>
+      </div>
+
+      <!-- Auto-Assigned Branch Card -->
+      <div id="assignedCard" class="assigned-card">
+        <div class="card-header-status">
+          <span class="status-badge">AUTO-ASSIGNED (≤ 10KM)</span>
+          <span id="distBadge" style="font-weight: 800; font-size: 13px; color: #a7f3d0;">0.00 km</span>
+        </div>
+        <h2 id="branchCode" class="branch-code">PNPA060</h2>
+        <div id="branchName" class="branch-name">Phsar Thmei Ti Muoy</div>
+
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Matched Location</span>
+            <span id="metaLocation" class="meta-val">Central Market (ផ្សារធំថ្មី)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Province / Capital</span>
+            <span id="metaProvince" class="meta-val">ភ្នំពេញ (Phnom Penh)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">District (Khan/Srok)</span>
+            <span id="metaDistrict" class="meta-val">Doun Penh</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Commune Code</span>
+            <span id="metaCommuneCode" class="meta-val">120201</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Surrounding Branches Table within 10km -->
+      <div class="nearby-section">
+        <div class="section-title">
+          <span>Surrounding Branches (≤ 10km Radius)</span>
+          <span id="nearbyCountBadge" style="background:#e2e8f0; padding:2px 8px; border-radius:10px; font-size:11px;">0</span>
+        </div>
+        <div class="nearby-table-wrapper">
+          <table class="nearby-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Branch Name</th>
+                <th>Distance</th>
+              </tr>
+            </thead>
+            <tbody id="nearbyTableBody">
+              <tr>
+                <td colspan="3" style="text-align: center; color: #94a3b8; padding: 12px;">Type or select a location above</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Download Excel / Batch Mode Button -->
+      <button class="batch-btn" onclick="exportSampleCsv()">
+        📊 Download 10km Branch Assignment Table (CSV)
+      </button>
+
+    </div>
+
+    <!-- Right Leaflet Map -->
+    <div class="map-col">
+      <div id="map"></div>
+    </div>
+
+  </div>
+
+  <!-- Leaflet Map JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+  <script>
+    let map;
+    let locationMarker;
+    let branchMarker;
+    let circle10km;
+    let connectingPolyline;
+    let selectedLocationData = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      setupSearchInput();
+      // Default initial query
+      performSearch('phsar thmei');
+    });
+
+    function initMap() {
+      map = L.map('map').setView([11.5695, 104.9211], 13); // Phnom Penh
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        maxZoom: 19
+      }).addTo(map);
+    }
+
+    function setupSearchInput() {
+      const input = document.getElementById('searchInput');
+      const menu = document.getElementById('suggestionsMenu');
+
+      let debounceTimer;
+
+      input.addEventListener('input', (e) => {
+        const q = e.target.value.trim();
+        clearTimeout(debounceTimer);
+        if (q.length < 2) {
+          menu.style.display = 'none';
+          return;
+        }
+
+        debounceTimer = setTimeout(() => {
+          fetchSuggestions(q);
+        }, 200);
+      });
+
+      input.addEventListener('focus', () => {
+        if (input.value.trim().length >= 2) {
+          menu.style.display = 'block';
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-box')) {
+          menu.style.display = 'none';
+        }
+      });
+    }
+
+    async function fetchSuggestions(query) {
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=market&limit=8`);
+        const data = await res.json();
+        renderSuggestions(data.results || []);
+      } catch (err) {
+        console.error('Failed to fetch suggestions:', err);
+      }
+    }
+
+    function renderSuggestions(results) {
+      const menu = document.getElementById('suggestionsMenu');
+      if (!results || results.length === 0) {
+        menu.style.display = 'none';
+        return;
+      }
+
+      menu.innerHTML = results.map(item => {
+        const title = item.market || item.name || 'Unknown Place';
+        const titleKh = item.market_kh || item.name_kh || '';
+        const prov = item.province_kh || item.province || '';
+        const dist = item.district_kh || item.district || '';
+        const branchCode = item.auto_selected_branch ? item.auto_selected_branch.store_code : '';
+
+        return `
+          <div class="suggestion-item" onclick="selectSuggestion(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+            <div>
+              <div class="sug-title">${title} ${titleKh ? `(${titleKh})` : ''}</div>
+              <div class="sug-sub">${prov} · ${dist}</div>
+            </div>
+            ${branchCode ? `<span class="sug-tag">→ ${branchCode}</span>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      menu.style.display = 'block';
+    }
+
+    function selectSuggestion(item) {
+      document.getElementById('suggestionsMenu').style.display = 'none';
+      document.getElementById('searchInput').value = item.market || item.name || '';
+      updateUIWithLocation(item);
+    }
+
+    async function performSearch(query) {
+      try {
+        const res = await fetch(`/api/auto-pick?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        if (data.auto_pick_result) {
+          updateUIWithLocation(data.auto_pick_result);
+        } else if (data.candidates && data.candidates.length > 0) {
+          updateUIWithLocation(data.candidates[0]);
+        }
+      } catch (err) {
+        console.error('Auto-pick API error:', err);
+      }
+    }
+
+    function updateUIWithLocation(loc) {
+      selectedLocationData = loc;
+
+      const locName = loc.market || loc.name || 'Location';
+      const locNameKh = loc.market_kh || loc.name_kh || '';
+      const prov = loc.province_kh || loc.province || 'Phnom Penh';
+      const dist = loc.district_kh || loc.district || '-';
+      const communeCode = loc.commune_code || '-';
+
+      document.getElementById('metaLocation').innerText = `${locName} ${locNameKh ? `(${locNameKh})` : ''}`;
+      document.getElementById('metaProvince').innerText = prov;
+      document.getElementById('metaDistrict').innerText = dist;
+      document.getElementById('metaCommuneCode').innerText = communeCode;
+
+      const autoBranch = loc.auto_selected_branch;
+      const nearbyList = loc.nearby_branches_10km || [];
+
+      if (autoBranch) {
+        document.getElementById('assignedCard').classList.remove('no-match');
+        document.getElementById('branchCode').innerText = autoBranch.store_code;
+        document.getElementById('branchName').innerText = autoBranch.store_name;
+        document.getElementById('distBadge').innerText = `${autoBranch.distance_km} km`;
+      } else {
+        document.getElementById('assignedCard').classList.add('no-match');
+        document.getElementById('branchCode').innerText = 'NO BRANCH';
+        document.getElementById('branchName').innerText = 'No branch found within 10km';
+        document.getElementById('distBadge').innerText = '> 10km';
+      }
+
+      // Render Nearby Table
+      document.getElementById('nearbyCountBadge').innerText = nearbyList.length;
+      const tbody = document.getElementById('nearbyTableBody');
+      if (nearbyList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding:12px;">No branch within 10km</td></tr>`;
+      } else {
+        tbody.innerHTML = nearbyList.map((b, idx) => `
+          <tr class="${idx === 0 ? 'selected' : ''}">
+            <td><strong>${b.store_code}</strong></td>
+            <td>${b.store_name}</td>
+            <td>${b.distance_km} km</td>
+          </tr>
+        `).join('');
+      }
+
+      // Update Leaflet Map
+      if (loc.latitude && loc.longitude) {
+        const locLat = parseFloat(loc.latitude);
+        const locLng = parseFloat(loc.longitude);
+
+        // Remove old map layers
+        if (locationMarker) map.removeLayer(locationMarker);
+        if (branchMarker) map.removeLayer(branchMarker);
+        if (circle10km) map.removeLayer(circle10km);
+        if (connectingPolyline) map.removeLayer(connectingPolyline);
+
+        // Location marker (Red pin)
+        locationMarker = L.marker([locLat, locLng], {
+          icon: L.divIcon({
+            className: 'custom-pin',
+            html: `<div style="background:#d9251d; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:14px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.3);">📍</div>`
+          })
+        }).addTo(map).bindPopup(`<b>${locName}</b><br>${locNameKh}`);
+
+        // 10km Circle Radius
+        circle10km = L.circle([locLat, locLng], {
+          radius: 10000, // 10km in meters
+          color: '#10b981',
+          fillColor: '#10b981',
+          fillOpacity: 0.08,
+          weight: 2,
+          dashArray: '5, 5'
+        }).addTo(map);
+
+        if (autoBranch && autoBranch.latitude && autoBranch.longitude) {
+          const bLat = parseFloat(autoBranch.latitude);
+          const bLng = parseFloat(autoBranch.longitude);
+
+          // Assigned Branch marker (Green pin)
+          branchMarker = L.marker([bLat, bLng], {
+            icon: L.divIcon({
+              className: 'custom-branch-pin',
+              html: `<div style="background:#0f172a; color:#38bdf8; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; border:2px solid #38bdf8; box-shadow:0 3px 10px rgba(0,0,0,0.4);">🏢</div>`
+            })
+          }).addTo(map).bindPopup(`<b>Auto-Selected Branch</b><br>${autoBranch.store_code} - ${autoBranch.store_name}<br>Distance: ${autoBranch.distance_km} km`);
+
+          // Connecting Polyline
+          connectingPolyline = L.polyline([
+            [locLat, locLng],
+            [bLat, bLng]
+          ], { color: '#059669', weight: 3, opacity: 0.8 }).addTo(map);
+
+          // Fit bounds to show location + branch + 10km circle
+          map.fitBounds(circle10km.getBounds(), { padding: [20, 20] });
+        } else {
+          map.setView([locLat, locLng], 12);
+        }
+      }
+    }
+
+    function exportSampleCsv() {
+      if (!selectedLocationData) return;
+      const b = selectedLocationData.auto_selected_branch || {};
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + "sep=,\r\n"
+        + "Location,Location_Khmer,Province,District,Assigned_Branch_Code,Assigned_Branch_Name,Distance_KM\r\n"
+        + `"${selectedLocationData.market || ''}","${selectedLocationData.market_kh || ''}","${selectedLocationData.province_kh || ''}","${selectedLocationData.district_kh || ''}","${b.store_code || ''}","${b.store_name || ''}","${b.distance_km || ''}"\r\n`;
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `10km_branch_assignment_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>

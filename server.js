@@ -43,6 +43,10 @@ app.get(['/pastemaster-training', '/pastemaster_training.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pastemaster_training.html'));
 });
 
+app.get(['/branch-assigner', '/branch_assigner.html'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'branch_assigner.html'));
+});
+
 // ── Load data once at startup ──
 const DATA_PATH = path.join(__dirname, 'data', 'routes.json');
 const PICKUP_DATA_PATH = path.join(__dirname, 'data', 'pickup_branches.json');

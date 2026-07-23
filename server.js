@@ -308,9 +308,9 @@ try {
     ncddHierarchy = JSON.parse(fs.readFileSync(NCDD_PATH, 'utf-8'));
     console.log(`✅ Loaded NCDD Hierarchy Database (${ncddHierarchy.length} provinces)`);
     initializeNcddFlatList();
-    // Improvement #5: Give the auto-pick engine access to NCDD flat list
-    autoPick.init({ flatNcddList, stripAdministrativePrefixes });
-    console.log('✅ Auto-Pick Engine initialized with NCDD data');
+    // Improvement #5 & Spatial Branch 10km Auto-Select Integration
+    autoPick.init({ flatNcddList, pickupBranches, stripAdministrativePrefixes });
+    console.log('✅ Auto-Pick Engine initialized with NCDD data & 10km Spatial Branch Indexer');
   } else {
     console.warn('⚠️ NCDD Hierarchy database file (ncdd_hierarchy.json) not found.');
   }

@@ -113,8 +113,13 @@ try {
   console.error('❌ Failed to load routes.json:', err.message);
 }
 
+const PICKUP_KEYWORDS_DATA_PATH = path.join(__dirname, 'data', 'pickup_branches_with_keywords.json');
+
 try {
-  if (fs.existsSync(PICKUP_DATA_PATH)) {
+  if (fs.existsSync(PICKUP_KEYWORDS_DATA_PATH)) {
+    pickupBranches = JSON.parse(fs.readFileSync(PICKUP_KEYWORDS_DATA_PATH, 'utf-8'));
+    console.log(`✅ Loaded ${pickupBranches.length} pickup branch records with 12km spatial keywords`);
+  } else if (fs.existsSync(PICKUP_DATA_PATH)) {
     pickupBranches = JSON.parse(fs.readFileSync(PICKUP_DATA_PATH, 'utf-8'));
     console.log(`✅ Loaded ${pickupBranches.length} pickup branch records`);
   } else {

@@ -201,9 +201,9 @@ Location  : ,
 [BRANCH HZ4P01]
 Code      : HZ4P01
 Name      : Head Office Z4
-Province  : Banteay Meanchey
-District  : Head Office Z4 (Head Office Z4)
-Commune   : Head Office Z4
+Province  : banteay meanchey
+District  : Head Office Z4 (head office z4)
+Commune   : head office z4
 Location  : , 
 
 [BRANCH BATA001]
@@ -601,17 +601,17 @@ Location  : ,
 [BRANCH HUBBAT01]
 Code      : HUBBAT01
 Name      : Hub vùng HUBBAT01
-Province  : Battambang
-District  : Hub vùng HUBBAT01 (Hub vùng HUBBAT01)
-Commune   : Hub vùng HUBBAT01
+Province  : battambang
+District  : Hub vùng HUBBAT01 (hub vùng hubbat01)
+Commune   : hub vùng hubbat01
 Location  : 13.338261812530442, 103.08321449677263
 
 [BRANCH HZ3P01]
 Code      : HZ3P01
 Name      : Head Office Z3
-Province  : Battambang
-District  : Head Office Z3 (Head Office Z3)
-Commune   : Head Office Z3
+Province  : battambang
+District  : Head Office Z3 (head office z3)
+Commune   : head office z3
 Location  : , 
 
 [BRANCH KVBAT01]
@@ -1137,9 +1137,9 @@ Location  : ,
 [BRANCH DVCZ3]
 Code      : DVCZ3
 Name      : Vehicle Team Z3
-Province  : Kampot
-District  : Vehicle Team Z3 (Vehicle Team Z3)
-Commune   : Vehicle Team Z3
+Province  : kampot
+District  : Vehicle Team Z3 (vehicle team z3)
+Commune   : vehicle team z3
 Location  : , 
 
 [BRANCH KAMA001]
@@ -1177,9 +1177,9 @@ Location  : 10.766813, 104.495433
 [BRANCH KAMA006]
 Code      : KAMA006
 Name      : KEP
-Province  : Kampot
-District  : KEP (KEP)
-Commune   : KEP
+Province  : kampot
+District  : KEP (kep)
+Commune   : kep
 Location  : 105.59244, 104.3895
 
 [BRANCH KAMA007]
@@ -1825,9 +1825,9 @@ Location  : 10.576537, 104.390497
 [BRANCH DVCZ5]
 Code      : DVCZ5
 Name      : Vehicle Team Z5
-Province  : Koh Kong
-District  : Vehicle Team Z5 (Vehicle Team Z5)
-Commune   : Vehicle Team Z5
+Province  : koh kong
+District  : Vehicle Team Z5 (vehicle team z5)
+Commune   : vehicle team z5
 Location  : , 
 
 [BRANCH KOHA001]
@@ -1945,9 +1945,9 @@ Location  : 11.6154, 102.98474
 [BRANCH HUBKRA01]
 Code      : HUBKRA01
 Name      : Hub vùng HUBKRA01
-Province  : Kratie
-District  : Hub vùng HUBKRA01 (Hub vùng HUBKRA01)
-Commune   : Hub vùng HUBKRA01
+Province  : kratie
+District  : Hub vùng HUBKRA01 (hub vùng hubkra01)
+Commune   : hub vùng hubkra01
 Location  : 11.600572823206011, 105.70856773843626
 
 [BRANCH HZ5P01]
@@ -2121,9 +2121,9 @@ Location  : ,
 [BRANCH TN3]
 Code      : TN3
 Name      : Thử nghiệm 3-TTCNTT BAT
-Province  : Metfone Express HQ
-District  : Thử nghiệm 3-TTCNTT BAT (Thử nghiệm 3-TTCNTT BAT)
-Commune   : Thử nghiệm 3-TTCNTT BAT
+Province  : metfone express hq
+District  : Thử nghiệm 3-TTCNTT BAT (thử nghiệm 3-ttcntt bat)
+Commune   : thử nghiệm 3-ttcntt bat
 Location  : , 
 
 [BRANCH MONA001]
@@ -2337,9 +2337,9 @@ Location  : 12.857211, 102.604989
 [BRANCH DVCZ1]
 Code      : DVCZ1
 Name      : Vehicle Team Z1
-Province  : Phnom Penh Branch
-District  : Vehicle Team Z1 (Vehicle Team Z1)
-Commune   : Vehicle Team Z1
+Province  : phnom penh branch
+District  : Vehicle Team Z1 (vehicle team z1)
+Commune   : vehicle team z1
 Location  : , 
 
 [BRANCH HZ1P01]
@@ -3009,9 +3009,9 @@ Location  : 11.532598, 104.870151
 [BRANCH TEST]
 Code      : TEST
 Name      : MAPBCCS
-Province  : Phnom Penh Branch
-District  : MAPBCCS (MAPBCCS)
-Commune   : MAPBCCS
+Province  : phnom penh branch
+District  : MAPBCCS (mapbccs)
+Commune   : mapbccs
 Location  : 11.55094, 104.93591
 
 [BRANCH PREA001]
@@ -5425,9 +5425,9 @@ Location  : ,
 [BRANCH BCTEST06]
 Code      : BCTEST06
 Name      : BC thử nghiệm 06
-Province  : Trung tâm Công nghệ - VTP - test
-District  : BC thử nghiệm 06 (BC thử nghiệm 06)
-Commune   : BC thử nghiệm 06
+Province  : trung tâm công nghệ - vtp - test
+District  : BC thử nghiệm 06 (bc thử nghiệm 06)
+Commune   : bc thử nghiệm 06
 Location  : , 
 
 [BRANCH CAMGL]
@@ -5561,16 +5561,16 @@ Location  : ,
 [BRANCH MFET001]
 Code      : MFET001
 Name      : GLOBAL Metfone Express Test 01
-Province  : Metfone Express Test
-District  : GLOBAL Metfone Express Test 01 (GLOBAL Metfone Express Test 01)
-Commune   : GLOBAL Metfone Express Test 01
+Province  : metfone express test
+District  : GLOBAL Metfone Express Test 01 (global metfone express test 01)
+Commune   : global metfone express test 01
 Location  : , 
 
 [BRANCH MFET002]
 Code      : MFET002
 Name      : GLOBAL  Metfone Express Test 02
-Province  : Metfone Express Test
-District  : GLOBAL  Metfone Express Test 02 (GLOBAL  Metfone Express Test 02)
-Commune   : GLOBAL  Metfone Express Test 02
+Province  : metfone express test
+District  : GLOBAL  Metfone Express Test 02 (global  metfone express test 02)
+Commune   : global  metfone express test 02
 Location  : , 
 

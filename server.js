@@ -2431,6 +2431,17 @@ async function resolveCoordsWithSpellingCorrection(query, province = '') {
     }
   }
 
+  // 0.6 Support Comma-Separated Address Resolution e.g. "Veal Vong, Prampir Meakkakra, Phnom Penh, "
+  if (query.includes(',')) {
+    const parts = query.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length >= 2) {
+      for (const part of parts) {
+        const exactPartLock = checkExactMatchLock(part, province);
+        if (exactPartLock) return exactPartLock;
+      }
+    }
+  }
+
   // ── ENTITY EXTRACTION FOR NATURAL-LANGUAGE ADDRESSES ──
   // Extract location entities from sentences like:
   // "ផ្ទះនៅជិតក្បែរខាងក្រោយទល់មុខច្រកចូលទីតាំងម្ដុំភូមិត្រពាំងល្វា"

@@ -1860,6 +1860,42 @@ async function runSmartFind() {
       return;
     }
 
+    // 1.2 COMMA-SEPARATED ADDRESS PARSING: e.g. "Veal Vong, Prampir Meakkakra, Phnom Penh, "
+    if (q.includes(',')) {
+      const parts = q.split(',').map(s => s.trim()).filter(Boolean);
+      if (parts.length >= 2) {
+        for (const part of parts) {
+          const hits = clientSearch(part, 'market');
+          if (hits && hits.length > 0) {
+            const otherParts = parts.filter(p => p.toLowerCase() !== part.toLowerCase());
+            const refined = hits.filter(h => {
+              const fullText = `${h.commune || ''} ${h.commune_kh || ''} ${h.district || ''} ${h.district_kh || ''} ${h.province || ''} ${h.province_kh || ''} ${h.market || ''} ${h.market_kh || ''}`.toLowerCase();
+              return otherParts.some(p => fullText.includes(p.toLowerCase()));
+            });
+            if (refined.length > 0) {
+              const topMatch = findBestLocalResult(refined, part);
+              const selectedLoc = {
+                id: topMatch.id || 'loc_' + Date.now(),
+                market: topMatch.market || topMatch.commune || part,
+                market_kh: topMatch.market_kh || topMatch.commune_kh || '',
+                latitude: parseFloat(topMatch.latitude),
+                longitude: parseFloat(topMatch.longitude),
+                province: topMatch.province || '',
+                province_kh: topMatch.province_kh || '',
+                district: topMatch.district || topMatch.district_en || '',
+                district_kh: topMatch.district_kh || '',
+                commune: topMatch.commune || '',
+                commune_kh: topMatch.commune_kh || '',
+                google_maps_url: topMatch.google_maps_url || `https://www.google.com/maps?q=${topMatch.latitude},${topMatch.longitude}`
+              };
+              selectLocationAndFindNearbyPOs(selectedLoc, refined);
+              return;
+            }
+          }
+        }
+      }
+    }
+
     const normQ = normalizeKhmer(q).toLowerCase();
 
     // 1.5 FIRST: Check local database for exact/close post office branch ID match (e.g. Metfone branch ID like PNP01 or PNPP014)

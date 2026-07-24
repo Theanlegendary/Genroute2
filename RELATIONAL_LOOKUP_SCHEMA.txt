@@ -1,0 +1,48 @@
+================================================================================
+RELATIONAL LOCATION LOOKUP ARCHITECTURE (NORMALIZED TOKENS & REFERENTIAL INTEGRITY)
+================================================================================
+
+SCHEMA OVERVIEW:
+1. Locations Master Table (data/locations_master_lookup.json):
+   Central lookup table storing unique famous places, markets, and landmarks with Location Ref IDs (LOC_xxxx).
+
+2. Branch Relational Profiles (data/branches_relational_profiles.json):
+   Clean branch profile rows storing only foreign key Location Ref IDs instead of repeating raw string blocks.
+
+--------------------------------------------------------------------------------
+RELATIONAL LOOKUP EXAMPLE (BRANCH BANA002 - PAOY PAET):
+--------------------------------------------------------------------------------
+
+[BRANCH PROFILE: BANA002]
+Code          : BANA002
+Name          : Paoy Paet
+Province      : បន្ទាយមានជ័យ
+District      : Paoy Paet (ប៉ោយប៉ែត)
+Commune       : និមិត្ដ (Code: 011001)
+Coordinates   : 13.682498, 102.564968
+Location Refs : [ LOC_1265, LOC_0214, LOC_0081, LOC_0178, LOC_0068, LOC_1418, LOC_0049, LOC_0055 ... (22 total) ]
+
+RESOLVED RELATIONAL ENTITIES (JOINED FROM MASTER LOOKUP TABLE):
+  - LOC_1265 -> Big C Supermarket Poipet |  (Famous Market) [GPS: 13.6721125, 102.5587006]
+  - LOC_0214 -> Mms Market | ផ្សារMMS (Famous Market) [GPS: 13.674494, 102.574796]
+  - LOC_0081 -> Big C Market | ផ្សារ Big C (Famous Market) [GPS: 13.671097, 102.55763]
+  - LOC_0178 -> Cheayden Market | ផ្សារចេាយដេន (Famous Market) [GPS: 13.692424, 102.582019]
+  - LOC_0068 -> Derm Puthrea Market | ផ្សារដេរម ពុថរេា (Famous Market) [GPS: 13.658558, 102.560398]
+  - LOC_1418 -> Poipet International Border Checkpoint | ច្រកទ្វារអន្តរជាតិប៉ោយប៉ែត (Famous Market) [GPS: 13.661, 102.553]
+  - LOC_0049 -> Akak Market | ផ្សារាកាក (Famous Market) [GPS: 13.657754, 102.565851]
+  - LOC_0055 -> Trey Market | ផ្សារត្រេយ (Famous Market) [GPS: 13.65775, 102.562619]
+
+--------------------------------------------------------------------------------
+RELATIONAL MASTER LOOKUP TABLE SAMPLE (FIRST 10 LOCATION ENTITIES):
+--------------------------------------------------------------------------------
+
+LOC_0001 : Kaev Seima Market | ផ្សារកែវសីមា | Type: Famous Market
+LOC_0002 : Kaoh Nheaek Market | ផ្សារកោះញែក | Type: Famous Market
+LOC_0003 : Tani Market | ផ្សារតានី | Type: Famous Market
+LOC_0004 : Samaki Market | ផ្សារសាមគ្គី | Type: Famous Market
+LOC_0005 : Sambour Market | ផ្សារសំបូរ | Type: Famous Market
+LOC_0006 : Kratie Market | ផ្សារក្រចេះ | Type: Famous Market
+LOC_0007 : Ka3 Market | ផ្សារកាបី | Type: Famous Market
+LOC_0008 : Snuol Market | ផ្សារស្នួល | Type: Famous Market
+LOC_0009 : 115 Market | ផ្សារ១១៥ | Type: Famous Market
+LOC_0010 : Kampong Pranak | ផ្សារកំពង់ប្រណាក | Type: Famous Market

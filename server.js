@@ -1205,7 +1205,7 @@ app.get('/api/branch/:id', (req, res) => {
   const id = rawId.toLowerCase().replace(/^po_/, '');
   const directRoutes = routes.filter(r => r.branch_id.toLowerCase() === id || r.branch_id.toLowerCase() === `po_${id}`);
   
-  const spatialInfo = spatialIndexer.findLocationsForBranch(id, routes, pickupBranches, 12.0);
+  const spatialInfo = spatialIndexer.findLocationsForBranch(id, routes, pickupBranches, 15.0);
 
   if (directRoutes.length === 0 && (!spatialInfo.branch || spatialInfo.total_locations_under_12km === 0)) {
     return res.status(404).json({ error: `No branch or locations found for branch "${req.params.id}"` });

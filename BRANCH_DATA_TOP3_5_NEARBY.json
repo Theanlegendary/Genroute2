@@ -376,7 +376,7 @@
     "commune_code": "010402",
     "latitude": 13.623668,
     "longitude": 103.182027,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chakrey Market",
@@ -401,6 +401,12 @@
         "name_kh": "ផ្សារឫស្សី",
         "type": "Famous Market",
         "distance_km": 8.78
+      },
+      {
+        "name_en": "Muy Sokhom Market",
+        "name_kh": "ផ្សារមុយ សូខូម",
+        "type": "Famous Market",
+        "distance_km": 14.03
       }
     ]
   },
@@ -417,7 +423,7 @@
     "commune_code": "010701",
     "latitude": 12.252597,
     "longitude": 105.977067,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chhloung Market",
@@ -442,6 +448,12 @@
         "name_kh": "ផ្សារឈើទាល ព្លួស",
         "type": "Famous Market",
         "distance_km": 7.84
+      },
+      {
+        "name_en": "Preak Prasab Market",
+        "name_kh": "ផ្សារព្រោក ព្រាសាប",
+        "type": "Famous Market",
+        "distance_km": 12.84
       }
     ]
   },
@@ -505,7 +517,7 @@
     "commune_code": "010901",
     "latitude": 13.566301,
     "longitude": 102.364078,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Malai Market",
@@ -530,6 +542,12 @@
         "name_kh": "ផ្សារបី សែ",
         "type": "Famous Market",
         "distance_km": 11.13
+      },
+      {
+        "name_en": "Ta Lorn Market",
+        "name_kh": "ផ្សារតាឡន",
+        "type": "Famous Market",
+        "distance_km": 14.89
       }
     ]
   },
@@ -734,7 +752,7 @@
     "commune_code": "010303",
     "latitude": 13.76928,
     "longitude": 103.22615,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tavorng Market",
@@ -749,10 +767,22 @@
         "distance_km": 9.32
       },
       {
-        "name_en": "Phnum Srok Center",
-        "name_kh": "ភ្នំស្រុក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Pheas Market",
+        "name_kh": "ផ្សារផោស",
+        "type": "Famous Market",
+        "distance_km": 12.32
+      },
+      {
+        "name_en": "Huy leng phnom srok market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.48
+      },
+      {
+        "name_en": "Huyleng Market Phnum Srok",
+        "name_kh": "ផ្សារហុយលេង ផនុម ស្រូក",
+        "type": "Famous Market",
+        "distance_km": 12.5
       }
     ]
   },
@@ -769,7 +799,7 @@
     "commune_code": "010803",
     "latitude": 13.832156,
     "longitude": 102.833294,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Khav Lech Market",
@@ -784,10 +814,22 @@
         "distance_km": 7.82
       },
       {
-        "name_en": "Svay Chek Center",
-        "name_kh": "ស្វាយចេក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Ou Bey Chean Market",
+        "name_kh": "ផ្សារអូរបីជាន់",
+        "type": "Famous Market",
+        "distance_km": 12.34
+      },
+      {
+        "name_en": "Soeng Market",
+        "name_kh": "ផ្សារសូេង",
+        "type": "Famous Market",
+        "distance_km": 14.44
+      },
+      {
+        "name_en": "Rolous Market",
+        "name_kh": "ផ្សាររូលអូស",
+        "type": "Famous Market",
+        "distance_km": 14.51
       }
     ]
   },
@@ -1039,7 +1081,7 @@
     "commune_code": "010305",
     "latitude": 13.74387,
     "longitude": 103.33588,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Huy leng phnom srok market",
@@ -1058,6 +1100,12 @@
         "name_kh": "ផ្សារត្រូ ពោង ថមូរ",
         "type": "Famous Market",
         "distance_km": 4.66
+      },
+      {
+        "name_en": "Tavorng Market",
+        "name_kh": "ផ្សារតាវូរង",
+        "type": "Famous Market",
+        "distance_km": 12.22
       }
     ]
   },
@@ -1112,7 +1160,7 @@
     "store_code": "BATA001",
     "store_name": "Chomkar Somraong",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Chomkar Somraong",
@@ -1159,7 +1207,7 @@
     "store_code": "BATA002",
     "store_name": "Kampong Prieng",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Kampong Prieng",
@@ -1206,7 +1254,7 @@
     "store_code": "BATA003",
     "store_name": "Phnum Sampov",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Phnum Sampov",
@@ -1253,7 +1301,7 @@
     "store_code": "BATA004",
     "store_name": "Vaot Ta Muem 01",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Vaot Ta Muem",
@@ -1300,7 +1348,7 @@
     "store_code": "BATA005",
     "store_name": "Tuol Ta Ek",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Tuol Ta Ek",
@@ -1347,7 +1395,7 @@
     "store_code": "BATA006",
     "store_name": "Moung",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Moung Ruessei",
     "district_kh": "មោងឫស្សី",
     "commune_en": "Moung",
@@ -1394,7 +1442,7 @@
     "store_code": "BATA007",
     "store_name": "Snoeng",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Snoeng",
@@ -1402,7 +1450,7 @@
     "commune_code": "020107",
     "latitude": 12.9784,
     "longitude": 103.0544,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Snoeng Market",
@@ -1427,6 +1475,12 @@
         "name_kh": "ផ្សារបាណន់",
         "type": "Famous Market",
         "distance_km": 10.21
+      },
+      {
+        "name_en": "Market place",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.4
       }
     ]
   },
@@ -1435,7 +1489,7 @@
     "store_code": "BATA008",
     "store_name": "Vaot Ta Muem 02",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Vaot Ta Muem",
@@ -1482,7 +1536,7 @@
     "store_code": "BATA009",
     "store_name": "REM SOCHEA",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rotonak Mondol",
     "district_kh": "រតនមណ្ឌល",
     "commune_en": "Reaksmei Songha",
@@ -1529,7 +1583,7 @@
     "store_code": "BATA010",
     "store_name": "Santepheap",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sampov Lun",
     "district_kh": "សំពៅលូន",
     "commune_en": "Santepheap",
@@ -1537,7 +1591,7 @@
     "commune_code": "021004",
     "latitude": 13.432283,
     "longitude": 102.366176,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Borei Sopheakmongkol Market",
@@ -1562,6 +1616,12 @@
         "name_kh": "ផ្សារបឹង បឹង",
         "type": "Famous Market",
         "distance_km": 11.09
+      },
+      {
+        "name_en": "Malai Market",
+        "name_kh": "ផ្សារម៉ាឡៃ",
+        "type": "Famous Market",
+        "distance_km": 14.99
       }
     ]
   },
@@ -1570,7 +1630,7 @@
     "store_code": "BATA011",
     "store_name": "Boeng Reang",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Kamrieng",
     "district_kh": "កំរៀង",
     "commune_en": "Boeng Reang",
@@ -1605,7 +1665,7 @@
     "store_code": "BATA012",
     "store_name": "Bour",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Phnum Proek",
     "district_kh": "ភ្នំព្រឹក",
     "commune_en": "Bour",
@@ -1628,10 +1688,10 @@
         "distance_km": 11.42
       },
       {
-        "name_en": "Phnum Proek Center",
-        "name_kh": "ភ្នំព្រឹក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Plouv Bram Market",
+        "name_kh": "ផ្សារពលអូវ ប្រាម",
+        "type": "Famous Market",
+        "distance_km": 12.01
       }
     ]
   },
@@ -1640,7 +1700,7 @@
     "store_code": "BATA013",
     "store_name": "Pech Chenda 01",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Phnum Proek",
     "district_kh": "ភ្នំព្រឹក",
     "commune_en": "Pech Chenda",
@@ -1648,13 +1708,19 @@
     "commune_code": "021102",
     "latitude": 13.222725,
     "longitude": 102.391644,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Heng Theng Pechanda Market",
         "name_kh": "ផ្សារហេង ថេង ពេចានដា",
         "type": "Famous Market",
         "distance_km": 0.29
+      },
+      {
+        "name_en": "Trawi",
+        "name_kh": "ផ្សារត្រាវី",
+        "type": "Famous Market",
+        "distance_km": 14.19
       },
       {
         "name_en": "Phnum Proek Center",
@@ -1669,7 +1735,7 @@
     "store_code": "BATA014",
     "store_name": "Pech Chenda 02",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Phnum Proek",
     "district_kh": "ភ្នំព្រឹក",
     "commune_en": "Pech Chenda",
@@ -1677,13 +1743,19 @@
     "commune_code": "021102",
     "latitude": 13.2117,
     "longitude": 102.532803,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Plouv Bram Market",
         "name_kh": "ផ្សារពលអូវ ប្រាម",
         "type": "Famous Market",
         "distance_km": 0.07
+      },
+      {
+        "name_en": "Bo Market",
+        "name_kh": "ផ្សារបូ",
+        "type": "Famous Market",
+        "distance_km": 12.2
       },
       {
         "name_en": "Phnum Proek Center",
@@ -1698,7 +1770,7 @@
     "store_code": "BATA015",
     "store_name": "Sdok Pravoek",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rukh Kiri",
     "district_kh": "រុក្ខគិរី",
     "commune_en": "Sdok Pravoek",
@@ -1745,7 +1817,7 @@
     "store_code": "BATA016",
     "store_name": "Ta Kream",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Ta Kream",
@@ -1753,7 +1825,7 @@
     "commune_code": "020108",
     "latitude": 13.090324,
     "longitude": 103.023334,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Ta Ngean Market",
@@ -1772,6 +1844,18 @@
         "name_kh": "ផ្សារភ្នំសំពៅ",
         "type": "Famous Market",
         "distance_km": 10.81
+      },
+      {
+        "name_en": "Toul Tadok Market",
+        "name_kh": "ផ្សារទួល តាដូក",
+        "type": "Famous Market",
+        "distance_km": 12.94
+      },
+      {
+        "name_en": "Chrey Market",
+        "name_kh": "ផ្សារជ្រៃ",
+        "type": "Famous Market",
+        "distance_km": 13.11
       }
     ]
   },
@@ -1780,7 +1864,7 @@
     "store_code": "BATA017",
     "store_name": "Ta Sanh",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Samlout",
     "district_kh": "សំឡូត",
     "commune_en": "Ta Sanh",
@@ -1803,10 +1887,10 @@
         "distance_km": 11.66
       },
       {
-        "name_en": "Samlout Center",
-        "name_kh": "សំឡូត មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Sung Market",
+        "name_kh": "ផ្សារសុង",
+        "type": "Famous Market",
+        "distance_km": 13.81
       }
     ]
   },
@@ -1815,7 +1899,7 @@
     "store_code": "BATA018",
     "store_name": "Kampong Lpov",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Samlout",
     "district_kh": "សំឡូត",
     "commune_en": "Kampong Lpov",
@@ -1823,13 +1907,19 @@
     "commune_code": "020902",
     "latitude": 12.543875,
     "longitude": 102.865274,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Samlout Market",
         "name_kh": "ផ្សារសាមលអូត",
         "type": "Famous Market",
         "distance_km": 8.19
+      },
+      {
+        "name_en": "Sung Market",
+        "name_kh": "ផ្សារសុង",
+        "type": "Famous Market",
+        "distance_km": 13.84
       },
       {
         "name_en": "Samlout Center",
@@ -1844,7 +1934,7 @@
     "store_code": "BATA019",
     "store_name": "Traeng",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rotonak Mondol",
     "district_kh": "រតនមណ្ឌល",
     "commune_en": "Traeng",
@@ -1852,7 +1942,7 @@
     "commune_code": "020704",
     "latitude": 12.832975,
     "longitude": 102.894727,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Treng Market",
@@ -1877,6 +1967,12 @@
         "name_kh": "ផ្សាររោកសមីសាងហា",
         "type": "Famous Market",
         "distance_km": 11.94
+      },
+      {
+        "name_en": "Meanchey Market",
+        "name_kh": "ផ្សារមានជ័យ",
+        "type": "Famous Market",
+        "distance_km": 12.77
       }
     ]
   },
@@ -1885,7 +1981,7 @@
     "store_code": "BATA021",
     "store_name": "Preaek Chik",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rukh Kiri",
     "district_kh": "រុក្ខគិរី",
     "commune_en": "Preaek Chik",
@@ -1893,7 +1989,7 @@
     "commune_code": "021401",
     "latitude": 12.651708,
     "longitude": 103.396619,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Prek Chik Market",
@@ -1912,6 +2008,18 @@
         "name_kh": "ផ្សារturkish",
         "type": "Famous Market",
         "distance_km": 11.69
+      },
+      {
+        "name_en": "Prey Svay",
+        "name_kh": "ផ្សារព្រៃស្វាយ",
+        "type": "Famous Market",
+        "distance_km": 13.84
+      },
+      {
+        "name_en": "Moung Roessei Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.46
       }
     ]
   },
@@ -1920,7 +2028,7 @@
     "store_code": "BATA022",
     "store_name": "Bavel",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Bavel",
     "district_kh": "បវេល",
     "commune_en": "Bavel",
@@ -1967,7 +2075,7 @@
     "store_code": "BATA023",
     "store_name": "Chrey",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Thma Koul",
     "district_kh": "ថ្មគោល",
     "commune_en": "Chrey",
@@ -2014,7 +2122,7 @@
     "store_code": "BATA024",
     "store_name": "Boeng Pring",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Thma Koul",
     "district_kh": "ថ្មគោល",
     "commune_en": "Boeng Pring",
@@ -2061,7 +2169,7 @@
     "store_code": "BATA025",
     "store_name": "Ta Pung",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Thma Koul",
     "district_kh": "ថ្មគោល",
     "commune_en": "Ta Pung",
@@ -2108,7 +2216,7 @@
     "store_code": "BATA026",
     "store_name": "Svay Por",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Svay Por",
@@ -2155,7 +2263,7 @@
     "store_code": "BATA027",
     "store_name": "Ou Ta Ki",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Thma Koul",
     "district_kh": "ថ្មគោល",
     "commune_en": "Ou Ta Ki",
@@ -2202,7 +2310,7 @@
     "store_code": "BATA028",
     "store_name": "Ta Sda",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sampov Lun",
     "district_kh": "សំពៅលូន",
     "commune_en": "Ta Sda",
@@ -2210,7 +2318,7 @@
     "commune_code": "021003",
     "latitude": 13.404488,
     "longitude": 102.455575,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Trav Chu Market",
@@ -2229,6 +2337,12 @@
         "name_kh": "ផ្សារតាឡន",
         "type": "Famous Market",
         "distance_km": 10.56
+      },
+      {
+        "name_en": "Bei Sae Market",
+        "name_kh": "ផ្សារបី សែ",
+        "type": "Famous Market",
+        "distance_km": 12.5
       }
     ]
   },
@@ -2237,7 +2351,7 @@
     "store_code": "BATA029",
     "store_name": "Thipakdei",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Koas Krala",
     "district_kh": "គាស់ក្រឡ",
     "commune_en": "Thipakdei",
@@ -2245,7 +2359,7 @@
     "commune_code": "021301",
     "latitude": 12.856523,
     "longitude": 103.26872,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tipadei Market",
@@ -2270,6 +2384,12 @@
         "name_kh": "ផ្សារព្រេយ តូច",
         "type": "Famous Market",
         "distance_km": 11.95
+      },
+      {
+        "name_en": "Jon Klong Market",
+        "name_kh": "ផ្សារជូន កលូង",
+        "type": "Famous Market",
+        "distance_km": 12.45
       }
     ]
   },
@@ -2278,7 +2398,7 @@
     "store_code": "BATA030",
     "store_name": "Prey Svay",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Moung Ruessei",
     "district_kh": "មោងឫស្សី",
     "commune_en": "Prey Svay",
@@ -2286,7 +2406,7 @@
     "commune_code": "020603",
     "latitude": 12.713477,
     "longitude": 103.544657,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kralaom Pluk",
@@ -2305,6 +2425,18 @@
         "name_kh": "ផ្សារជ្រៃ",
         "type": "Famous Market",
         "distance_km": 10.76
+      },
+      {
+        "name_en": "Moung Roessei Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.4
+      },
+      {
+        "name_en": "Moung Russey Matket",
+        "name_kh": "ផ្សារមអូង ឫស្សី មាតកេត",
+        "type": "Famous Market",
+        "distance_km": 12.53
       }
     ]
   },
@@ -2313,7 +2445,7 @@
     "store_code": "BATA032",
     "store_name": "Sdau",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rotonak Mondol",
     "district_kh": "រតនមណ្ឌល",
     "commune_en": "Sdau",
@@ -2360,7 +2492,7 @@
     "store_code": "BATA033",
     "store_name": "Ampil Pram Daeum",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Bavel",
     "district_kh": "បវេល",
     "commune_en": "Ampil Pram Daeum",
@@ -2368,7 +2500,7 @@
     "commune_code": "020405",
     "latitude": 13.260059,
     "longitude": 102.767866,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Ampilpramdaeum",
@@ -2393,6 +2525,12 @@
         "name_kh": "",
         "type": "Famous Market",
         "distance_km": 11.68
+      },
+      {
+        "name_en": "Borey Yin Mann",
+        "name_kh": "ផ្សារបុរី យីន មានន",
+        "type": "Famous Market",
+        "distance_km": 12.27
       }
     ]
   },
@@ -2401,7 +2539,7 @@
     "store_code": "BATA034",
     "store_name": "Ou Char",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Ou Char",
@@ -2448,7 +2586,7 @@
     "store_code": "BATA035",
     "store_name": "Anlung Vil",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Anlong Vil",
@@ -2495,7 +2633,7 @@
     "store_code": "BATA036",
     "store_name": "Vaot Ta Muem",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Vaot Ta Muem",
@@ -2542,7 +2680,7 @@
     "store_code": "BATA037",
     "store_name": "Peam Aek",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Aek Phnum",
     "district_kh": "ឯកភ្នំ",
     "commune_en": "Peam Aek",
@@ -2589,7 +2727,7 @@
     "store_code": "BATA038",
     "store_name": "Prey Khpos",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Bavel",
     "district_kh": "បវេល",
     "commune_en": "Prey Khpos",
@@ -2636,7 +2774,7 @@
     "store_code": "BATA039",
     "store_name": "Mukh Rea",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rukh Kiri",
     "district_kh": "រុក្ខគិរី",
     "commune_en": "Mukh Reah",
@@ -2683,7 +2821,7 @@
     "store_code": "BATA040",
     "store_name": "Prek Preah Sdach",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Prek Preah Sdach",
@@ -2730,7 +2868,7 @@
     "store_code": "BATA041",
     "store_name": "Moung Ruessei",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Moung Ruessei",
     "district_kh": "មោងឫស្សី",
     "commune_en": "Moung",
@@ -2738,7 +2876,7 @@
     "commune_code": "020601",
     "latitude": 12.903065,
     "longitude": 103.3680416,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Prey Touch Market",
@@ -2763,6 +2901,12 @@
         "name_kh": "ផ្សារកាកូាសហ",
         "type": "Famous Market",
         "distance_km": 7.74
+      },
+      {
+        "name_en": "Tipadei Market",
+        "name_kh": "ផ្សារតីពាដី",
+        "type": "Famous Market",
+        "distance_km": 12
       }
     ]
   },
@@ -2771,7 +2915,7 @@
     "store_code": "BATP001",
     "store_name": "Battambang",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Tuol Ta Ek",
@@ -2818,7 +2962,7 @@
     "store_code": "BATS001",
     "store_name": "Tuol Ta Ek",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Battambang",
     "district_kh": "បាត់ដំបង",
     "commune_en": "Tuol Ta Ek",
@@ -2865,7 +3009,7 @@
     "store_code": "BATS002",
     "store_name": "Ta Pung",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Thma Koul",
     "district_kh": "ថ្មគោល",
     "commune_en": "Ta Pung",
@@ -2912,7 +3056,7 @@
     "store_code": "BATS003",
     "store_name": "Boeng Reang",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Kamrieng",
     "district_kh": "កំរៀង",
     "commune_en": "Boeng Reang",
@@ -2947,7 +3091,7 @@
     "store_code": "BATS004",
     "store_name": "Santepheap",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sampov Lun",
     "district_kh": "សំពៅលូន",
     "commune_en": "Santepheap",
@@ -2988,7 +3132,7 @@
     "store_code": "BATS005",
     "store_name": "Sdau",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rotonak Mondol",
     "district_kh": "រតនមណ្ឌល",
     "commune_en": "Sdau",
@@ -3035,7 +3179,7 @@
     "store_code": "BATS006",
     "store_name": "Bavel",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Bavel",
     "district_kh": "បវេល",
     "commune_en": "Bavel",
@@ -3082,7 +3226,7 @@
     "store_code": "BATS007",
     "store_name": "Moung",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Moung Ruessei",
     "district_kh": "មោងឫស្សី",
     "commune_en": "Moung",
@@ -3129,7 +3273,7 @@
     "store_code": "BATS008",
     "store_name": "Sdau",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Rotonak Mondol",
     "district_kh": "រតនមណ្ឌល",
     "commune_en": "Sdau",
@@ -3152,7 +3296,7 @@
     "store_code": "DVCZ2",
     "store_name": "Vehicle Team Z2",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Chheu Teal",
@@ -3245,7 +3389,7 @@
     "store_code": "KVBAT01",
     "store_name": "Kho vùng BAT",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Koas Krala",
     "district_kh": "គាស់ក្រឡ",
     "commune_en": "Doun Ba",
@@ -3323,7 +3467,7 @@
     "commune_code": "031303",
     "latitude": 12.058398,
     "longitude": 105.257688,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Prey Tor Toeng Market",
@@ -3348,6 +3492,12 @@
         "name_kh": "ផ្សារកូរ",
         "type": "Famous Market",
         "distance_km": 7.56
+      },
+      {
+        "name_en": "Wat Thmei Market",
+        "name_kh": "ផ្សារវាត ថមី",
+        "type": "Famous Market",
+        "distance_km": 12.38
       }
     ]
   },
@@ -3458,7 +3608,7 @@
     "commune_code": "031505",
     "latitude": 12.29968,
     "longitude": 105.419272,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Mesor Chrey Market",
@@ -3477,6 +3627,18 @@
         "name_kh": "ផ្សារសពេុ",
         "type": "Famous Market",
         "distance_km": 10.03
+      },
+      {
+        "name_en": "Stueng Trang Market",
+        "name_kh": "ផ្សារសតុេង ត្រាង",
+        "type": "Famous Market",
+        "distance_km": 13.47
+      },
+      {
+        "name_en": "Svay Teab Martket",
+        "name_kh": "ផ្សារស្វាយទាប",
+        "type": "Famous Market",
+        "distance_km": 14.91
       }
     ]
   },
@@ -3540,7 +3702,7 @@
     "commune_code": "030208",
     "latitude": 12.376818,
     "longitude": 105.222342,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tapang Deythmey Market",
@@ -3565,6 +3727,12 @@
         "name_kh": "ផ្សារស្វាយទាប",
         "type": "Famous Market",
         "distance_km": 11.48
+      },
+      {
+        "name_en": "Speu Market",
+        "name_kh": "ផ្សារសពេុ",
+        "type": "Famous Market",
+        "distance_km": 13.06
       }
     ]
   },
@@ -3628,7 +3796,7 @@
     "commune_code": "030109",
     "latitude": 11.885387,
     "longitude": 104.935627,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phnomdel Market",
@@ -3653,6 +3821,12 @@
         "name_kh": "ផ្សាររូកា កៅង",
         "type": "Famous Market",
         "distance_km": 7.62
+      },
+      {
+        "name_en": "Svayromeit Market",
+        "name_kh": "ផ្សារស្វាយរមៀត",
+        "type": "Famous Market",
+        "distance_km": 13.28
       }
     ]
   },
@@ -3669,7 +3843,7 @@
     "commune_code": "030201",
     "latitude": 12.180892,
     "longitude": 105.322863,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Boss Khnor Market",
@@ -3678,10 +3852,22 @@
         "distance_km": 0.05
       },
       {
-        "name_en": "Chamkar Leu Center",
-        "name_kh": "ចំការលើ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Svay Teab Martket",
+        "name_kh": "ផ្សារស្វាយទាប",
+        "type": "Famous Market",
+        "distance_km": 13.09
+      },
+      {
+        "name_en": "Kor Market",
+        "name_kh": "ផ្សារកូរ",
+        "type": "Famous Market",
+        "distance_km": 13.74
+      },
+      {
+        "name_en": "Mien Market",
+        "name_kh": "ផ្សារមីេន",
+        "type": "Famous Market",
+        "distance_km": 14.42
       }
     ]
   },
@@ -3690,7 +3876,7 @@
     "store_code": "CHAA011",
     "store_name": "Lvea",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Bavel",
     "district_kh": "បវេល",
     "commune_en": "Lvea",
@@ -4074,7 +4260,7 @@
     "commune_code": "030709",
     "latitude": 11.9412,
     "longitude": 105.3009,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Peam Chi Kang",
@@ -4089,10 +4275,22 @@
         "distance_km": 6.45
       },
       {
-        "name_en": "Kang Meas Center",
-        "name_kh": "កងមាស មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Mien Market",
+        "name_kh": "ផ្សារមីេន",
+        "type": "Famous Market",
+        "distance_km": 12.46
+      },
+      {
+        "name_en": "Phsar Prey Samdex",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.19
+      },
+      {
+        "name_en": "Preksandeak",
+        "name_kh": "ផ្សារព្រេកសានដោក",
+        "type": "Famous Market",
+        "distance_km": 13.24
       }
     ]
   },
@@ -4109,8 +4307,20 @@
     "commune_code": "030602",
     "latitude": 12.1363,
     "longitude": 105.5264,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
+      {
+        "name_en": "Stueng Trang Market",
+        "name_kh": "ផ្សារសតុេង ត្រាង",
+        "type": "Famous Market",
+        "distance_km": 13.42
+      },
+      {
+        "name_en": "Thmal Kol Market",
+        "name_kh": "ផ្សារថមាល កូល",
+        "type": "Famous Market",
+        "distance_km": 14.94
+      },
       {
         "name_en": "Kampong Siem Center",
         "name_kh": "កំពង់សៀម មជ្ឈមណ្ឌល",
@@ -4179,7 +4389,7 @@
     "commune_code": "031510",
     "latitude": 12.258039,
     "longitude": 105.533665,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Stueng Trang Market",
@@ -4194,10 +4404,22 @@
         "distance_km": 10.93
       },
       {
-        "name_en": "Stueng Trang Center",
-        "name_kh": "ស្ទឹងត្រង់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "CE EXPRESS Anlong Market Agent",
+        "name_kh": "ce express ភ្នាក់ងារ ផ្សារបែកអន្លូង",
+        "type": "Famous Market",
+        "distance_km": 12.98
+      },
+      {
+        "name_en": "Bek Anlong Rice Market",
+        "name_kh": "ផ្សារបែកអន្លូង លក់បាយ",
+        "type": "Famous Market",
+        "distance_km": 13.12
+      },
+      {
+        "name_en": "The3 Mihel– 7 kinds of spicy \"Halal\" Phsar Bek Anlong",
+        "name_kh": "the3 mihel–មីហឹរ 7 យ៉ាង \"halal\" ផ្សារបែកអន្លូង",
+        "type": "Famous Market",
+        "distance_km": 13.16
       }
     ]
   },
@@ -4449,7 +4671,7 @@
     "commune_code": "031510",
     "latitude": 12.255298,
     "longitude": 105.539182,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Stueng Trang Market",
@@ -4464,10 +4686,22 @@
         "distance_km": 10.48
       },
       {
-        "name_en": "Stueng Trang Center",
-        "name_kh": "ស្ទឹងត្រង់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "CE EXPRESS Anlong Market Agent",
+        "name_kh": "ce express ភ្នាក់ងារ ផ្សារបែកអន្លូង",
+        "type": "Famous Market",
+        "distance_km": 13
+      },
+      {
+        "name_en": "Bek Anlong Rice Market",
+        "name_kh": "ផ្សារបែកអន្លូង លក់បាយ",
+        "type": "Famous Market",
+        "distance_km": 13.15
+      },
+      {
+        "name_en": "The3 Mihel– 7 kinds of spicy \"Halal\" Phsar Bek Anlong",
+        "name_kh": "the3 mihel–មីហឹរ 7 យ៉ាង \"halal\" ផ្សារបែកអន្លូង",
+        "type": "Famous Market",
+        "distance_km": 13.19
       }
     ]
   },
@@ -4760,7 +4994,7 @@
     "commune_code": "040508",
     "latitude": 12.0705,
     "longitude": 104.773,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phsa Kompong Prasat",
@@ -4779,6 +5013,18 @@
         "name_kh": "ផ្សារ ថនូាល តូតុេង",
         "type": "Famous Market",
         "distance_km": 8.44
+      },
+      {
+        "name_en": "Kbal Damrey Market",
+        "name_kh": "ផ្សារក្បាលដំរី",
+        "type": "Famous Market",
+        "distance_km": 13.93
+      },
+      {
+        "name_en": "Phsa Prey Kri",
+        "name_kh": "ផ្សារ ព្រេយ ក្រី",
+        "type": "Famous Market",
+        "distance_km": 14.16
       }
     ]
   },
@@ -4889,13 +5135,19 @@
     "commune_code": "040205",
     "latitude": 12.164788,
     "longitude": 104.881038,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Phsa Prey Kri",
         "name_kh": "ផ្សារ ព្រេយ ក្រី",
         "type": "Famous Market",
         "distance_km": 1.64
+      },
+      {
+        "name_en": "Tum Nob Market",
+        "name_kh": "ផ្សារទំនប់",
+        "type": "Famous Market",
+        "distance_km": 13.34
       },
       {
         "name_en": "Chol Kiri Center",
@@ -4918,7 +5170,7 @@
     "commune_code": "040204",
     "latitude": 12.207648,
     "longitude": 104.816967,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Phsa Prey Kri",
@@ -4927,10 +5179,16 @@
         "distance_km": 8.61
       },
       {
-        "name_en": "Chol Kiri Center",
-        "name_kh": "ជលគីរី មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Phsar Santipheap Kampong Boeng",
+        "name_kh": "ផ្សារ សានតីផោព កំពង់ បឹង",
+        "type": "Famous Market",
+        "distance_km": 12.32
+      },
+      {
+        "name_en": "K. Leaeng Maret",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.35
       }
     ]
   },
@@ -4947,13 +5205,25 @@
     "commune_code": "040806",
     "latitude": 12.238376,
     "longitude": 104.278047,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
-        "name_en": "Tuek Phos Center",
-        "name_kh": "ទឹកផុស មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Baknak. Market",
+        "name_kh": "ផ្សារបាក់ណាក់.",
+        "type": "Famous Market",
+        "distance_km": 13.25
+      },
+      {
+        "name_en": "Bamnak Market",
+        "name_kh": "ផ្សារបាមនាក",
+        "type": "Famous Market",
+        "distance_km": 13.26
+      },
+      {
+        "name_en": "Bam Nak Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.27
       }
     ]
   },
@@ -4970,7 +5240,7 @@
     "commune_code": "040102",
     "latitude": 12.50071,
     "longitude": 104.4547,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chhnok Tru Market",
@@ -4985,10 +5255,22 @@
         "distance_km": 6.93
       },
       {
-        "name_en": "Baribour Center",
-        "name_kh": "បរិបូណ៌ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Baribo Market",
+        "name_kh": "ផ្សារបរិបូណ៌",
+        "type": "Famous Market",
+        "distance_km": 13.49
+      },
+      {
+        "name_en": "Phsar",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.74
+      },
+      {
+        "name_en": "Ansa Chambak Market",
+        "name_kh": "ផ្សារានសា ចាមបាក",
+        "type": "Famous Market",
+        "distance_km": 14.95
       }
     ]
   },
@@ -5099,7 +5381,7 @@
     "commune_code": "040107",
     "latitude": 12.381489,
     "longitude": 104.487486,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Baribo Market",
@@ -5118,6 +5400,12 @@
         "name_kh": "ផ្សារពូនលេយ",
         "type": "Famous Market",
         "distance_km": 6.94
+      },
+      {
+        "name_en": "Chhnok Tru Market",
+        "name_kh": "ផ្សារឆនូក ត្រុ",
+        "type": "Famous Market",
+        "distance_km": 13.71
       }
     ]
   },
@@ -5988,7 +6276,7 @@
     "commune_code": "070209",
     "latitude": 10.590003,
     "longitude": 104.690418,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kork Veng Market",
@@ -6013,6 +6301,12 @@
         "name_kh": "ផ្សារកានសូម ាក",
         "type": "Famous Market",
         "distance_km": 9.41
+      },
+      {
+        "name_en": "Tonhon Markit",
+        "name_kh": "ផ្សារតូញូន",
+        "type": "Famous Market",
+        "distance_km": 12.55
       }
     ]
   },
@@ -6029,7 +6323,7 @@
     "commune_code": "070612",
     "latitude": 10.540408,
     "longitude": 104.580345,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tonhon Markit",
@@ -6044,10 +6338,22 @@
         "distance_km": 8.87
       },
       {
-        "name_en": "Kampong Trach Center",
-        "name_kh": "កំពង់ត្រាច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Market Place",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.51
+      },
+      {
+        "name_en": "Kampnog Trach",
+        "name_kh": "ផ្សារកំពង់ ត្រាច",
+        "type": "Famous Market",
+        "distance_km": 12.55
+      },
+      {
+        "name_en": "Kork Veng Market",
+        "name_kh": "ផ្សារគោកវែង",
+        "type": "Famous Market",
+        "distance_km": 13.18
       }
     ]
   },
@@ -6692,7 +6998,7 @@
     "commune_code": "070614",
     "latitude": 10.432794,
     "longitude": 104.448912,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Peak Chak Markit",
@@ -6707,10 +7013,22 @@
         "distance_km": 6.5
       },
       {
-        "name_en": "Kampong Trach Center",
-        "name_kh": "កំពង់ត្រាច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Pou Chen Market",
+        "name_kh": "ផ្សារពោធិ៍ចិន",
+        "type": "Famous Market",
+        "distance_km": 12.93
+      },
+      {
+        "name_en": "Phsar Pong Teuk",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.33
+      },
+      {
+        "name_en": "Pong Toek",
+        "name_kh": "ផ្សារពងទឹក",
+        "type": "Famous Market",
+        "distance_km": 13.38
       }
     ]
   },
@@ -7009,7 +7327,7 @@
     "commune_code": "070510",
     "latitude": 10.741902,
     "longitude": 104.341575,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kaoh Chanloh Market",
@@ -7034,6 +7352,12 @@
         "name_kh": "ផ្សាររៃ ញោន",
         "type": "Famous Market",
         "distance_km": 11.01
+      },
+      {
+        "name_en": "Dong Tong Market",
+        "name_kh": "ផ្សារដូង តូង",
+        "type": "Famous Market",
+        "distance_km": 12.29
       }
     ]
   },
@@ -7050,7 +7374,7 @@
     "commune_code": "070213",
     "latitude": 10.666234,
     "longitude": 104.560236,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Touk Meas",
@@ -7075,6 +7399,12 @@
         "name_kh": "ផ្សារូមបូក ហ្គរាសស",
         "type": "Famous Market",
         "distance_km": 10.66
+      },
+      {
+        "name_en": "Rong Veng Market",
+        "name_kh": "ផ្សាររូង វេង",
+        "type": "Famous Market",
+        "distance_km": 12.88
       }
     ]
   },
@@ -7367,7 +7697,7 @@
     "commune_code": "070213",
     "latitude": 10.667472,
     "longitude": 104.560635,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Touk Meas",
@@ -7392,6 +7722,12 @@
         "name_kh": "ផ្សារូមបូក ហ្គរាសស",
         "type": "Famous Market",
         "distance_km": 10.64
+      },
+      {
+        "name_en": "Rong Veng Market",
+        "name_kh": "ផ្សាររូង វេង",
+        "type": "Famous Market",
+        "distance_km": 12.95
       }
     ]
   },
@@ -7529,7 +7865,7 @@
     "store_code": "KANA002",
     "store_name": "Sampov Pun 01",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sampov Lun",
     "district_kh": "សំពៅលូន",
     "commune_en": "Sampov Lun",
@@ -7913,7 +8249,7 @@
     "commune_code": "080211",
     "latitude": 11.398369,
     "longitude": 105.236634,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Market Sorm Rong Thorm",
@@ -7932,6 +8268,18 @@
         "name_kh": "ផ្សារពាម",
         "type": "Famous Market",
         "distance_km": 10.06
+      },
+      {
+        "name_en": "Prey Veng Market",
+        "name_kh": "ផ្សារព្រៃវែង",
+        "type": "Famous Market",
+        "distance_km": 13.31
+      },
+      {
+        "name_en": "Korm Phong Phnom",
+        "name_kh": "ផ្សារកូរម ផូង ផនូម",
+        "type": "Famous Market",
+        "distance_km": 13.37
       }
     ]
   },
@@ -8034,7 +8382,7 @@
     "store_code": "KANA013",
     "store_name": "Chheu Teal 01",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Chheu Teal",
@@ -8081,7 +8429,7 @@
     "store_code": "KANA014",
     "store_name": "Chheu Teal 02",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Chheu Teal",
@@ -8179,7 +8527,7 @@
     "district_en": "Mukh Kampul",
     "district_kh": "មុខកំពូល",
     "commune_en": "Roka Kong Ti Muoy",
-    "commune_kh": "រកាកោង ទី ១",
+    "commune_kh": "រកាកោង ទី 1",
     "commune_code": "080707",
     "latitude": 11.848625,
     "longitude": 104.994513,
@@ -8888,7 +9236,7 @@
     "commune_code": "010210",
     "latitude": 11.47773,
     "longitude": 105.162037,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tek Khang",
@@ -8913,6 +9261,12 @@
         "name_kh": "ផ្សារសូរម រូង ថូរម",
         "type": "Famous Market",
         "distance_km": 9.69
+      },
+      {
+        "name_en": "Market Koke",
+        "name_kh": "ផ្សារកូកេ",
+        "type": "Famous Market",
+        "distance_km": 12.7
       }
     ]
   },
@@ -8929,7 +9283,7 @@
     "commune_code": "080611",
     "latitude": 11.4686,
     "longitude": 105.209882,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Market Sorm Rong Thorm",
@@ -8944,10 +9298,22 @@
         "distance_km": 9.98
       },
       {
-        "name_en": "Lvea Aem Center",
-        "name_kh": "ល្វាឯម មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Prey Veng Market",
+        "name_kh": "ផ្សារព្រៃវែង",
+        "type": "Famous Market",
+        "distance_km": 12.17
+      },
+      {
+        "name_en": "Phsar Prey Veng",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.37
+      },
+      {
+        "name_en": "Market Srae Ampil",
+        "name_kh": "ផ្សារស្រែ ាមពីល",
+        "type": "Famous Market",
+        "distance_km": 12.57
       }
     ]
   },
@@ -9003,7 +9369,7 @@
     "store_code": "KANA040",
     "store_name": "Sampov Pun 02",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sampov Lun",
     "district_kh": "សំពៅលូន",
     "commune_en": "Sampov Lun",
@@ -9320,7 +9686,7 @@
     "store_code": "KANA049",
     "store_name": "Roka",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Roka",
@@ -10440,7 +10806,7 @@
     "commune_code": "100101",
     "latitude": 12.252597,
     "longitude": 105.977067,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chhloung Market",
@@ -10465,6 +10831,12 @@
         "name_kh": "ផ្សារឈើទាល ព្លួស",
         "type": "Famous Market",
         "distance_km": 7.84
+      },
+      {
+        "name_en": "Preak Prasab Market",
+        "name_kh": "ផ្សារព្រោក ព្រាសាប",
+        "type": "Famous Market",
+        "distance_km": 12.84
       }
     ]
   },
@@ -10548,10 +10920,10 @@
         "distance_km": 7.41
       },
       {
-        "name_en": "Snuol Center",
-        "name_kh": "ស្នួល មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Chamka Chek Market",
+        "name_kh": "ផ្សារចំការចេក",
+        "type": "Famous Market",
+        "distance_km": 14.01
       }
     ]
   },
@@ -10661,8 +11033,14 @@
     "commune_code": "050601",
     "latitude": 12.278305,
     "longitude": 105.801464,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 2,
     "top_nearby_places": [
+      {
+        "name_en": "Pongro Market",
+        "name_kh": "ផ្សារពង្រ",
+        "type": "Famous Market",
+        "distance_km": 12.69
+      },
       {
         "name_en": "Phnum Sruoch Center",
         "name_kh": "ភ្នំស្រួច មជ្ឈមណ្ឌល",
@@ -10684,7 +11062,7 @@
     "commune_code": "100105",
     "latitude": 12.33255,
     "longitude": 106.052751,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Preak Prasab Market",
@@ -10703,6 +11081,12 @@
         "name_kh": "ផ្សារកាម ពូងកូរ",
         "type": "Famous Market",
         "distance_km": 11.68
+      },
+      {
+        "name_en": "Chhloung Market",
+        "name_kh": "ផ្សារឆ្លូង",
+        "type": "Famous Market",
+        "distance_km": 12.16
       }
     ]
   },
@@ -10848,7 +11232,7 @@
     "commune_code": "100101",
     "latitude": 12.2569,
     "longitude": 105.9602,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chhloung Market",
@@ -10873,6 +11257,12 @@
         "name_kh": "ផ្សារឈើទាល ព្លួស",
         "type": "Famous Market",
         "distance_km": 9.12
+      },
+      {
+        "name_en": "Preak Prasab Market",
+        "name_kh": "ផ្សារព្រោក ព្រាសាប",
+        "type": "Famous Market",
+        "distance_km": 13.47
       }
     ]
   },
@@ -10924,7 +11314,7 @@
     "commune_code": "100305",
     "latitude": 12.35199,
     "longitude": 106.03661,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Preak Prasab Market",
@@ -10943,6 +11333,18 @@
         "name_kh": "ផ្សារកាម ពូងកូរ",
         "type": "Famous Market",
         "distance_km": 11.75
+      },
+      {
+        "name_en": "Chhloung Market",
+        "name_kh": "ផ្សារឆ្លូង",
+        "type": "Famous Market",
+        "distance_km": 12.85
+      },
+      {
+        "name_en": "Rokakandal Market",
+        "name_kh": "ផ្សាររូកាកណ្ដាល",
+        "type": "Famous Market",
+        "distance_km": 13.2
       }
     ]
   },
@@ -11145,7 +11547,7 @@
     "commune_code": "110301",
     "latitude": 12.423385,
     "longitude": 107.312825,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Dak Dam Market",
@@ -11154,10 +11556,28 @@
         "distance_km": 0.59
       },
       {
-        "name_en": "Ou Reang Center",
-        "name_kh": "អូររាំង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "7Elephants",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.66
+      },
+      {
+        "name_en": "Sen Monorom Market",
+        "name_kh": "ផ្សារសែនមនោរម្យ",
+        "type": "Famous Market",
+        "distance_km": 13.64
+      },
+      {
+        "name_en": "Mondulkiri Market",
+        "name_kh": "ផ្សារសែនមនោរម្យ",
+        "type": "Famous Market",
+        "distance_km": 13.64
+      },
+      {
+        "name_en": "Mondulkiri Market",
+        "name_kh": "ផ្សារមណ្ឌលគិរី",
+        "type": "Famous Market",
+        "distance_km": 14.22
       }
     ]
   },
@@ -11261,13 +11681,19 @@
     "commune_code": "110403",
     "latitude": 12.541868,
     "longitude": 107.337129,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Busra",
         "name_kh": "ផ្សារបុស្រា",
         "type": "Famous Market",
         "distance_km": 10.24
+      },
+      {
+        "name_en": "Dak Dam Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.14
       },
       {
         "name_en": "Pech Chreada Center",
@@ -11498,10 +11924,10 @@
         "distance_km": 0.21
       },
       {
-        "name_en": "Anlong Veaeng Center",
-        "name_kh": "អន្លង់វែង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Anlong Veng Market",
+        "name_kh": "ផ្សារអន្លង់វែង",
+        "type": "Famous Market",
+        "distance_km": 12.61
       }
     ]
   },
@@ -11582,7 +12008,7 @@
     "commune_code": "220501",
     "latitude": 14.112373,
     "longitude": 104.342542,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Deikrohorm",
@@ -11601,6 +12027,12 @@
         "name_kh": "",
         "type": "Famous Market",
         "distance_km": 9.34
+      },
+      {
+        "name_en": "Tomnobknor",
+        "name_kh": "ផ្សារតូមនូបកនូរ",
+        "type": "Famous Market",
+        "distance_km": 13.42
       }
     ]
   },
@@ -11813,10 +12245,10 @@
         "distance_km": 0.51
       },
       {
-        "name_en": "Anlong Veaeng Center",
-        "name_kh": "អន្លង់វែង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Anlong Veng Market",
+        "name_kh": "ផ្សារអន្លង់វែង",
+        "type": "Famous Market",
+        "distance_km": 12.35
       }
     ]
   },
@@ -12063,7 +12495,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": "",
     "longitude": "",
@@ -12227,7 +12659,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.534467,
     "longitude": 104.84961,
@@ -12321,7 +12753,7 @@
     "district_en": "Mukh Kampul",
     "district_kh": "មុខកំពូល",
     "commune_en": "Roka Kong Ti Pir",
-    "commune_kh": "រកាកោង ទី ២",
+    "commune_kh": "រកាកោង ទី 2",
     "commune_code": "080708",
     "latitude": 11.563,
     "longitude": 104.8416,
@@ -12415,7 +12847,7 @@
     "district_en": "Mean Chey",
     "district_kh": "មានជ័យ",
     "commune_en": "Stueng Mean chey 1",
-    "commune_kh": "ស្ទឹងមានជ័យទី១",
+    "commune_kh": "ស្ទឹងមានជ័យទី1",
     "commune_code": "120608",
     "latitude": 11.5293,
     "longitude": 104.8768,
@@ -12650,7 +13082,7 @@
     "district_en": "Boeng Keng Kang",
     "district_kh": "បឹងកេងកង",
     "commune_en": "Tuol Svay Prey Ti Pir",
-    "commune_kh": "ទួលស្វាយព្រៃទី ២",
+    "commune_kh": "ទួលស្វាយព្រៃទី 2",
     "commune_code": "121307",
     "latitude": 11.551024,
     "longitude": 104.904515,
@@ -12744,7 +13176,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.52833,
     "longitude": 104.844216,
@@ -12791,7 +13223,7 @@
     "district_en": "Mukh Kampul",
     "district_kh": "មុខកំពូល",
     "commune_en": "Roka Kong Ti Muoy",
-    "commune_kh": "រកាកោង ទី ១",
+    "commune_kh": "រកាកោង ទី 1",
     "commune_code": "080707",
     "latitude": 11.561142,
     "longitude": 104.841369,
@@ -12838,7 +13270,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.531051,
     "longitude": 104.809553,
@@ -12885,7 +13317,7 @@
     "district_en": "Mean Chey",
     "district_kh": "មានជ័យ",
     "commune_en": "Stueng Mean chey 1",
-    "commune_kh": "ស្ទឹងមានជ័យទី១",
+    "commune_kh": "ស្ទឹងមានជ័យទី1",
     "commune_code": "120608",
     "latitude": 11.525871,
     "longitude": 104.875463,
@@ -12932,7 +13364,7 @@
     "district_en": "Chamkar Mon",
     "district_kh": "ចំការមន",
     "commune_en": "Tuol Tumpung Ti Pir",
-    "commune_kh": "ទួលទំពូងទី ២",
+    "commune_kh": "ទួលទំពូងទី 2",
     "commune_code": "120109",
     "latitude": 11.514045,
     "longitude": 104.920608,
@@ -12979,7 +13411,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 2",
-    "commune_kh": "ចោមចៅទី២",
+    "commune_kh": "ចោមចៅទី2",
     "commune_code": "120915",
     "latitude": 11.5215,
     "longitude": 104.8725,
@@ -13026,7 +13458,7 @@
     "district_en": "Mean Chey",
     "district_kh": "មានជ័យ",
     "commune_en": "Stueng Mean chey 1",
-    "commune_kh": "ស្ទឹងមានជ័យទី១",
+    "commune_kh": "ស្ទឹងមានជ័យទី1",
     "commune_code": "120608",
     "latitude": 11.524998,
     "longitude": 104.89214,
@@ -13073,7 +13505,7 @@
     "district_en": "Mean Chey",
     "district_kh": "មានជ័យ",
     "commune_en": "Stueng Mean chey 1",
-    "commune_kh": "ស្ទឹងមានជ័យទី១",
+    "commune_kh": "ស្ទឹងមានជ័យទី1",
     "commune_code": "120608",
     "latitude": 11.548701,
     "longitude": 104.896919,
@@ -13265,7 +13697,7 @@
     "commune_code": "120501",
     "latitude": 11.43287,
     "longitude": 105.59722,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Forest Market",
@@ -13284,6 +13716,18 @@
         "name_kh": "ផ្សារ",
         "type": "Famous Market",
         "distance_km": 10.58
+      },
+      {
+        "name_en": "Market Place",
+        "name_kh": "ផ្សារ market place",
+        "type": "Famous Market",
+        "distance_km": 13.08
+      },
+      {
+        "name_en": "Tean Phlerng Market",
+        "name_kh": "ទៀនភ្លើង (ផ្សា)",
+        "type": "Famous Market",
+        "distance_km": 13.78
       }
     ]
   },
@@ -13717,7 +14161,7 @@
     "province_en": "Phnom Penh",
     "province_kh": "ភ្នំពេញ",
     "district_en": "Prampir Meakkakra",
-    "district_kh": "៧មករា",
+    "district_kh": "7មករា",
     "commune_en": "Boeng Proluet",
     "commune_kh": "បឹងព្រលឹត",
     "commune_code": "120308",
@@ -13766,7 +14210,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.532243,
     "longitude": 104.832501,
@@ -13813,7 +14257,7 @@
     "district_en": "Doun Penh",
     "district_kh": "ដូនពេញ",
     "commune_en": "Phsar Thmei Ti Bei",
-    "commune_kh": "ផ្សារថ្មីទី ៣",
+    "commune_kh": "ផ្សារថ្មីទី 3",
     "commune_code": "120203",
     "latitude": 11.567417,
     "longitude": 104.92398,
@@ -13860,7 +14304,7 @@
     "district_en": "Russey Keo",
     "district_kh": "ឫស្សីកែវ",
     "commune_en": "Chrang Chamreh Ti Pir",
-    "commune_kh": "ច្រាំងចំរេះទី ២",
+    "commune_kh": "ច្រាំងចំរេះទី 2",
     "commune_code": "120712",
     "latitude": 11.630997,
     "longitude": 104.903476,
@@ -13907,7 +14351,7 @@
     "district_en": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "commune_en": "Tuek L'ak Ti Bei",
-    "commune_kh": "ទឹកល្អក់ទី ៣",
+    "commune_kh": "ទឹកល្អក់ទី 3",
     "commune_code": "120406",
     "latitude": 11.55678,
     "longitude": 104.893393,
@@ -14001,7 +14445,7 @@
     "district_en": "Chamkar Mon",
     "district_kh": "ចំការមន",
     "commune_en": "Tuol Tumpung Ti Muoy",
-    "commune_kh": "ទួលទំពូងទី ១",
+    "commune_kh": "ទួលទំពូងទី 1",
     "commune_code": "120110",
     "latitude": 11.520161,
     "longitude": 104.916818,
@@ -14071,7 +14515,7 @@
     "district_en": "Doun Penh",
     "district_kh": "ដូនពេញ",
     "commune_en": "Phsar Thmei Ti Muoy",
-    "commune_kh": "ផ្សារថ្មីទី ១",
+    "commune_kh": "ផ្សារថ្មីទី 1",
     "commune_code": "120201",
     "latitude": 11.570329,
     "longitude": 104.921707,
@@ -14305,7 +14749,7 @@
     "district_en": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "commune_en": "Phsar Depou Ti Pir",
-    "commune_kh": "ផ្សារដេប៉ូទី ២",
+    "commune_kh": "ផ្សារដេប៉ូទី 2",
     "commune_code": "120402",
     "latitude": 11.566332,
     "longitude": 104.905016,
@@ -14493,7 +14937,7 @@
     "district_en": "Doun Penh",
     "district_kh": "ដូនពេញ",
     "commune_en": "Phsar Thmei Ti Bei",
-    "commune_kh": "ផ្សារថ្មីទី ៣",
+    "commune_kh": "ផ្សារថ្មីទី 3",
     "commune_code": "120203",
     "latitude": 11.565271,
     "longitude": 104.923624,
@@ -14540,7 +14984,7 @@
     "district_en": "Chamkar Mon",
     "district_kh": "ចំការមន",
     "commune_en": "Tuol Tumpung Ti Muoy",
-    "commune_kh": "ទួលទំពូងទី ១",
+    "commune_kh": "ទួលទំពូងទី 1",
     "commune_code": "120110",
     "latitude": 11.530862,
     "longitude": 104.912548,
@@ -14587,7 +15031,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 2",
-    "commune_kh": "ចោមចៅទី២",
+    "commune_kh": "ចោមចៅទី2",
     "commune_code": "120915",
     "latitude": 11.537322,
     "longitude": 104.815671,
@@ -14634,7 +15078,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.52026,
     "longitude": 104.806014,
@@ -14728,7 +15172,7 @@
     "district_en": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "commune_en": "Tuek L'ak Ti Bei",
-    "commune_kh": "ទឹកល្អក់ទី ៣",
+    "commune_kh": "ទឹកល្អក់ទី 3",
     "commune_code": "120406",
     "latitude": 11.566,
     "longitude": 104.89096,
@@ -14865,7 +15309,7 @@
     "store_code": "PNPP002",
     "store_name": "Mean Chey 01",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Samlout",
     "district_kh": "សំឡូត",
     "commune_en": "Mean Chey",
@@ -14912,7 +15356,7 @@
     "store_code": "PNPP003",
     "store_name": "Mean Chey 02",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Samlout",
     "district_kh": "សំឡូត",
     "commune_en": "Mean Chey",
@@ -15057,7 +15501,7 @@
     "district_en": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "commune_en": "Phsar Depou Ti Muoy",
-    "commune_kh": "ផ្សារដេប៉ូទី ១",
+    "commune_kh": "ផ្សារដេប៉ូទី 1",
     "commune_code": "120401",
     "latitude": 11.5903,
     "longitude": 104.8974,
@@ -15104,7 +15548,7 @@
     "district_en": "Boeng Keng Kang",
     "district_kh": "បឹងកេងកង",
     "commune_en": "Boeng Keng Kang Ti Muoy",
-    "commune_kh": "បឹងកេងកងទី ១",
+    "commune_kh": "បឹងកេងកងទី 1",
     "commune_code": "121301",
     "latitude": 11.55514,
     "longitude": 104.915931,
@@ -15433,7 +15877,7 @@
     "district_en": "Doun Penh",
     "district_kh": "ដូនពេញ",
     "commune_en": "Phsar Thmei Ti Muoy",
-    "commune_kh": "ផ្សារថ្មីទី ១",
+    "commune_kh": "ផ្សារថ្មីទី 1",
     "commune_code": "120201",
     "latitude": 11.56927,
     "longitude": 104.91889,
@@ -15480,7 +15924,7 @@
     "district_en": "Doun Penh",
     "district_kh": "ដូនពេញ",
     "commune_en": "Phsar Thmei Ti Muoy",
-    "commune_kh": "ផ្សារថ្មីទី ១",
+    "commune_kh": "ផ្សារថ្មីទី 1",
     "commune_code": "120201",
     "latitude": 11.566858,
     "longitude": 104.920799,
@@ -15527,7 +15971,7 @@
     "district_en": "Tuol Kouk",
     "district_kh": "ទួលគោក",
     "commune_en": "Boeng Kak Ti Pir",
-    "commune_kh": "បឹងកក់ទី ២",
+    "commune_kh": "បឹងកក់ទី 2",
     "commune_code": "120408",
     "latitude": 11.573333,
     "longitude": 104.897194,
@@ -15668,7 +16112,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 1",
-    "commune_kh": "ចោមចៅទី១",
+    "commune_kh": "ចោមចៅទី1",
     "commune_code": "120914",
     "latitude": 11.532352,
     "longitude": 104.832526,
@@ -15762,7 +16206,7 @@
     "district_en": "Boeng Keng Kang",
     "district_kh": "បឹងកេងកង",
     "commune_en": "Tuol Svay Prey Ti Pir",
-    "commune_kh": "ទួលស្វាយព្រៃទី ២",
+    "commune_kh": "ទួលស្វាយព្រៃទី 2",
     "commune_code": "121307",
     "latitude": 11.550046,
     "longitude": 104.904741,
@@ -15809,7 +16253,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 2",
-    "commune_kh": "ចោមចៅទី២",
+    "commune_kh": "ចោមចៅទី2",
     "commune_code": "120915",
     "latitude": 11.532598,
     "longitude": 104.870151,
@@ -15907,7 +16351,7 @@
     "commune_code": "140807",
     "latitude": 11.611617,
     "longitude": 105.367041,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Prey Pnov Market",
@@ -15922,10 +16366,22 @@
         "distance_km": 7.42
       },
       {
-        "name_en": "Pea Reang Center",
-        "name_kh": "ពារាំង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Chherng Tek Market",
+        "name_kh": "ផ្សារឆេរង តេក",
+        "type": "Famous Market",
+        "distance_km": 13.03
+      },
+      {
+        "name_en": "Cheung Teuk Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.09
+      },
+      {
+        "name_en": "Phsar Prey Veng",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.86
       }
     ]
   },
@@ -15989,7 +16445,7 @@
     "commune_code": "141301",
     "latitude": 11.571646,
     "longitude": 105.420105,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Svay Antor Market",
@@ -16004,10 +16460,22 @@
         "distance_km": 11.66
       },
       {
-        "name_en": "Svay Antor Center",
-        "name_kh": "ស្វាយអន្ទរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Prey Pnov Market",
+        "name_kh": "ផ្សារព្រែកព្នៅ",
+        "type": "Famous Market",
+        "distance_km": 12.14
+      },
+      {
+        "name_en": "Chherng Tek Market",
+        "name_kh": "ផ្សារឆេរង តេក",
+        "type": "Famous Market",
+        "distance_km": 12.94
+      },
+      {
+        "name_en": "Cheung Teuk Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.01
       }
     ]
   },
@@ -16024,7 +16492,7 @@
     "commune_code": "141301",
     "latitude": 11.59789,
     "longitude": 105.420474,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Svay Antor Market",
@@ -16039,10 +16507,22 @@
         "distance_km": 10.35
       },
       {
-        "name_en": "Svay Antor Center",
-        "name_kh": "ស្វាយអន្ទរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Chrey Phsar",
+        "name_kh": "ផ្សារជ្រៃ ផ្សារ",
+        "type": "Famous Market",
+        "distance_km": 12.18
+      },
+      {
+        "name_en": "Chherng Tek Market",
+        "name_kh": "ផ្សារឆេរង តេក",
+        "type": "Famous Market",
+        "distance_km": 14.9
+      },
+      {
+        "name_en": "Cheung Teuk Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.97
       }
     ]
   },
@@ -16106,7 +16586,7 @@
     "commune_code": "141208",
     "latitude": 11.775516,
     "longitude": 105.369815,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Preksandeak",
@@ -16121,10 +16601,16 @@
         "distance_km": 7.83
       },
       {
-        "name_en": "Sithor Kandal Center",
-        "name_kh": "ស៊ីធរកណ្ដាល មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Prey Pnov Market",
+        "name_kh": "ផ្សារព្រែកព្នៅ",
+        "type": "Famous Market",
+        "distance_km": 14.53
+      },
+      {
+        "name_en": "Ou Reang Ov Market",
+        "name_kh": "ផ្សារអូររាំងឪ",
+        "type": "Famous Market",
+        "distance_km": 14.59
       }
     ]
   },
@@ -16133,7 +16619,7 @@
     "store_code": "PREA007",
     "store_name": "Roka",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Roka",
@@ -16141,7 +16627,7 @@
     "commune_code": "020804",
     "latitude": 11.664424,
     "longitude": 105.225004,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Snay Pul Maket",
@@ -16160,6 +16646,12 @@
         "name_kh": "kompong popil market ផ្សារកំពង់ពពិល",
         "type": "Famous Market",
         "distance_km": 10.05
+      },
+      {
+        "name_en": "Prey Pnov Market",
+        "name_kh": "ផ្សារព្រែកព្នៅ",
+        "type": "Famous Market",
+        "distance_km": 12.7
       }
     ]
   },
@@ -16176,7 +16668,7 @@
     "commune_code": "140807",
     "latitude": 11.648247,
     "longitude": 105.34067,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Prey Pnov Market",
@@ -16185,10 +16677,16 @@
         "distance_km": 0.03
       },
       {
-        "name_en": "Pea Reang Center",
-        "name_kh": "ពារាំង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Svay Antor Market",
+        "name_kh": "ផ្សារស្វាយអន្ទរ",
+        "type": "Famous Market",
+        "distance_km": 12.37
+      },
+      {
+        "name_en": "Snay Pul Maket",
+        "name_kh": "ផ្សារស្នាយពុល",
+        "type": "Famous Market",
+        "distance_km": 13.43
       }
     ]
   },
@@ -16334,7 +16832,7 @@
     "commune_code": "040503",
     "latitude": 11.342191,
     "longitude": 105.622593,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Market",
@@ -16359,6 +16857,12 @@
         "name_kh": "ផ្សារព្រៃ",
         "type": "Famous Market",
         "distance_km": 10.49
+      },
+      {
+        "name_en": "Moi'S Original Market",
+        "name_kh": "ផ្សារមូី'ស original",
+        "type": "Famous Market",
+        "distance_km": 12.4
       }
     ]
   },
@@ -16422,7 +16926,7 @@
     "commune_code": "140501",
     "latitude": 11.268447,
     "longitude": 105.667765,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chantrey Market",
@@ -16441,6 +16945,18 @@
         "name_kh": "ផ្សារ",
         "type": "Famous Market",
         "distance_km": 9.44
+      },
+      {
+        "name_en": "Krao Kol Market",
+        "name_kh": "ផ្សារក្រៅ កូល",
+        "type": "Famous Market",
+        "distance_km": 13.98
+      },
+      {
+        "name_en": "Korkhak Market",
+        "name_kh": "ផ្សារកូរខាក",
+        "type": "Famous Market",
+        "distance_km": 14.11
       }
     ]
   },
@@ -16457,7 +16973,7 @@
     "commune_code": "140902",
     "latitude": 11.029347,
     "longitude": 105.378702,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Brobos Roluoy Market",
@@ -16482,6 +16998,12 @@
         "name_kh": "ផ្សារដេយ ក្រូហូរម",
         "type": "Famous Market",
         "distance_km": 11.75
+      },
+      {
+        "name_en": "Ta Huy Market",
+        "name_kh": "ផ្សារតា ហុយ",
+        "type": "Famous Market",
+        "distance_km": 12.59
       }
     ]
   },
@@ -16592,7 +17114,7 @@
     "commune_code": "140506",
     "latitude": 11.39061,
     "longitude": 105.609572,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Bridge Market",
@@ -16617,6 +17139,12 @@
         "name_kh": "ផ្សារ market place",
         "type": "Famous Market",
         "distance_km": 10.01
+      },
+      {
+        "name_en": "Moi'S Original Market",
+        "name_kh": "ផ្សារមូី'ស original",
+        "type": "Famous Market",
+        "distance_km": 12.91
       }
     ]
   },
@@ -16680,7 +17208,7 @@
     "commune_code": "140901",
     "latitude": 11.095309,
     "longitude": 105.384188,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tra Market",
@@ -16705,6 +17233,12 @@
         "name_kh": "ផ្សាររុម ចេក",
         "type": "Famous Market",
         "distance_km": 11.55
+      },
+      {
+        "name_en": "Kampong Trabek Market",
+        "name_kh": "ផ្សារកំពង់ត្របែក",
+        "type": "Famous Market",
+        "distance_km": 12.15
       }
     ]
   },
@@ -16736,10 +17270,10 @@
         "distance_km": 8.39
       },
       {
-        "name_en": "Preah Sdach Center",
-        "name_kh": "ព្រះស្ដេច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Svay Ah Gnuon Market",
+        "name_kh": "ស្វាយអាងួន (ផ្សា)",
+        "type": "Famous Market",
+        "distance_km": 14.64
       }
     ]
   },
@@ -16897,7 +17431,7 @@
     "commune_code": "140308",
     "latitude": 11.008778,
     "longitude": 105.464324,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Banteay Chakrei",
@@ -16922,6 +17456,12 @@
         "name_kh": "ស្វាយអាងួន (ផ្សា)",
         "type": "Famous Market",
         "distance_km": 11.38
+      },
+      {
+        "name_en": "Tra Market",
+        "name_kh": "ផ្សារត្រា",
+        "type": "Famous Market",
+        "distance_km": 13.13
       }
     ]
   },
@@ -16973,7 +17513,7 @@
     "commune_code": "040701",
     "latitude": 11.31939,
     "longitude": 105.399572,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Reak Chey Market",
@@ -16998,6 +17538,12 @@
         "name_kh": "ផ្សារបឹង តូេក",
         "type": "Famous Market",
         "distance_km": 6.84
+      },
+      {
+        "name_en": "Moi'S Original Market",
+        "name_kh": "ផ្សារមូី'ស original",
+        "type": "Famous Market",
+        "distance_km": 12.05
       }
     ]
   },
@@ -17014,7 +17560,7 @@
     "commune_code": "010803",
     "latitude": 11.84313,
     "longitude": 105.370159,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Preksandeak",
@@ -17033,6 +17579,12 @@
         "name_kh": "ផ្សារចី ហេរ",
         "type": "Famous Market",
         "distance_km": 8.81
+      },
+      {
+        "name_en": "Preak Romdeng",
+        "name_kh": "ផ្សារព្រោក រូមដេង",
+        "type": "Famous Market",
+        "distance_km": 13.63
       }
     ]
   },
@@ -17096,7 +17648,7 @@
     "commune_code": "140501",
     "latitude": 11.327182,
     "longitude": 105.541394,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Market Place",
@@ -17121,6 +17673,12 @@
         "name_kh": "ផ្សារស្ពាន",
         "type": "Famous Market",
         "distance_km": 10.21
+      },
+      {
+        "name_en": "Forest Market",
+        "name_kh": "ផ្សារព្រៃ",
+        "type": "Famous Market",
+        "distance_km": 13.2
       }
     ]
   },
@@ -17137,7 +17695,7 @@
     "commune_code": "140301",
     "latitude": 11.197135,
     "longitude": 105.515982,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Korkhak Market",
@@ -17156,6 +17714,18 @@
         "name_kh": "ផ្សារកំពង់ត្របែក",
         "type": "Famous Market",
         "distance_km": 6.85
+      },
+      {
+        "name_en": "Phum Thom Market",
+        "name_kh": "ផ្សារផុម ធំ",
+        "type": "Famous Market",
+        "distance_km": 12.21
+      },
+      {
+        "name_en": "Krao Kol Market",
+        "name_kh": "ផ្សារក្រៅ កូល",
+        "type": "Famous Market",
+        "distance_km": 12.4
       }
     ]
   },
@@ -17219,7 +17789,7 @@
     "commune_code": "141301",
     "latitude": 11.462464,
     "longitude": 105.498355,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Forest Market",
@@ -17234,10 +17804,22 @@
         "distance_km": 11.72
       },
       {
-        "name_en": "Svay Antor Center",
-        "name_kh": "ស្វាយអន្ទរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Svay Antor Market",
+        "name_kh": "ផ្សារស្វាយអន្ទរ",
+        "type": "Famous Market",
+        "distance_km": 14.51
+      },
+      {
+        "name_en": "Bridge Market",
+        "name_kh": "ផ្សារស្ពាន",
+        "type": "Famous Market",
+        "distance_km": 14.57
+      },
+      {
+        "name_en": "Sne Market",
+        "name_kh": "ផ្សារសនេ",
+        "type": "Famous Market",
+        "distance_km": 14.87
       }
     ]
   },
@@ -17301,7 +17883,7 @@
     "commune_code": "141001",
     "latitude": 11.4895,
     "longitude": 105.329192,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phsar Prey Veng",
@@ -17326,6 +17908,12 @@
         "name_kh": "ផ្សារឆេរង តេក",
         "type": "Famous Market",
         "distance_km": 1.45
+      },
+      {
+        "name_en": "Svay Antor Market",
+        "name_kh": "ផ្សារស្វាយអន្ទរ",
+        "type": "Famous Market",
+        "distance_km": 12.46
       }
     ]
   },
@@ -17342,7 +17930,7 @@
     "commune_code": "141003",
     "latitude": 11.486712,
     "longitude": 105.326166,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phsar Prey Veng",
@@ -17367,6 +17955,12 @@
         "name_kh": "ផ្សារឆេរង តេក",
         "type": "Famous Market",
         "distance_km": 1.7
+      },
+      {
+        "name_en": "Svay Antor Market",
+        "name_kh": "ផ្សារស្វាយអន្ទរ",
+        "type": "Famous Market",
+        "distance_km": 12.91
       }
     ]
   },
@@ -17516,7 +18110,7 @@
     "store_code": "PRES005",
     "store_name": "Roka",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Sangkae",
     "district_kh": "សង្កែ",
     "commune_en": "Roka",
@@ -17524,7 +18118,7 @@
     "commune_code": "020804",
     "latitude": 11.663987,
     "longitude": 105.221573,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Snay Pul Maket",
@@ -17543,6 +18137,12 @@
         "name_kh": "kompong popil market ផ្សារកំពង់ពពិល",
         "type": "Famous Market",
         "distance_km": 9.67
+      },
+      {
+        "name_en": "Prey Pnov Market",
+        "name_kh": "ផ្សារព្រែកព្នៅ",
+        "type": "Famous Market",
+        "distance_km": 13.07
       }
     ]
   },
@@ -17606,13 +18206,19 @@
     "commune_code": "130302",
     "latitude": 14.148894,
     "longitude": 105.082134,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Ou Chunh",
         "name_kh": "ផ្សារអូ ចុញ",
         "type": "Famous Market",
         "distance_km": 0.04
+      },
+      {
+        "name_en": "Tropeng Prey",
+        "name_kh": "ផ្សារត្រូពេង ព្រេយ",
+        "type": "Famous Market",
+        "distance_km": 14.42
       },
       {
         "name_en": "Choam Ksant Center",
@@ -17635,7 +18241,7 @@
     "commune_code": "130304",
     "latitude": 14.171889,
     "longitude": 104.787173,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Peaksbaek",
@@ -17654,6 +18260,12 @@
         "name_kh": "",
         "type": "Famous Market",
         "distance_km": 9.61
+      },
+      {
+        "name_en": "Thom Cheath",
+        "name_kh": "ផ្សារធំ ចោថ",
+        "type": "Famous Market",
+        "distance_km": 13.35
       }
     ]
   },
@@ -17793,8 +18405,14 @@
     "commune_code": "130208",
     "latitude": 13.975337,
     "longitude": 105.848255,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 2,
     "top_nearby_places": [
+      {
+        "name_en": "Kampongsralau Market",
+        "name_kh": "ផ្សារកាមពូងស្រាលាុ",
+        "type": "Famous Market",
+        "distance_km": 13.39
+      },
       {
         "name_en": "Chhaeb Center",
         "name_kh": "ឆែប មជ្ឈមណ្ឌល",
@@ -17880,7 +18498,7 @@
     "commune_code": "130706",
     "latitude": 13.620566,
     "longitude": 105.030259,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Krang Daung",
@@ -17889,10 +18507,28 @@
         "distance_km": 0.01
       },
       {
-        "name_en": "Tbaeng Mean Chey Center",
-        "name_kh": "ត្បែងមានជ័យ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Marketplace",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.29
+      },
+      {
+        "name_en": "Svay Pat",
+        "name_kh": "ផ្សារស្វាយ ពាត",
+        "type": "Famous Market",
+        "distance_km": 14.31
+      },
+      {
+        "name_en": "Tbeng",
+        "name_kh": "ផ្សារតបេង",
+        "type": "Famous Market",
+        "distance_km": 14.98
+      },
+      {
+        "name_en": "Tbang Market",
+        "name_kh": "ផ្សារតបាង",
+        "type": "Famous Market",
+        "distance_km": 15
       }
     ]
   },
@@ -17909,13 +18545,19 @@
     "commune_code": "130501",
     "latitude": 13.357681,
     "longitude": 105.114889,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Rovieng",
         "name_kh": "ផ្សាររូវីេង",
         "type": "Famous Market",
         "distance_km": 0.15
+      },
+      {
+        "name_en": "Phnom Dek",
+        "name_kh": "ផ្សារភ្នំដែក",
+        "type": "Famous Market",
+        "distance_km": 13.53
       },
       {
         "name_en": "Rovieng Center",
@@ -17965,7 +18607,7 @@
     "store_code": "PRHA013",
     "store_name": "Rummeakney",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Samlout",
     "district_kh": "សំឡូត",
     "commune_en": "Mean Chey",
@@ -17973,7 +18615,7 @@
     "commune_code": "020906",
     "latitude": 13.304101,
     "longitude": 105.002355,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phnom Dek",
@@ -17988,10 +18630,22 @@
         "distance_km": 8.16
       },
       {
-        "name_en": "Samlout Center",
-        "name_kh": "សំឡូត មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Rovieng",
+        "name_kh": "ផ្សាររូវីេង",
+        "type": "Famous Market",
+        "distance_km": 13.4
+      },
+      {
+        "name_en": "Try Pheap",
+        "name_kh": "ផ្សារត្រយ ផោព",
+        "type": "Famous Market",
+        "distance_km": 13.52
+      },
+      {
+        "name_en": "Small market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.56
       }
     ]
   },
@@ -18008,7 +18662,7 @@
     "commune_code": "130405",
     "latitude": 13.716508,
     "longitude": 104.77564,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Phnom Penh Market",
@@ -18027,6 +18681,18 @@
         "name_kh": "ផ្សារថូរល បែក គូលែន",
         "type": "Famous Market",
         "distance_km": 11.91
+      },
+      {
+        "name_en": "Kulen Market",
+        "name_kh": "ផ្សារគូលែន",
+        "type": "Famous Market",
+        "distance_km": 13.87
+      },
+      {
+        "name_en": "Kolan Market",
+        "name_kh": "ផ្សារកូលាន",
+        "type": "Famous Market",
+        "distance_km": 13.9
       }
     ]
   },
@@ -18213,7 +18879,7 @@
     "commune_code": "150206",
     "latitude": 12.662178,
     "longitude": 103.94826,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Plum Por Market",
@@ -18232,6 +18898,18 @@
         "name_kh": "ផ្សារកណ្ដៀង",
         "type": "Famous Market",
         "distance_km": 8.69
+      },
+      {
+        "name_en": "Phar Tom Tmey Pursat",
+        "name_kh": "ផ្សារផារ តូម ថ្មី ពោធិ៍សាត់",
+        "type": "Famous Market",
+        "distance_km": 14.06
+      },
+      {
+        "name_en": "Pursat Market",
+        "name_kh": "ផ្សារថ្មីពោធិ៍សាត់",
+        "type": "Famous Market",
+        "distance_km": 14.08
       }
     ]
   },
@@ -18377,7 +19055,7 @@
     "commune_code": "150402",
     "latitude": 12.351028,
     "longitude": 103.768345,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Krovanh Market",
@@ -18396,6 +19074,12 @@
         "name_kh": "ផ្សារបាត រូម ដុូល",
         "type": "Famous Market",
         "distance_km": 8.95
+      },
+      {
+        "name_en": "Bakchenhchien Market",
+        "name_kh": "ផ្សារបាក់ចេញជៀន",
+        "type": "Famous Market",
+        "distance_km": 12.13
       }
     ]
   },
@@ -18447,7 +19131,7 @@
     "commune_code": "150301",
     "latitude": 12.533559,
     "longitude": 104.204472,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Samaki Krakor",
@@ -18472,6 +19156,12 @@
         "name_kh": "ផ្សារក្រគរ",
         "type": "Famous Market",
         "distance_km": 4.89
+      },
+      {
+        "name_en": "Ansa Chambak Market",
+        "name_kh": "ផ្សារានសា ចាមបាក",
+        "type": "Famous Market",
+        "distance_km": 12.9
       }
     ]
   },
@@ -18488,7 +19178,7 @@
     "commune_code": "150104",
     "latitude": 12.69584,
     "longitude": 103.740165,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Me Toek, Market",
@@ -18513,6 +19203,12 @@
         "name_kh": "ផ្សារបាកាន.ូរតាពូរង",
         "type": "Famous Market",
         "distance_km": 8.02
+      },
+      {
+        "name_en": "Trapaing Chorng Market",
+        "name_kh": "ផ្សារត្រពាំងជង",
+        "type": "Famous Market",
+        "distance_km": 12.02
       }
     ]
   },
@@ -18564,8 +19260,14 @@
     "commune_code": "150604",
     "latitude": 12.355181,
     "longitude": 103.469557,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 2,
     "top_nearby_places": [
+      {
+        "name_en": "07 Market",
+        "name_kh": "ផ្សារ07",
+        "type": "Famous Market",
+        "distance_km": 12.4
+      },
       {
         "name_en": "Veal Veaeng Center",
         "name_kh": "វាលវែង មជ្ឈមណ្ឌល",
@@ -18587,7 +19289,7 @@
     "commune_code": "150105",
     "latitude": 12.660656,
     "longitude": 103.670925,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Bakan.Ortaporng.Market",
@@ -18612,6 +19314,12 @@
         "name_kh": "ផ្សារមេ តូេក,",
         "type": "Famous Market",
         "distance_km": 8.44
+      },
+      {
+        "name_en": "Kralaom Pluk",
+        "name_kh": "ផ្សារក្រាលៅម ពលុក",
+        "type": "Famous Market",
+        "distance_km": 14.69
       }
     ]
   },
@@ -18651,7 +19359,7 @@
     "commune_code": "150107",
     "latitude": 12.626963,
     "longitude": 103.836676,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Trapaing Chorng Market",
@@ -18666,10 +19374,22 @@
         "distance_km": 5.78
       },
       {
-        "name_en": "Bakan Center",
-        "name_kh": "បាកាន មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Boeng Khna Market",
+        "name_kh": "ផ្សារបឹង ខនា",
+        "type": "Famous Market",
+        "distance_km": 12.09
+      },
+      {
+        "name_en": "Beong Khnar Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.13
+      },
+      {
+        "name_en": "Me Toek, Market",
+        "name_kh": "ផ្សារមេ តូេក,",
+        "type": "Famous Market",
+        "distance_km": 12.95
       }
     ]
   },
@@ -18733,7 +19453,7 @@
     "commune_code": "150701",
     "latitude": 12.4892,
     "longitude": 103.6503,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Talor Market",
@@ -18752,6 +19472,18 @@
         "name_kh": "ផ្សារបាត រូម ដុូល",
         "type": "Famous Market",
         "distance_km": 11.47
+      },
+      {
+        "name_en": "Stockpray",
+        "name_kh": "ផ្សារស្តុកព្រៃ",
+        "type": "Famous Market",
+        "distance_km": 14.43
+      },
+      {
+        "name_en": "Bakchenhchien Market",
+        "name_kh": "ផ្សារបាក់ចេញជៀន",
+        "type": "Famous Market",
+        "distance_km": 15
       }
     ]
   },
@@ -19137,13 +19869,19 @@
     "commune_code": "160702",
     "latitude": 13.670254,
     "longitude": 107.349959,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Oyadav Market",
         "name_kh": "ផ្សារូយាដាវ",
         "type": "Famous Market",
         "distance_km": 0.67
+      },
+      {
+        "name_en": "Bokeo",
+        "name_kh": "ផ្សារបូកេូ",
+        "type": "Famous Market",
+        "distance_km": 14.76
       },
       {
         "name_en": "Ou Ya Dav Center",
@@ -19318,13 +20056,31 @@
     "commune_code": "160404",
     "latitude": 13.683354,
     "longitude": 106.88182,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
-        "name_en": "Koun Mom Center",
-        "name_kh": "កូនមុំ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Phsar",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.85
+      },
+      {
+        "name_en": "Market Banlung",
+        "name_kh": "ផ្សារបានលុង",
+        "type": "Famous Market",
+        "distance_km": 12.86
+      },
+      {
+        "name_en": "Setra Supermarket",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.41
+      },
+      {
+        "name_en": "Market Setra",
+        "name_kh": "ផ្សារសេត្រា",
+        "type": "Famous Market",
+        "distance_km": 13.43
       }
     ]
   },
@@ -19446,8 +20202,14 @@
     "commune_code": "160406",
     "latitude": 13.508764,
     "longitude": 106.654464,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 2,
     "top_nearby_places": [
+      {
+        "name_en": "Kon Moum",
+        "name_kh": "ផ្សារកូន មអូម",
+        "type": "Famous Market",
+        "distance_km": 14.95
+      },
       {
         "name_en": "Koun Mom Center",
         "name_kh": "កូនមុំ មជ្ឈមណ្ឌល",
@@ -19720,8 +20482,14 @@
     "commune_code": "141002",
     "latitude": 13.663216983310829,
     "longitude": 104.22347632585762,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 2,
     "top_nearby_places": [
+      {
+        "name_en": "Psar Raksmey Heng Makara (Svayleu Thmey)",
+        "name_kh": "ផ្សារ រាកសមេយ ហេង មាការា ស្វាយលេុ ថ្មី)",
+        "type": "Famous Market",
+        "distance_km": 12.76
+      },
       {
         "name_en": "Prey Veng Center",
         "name_kh": "ព្រៃវែង មជ្ឈមណ្ឌល",
@@ -19739,7 +20507,7 @@
     "district_en": "Pur SenChey",
     "district_kh": "ពោធិ៍សែនជ័យ",
     "commune_en": "Chaom Chau 2",
-    "commune_kh": "ចោមចៅទី២",
+    "commune_kh": "ចោមចៅទី2",
     "commune_code": "120915",
     "latitude": "",
     "longitude": "",
@@ -19998,10 +20766,10 @@
         "distance_km": 2.08
       },
       {
-        "name_en": "Varin Center",
-        "name_kh": "វ៉ារិន មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "",
+        "name_kh": "តា ចិនថ្មី",
+        "type": "Famous Market",
+        "distance_km": 12.31
       }
     ]
   },
@@ -20200,8 +20968,20 @@
     "commune_code": "060102",
     "latitude": 13.475203,
     "longitude": 104.17265,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
+      {
+        "name_en": "Psar Raksmey Heng Makara (Svayleu Thmey)",
+        "name_kh": "ផ្សារ រាកសមេយ ហេង មាការា ស្វាយលេុ ថ្មី)",
+        "type": "Famous Market",
+        "distance_km": 12.24
+      },
+      {
+        "name_en": "Siem Reap Angkor International Airport",
+        "name_kh": "អាកាសយានដ្ឋានអន្តរជាតិសៀមរាបអង្គរ",
+        "type": "Famous Market",
+        "distance_km": 12.97
+      },
       {
         "name_en": "Baray Center",
         "name_kh": "បារាយណ៍ មជ្ឈមណ្ឌល",
@@ -20223,13 +21003,19 @@
     "commune_code": "171201",
     "latitude": 13.8277,
     "longitude": 103.5156,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Srei Snam",
         "name_kh": "ផ្សារស្រីស្នំ",
         "type": "Famous Market",
         "distance_km": 0.01
+      },
+      {
+        "name_en": "Cohng​ Kal Market",
+        "name_kh": "ផ្សារកូហង កាល",
+        "type": "Famous Market",
+        "distance_km": 14.91
       },
       {
         "name_en": "Srei Snam Center",
@@ -20314,10 +21100,10 @@
         "distance_km": 8.21
       },
       {
-        "name_en": "Siem Reap Center",
-        "name_kh": "សៀមរាប មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Rohal Market",
+        "name_kh": "ផ្សាររូហាល",
+        "type": "Famous Market",
+        "distance_km": 12.53
       }
     ]
   },
@@ -20410,7 +21196,7 @@
     "commune_code": "170301",
     "latitude": 13.586712,
     "longitude": 103.956676,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Banteay Srei Market",
@@ -20429,6 +21215,12 @@
         "name_kh": "ផ្សារផោក សនេង",
         "type": "Famous Market",
         "distance_km": 8.39
+      },
+      {
+        "name_en": "Ta Ni Market",
+        "name_kh": "ផ្សារតានី",
+        "type": "Famous Market",
+        "distance_km": 14.11
       }
     ]
   },
@@ -20912,7 +21704,7 @@
     "store_code": "DVCZ4",
     "store_name": "Vehicle Team Z4",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Chheu Teal",
@@ -20990,7 +21782,7 @@
     "commune_code": "180303",
     "latitude": 10.737428,
     "longitude": 103.624233,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Stueng Hav Market",
@@ -20999,10 +21791,28 @@
         "distance_km": 0.06
       },
       {
-        "name_en": "Stueng Hav Center",
-        "name_kh": "ស្ទឹងហាវ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Tumnob Rolork Market",
+        "name_kh": "ផ្សារទំនប់ រូលូរក",
+        "type": "Famous Market",
+        "distance_km": 13.89
+      },
+      {
+        "name_en": "Tarom Yeaytoch New Star Market",
+        "name_kh": "ផ្សារតារូម យោយតូច នេវ សតារ",
+        "type": "Famous Market",
+        "distance_km": 14.62
+      },
+      {
+        "name_en": "Pu Thoeurng",
+        "name_kh": "ផ្សារពុ ថូេុរង",
+        "type": "Famous Market",
+        "distance_km": 14.78
+      },
+      {
+        "name_en": "Khlang Leu Market",
+        "name_kh": "ផ្សារខលាង លើ",
+        "type": "Famous Market",
+        "distance_km": 14.87
       }
     ]
   },
@@ -21019,7 +21829,7 @@
     "commune_code": "180604",
     "latitude": 10.573382,
     "longitude": 103.773205,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Boeng Taprum",
@@ -21044,6 +21854,12 @@
         "name_kh": "ផ្សារព្រៃនប់",
         "type": "Famous Market",
         "distance_km": 6.37
+      },
+      {
+        "name_en": "Korng Keng",
+        "name_kh": "ផ្សារកូរង កេង",
+        "type": "Famous Market",
+        "distance_km": 13.59
       }
     ]
   },
@@ -21060,7 +21876,7 @@
     "commune_code": "180603",
     "latitude": 10.589629,
     "longitude": 103.763962,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "O. Chamna",
@@ -21085,6 +21901,12 @@
         "name_kh": "ផ្សារកោះខ្យង",
         "type": "Famous Market",
         "distance_km": 6.48
+      },
+      {
+        "name_en": "Korng Keng",
+        "name_kh": "ផ្សារកូរង កេង",
+        "type": "Famous Market",
+        "distance_km": 12.5
       }
     ]
   },
@@ -21195,7 +22017,7 @@
     "commune_code": "180204",
     "latitude": 10.753846,
     "longitude": 103.804156,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Trapeang Moul",
@@ -21220,6 +22042,12 @@
         "name_kh": "ផ្សារវាលរេញ",
         "type": "Famous Market",
         "distance_km": 5.67
+      },
+      {
+        "name_en": "Market Prey Nob",
+        "name_kh": "ផ្សារព្រៃនប់",
+        "type": "Famous Market",
+        "distance_km": 13.98
       }
     ]
   },
@@ -21232,7 +22060,7 @@
     "district_en": "Preah Sihanouk",
     "district_kh": "ព្រះសីហនុ",
     "commune_en": "lek Muoy",
-    "commune_kh": "លេខ១",
+    "commune_kh": "លេខ1",
     "commune_code": "180101",
     "latitude": 10.662359,
     "longitude": 103.522013,
@@ -21279,7 +22107,7 @@
     "district_en": "Preah Sihanouk",
     "district_kh": "ព្រះសីហនុ",
     "commune_en": "lek Muoy",
-    "commune_kh": "លេខ១",
+    "commune_kh": "លេខ1",
     "commune_code": "180101",
     "latitude": 10.664146,
     "longitude": 103.522118,
@@ -21361,7 +22189,7 @@
     "district_en": "Preah Sihanouk",
     "district_kh": "ព្រះសីហនុ",
     "commune_en": "lek Muoy",
-    "commune_kh": "លេខ១",
+    "commune_kh": "លេខ1",
     "commune_code": "180101",
     "latitude": 10.620638,
     "longitude": 103.541226,
@@ -21408,7 +22236,7 @@
     "district_en": "Preah Sihanouk",
     "district_kh": "ព្រះសីហនុ",
     "commune_en": "lek Muoy",
-    "commune_kh": "លេខ១",
+    "commune_kh": "លេខ1",
     "commune_code": "180101",
     "latitude": 10.61986,
     "longitude": 103.52744,
@@ -21600,7 +22428,7 @@
     "commune_code": "051004",
     "latitude": 11.582755,
     "longitude": 104.531477,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "",
@@ -21625,6 +22453,12 @@
         "name_kh": "ផ្សារត្រពាំងគិន",
         "type": "Famous Market",
         "distance_km": 6.91
+      },
+      {
+        "name_en": "Chambot Market",
+        "name_kh": "ផ្សារចាមបូត",
+        "type": "Famous Market",
+        "distance_km": 12.44
       }
     ]
   },
@@ -21829,7 +22663,7 @@
     "commune_code": "050613",
     "latitude": 11.277905,
     "longitude": 104.211297,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Traeng Trayueng Market",
@@ -21838,10 +22672,22 @@
         "distance_km": 0.08
       },
       {
-        "name_en": "Phnum Sruoch Center",
-        "name_kh": "ភ្នំស្រួច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Pich Nill Market",
+        "name_kh": "ផ្សារពីច នីលល",
+        "type": "Famous Market",
+        "distance_km": 12.5
+      },
+      {
+        "name_en": "Dambouk Rung",
+        "name_kh": "ផ្សារដាមបអូក រុង",
+        "type": "Famous Market",
+        "distance_km": 13.04
+      },
+      {
+        "name_en": "Talat Market",
+        "name_kh": "ផ្សារតាលាត",
+        "type": "Famous Market",
+        "distance_km": 14.28
       }
     ]
   },
@@ -21905,7 +22751,7 @@
     "commune_code": "050805",
     "latitude": 11.721285,
     "longitude": 104.520246,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "New Village Market",
@@ -21930,6 +22776,12 @@
         "name_kh": "ផ្សារានលូង ចរេ",
         "type": "Famous Market",
         "distance_km": 11.11
+      },
+      {
+        "name_en": "Bon Teiy Khmer",
+        "name_kh": "ផ្សារបូន តីយ ខមេរ",
+        "type": "Famous Market",
+        "distance_km": 13.22
       }
     ]
   },
@@ -22192,7 +23044,7 @@
     "commune_code": "050104",
     "latitude": 11.177036,
     "longitude": 104.407526,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Trapeang Phong",
@@ -22207,10 +23059,22 @@
         "distance_km": 11.3
       },
       {
-        "name_en": "Basedth Center",
-        "name_kh": "បរសេដ្ឋ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Borseth Market",
+        "name_kh": "ផ្សារបូរសេថ",
+        "type": "Famous Market",
+        "distance_km": 14.59
+      },
+      {
+        "name_en": "Trapeang Andaeuk Market",
+        "name_kh": "ផ្សារត្រពាំងអណ្ដើក",
+        "type": "Famous Market",
+        "distance_km": 14.91
+      },
+      {
+        "name_en": "Tropeang Andeuk Market",
+        "name_kh": "ផ្សារត្រពាំងអណ្តើក",
+        "type": "Famous Market",
+        "distance_km": 14.93
       }
     ]
   },
@@ -22227,13 +23091,19 @@
     "commune_code": "050609",
     "latitude": 11.308992,
     "longitude": 104.438688,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Trapeang Kraleoung Markit",
         "name_kh": "ផ្សារត្រពាំងក្រឡឹង",
         "type": "Famous Market",
         "distance_km": 11.06
+      },
+      {
+        "name_en": "Talat Market",
+        "name_kh": "ផ្សារតាលាត",
+        "type": "Famous Market",
+        "distance_km": 13.18
       },
       {
         "name_en": "Phnum Sruoch Center",
@@ -22256,7 +23126,7 @@
     "commune_code": "140809",
     "latitude": 11.157493,
     "longitude": 104.684507,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Pang Sey Market",
@@ -22281,6 +23151,12 @@
         "name_kh": "ផ្សារថ្នល់ តូរតូេង",
         "type": "Famous Market",
         "distance_km": 10.11
+      },
+      {
+        "name_en": "Yai Trub Market",
+        "name_kh": "ផ្សារយៃ ត្រុប",
+        "type": "Famous Market",
+        "distance_km": 12.25
       }
     ]
   },
@@ -22297,7 +23173,7 @@
     "commune_code": "050711",
     "latitude": 11.531039,
     "longitude": 104.416137,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Khnol Kheng",
@@ -22312,10 +23188,22 @@
         "distance_km": 11.47
       },
       {
-        "name_en": "Samraong Tong Center",
-        "name_kh": "សំរោងទង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Vatchumna",
+        "name_kh": "ផ្សារវាតចុមនា",
+        "type": "Famous Market",
+        "distance_km": 12.14
+      },
+      {
+        "name_en": "Kampong Speu Market",
+        "name_kh": "ផ្សារកំពង់ស្ពឺ",
+        "type": "Famous Market",
+        "distance_km": 13.82
+      },
+      {
+        "name_en": "Chbar Mon Market",
+        "name_kh": "ផ្សារច្បារមន",
+        "type": "Famous Market",
+        "distance_km": 13.82
       }
     ]
   },
@@ -22379,7 +23267,7 @@
     "commune_code": "050403",
     "latitude": 11.811444,
     "longitude": 104.129407,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Speun Dert",
@@ -22394,10 +23282,16 @@
         "distance_km": 3.81
       },
       {
-        "name_en": "Aoral Center",
-        "name_kh": "ឱរ៉ាល់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Chamka Rompov Market",
+        "name_kh": "ផ្សារចំការរម្ពៅ",
+        "type": "Famous Market",
+        "distance_km": 12.82
+      },
+      {
+        "name_en": "Khnun Thurt",
+        "name_kh": "ផ្សារខនុន ថុរត",
+        "type": "Famous Market",
+        "distance_km": 13.76
       }
     ]
   },
@@ -22414,7 +23308,7 @@
     "commune_code": "240102",
     "latitude": 11.323964,
     "longitude": 104.578105,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Srong Market",
@@ -22433,6 +23327,18 @@
         "name_kh": "ផ្សារកូរ ក្រអូស",
         "type": "Famous Market",
         "distance_km": 7.99
+      },
+      {
+        "name_en": "Slap Leng Market",
+        "name_kh": "ផ្សារសលាព លេង",
+        "type": "Famous Market",
+        "distance_km": 12.53
+      },
+      {
+        "name_en": "Sweet Tamarind  Market",
+        "name_kh": "ផ្សារអម្ពិលផ្អែម",
+        "type": "Famous Market",
+        "distance_km": 13.51
       }
     ]
   },
@@ -22464,10 +23370,10 @@
         "distance_km": 7.7
       },
       {
-        "name_en": "Phnum Sruoch Center",
-        "name_kh": "ភ្នំស្រួច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Vatchumna",
+        "name_kh": "ផ្សារវាតចុមនា",
+        "type": "Famous Market",
+        "distance_km": 14.01
       }
     ]
   },
@@ -22513,7 +23419,7 @@
     "commune_code": "050607",
     "latitude": 11.342067,
     "longitude": 104.322307,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Talat Market",
@@ -22532,6 +23438,12 @@
         "name_kh": "ផ្សារដាមបអូក រុង",
         "type": "Famous Market",
         "distance_km": 11.87
+      },
+      {
+        "name_en": "Traeng Trayueng Market",
+        "name_kh": "ផ្សារត្រែង ត្រាយុេង",
+        "type": "Famous Market",
+        "distance_km": 13.97
       }
     ]
   },
@@ -22595,7 +23507,7 @@
     "commune_code": "050404",
     "latitude": 11.680048,
     "longitude": 104.147813,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Khnun Thurt",
@@ -22604,10 +23516,16 @@
         "distance_km": 2.2
       },
       {
-        "name_en": "Aoral Center",
-        "name_kh": "ឱរ៉ាល់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Trapeang Cho Market",
+        "name_kh": "ផ្សារត្រពាំងជោ",
+        "type": "Famous Market",
+        "distance_km": 13.95
+      },
+      {
+        "name_en": "Speun Dert",
+        "name_kh": "ផ្សារស្ពាន ដេរត",
+        "type": "Famous Market",
+        "distance_km": 14.48
       }
     ]
   },
@@ -22894,7 +23812,7 @@
     "commune_code": "190201",
     "latitude": 13.334026,
     "longitude": 106.103639,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Siem Bouk Market",
@@ -22913,6 +23831,12 @@
         "name_kh": "ផ្សារអូរពងមាន់",
         "type": "Famous Market",
         "distance_km": 11.3
+      },
+      {
+        "name_en": "Kamphun Market",
+        "name_kh": "ផ្សារកាមផុន",
+        "type": "Famous Market",
+        "distance_km": 13.76
       }
     ]
   },
@@ -22999,7 +23923,7 @@
     "commune_code": "190201",
     "latitude": 13.360574,
     "longitude": 105.959553,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Siem Bouk Market",
@@ -23008,10 +23932,16 @@
         "distance_km": 0.03
       },
       {
-        "name_en": "Siem Bouk Center",
-        "name_kh": "សៀមបូក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Siem Bouk",
+        "name_kh": "ផ្សារសីេម បអូក",
+        "type": "Famous Market",
+        "distance_km": 13.3
+      },
+      {
+        "name_en": "Ou Pong Moan Market",
+        "name_kh": "ផ្សារអូរពងមាន់",
+        "type": "Famous Market",
+        "distance_km": 14.84
       }
     ]
   },
@@ -23051,7 +23981,7 @@
     "commune_code": "190102",
     "latitude": 13.417695,
     "longitude": 106.198157,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kamphun Market",
@@ -23066,10 +23996,22 @@
         "distance_km": 8.95
       },
       {
-        "name_en": "Sesan Center",
-        "name_kh": "សេសាន មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Siem Bouk",
+        "name_kh": "ផ្សារសីេម បអូក",
+        "type": "Famous Market",
+        "distance_km": 13.28
+      },
+      {
+        "name_en": "Ou Pong Moan Market",
+        "name_kh": "ផ្សារអូរពងមាន់",
+        "type": "Famous Market",
+        "distance_km": 13.36
+      },
+      {
+        "name_en": "Siem Bouk Market",
+        "name_kh": "ផ្សារសីេម បអូក",
+        "type": "Famous Market",
+        "distance_km": 13.75
       }
     ]
   },
@@ -23244,7 +24186,7 @@
     "commune_code": "200203",
     "latitude": 10.926719,
     "longitude": 105.985774,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Kampong Rou Market",
@@ -23259,10 +24201,16 @@
         "distance_km": 8.44
       },
       {
-        "name_en": "Kampong Rou Center",
-        "name_kh": "កំពង់រោទិ៍ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Chi Phou Market",
+        "name_kh": "ផ្សារចី ផអូ",
+        "type": "Famous Market",
+        "distance_km": 12.64
+      },
+      {
+        "name_en": "Thou Mak  Market",
+        "name_kh": "ផ្សារថអូ មាក",
+        "type": "Famous Market",
+        "distance_km": 12.94
       }
     ]
   },
@@ -23452,10 +24400,10 @@
         "distance_km": 6.47
       },
       {
-        "name_en": "Ou Chrov Center",
-        "name_kh": "អូរជ្រៅ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Tapov Market",
+        "name_kh": "ផ្សារតាពូវ",
+        "type": "Famous Market",
+        "distance_km": 14.9
       }
     ]
   },
@@ -23519,7 +24467,7 @@
     "commune_code": "200405",
     "latitude": 11.284448,
     "longitude": 105.72468,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Chantrey Market",
@@ -23538,6 +24486,12 @@
         "name_kh": "ផ្សារសំរោង",
         "type": "Famous Market",
         "distance_km": 11.03
+      },
+      {
+        "name_en": "Market",
+        "name_kh": "ផ្សារ",
+        "type": "Famous Market",
+        "distance_km": 12.73
       }
     ]
   },
@@ -23554,7 +24508,7 @@
     "commune_code": "200508",
     "latitude": 11.225428,
     "longitude": 105.724589,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Don Sar Market",
@@ -23579,6 +24533,12 @@
         "name_kh": "ផ្សារស្វាយជ្រំ",
         "type": "Famous Market",
         "distance_km": 11.94
+      },
+      {
+        "name_en": "Kompongchok Market",
+        "name_kh": "ផ្សារកូមពូងចូក",
+        "type": "Famous Market",
+        "distance_km": 12.96
       }
     ]
   },
@@ -23630,7 +24590,7 @@
     "commune_code": "200414",
     "latitude": 11.437822,
     "longitude": 105.691046,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Forest Market",
@@ -23649,6 +24609,18 @@
         "name_kh": "ផ្សារកំពង់ត្រាច",
         "type": "Famous Market",
         "distance_km": 11.73
+      },
+      {
+        "name_en": "Market",
+        "name_kh": "ផ្សារ",
+        "type": "Famous Market",
+        "distance_km": 13.03
+      },
+      {
+        "name_en": "Khema Salon",
+        "name_kh": "ខេម៉ាសាឡន",
+        "type": "Famous Market",
+        "distance_km": 14.85
       }
     ]
   },
@@ -23700,7 +24672,7 @@
     "commune_code": "040503",
     "latitude": 10.935155,
     "longitude": 106.057092,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chek Market",
@@ -23715,10 +24687,22 @@
         "distance_km": 8.97
       },
       {
-        "name_en": "Kampong Tralach Center",
-        "name_kh": "កំពង់ត្រឡាច មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Thou Mak  Market",
+        "name_kh": "ផ្សារថអូ មាក",
+        "type": "Famous Market",
+        "distance_km": 12.25
+      },
+      {
+        "name_en": "Chi Phou Market",
+        "name_kh": "ផ្សារចី ផអូ",
+        "type": "Famous Market",
+        "distance_km": 12.5
+      },
+      {
+        "name_en": "Kampong Rou Market",
+        "name_kh": "ផ្សារកំពង់ រអូ",
+        "type": "Famous Market",
+        "distance_km": 13.01
       }
     ]
   },
@@ -23735,7 +24719,7 @@
     "commune_code": "200412",
     "latitude": 11.311113,
     "longitude": 105.674529,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chantrey Market",
@@ -23760,6 +24744,12 @@
         "name_kh": "ផ្សារស្ពាន",
         "type": "Famous Market",
         "distance_km": 11.26
+      },
+      {
+        "name_en": "Market Place",
+        "name_kh": "ផ្សារ market place",
+        "type": "Famous Market",
+        "distance_km": 14.31
       }
     ]
   },
@@ -23776,7 +24766,7 @@
     "commune_code": "200515",
     "latitude": 11.021884,
     "longitude": 105.603819,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Bengburi Market",
@@ -23795,6 +24785,12 @@
         "name_kh": "ផ្សារផុម ធំ",
         "type": "Famous Market",
         "distance_km": 9.51
+      },
+      {
+        "name_en": "Krao Kol Market",
+        "name_kh": "ផ្សារក្រៅ កូល",
+        "type": "Famous Market",
+        "distance_km": 14.56
       }
     ]
   },
@@ -23858,7 +24854,7 @@
     "commune_code": "200406",
     "latitude": 11.408281,
     "longitude": 105.716263,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kompongtrach Market",
@@ -23873,10 +24869,22 @@
         "distance_km": 11.78
       },
       {
-        "name_en": "Romeas Haek Center",
-        "name_kh": "រមាសហែក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Market",
+        "name_kh": "ផ្សារ",
+        "type": "Famous Market",
+        "distance_km": 12.58
+      },
+      {
+        "name_en": "Forest Market",
+        "name_kh": "ផ្សារព្រៃ",
+        "type": "Famous Market",
+        "distance_km": 13.35
+      },
+      {
+        "name_en": "Chantrey Market",
+        "name_kh": "ផ្សារចានត្រេយ",
+        "type": "Famous Market",
+        "distance_km": 14.02
       }
     ]
   },
@@ -23893,8 +24901,20 @@
     "commune_code": "200702",
     "latitude": 11.159454,
     "longitude": 105.938441,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
+      {
+        "name_en": "Kompongchok Market",
+        "name_kh": "ផ្សារកូមពូងចូក",
+        "type": "Famous Market",
+        "distance_km": 12.6
+      },
+      {
+        "name_en": "Pra Saut Market",
+        "name_kh": "ផ្សារប្រសូត្រ",
+        "type": "Famous Market",
+        "distance_km": 13.1
+      },
       {
         "name_en": "Svay Teab Center",
         "name_kh": "ស្វាយទាប មជ្ឈមណ្ឌល",
@@ -24010,7 +25030,7 @@
     "commune_code": "060303",
     "latitude": 11.0351,
     "longitude": 106.0189,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Thou Mak  Market",
@@ -24025,10 +25045,22 @@
         "distance_km": 0.99
       },
       {
-        "name_en": "Stueng Saen Center",
-        "name_kh": "ស្ទឹងសែន មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Bavet Market",
+        "name_kh": "ផ្សារបាវិត",
+        "type": "Famous Market",
+        "distance_km": 12.19
+      },
+      {
+        "name_en": "Mesor Thngok Market",
+        "name_kh": "ផ្សារមេសូរ ថងូក",
+        "type": "Famous Market",
+        "distance_km": 12.63
+      },
+      {
+        "name_en": "Tapov Market",
+        "name_kh": "ផ្សារតាពូវ",
+        "type": "Famous Market",
+        "distance_km": 12.93
       }
     ]
   },
@@ -24221,7 +25253,7 @@
     "commune_code": "200803",
     "latitude": 11.0381,
     "longitude": 106.0115,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Chi Phou Market",
@@ -24236,10 +25268,22 @@
         "distance_km": 0.76
       },
       {
-        "name_en": "Bavet Center",
-        "name_kh": "បាវិត មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Bavet Market",
+        "name_kh": "ផ្សារបាវិត",
+        "type": "Famous Market",
+        "distance_km": 12.85
+      },
+      {
+        "name_en": "Pra Saut Market",
+        "name_kh": "ផ្សារប្រសូត្រ",
+        "type": "Famous Market",
+        "distance_km": 12.99
+      },
+      {
+        "name_en": "Mesor Thngok Market",
+        "name_kh": "ផ្សារមេសូរ ថងូក",
+        "type": "Famous Market",
+        "distance_km": 13.5
       }
     ]
   },
@@ -24385,7 +25429,7 @@
     "commune_code": "210907",
     "latitude": 11.093079,
     "longitude": 104.414537,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Tropeang Andeuk Market",
@@ -24400,10 +25444,16 @@
         "distance_km": 9.21
       },
       {
-        "name_en": "Tram Kak Center",
-        "name_kh": "ត្រាំកក់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Trapeang Phong",
+        "name_kh": "ផ្សារត្រាពោង ផូង",
+        "type": "Famous Market",
+        "distance_km": 12.92
+      },
+      {
+        "name_en": "Borseth Market",
+        "name_kh": "ផ្សារបូរសេថ",
+        "type": "Famous Market",
+        "distance_km": 14.76
       }
     ]
   },
@@ -24467,7 +25517,7 @@
     "commune_code": "210505",
     "latitude": 10.7957,
     "longitude": 104.9502,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Koh Andeth Market",
@@ -24476,10 +25526,16 @@
         "distance_km": 0.37
       },
       {
-        "name_en": "Kaoh Andaet Center",
-        "name_kh": "កោះអណ្ដែត មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kampong Chrey Thmey Market",
+        "name_kh": "ផ្សារកំពង់ជ្រៃថ្មី",
+        "type": "Famous Market",
+        "distance_km": 14.03
+      },
+      {
+        "name_en": "The Market Is Bustling.",
+        "name_kh": "ផ្សារថេ ីស បុសតលីង",
+        "type": "Famous Market",
+        "distance_km": 14.41
       }
     ]
   },
@@ -24637,7 +25693,7 @@
     "commune_code": "210305",
     "latitude": 10.892675,
     "longitude": 104.902756,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kouk Am Pov",
@@ -24652,10 +25708,22 @@
         "distance_km": 11.69
       },
       {
-        "name_en": "Borei Cholsar Center",
-        "name_kh": "បូរីជលសារ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Learn Market",
+        "name_kh": "ផ្សារលោរន",
+        "type": "Famous Market",
+        "distance_km": 12.76
+      },
+      {
+        "name_en": "Preysondek",
+        "name_kh": "ផ្សារព្រេយសូនដេក",
+        "type": "Famous Market",
+        "distance_km": 13.13
+      },
+      {
+        "name_en": "Angkor Borei Market",
+        "name_kh": "ផ្សារាងកូរ បុរី",
+        "type": "Famous Market",
+        "distance_km": 14
       }
     ]
   },
@@ -24672,7 +25740,7 @@
     "commune_code": "210501",
     "latitude": 10.706738,
     "longitude": 104.916813,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tonlop Market",
@@ -24691,6 +25759,18 @@
         "name_kh": "ផ្សារភ្នំដិន",
         "type": "Famous Market",
         "distance_km": 11.57
+      },
+      {
+        "name_en": "Kampong Chrey Thmey Market",
+        "name_kh": "ផ្សារកំពង់ជ្រៃថ្មី",
+        "type": "Famous Market",
+        "distance_km": 13.76
+      },
+      {
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគិរីវង់",
+        "type": "Famous Market",
+        "distance_km": 14.04
       }
     ]
   },
@@ -24707,7 +25787,7 @@
     "commune_code": "140505",
     "latitude": 10.619044,
     "longitude": 104.767197,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kirivong Market",
@@ -24722,10 +25802,22 @@
         "distance_km": 9.05
       },
       {
-        "name_en": "Me Sang Center",
-        "name_kh": "មេសាង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Tonlop Market",
+        "name_kh": "ផ្សារតូនលូព",
+        "type": "Famous Market",
+        "distance_km": 12.11
+      },
+      {
+        "name_en": "Ombok Grass Market",
+        "name_kh": "ផ្សារូមបូក ហ្គរាសស",
+        "type": "Famous Market",
+        "distance_km": 12.58
+      },
+      {
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគិរីវង់",
+        "type": "Famous Market",
+        "distance_km": 13.88
       }
     ]
   },
@@ -24871,7 +25963,7 @@
     "commune_code": "210505",
     "latitude": 10.800032,
     "longitude": 104.937742,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 3,
     "top_nearby_places": [
       {
         "name_en": "Koh Andeth Market",
@@ -24880,10 +25972,16 @@
         "distance_km": 1.07
       },
       {
-        "name_en": "Kaoh Andaet Center",
-        "name_kh": "កោះអណ្ដែត មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kampong Chrey Thmey Market",
+        "name_kh": "ផ្សារកំពង់ជ្រៃថ្មី",
+        "type": "Famous Market",
+        "distance_km": 12.71
+      },
+      {
+        "name_en": "The Market Is Bustling.",
+        "name_kh": "ផ្សារថេ ីស បុសតលីង",
+        "type": "Famous Market",
+        "distance_km": 13.07
       }
     ]
   },
@@ -25088,7 +26186,7 @@
     "commune_code": "141308",
     "latitude": 10.75647,
     "longitude": 104.872143,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kampong Chrey Thmey Market",
@@ -25113,6 +26211,12 @@
         "name_kh": "ផ្សារកោះអណ្តែត",
         "type": "Famous Market",
         "distance_km": 9.34
+      },
+      {
+        "name_en": "Tonlop Market",
+        "name_kh": "ផ្សារតូនលូព",
+        "type": "Famous Market",
+        "distance_km": 12.52
       }
     ]
   },
@@ -25223,7 +26327,7 @@
     "commune_code": "210412",
     "latitude": 10.577666,
     "longitude": 104.798714,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Kirivong Market",
@@ -25242,6 +26346,12 @@
         "name_kh": "ផ្សារគោកវែង",
         "type": "Famous Market",
         "distance_km": 11.92
+      },
+      {
+        "name_en": "Phnom Den",
+        "name_kh": "ផ្សារភ្នំដិន",
+        "type": "Famous Market",
+        "distance_km": 12.14
       }
     ]
   },
@@ -25305,7 +26415,7 @@
     "commune_code": "210408",
     "latitude": 10.632234,
     "longitude": 104.791171,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Kirivong Market",
@@ -25320,10 +26430,22 @@
         "distance_km": 9.26
       },
       {
-        "name_en": "Kiri Vong Center",
-        "name_kh": "គីរីវង់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kork Veng Market",
+        "name_kh": "ផ្សារគោកវែង",
+        "type": "Famous Market",
+        "distance_km": 12.03
+      },
+      {
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគិរីវង់",
+        "type": "Famous Market",
+        "distance_km": 12.12
+      },
+      {
+        "name_en": "Phnom Den",
+        "name_kh": "ផ្សារភ្នំដិន",
+        "type": "Famous Market",
+        "distance_km": 13.03
       }
     ]
   },
@@ -25340,7 +26462,7 @@
     "commune_code": "210402",
     "latitude": 10.644722,
     "longitude": 104.874741,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Tonlop Market",
@@ -25355,10 +26477,16 @@
         "distance_km": 5.79
       },
       {
-        "name_en": "Kiri Vong Center",
-        "name_kh": "គីរីវង់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគីរីវង់",
+        "type": "Famous Market",
+        "distance_km": 12.21
+      },
+      {
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគិរីវង់",
+        "type": "Famous Market",
+        "distance_km": 13.95
       }
     ]
   },
@@ -25827,7 +26955,7 @@
     "commune_code": "210402",
     "latitude": 10.6442,
     "longitude": 104.875,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Tonlop Market",
@@ -25842,10 +26970,16 @@
         "distance_km": 5.72
       },
       {
-        "name_en": "Kiri Vong Center",
-        "name_kh": "គីរីវង់ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគីរីវង់",
+        "type": "Famous Market",
+        "distance_km": 12.22
+      },
+      {
+        "name_en": "Kirivong Market",
+        "name_kh": "ផ្សារគិរីវង់",
+        "type": "Famous Market",
+        "distance_km": 14.01
       }
     ]
   },
@@ -25858,7 +26992,7 @@
     "district_en": "Krouch Chhmar",
     "district_kh": "ក្រូចឆ្មារ",
     "commune_en": "Peus Muoy",
-    "commune_kh": "ប៉ឺស១",
+    "commune_kh": "ប៉ឺស1",
     "commune_code": "250206",
     "latitude": 12.248393,
     "longitude": 105.717783,
@@ -26145,10 +27279,10 @@
         "distance_km": 11.93
       },
       {
-        "name_en": "Dambae Center",
-        "name_kh": "តំបែរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Prek Chor Market",
+        "name_kh": "ផ្សារព្រេក ចូរ",
+        "type": "Famous Market",
+        "distance_km": 12.55
       }
     ]
   },
@@ -26227,10 +27361,10 @@
         "distance_km": 10.41
       },
       {
-        "name_en": "Prasat Sambour Center",
-        "name_kh": "ប្រាសាទសំបូរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Torpeng Rusey",
+        "name_kh": "ផ្សារតូរពេង ឫស្សី",
+        "type": "Famous Market",
+        "distance_km": 14.22
       }
     ]
   },
@@ -26291,10 +27425,10 @@
         "distance_km": 10.91
       },
       {
-        "name_en": "Stoung Center",
-        "name_kh": "ស្ទោង មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "CE EXPRESS Anlong Market Agent",
+        "name_kh": "ce express ភ្នាក់ងារ ផ្សារបែកអន្លូង",
+        "type": "Famous Market",
+        "distance_km": 14.92
       }
     ]
   },
@@ -26311,7 +27445,7 @@
     "commune_code": "040103",
     "latitude": 11.776389,
     "longitude": 105.598362,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Kanhchrech'S Market",
@@ -26330,6 +27464,12 @@
         "name_kh": "ផ្សារប្រូស្រេ មូក",
         "type": "Famous Market",
         "distance_km": 10.97
+      },
+      {
+        "name_en": "Tuol Sangkae Market",
+        "name_kh": "ផ្សារទួលសង្កែ",
+        "type": "Famous Market",
+        "distance_km": 14.76
       }
     ]
   },
@@ -26346,7 +27486,7 @@
     "commune_code": "250505",
     "latitude": 11.785283,
     "longitude": 106.002698,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 4,
     "top_nearby_places": [
       {
         "name_en": "Go Mon",
@@ -26361,10 +27501,16 @@
         "distance_km": 9.92
       },
       {
-        "name_en": "Ponhea Kraek Center",
-        "name_kh": "ពញាក្រែក មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Samrong Market",
+        "name_kh": "ផ្សារសំរោង",
+        "type": "Famous Market",
+        "distance_km": 12.77
+      },
+      {
+        "name_en": "Tro Peang Plong Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.13
       }
     ]
   },
@@ -26381,7 +27527,7 @@
     "commune_code": "031305",
     "latitude": 11.973743,
     "longitude": 105.742968,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Torpeng Rusey",
@@ -26400,6 +27546,18 @@
         "name_kh": "ផ្សារសួង",
         "type": "Famous Market",
         "distance_km": 11.55
+      },
+      {
+        "name_en": "Suong Market",
+        "name_kh": "ផ្សារសុូង",
+        "type": "Famous Market",
+        "distance_km": 12.02
+      },
+      {
+        "name_en": "Suong Market",
+        "name_kh": "ផ្សារសួង",
+        "type": "Famous Market",
+        "distance_km": 12.02
       }
     ]
   },
@@ -26492,13 +27650,37 @@
     "commune_code": "250710",
     "latitude": 12.101092,
     "longitude": 105.547606,
-    "top_nearby_places_count": 1,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
-        "name_en": "Tboung Khmum Center",
-        "name_kh": "ត្បូងឃ្មុំ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Thmal Kol Market",
+        "name_kh": "ផ្សារថមាល កូល",
+        "type": "Famous Market",
+        "distance_km": 12.93
+      },
+      {
+        "name_en": "Kizuna Bridge",
+        "name_kh": "ស្ពានគីហ្សូណា",
+        "type": "Famous Market",
+        "distance_km": 14.57
+      },
+      {
+        "name_en": "Beungkouk",
+        "name_kh": "ផ្សារបឹងកុក",
+        "type": "Famous Market",
+        "distance_km": 14.8
+      },
+      {
+        "name_en": "Phsar Boeung Kok",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.81
+      },
+      {
+        "name_en": "Night Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 14.92
       }
     ]
   },
@@ -26773,7 +27955,7 @@
     "commune_code": "250401",
     "latitude": 11.796341,
     "longitude": 105.499489,
-    "top_nearby_places_count": 2,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Ou Reang Ov Market",
@@ -26782,10 +27964,28 @@
         "distance_km": 0.31
       },
       {
-        "name_en": "Ou Reang Ov Center",
-        "name_kh": "អូររាំងឪ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Brosre Mok Market",
+        "name_kh": "ផ្សារប្រូស្រេ មូក",
+        "type": "Famous Market",
+        "distance_km": 13.28
+      },
+      {
+        "name_en": "Kanhchrech'S Market",
+        "name_kh": "ផ្សារកាញចរេច'ស",
+        "type": "Famous Market",
+        "distance_km": 13.65
+      },
+      {
+        "name_en": "Chi Her",
+        "name_kh": "ផ្សារចី ហេរ",
+        "type": "Famous Market",
+        "distance_km": 14.15
+      },
+      {
+        "name_en": "Preksandeak",
+        "name_kh": "ផ្សារព្រេកសានដោក",
+        "type": "Famous Market",
+        "distance_km": 14.8
       }
     ]
   },
@@ -26849,7 +28049,7 @@
     "commune_code": "060905",
     "latitude": 12.247011,
     "longitude": 105.123774,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Tangkork Market",
@@ -26874,6 +28074,12 @@
         "name_kh": "ផ្សាររូមលូង",
         "type": "Famous Market",
         "distance_km": 9.74
+      },
+      {
+        "name_en": "Nakta Steng Market",
+        "name_kh": "ផ្សារនាកតា សតេង",
+        "type": "Famous Market",
+        "distance_km": 13.04
       }
     ]
   },
@@ -26890,7 +28096,7 @@
     "commune_code": "060904",
     "latitude": 12.333434,
     "longitude": 105.105665,
-    "top_nearby_places_count": 4,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Romlong",
@@ -26915,6 +28121,12 @@
         "name_kh": "ផ្សារតាងកូរក",
         "type": "Famous Market",
         "distance_km": 9.64
+      },
+      {
+        "name_en": "Tapang Deythmey Market",
+        "name_kh": "ផ្សារតាពាង ដេយថមេយ",
+        "type": "Famous Market",
+        "distance_km": 13.18
       }
     ]
   },
@@ -26931,7 +28143,7 @@
     "commune_code": "031301",
     "latitude": 12.396384,
     "longitude": 105.083396,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Baray Market",
@@ -26946,10 +28158,22 @@
         "distance_km": 7.47
       },
       {
-        "name_en": "Prey Chhor Center",
-        "name_kh": "ព្រៃឈរ មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Kampong Thmar",
+        "name_kh": "ផ្សារកំពង់ ថមារ",
+        "type": "Famous Market",
+        "distance_km": 12.35
+      },
+      {
+        "name_en": "Kampong Thmar Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.41
+      },
+      {
+        "name_en": "Tapang Deythmey Market",
+        "name_kh": "ផ្សារតាពាង ដេយថមេយ",
+        "type": "Famous Market",
+        "distance_km": 14.95
       }
     ]
   },
@@ -27246,7 +28470,7 @@
     "commune_code": "060111",
     "latitude": 12.473985,
     "longitude": 105.244491,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Krava",
@@ -27265,6 +28489,18 @@
         "name_kh": "ផ្សារតាពាង ដេយថមេយ",
         "type": "Famous Market",
         "distance_km": 11.34
+      },
+      {
+        "name_en": "Kampong Thmar",
+        "name_kh": "ផ្សារកំពង់ ថមារ",
+        "type": "Famous Market",
+        "distance_km": 13.12
+      },
+      {
+        "name_en": "Kampong Thmar Market",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.12
       }
     ]
   },
@@ -27281,7 +28517,7 @@
     "commune_code": "060805",
     "latitude": 12.929947,
     "longitude": 104.579938,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Stuong",
@@ -27300,6 +28536,18 @@
         "name_kh": "ផ្សារស្ទោង",
         "type": "Famous Market",
         "distance_km": 9.82
+      },
+      {
+        "name_en": "Marketplace",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 13.95
+      },
+      {
+        "name_en": "Pralay",
+        "name_kh": "ផ្សារប្រឡាយ",
+        "type": "Famous Market",
+        "distance_km": 14.01
       }
     ]
   },
@@ -27316,7 +28564,7 @@
     "commune_code": "060802",
     "latitude": 12.848016,
     "longitude": 104.635693,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Sankrkh",
@@ -27335,6 +28583,18 @@
         "name_kh": "",
         "type": "Famous Market",
         "distance_km": 11.98
+      },
+      {
+        "name_en": "Stuong",
+        "name_kh": "ផ្សារសតុូង",
+        "type": "Famous Market",
+        "distance_km": 12.42
+      },
+      {
+        "name_en": "Stoung Market",
+        "name_kh": "ផ្សារស្ទោង",
+        "type": "Famous Market",
+        "distance_km": 13.62
       }
     ]
   },
@@ -27459,10 +28719,10 @@
         "distance_km": 2.46
       },
       {
-        "name_en": "Stueng Saen Center",
-        "name_kh": "ស្ទឹងសែន មជ្ឈមណ្ឌល",
-        "type": "District Center",
-        "distance_km": 0
+        "name_en": "Trapeang Russei",
+        "name_kh": "ផ្សារត្រាពោង រុសសី",
+        "type": "Famous Market",
+        "distance_km": 13.64
       }
     ]
   },
@@ -27573,7 +28833,7 @@
     "commune_code": "060804",
     "latitude": 12.943729,
     "longitude": 104.569481,
-    "top_nearby_places_count": 3,
+    "top_nearby_places_count": 5,
     "top_nearby_places": [
       {
         "name_en": "Stuong",
@@ -27592,6 +28852,18 @@
         "name_kh": "ផ្សារស្ទោង",
         "type": "Famous Market",
         "distance_km": 10.17
+      },
+      {
+        "name_en": "Marketplace",
+        "name_kh": "",
+        "type": "Famous Market",
+        "distance_km": 12.05
+      },
+      {
+        "name_en": "Pralay",
+        "name_kh": "ផ្សារប្រឡាយ",
+        "type": "Famous Market",
+        "distance_km": 12.11
       }
     ]
   },
@@ -27957,7 +29229,7 @@
     "store_code": "GLOBAL8",
     "store_name": "BC test GLOBAL8",
     "province_en": "Battambang",
-    "province_kh": "Battambang",
+    "province_kh": "battambang",
     "district_en": "Banan",
     "district_kh": "បាណន់",
     "commune_en": "Chheu Teal",

@@ -61,7 +61,7 @@ branches.forEach((b, idx) => {
     if (!lat || !lng) return;
 
     const dist = getHaversineKm(b.latitude, b.longitude, lat, lng);
-    if (dist <= 12.0) {
+    if (dist <= 15.0) {
       let nameEn = p.market || p.name_en || p.name || '';
       let nameKh = p.market_kh || p.name_kh || '';
 

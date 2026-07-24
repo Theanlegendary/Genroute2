@@ -671,7 +671,7 @@ function clientSearch(q, type, province = '') {
   return results;
 }
 
-function clientGetNearbyPOs(lat, lng, radiusKm = 30, limitCount = 10) {
+function clientGetNearbyPOs(lat, lng, radiusKm = 15, limitCount = 10) {
   const POs = clientBranches.map(po => {
     const dist = haversine(lat, lng, po.latitude, po.longitude);
     return {
@@ -1456,6 +1456,30 @@ async function runSearch(page = 1) {
 // Select a market, village, commune, or district and find its nearest Post Offices (within 30km)
 // With Mushroom Network (Dashed Lines & Popup List) + Close Zoom!
 async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly = true) {
+  if (!selectedLoc) return;
+
+  // Ensure latitude & longitude exist and are numeric
+  const rawLat = selectedLoc.latitude !== undefined && selectedLoc.latitude !== null ? selectedLoc.latitude : selectedLoc.lat;
+  const rawLng = selectedLoc.longitude !== undefined && selectedLoc.longitude !== null ? selectedLoc.longitude : selectedLoc.lng;
+
+  const lat = parseFloat(rawLat);
+  const lng = parseFloat(rawLng);
+
+  if (isNaN(lat) || isNaN(lng)) {
+    console.error('Invalid coordinates for selected location:', selectedLoc);
+    showState('empty');
+    if (resultsCount) {
+      resultsCount.textContent = 'Location coordinates unavailable. Please select another result.';
+    }
+    return;
+  }
+
+  // Normalize numeric coordinates on selectedLoc object
+  selectedLoc.latitude = lat;
+  selectedLoc.longitude = lng;
+  selectedLoc.lat = lat;
+  selectedLoc.lng = lng;
+
   if (window.innerWidth <= 768 && typeof window.closeMobileDrawer === 'function') {
     window.closeMobileDrawer();
   }
@@ -1469,7 +1493,7 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
   learnLocationIfNew(selectedLoc);
 
   try {
-    const radius = 30; // Max 30km
+    const radius = 15; // Max 15km (Under 15km spatial logic)
     const province = provinceSelect ? provinceSelect.value : '';
 
     // Fetch default PO for this location locally if it has branch_id

@@ -1586,26 +1586,28 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
     // Draw connection line to nearest PO
     if (nearbyPOs.length > 0) {
       const nearestPO = nearbyPOs[0];
-      const nearestLine = L.polyline([
-        [selectedLoc.latitude, selectedLoc.longitude],
-        [nearestPO.latitude, nearestPO.longitude]
-      ], {
-        color: 'var(--metfone-red, #d32f2f)',
-        weight: 3.5,
-        dashArray: '5, 8',
-        opacity: 0.8
-      }).addTo(vectorLayerGroup);
-      nearestLine.bindPopup(`Nearest PO: ${nearestPO.market} (${formatDistance(nearestPO.distance_km)})`);
+      if (nearestPO && nearestPO.latitude != null && nearestPO.longitude != null && !isNaN(parseFloat(nearestPO.latitude)) && !isNaN(parseFloat(nearestPO.longitude))) {
+        const nearestLine = L.polyline([
+          [selectedLoc.latitude, selectedLoc.longitude],
+          [parseFloat(nearestPO.latitude), parseFloat(nearestPO.longitude)]
+        ], {
+          color: 'var(--metfone-red, #d32f2f)',
+          weight: 3.5,
+          dashArray: '5, 8',
+          opacity: 0.8
+        }).addTo(vectorLayerGroup);
+        nearestLine.bindPopup(`Nearest PO: ${nearestPO.market} (${formatDistance(nearestPO.distance_km)})`);
+      }
     }
 
     // Draw connection line to default PO
-    if (defaultPO && defaultPO.latitude && defaultPO.longitude) {
+    if (defaultPO && defaultPO.latitude != null && defaultPO.longitude != null && !isNaN(parseFloat(defaultPO.latitude)) && !isNaN(parseFloat(defaultPO.longitude))) {
       const nearestPO = nearbyPOs[0];
       const isSame = (nearestPO && nearestPO.branch_id === defaultPO.branch_id);
       if (!isSame) {
         const defaultLine = L.polyline([
           [selectedLoc.latitude, selectedLoc.longitude],
-          [defaultPO.latitude, defaultPO.longitude]
+          [parseFloat(defaultPO.latitude), parseFloat(defaultPO.longitude)]
         ], {
           color: '#3b82f6',
           weight: 3.5,
@@ -1618,7 +1620,10 @@ async function selectLocationAndFindNearbyPOs(selectedLoc, allMatchedLocs, fly =
 
     // Plot all nearby post offices
     nearbyPOs.forEach(po => {
-      const marker = L.marker([po.latitude, po.longitude], { icon: redIcon }).addTo(markerClusterGroup);
+      if (!po || po.latitude == null || po.longitude == null || isNaN(parseFloat(po.latitude)) || isNaN(parseFloat(po.longitude))) return;
+      const poLat = parseFloat(po.latitude);
+      const poLng = parseFloat(po.longitude);
+      const marker = L.marker([poLat, poLng], { icon: redIcon }).addTo(markerClusterGroup);
       const popupContent = `
         <div class="map-popup-content">
           <div class="popup-header">

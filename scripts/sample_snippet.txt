@@ -1,0 +1,15 @@
+[BRANCH #2 - BANA002]
+Branch Code   : BANA002
+Store Name    : Paoy Paet
+Province      : Banteay Meanchey (បន្ទាយមានជ័យ)
+District      : Paoy Paet (ប៉ោយប៉ែត)
+Commune       : Nimitt (និមិត្ដ) - NCDD: 011001
+GPS Location  : 13.682498, 102.564968
+
+Top 5 Nearby Google Landmarks (<= 12km):
+  1. Big C Supermarket Poipet (1.34 km)
+  2. Mms Market | ផ្សារ MMS (1.39 km)
+  3. Big C Market | ផ្សារ Big C (1.5 km)
+  4. Cheayden Market | ផ្សារជ័យដេន (2.15 km)
+  5. Derm Puthrea Market | ផ្សារដើមពុទ្រា (2.71 km)
+--------------------------------------------------------------------------------

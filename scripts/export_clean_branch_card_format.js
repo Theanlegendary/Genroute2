@@ -1,12 +1,12 @@
 /**
- * EXPORT 697 PICKUP BRANCHES IN EXACT CARD FORMAT REQUESTED BY USER
+ * EXPORT 697 PICKUP BRANCHES IN CARD FORMAT (WITHOUT NCDD BRACKETS)
  * Format:
  *  [BRANCH BANA001]
  *  Code      : BANA001
  *  Name      : Chamnaom
  *  Province  : បន្ទាយមានជ័យ
  *  District  : Mongkol Borei (មង្គលបូរី)
- *  Commune   : ចំណោម (NCDD: 010203)
+ *  Commune   : ចំណោម
  *  Location  : 13.437565, 102.934632
  */
 
@@ -21,13 +21,13 @@ const txtOutputPath = path.join(ROOT_DIR, 'CLEAN_BRANCHES_FORMATTED.txt');
 
 const branches = JSON.parse(fs.readFileSync(jsonInputPath, 'utf-8'));
 
-console.log(`=== FORMATTING ALL ${branches.length} BRANCHES IN EXACT REQUESTED FORMAT ===`);
+console.log(`=== REMOVING NCDD BRACKETS FOR ALL ${branches.length} BRANCHES ===`);
 
 let txtContent = "";
 
-branches.forEach((b, idx) => {
+branches.forEach(b => {
   const distStr = `${b.district_en || ''} (${b.district_kh || ''})`;
-  const commStr = `${b.commune_kh || ''} (NCDD: ${b.commune_code || ''})`;
+  const commStr = `${b.commune_kh || ''}`;
 
   txtContent += `[BRANCH ${b.store_code || ''}]\r\n`;
   txtContent += `Code      : ${b.store_code || ''}\r\n`;
@@ -42,4 +42,4 @@ branches.forEach((b, idx) => {
 fs.writeFileSync(txtOutputPath, txtContent, 'utf-8');
 console.log(`✅ Saved CLEAN_BRANCHES_FORMATTED.txt: ${txtOutputPath}`);
 
-console.log('=== FORMATTING COMPLETE ===');
+console.log('=== REMOVAL COMPLETE ===');

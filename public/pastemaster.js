@@ -137,9 +137,9 @@ function switchPmLanguage(lang) {
   if (btnEn && btnKh) {
     if (lang === 'kh') {
       btnEn.style.background = 'transparent'; btnEn.style.color = 'white';
-      btnKh.style.background = 'white'; btnKh.style.color = '#107c41';
+      btnKh.style.background = 'white'; btnKh.style.color = '#DA251D';
     } else {
-      btnEn.style.background = 'white'; btnEn.style.color = '#107c41';
+      btnEn.style.background = 'white'; btnEn.style.color = '#DA251D';
       btnKh.style.background = 'transparent'; btnKh.style.color = 'white';
     }
   }

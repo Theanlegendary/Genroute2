@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="style.css?v=3.1.7" />
   
   <style>
-    /* Standalone dashboard specific layout styles */
+    /* Standalone Metfone Red Theme Dashboard Styles */
     body {
       background: #f8fafc;
       color: #1e293b;
@@ -30,13 +30,14 @@
     }
     
     .pm-header {
-      background: #1e293b;
+      background: linear-gradient(135deg, #DA251D 0%, #b01c15 100%);
       color: white;
-      padding: var(--space-4) var(--space-6);
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 3px solid var(--metfone-red);
+      border-bottom: 3px solid #991b1b;
+      box-shadow: 0 4px 14px rgba(218, 37, 29, 0.25);
       flex-shrink: 0;
     }
     
@@ -54,7 +55,7 @@
     .pm-header-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       font-size: var(--text-xs);
     }
     
@@ -65,14 +66,14 @@
       position: relative;
     }
     
-    /* Excel-Style Spreadsheet Layout */
+    /* Spreadsheet Layout */
     .pm-left-col {
       width: 320px;
       background: white;
-      border-right: 1px solid #cbd5e1;
+      border-right: 1px solid #e2e8f0;
       display: flex;
       flex-direction: column;
-      padding: var(--space-4);
+      padding: 16px;
       flex-shrink: 0;
     }
     
@@ -84,7 +85,7 @@
       overflow: hidden;
     }
     
-    /* Excel Grid Table Styling */
+    /* Metfone Red Excel Grid Table Styling */
     .pm-results-table {
       width: 100%;
       border-collapse: collapse;
@@ -94,14 +95,14 @@
     }
 
     .pm-results-table th {
-      background: #107c41; /* Classic Excel Green */
+      background: #DA251D; /* Metfone Primary Red Header */
       color: white;
       font-weight: 700;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
       padding: 10px 12px;
-      border: 1px solid #0e6b37;
+      border: 1px solid #b01c15;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -115,14 +116,13 @@
     }
 
     .pm-results-table tbody tr:nth-child(even) {
-      background-color: #f8fafc;
+      background-color: #fff8f8;
     }
 
     .pm-results-table tbody tr:hover {
-      background-color: #f1f5f9;
+      background-color: #ffeef0;
     }
     
-    /* Scrollable areas styling */
     .pm-input-wrapper {
       display: flex;
       flex-direction: column;
@@ -132,24 +132,26 @@
     .pm-input-wrapper textarea {
       flex: 1;
       width: 100%;
-      min-height: 200px;
+      min-height: 220px;
       border: 2px solid #e2e8f0;
-      border-radius: var(--radius-lg);
-      padding: var(--space-3);
-      font-size: var(--text-sm);
-      font-family: monospace;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      font-family: var(--font-sans);
       resize: none;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
     }
     
     .pm-input-wrapper textarea:focus {
-      border-color: #107c41;
+      border-color: #DA251D;
+      box-shadow: 0 0 0 3px rgba(218, 37, 29, 0.15);
     }
     
     .pm-center-header {
       padding: 10px 16px;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid #e2e8f0;
       background: #f1f5f9;
       display: flex;
       justify-content: space-between;
@@ -159,11 +161,11 @@
     .pm-table-container {
       flex: 1;
       overflow-y: auto;
-      padding: var(--space-3);
+      padding: 12px;
     }
     
     .pm-footer {
-      padding: var(--space-3) var(--space-6);
+      padding: 12px 24px;
       background: white;
       border-top: 1px solid #cbd5e1;
       display: flex;
@@ -176,20 +178,37 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
       color: white;
-      padding: 6px 12px;
-      border-radius: var(--radius-md);
-      font-size: var(--text-xs);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.2s;
     }
     
     .home-link-btn:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.3);
       border-color: white;
+    }
+
+    .pm-btn-red {
+      background: #DA251D !important;
+      color: white !important;
+      border: none !important;
+      padding: 10px 16px !important;
+      border-radius: 8px !important;
+      font-weight: 800 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 4px 12px rgba(218, 37, 29, 0.25) !important;
+    }
+
+    .pm-btn-red:hover {
+      background: #b01c15 !important;
+      transform: translateY(-1px);
     }
     
     @media (max-width: 900px) {
@@ -236,7 +255,7 @@
         padding: 8px !important;
       }
       .pm-results-table {
-        min-width: 650px !important; /* Touch-scrollable Excel Grid on mobile */
+        min-width: 650px !important;
       }
       .pm-footer {
         padding: 10px 14px !important;
@@ -250,21 +269,18 @@
 <body>
 
   <!-- Header Section -->
-  <header class="pm-header" style="background:#107c41; border-bottom: 3px solid #0e6b37;">
+  <header class="pm-header">
     <h1 id="pmHeaderTitle">
-      Paste Master Excel Address Resolver
+      📮 Metfone Express · Paste Master Batch Address Resolver
     </h1>
     <div class="pm-header-right">
       <div style="display:flex; align-items:center; background:rgba(0,0,0,0.25); border-radius:6px; padding:2px; margin-right:4px;">
-        <button id="pmLangEn" style="background:white; color:#107c41; border:none; padding:3px 8px; border-radius:4px; font-weight:800; font-size:11px; cursor:pointer;">EN</button>
+        <button id="pmLangEn" style="background:white; color:#DA251D; border:none; padding:3px 8px; border-radius:4px; font-weight:800; font-size:11px; cursor:pointer;">EN</button>
         <button id="pmLangKh" style="background:transparent; color:white; border:none; padding:3px 8px; border-radius:4px; font-weight:800; font-size:11px; cursor:pointer;">KH</button>
       </div>
-      <span id="pmNetworkVersion" style="font-weight: 700; color: #e2e8f0;">Metfone Logistics Network v3.1.7</span>
-      <a href="/pastemaster-training" class="home-link-btn" id="pmTrainingBtn" style="padding: 5px 12px; text-decoration: none; background: rgba(255,255,255,0.2); color: white; border-radius: 6px; font-weight: 800;">
-        📖 Training Guide
-      </a>
-      <a href="/" class="home-link-btn" id="pmGoBackBtn" style="padding: 5px 12px; text-decoration: none;">
-        Go back
+      <span id="pmNetworkVersion" style="font-weight: 700; color: #fef2f2;">Metfone Logistics Network v3.1.7</span>
+      <a href="/" class="home-link-btn" id="pmGoBackBtn">
+        ← Back to Map
       </a>
     </div>
   </header>
@@ -275,25 +291,25 @@
     <!-- Column 1: Inputs -->
     <div class="pm-left-col">
       <div class="pm-input-wrapper">
-        <label id="pmInputLabel" style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; display: block; margin-bottom: 8px; font-family: var(--font-heading);">
-          1. Raw Address Input (One per line)
+        <label id="pmInputLabel" style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #DA251D; letter-spacing: 0.05em; display: block; margin-bottom: 8px; font-family: var(--font-heading);">
+          📋 Paste Raw Addresses (One per line)
         </label>
         <textarea 
           id="pmRawInput" 
           placeholder="Paste address keywords here. Example:&#10;ផ្ទះបងនៅម្ដុំបាលីរីសតភូមិត្រពាំងល្វាសង្កាត់កាកាប ពោធិ៍សែនជ័យ&#10;បឹងកេងកង&#10;ផ្សារទួលពង្រ&#10;ក្រោយវត្តស្ទឹងមានជ័យ&#10;សាកលវិទ្យាល័យភូមិន្ទវិចិត្រសិល្បៈថ្មីជ្រោយចង្វារ"
           spellcheck="false"
         ></textarea>
-        <button id="pmRunBtn" class="pm-btn" style="margin-top: 12px; width: 100%; font-weight: 800; background:#107c41; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">
-          ⚡ Resolve Addresses
+        <button id="pmRunBtn" class="pm-btn-red" style="margin-top: 12px; width: 100%;">
+          🚀 Resolve All Addresses
         </button>
       </div>
     </div>
     
-    <!-- Column 2: Full-Width Excel Spreadsheet Results -->
+    <!-- Column 2: Full-Width Results Grid -->
     <div class="pm-center-col">
       <div class="pm-center-header">
         <label id="pmResultsLabel" style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #1e293b; letter-spacing: 0.05em; font-family: var(--font-heading);">
-          2. Structured Results & Disambiguation (Excel Spreadsheet Grid)
+          📊 Resolved Address Grid Results
         </label>
       </div>
       
@@ -315,7 +331,7 @@
             <tbody id="pmResultsBody">
               <tr>
                 <td colspan="8" class="pm-empty-cell" id="pmEmptyCell" style="text-align: center; padding: 40px; color: #64748b;">
-                  No data resolved. Paste address list on the left and click "Resolve Addresses".
+                  No data resolved. Paste your address list on the left and click "Resolve All Addresses".
                 </td>
               </tr>
             </tbody>
@@ -334,7 +350,7 @@
     <div style="display: flex; gap: 8px;">
       <button id="pmClearBtn" class="pm-btn pm-btn-danger">Clear</button>
       <button id="pmCopyAllBtn" class="pm-btn" style="background:#0284c7; color:white; font-weight:700;" disabled>📋 Copy All (Excel Format)</button>
-      <button id="pmExportBtn" class="pm-btn pm-btn-success" disabled>Export CSV / Excel</button>
+      <button id="pmExportBtn" class="pm-btn-red" disabled>📥 Export CSV / Excel</button>
     </div>
   </footer>
 

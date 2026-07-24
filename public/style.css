@@ -1623,11 +1623,27 @@ strong {
     display: block !important;
   }
 
-  /* Better autocomplete overlay position on mobile */
+  /* Mobile Autocomplete Suggestions Overlay Fix */
   .autocomplete-dropdown {
-    left: var(--space-3);
-    right: var(--space-3);
-    max-height: 200px;
+    position: fixed !important;
+    top: 68px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: 55vh !important;
+    z-index: 999999 !important;
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    pointer-events: auto !important;
+  }
+  .autocomplete-dropdown.open {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 

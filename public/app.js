@@ -1330,7 +1330,11 @@ async function showAutocomplete(q) {
         </div>
       `;
       
-      item.addEventListener('click', async () => {
+      const handleSelect = async (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         searchInput.value = s.label;
         clearBtn.style.display = 'block';
         closeAutocomplete();
@@ -1435,7 +1439,10 @@ async function showAutocomplete(q) {
             resultsCount.textContent = 'Google Maps coordinates could not be loaded.';
           }
         }
-      });
+      };
+      
+      item.addEventListener('pointerdown', handleSelect);
+      item.addEventListener('click', handleSelect);
       
       autocompleteDropdown.appendChild(item);
     });

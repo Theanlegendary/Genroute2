@@ -1,0 +1,152 @@
+=== BRANCHES 51 TO 100 ===
+
+Branch: BATA026 | Name: Svay Por | District: Battambang | NCDD: 020310 | GPS: 13.0859,103.1988
+Keywords: BATA026 | Svay Por | Battambang | 020310 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA027 | Name: Ou Ta Ki | District: Thma Koul | NCDD: 020203 | GPS: 13.167237,103.112915
+Keywords: BATA027 | Ou Ta Ki | Thma Koul | 020203 | lucky supermarket
+
+Branch: BATA028 | Name: Ta Sda | District: Sampov Lun | NCDD: 021003 | GPS: 13.404488,102.455575
+Keywords: BATA028 | Ta Sda | Sampov Lun | 021003
+
+Branch: BATA029 | Name: Thipakdei | District: Koas Krala | NCDD: 021301 | GPS: 12.856523,103.26872
+Keywords: BATA029 | Thipakdei | Koas Krala | 021301
+
+Branch: BATA030 | Name: Prey Svay | District: Moung Ruessei | NCDD: 020603 | GPS: 12.713477,103.544657
+Keywords: BATA030 | Prey Svay | Moung Ruessei | 020603
+
+Branch: BATA032 | Name: Sdau | District: Rotonak Mondol | NCDD: 020701 | GPS: 12.891503,102.973863
+Keywords: BATA032 | Sdau | Rotonak Mondol | 020701
+
+Branch: BATA033 | Name: Ampil Pram Daeum | District: Bavel | NCDD: 020405 | GPS: 13.260059,102.767866
+Keywords: BATA033 | Ampil Pram Daeum | Bavel | 020405
+
+Branch: BATA034 | Name: Ou Char | District: Battambang | NCDD: 020309 | GPS: 13.1076,103.1755
+Keywords: BATA034 | Ou Char | Battambang | 020309 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA035 | Name: Anlung Vil | District: Sangkae | NCDD: 020801 | GPS: 13.0624,103.2563
+Keywords: BATA035 | Anlung Vil | Sangkae | 020801 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA036 | Name: Vaot Ta Muem | District: Sangkae | NCDD: 020810 | GPS: 13.01234,103.187065
+Keywords: BATA036 | Vaot Ta Muem | Sangkae | 020810 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA037 | Name: Peam Aek | District: Aek Phnum | NCDD: 020505 | GPS: 13.161,103.2086
+Keywords: BATA037 | Peam Aek | Aek Phnum | 020505 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA038 | Name: Prey Khpos | District: Bavel | NCDD: 020404 | GPS: 13.347834,102.905611
+Keywords: BATA038 | Prey Khpos | Bavel | 020404
+
+Branch: BATA039 | Name: Mukh Rea | District: Rukh Kiri | NCDD: 021403 | GPS: 12.77559,103.448243
+Keywords: BATA039 | Mukh Rea | Rukh Kiri | 021403
+
+Branch: BATA040 | Name: Prek Preah Sdach | District: Battambang | NCDD: 020302 | GPS: 13.0887,103.2127
+Keywords: BATA040 | Prek Preah Sdach | Battambang | 020302 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA041 | Name: Moung Ruessei | District: Moung Ruessei | NCDD: 020601 | GPS: 12.903065,103.3680416
+Keywords: BATA041 | Moung Ruessei | 020601
+
+Branch: BATP001 | Name: Battambang | District: Battambang | NCDD: 020301 | GPS: 13.106159,103.195737
+Keywords: BATP001 | Battambang | 020301 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATS001 | Name: Tuol Ta Ek | District: Battambang | NCDD: 020301 | GPS: 13.095671,103.190739
+Keywords: BATS001 | Tuol Ta Ek | Battambang | 020301 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATS002 | Name: Ta Pung | District: Thma Koul | NCDD: 020201 | GPS: 13.269928,103.089933
+Keywords: BATS002 | Ta Pung | Thma Koul | 020201
+
+Branch: BATS003 | Name: Boeng Reang | District: Kamrieng | NCDD: 021202 | GPS: 13.088761,102.445678
+Keywords: BATS003 | Boeng Reang | Kamrieng | 021202
+
+Branch: BATS004 | Name: Santepheap | District: Sampov Lun | NCDD: 021004 | GPS: 13.431886,102.376649
+Keywords: BATS004 | Santepheap | Sampov Lun | 021004
+
+Branch: BATS005 | Name: Sdau | District: Rotonak Mondol | NCDD: 020701 | GPS: 12.892662,102.97397
+Keywords: BATS005 | Sdau | Rotonak Mondol | 020701
+
+Branch: BATS006 | Name: Bavel | District: Bavel | NCDD: 020401 | GPS: 13.25407,102.873046
+Keywords: BATS006 | Bavel | 020401 | borey yin mann
+
+Branch: BATS007 | Name: Moung | District: Moung Ruessei | NCDD: 020601 | GPS: 12.775514,103.447784
+Keywords: BATS007 | Moung | Moung Ruessei | 020601
+
+Branch: BATS008 | Name: Sdau | District: Rotonak Mondol | NCDD: 020701 | GPS: 12.5333,102.5826
+Keywords: BATS008 | Sdau | Rotonak Mondol | 020701
+
+Branch: DVCZ2 | Name: Vehicle Team Z2 | District: Banan | NCDD: 020104 | GPS: null,null
+Keywords: DVCZ2 | Vehicle Team Z2 | Banan | 020104
+
+Branch: HUBBAT01 | Name: Hub vùng HUBBAT01 | District: Hub vùng HUBBAT01 | NCDD: undefined | GPS: 13.338261812530442,103.08321449677263
+Keywords: HUBBAT01 | Hub vùng HUBBAT01
+
+Branch: HZ3P01 | Name: Head Office Z3 | District: Head Office Z3 | NCDD: undefined | GPS: null,null
+Keywords: HZ3P01 | Head Office Z3
+
+Branch: KVBAT01 | Name: Kho vùng BAT | District: Koas Krala | NCDD: 021305 | GPS: null,null
+Keywords: KVBAT01 | Kho vùng BAT | Koas Krala | 021305
+
+Branch: CHAA001 | Name: Peam Prathnuoh | District: Kaoh Soutin | NCDD: 030806 | GPS: 11.892662,105.428499
+Keywords: CHAA001 | Peam Prathnuoh | Kaoh Soutin | 030806 | night market
+
+Branch: CHAA002 | Name: Chrey Vien | District: Prey Chhor | NCDD: 031303 | GPS: 12.058398,105.257688
+Keywords: CHAA002 | Chrey Vien | Prey Chhor | 031303
+
+Branch: CHAA003 | Name: Kor | District: Prey Chhor | NCDD: 031305 | GPS: 12.11317,105.21706
+Keywords: CHAA003 | Kor | Prey Chhor | 031305
+
+Branch: CHAA004 | Name: Sandaek | District: Batheay | NCDD: 030108 | GPS: 12.123065,104.970836
+Keywords: CHAA004 | Sandaek | Batheay | 030108
+
+Branch: CHAA005 | Name: Me Sar Chrey | District: Stueng Trang | NCDD: 031505 | GPS: 12.29968,105.419272
+Keywords: CHAA005 | Me Sar Chrey | Stueng Trang | 031505
+
+Branch: CHAA006 | Name: Peam Chi Kang | District: Kang Meas | NCDD: 030704 | GPS: 11.946622,105.247515
+Keywords: CHAA006 | Peam Chi Kang | Kang Meas | 030704
+
+Branch: CHAA007 | Name: Ta Prok | District: Chamkar Leu | NCDD: 030208 | GPS: 12.376818,105.222342
+Keywords: CHAA007 | Ta Prok | Chamkar Leu | 030208
+
+Branch: CHAA008 | Name: Thma Pun | District: Prey Chhor | NCDD: 031313 | GPS: 12.162685,105.246162
+Keywords: CHAA008 | Thma Pun | Prey Chhor | 031313
+
+Branch: CHAA009 | Name: Tang Krang | District: Batheay | NCDD: 030109 | GPS: 11.885387,104.935627
+Keywords: CHAA009 | Tang Krang | Batheay | 030109
+
+Branch: CHAA010 | Name: Bos Khnor | District: Chamkar Leu | NCDD: 030201 | GPS: 12.180892,105.322863
+Keywords: CHAA010 | Bos Khnor | Chamkar Leu | 030201
+
+Branch: CHAA011 | Name: Lvea | District: Bavel | NCDD: 020403 | GPS: 12.057856,105.181435
+Keywords: CHAA011 | Lvea | Bavel | 020403
+
+Branch: CHAA012 | Name: Khvet Thum | District: Prey Chhor | NCDD: 031304 | GPS: 12.059258,105.211236
+Keywords: CHAA012 | Khvet Thum | Prey Chhor | 031304
+
+Branch: CHAA013 | Name: Chealea | District: Batheay | NCDD: 030103 | GPS: 11.9945,104.9433
+Keywords: CHAA013 | Chealea | Batheay | 030103
+
+Branch: CHAA014 | Name: Batheay | District: Batheay | NCDD: 030101 | GPS: 12.027384,104.962943
+Keywords: CHAA014 | Batheay | 030101
+
+Branch: CHAA015 | Name: Soutib | District: Cheung Prey | NCDD: 030308 | GPS: 12.05615,105.074797
+Keywords: CHAA015 | Soutib | Cheung Prey | 030308
+
+Branch: CHAA016 | Name: Veal Vung | District: Kampong Cham | NCDD: 030504 | GPS: 11.979458,105.458557
+Keywords: CHAA016 | Veal Vung | Kampong Cham | 030504 | night market | kizuna bridge | kampong cham bridge
+
+Branch: CHAA017 | Name: Areak Tnaot | District: Stueng Trang | NCDD: 031501 | GPS: 12.362246,105.587401
+Keywords: CHAA017 | Areak Tnaot | Stueng Trang | 031501
+
+Branch: CHAA018 | Name: Kampong Cham | District: Kampong Cham | NCDD: 030501 | GPS: 11.991004,105.466677
+Keywords: CHAA018 | Kampong Cham | 030501 | night market | kizuna bridge | kampong cham bridge
+
+Branch: CHAA019 | Name: Roka Koy | District: Kang Meas | NCDD: 030709 | GPS: 11.9412,105.3009
+Keywords: CHAA019 | Roka Koy | Kang Meas | 030709
+
+Branch: CHAA020 | Name: Hanchey | District: Kampong Siem | NCDD: 030602 | GPS: 12.1363,105.5264
+Keywords: CHAA020 | Hanchey | Kampong Siem | 030602
+
+Branch: CHAA021 | Name: Svay Pou | District: Srei Santhor | NCDD: 031412 | GPS: 11.780832,105.081073
+Keywords: CHAA021 | Svay Pou | Srei Santhor | 031412
+
+Branch: CHAA022 | Name: Preak Kak | District: Stueng Trang | NCDD: 031510 | GPS: 12.258039,105.533665
+Keywords: CHAA022 | Preak Kak | Stueng Trang | 031510
+

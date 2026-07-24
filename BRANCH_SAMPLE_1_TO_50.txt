@@ -1,0 +1,152 @@
+=== BRANCHES 1 TO 50 ===
+
+Branch: BANA001 | Name: Chamnaom | District: Mongkol Borei | NCDD: 010203 | GPS: 13.437565,102.934632
+Keywords: BANA001 | Chamnaom | Mongkol Borei | 010203
+
+Branch: BANA002 | Name: Paoy Paet | District: Paoy Paet | NCDD: 011001 | GPS: 13.682498,102.564968
+Keywords: BANA002 | Paoy Paet | 011001 | Phsar Kandal | big c market | Phsar Big C | poipet market | psar poipet border market | rong kluea border market | phum phsar kandal | Phumi Phsar Kandal | sangkat phsar kandal | Sangkeat Phsar Kandal | big c supermarket poipet
+
+Branch: BANA003 | Name: Preah Punlea | District: Serei Saophoan | NCDD: 010607 | GPS: 13.59106,102.973797
+Keywords: BANA003 | Preah Punlea | Serei Saophoan | 010607 | phsar mongkolborey thmey | phsar mongkolborey | tm night market | phsar mungokoloborey thmi | phsar mungokoloborey
+
+Branch: BANA004 | Name: Phsar Kandal | District: Paoy Paet | NCDD: 011003 | GPS: 13.646559,102.590885
+Keywords: BANA004 | Phsar Kandal | Paoy Paet | 011003 | big c market | Phsar Big C | poipet market | psar poipet border market | rong kluea border market | phum phsar kandal | Phumi Phsar Kandal | sangkat phsar kandal | Sangkeat Phsar Kandal | big c supermarket poipet
+
+Branch: BANA005 | Name: Ou Ruessei | District: Kampong Tralach | NCDD: 040506 | GPS: 13.69538,102.651888
+Keywords: BANA005 | Ou Ruessei | Kampong Tralach | 040506 | Phsar Kandal | big c market | Phsar Big C | poipet market | psar poipet border market | rong kluea border market | phum phsar kandal | Phumi Phsar Kandal | sangkat phsar kandal | Sangkeat Phsar Kandal | big c supermarket poipet
+
+Branch: BANA006 | Name: Roluos | District: Svay Chek | NCDD: 010808 | GPS: 13.80385,102.96445
+Keywords: BANA006 | Roluos | Svay Chek | 010808
+
+Branch: BANA007 | Name: Phnum Touch | District: Mongkol Borei | NCDD: 010207 | GPS: 13.410764,103.017448
+Keywords: BANA007 | Phnum Touch | Mongkol Borei | 010207
+
+Branch: BANA008 | Name: Paoy Char | District: Phnum Srok | NCDD: 010302 | GPS: 13.774137,103.313281
+Keywords: BANA008 | Paoy Char | Phnum Srok | 010302
+
+Branch: BANA009 | Name: Chub Vari | District: Preah Netr Preah | NCDD: 010402 | GPS: 13.623668,103.182027
+Keywords: BANA009 | Chub Vari | Preah Netr Preah | 010402
+
+Branch: BANA010 | Name: Banteay Chhmar | District: Thma Puok | NCDD: 010701 | GPS: 12.252597,105.977067
+Keywords: BANA010 | Banteay Chhmar | Thma Puok | 010701
+
+Branch: BANA011 | Name: Kampong Svay | District: Serei Saophoan | NCDD: 010602 | GPS: 13.600802,102.967587
+Keywords: BANA011 | Kampong Svay | Serei Saophoan | 010602 | phsar mongkolborey thmey | phsar mongkolborey | tm night market | phsar mungokoloborey thmi | phsar mungokoloborey
+
+Branch: BANA012 | Name: Malai | District: Malai | NCDD: 010901 | GPS: 13.566301,102.364078
+Keywords: BANA012 | Malai | 010901
+
+Branch: BANA013 | Name: Thma Puok | District: Thma Puok | NCDD: 010701 | GPS: 13.941231,103.049339
+Keywords: BANA013 | Thma Puok | 010701
+
+Branch: BANA014 | Name: Koub | District: Ou Chrov | NCDD: 010502 | GPS: 13.608353,102.764872
+Keywords: BANA014 | Koub | Ou Chrov | 010502
+
+Branch: BANA015 | Name: Changha | District: Ou Chrov | NCDD: 010501 | GPS: 13.647113,102.886313
+Keywords: BANA015 | Changha | Ou Chrov | 010501
+
+Branch: BANA016 | Name: Phnum Lieb | District: Preah Netr Preah | NCDD: 010403 | GPS: 13.605432,103.312393
+Keywords: BANA016 | Phnum Lieb | Preah Netr Preah | 010403
+
+Branch: BANA017 | Name: Punley | District: Phnum Srok | NCDD: 010303 | GPS: 13.76928,103.22615
+Keywords: BANA017 | Punley | Phnum Srok | 010303
+
+Branch: BANA018 | Name: Sla Kram | District: Svay Chek | NCDD: 010803 | GPS: 13.832156,102.833294
+Keywords: BANA018 | Sla Kram | Svay Chek | 010803
+
+Branch: BANA020 | Name: Banteay Neang | District: Mongkol Borei | NCDD: 010201 | GPS: 13.515097,103.017095
+Keywords: BANA020 | Banteay Neang | Mongkol Borei | 010201 | phsar mongkolborey thmey | phsar mongkolborey | tm night market | phsar mungokoloborey thmi | phsar mungokoloborey
+
+Branch: BANP001 | Name: Serei Saophoan | District: Serei Saophoan | NCDD: 010602 | GPS: 13.59572,102.97069
+Keywords: BANP001 | Serei Saophoan | 010602 | phsar mongkolborey thmey | phsar mongkolborey | tm night market | phsar mungokoloborey thmi | phsar mungokoloborey
+
+Branch: BANS001 | Name: Ou Ambel | District: Serei Saophoan | NCDD: 010605 | GPS: 13.5852101,102.9724208
+Keywords: BANS001 | Ou Ambel | Serei Saophoan | 010605 | phsar mongkolborey thmey | phsar mongkolborey | tm night market | phsar mungokoloborey thmi | phsar mungokoloborey
+
+Branch: BANS002 | Name: Paoy Paet | District: Paoy Paet | NCDD: 011001 | GPS: 13.65887,102.554344
+Keywords: BANS002 | Paoy Paet | 011001 | Phsar Kandal | big c market | Phsar Big C | poipet market | psar poipet border market | rong kluea border market | phum phsar kandal | Phumi Phsar Kandal | sangkat phsar kandal | Sangkeat Phsar Kandal | big c supermarket poipet
+
+Branch: BANS003 | Name: Thma Puok | District: Thma Puok | NCDD: 010701 | GPS: 13.9413014,103.049302
+Keywords: BANS003 | Thma Puok | 010701
+
+Branch: BANS004 | Name: Srah Chik | District: Phnum Srok | NCDD: 010305 | GPS: 13.74387,103.33588
+Keywords: BANS004 | Srah Chik | Phnum Srok | 010305
+
+Branch: BCTEST6 | Name: BCTEST6 | District: Svay Chek | NCDD: 010807 | GPS: null,null
+Keywords: BCTEST6 | Svay Chek | 010807
+
+Branch: HZ4P01 | Name: Head Office Z4 | District: Head Office Z4 | NCDD: undefined | GPS: null,null
+Keywords: HZ4P01 | Head Office Z4
+
+Branch: BATA001 | Name: Chomkar Somraong | District: Battambang | NCDD: 020304 | GPS: 13.129832,103.198146
+Keywords: BATA001 | Chomkar Somraong | Battambang | 020304 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA002 | Name: Kampong Prieng | District: Sangkae | NCDD: 020806 | GPS: 12.9489,103.3383
+Keywords: BATA002 | Kampong Prieng | Sangkae | 020806
+
+Branch: BATA003 | Name: Phnum Sampov | District: Banan | NCDD: 020106 | GPS: 13.0296,103.1009
+Keywords: BATA003 | Phnum Sampov | Banan | 020106
+
+Branch: BATA004 | Name: Vaot Ta Muem 01 | District: Sangkae | NCDD: 020810 | GPS: 13.0627,103.2032
+Keywords: BATA004 | Vaot Ta Muem 01 | Sangkae | 020810 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA005 | Name: Tuol Ta Ek | District: Battambang | NCDD: 020301 | GPS: 13.09573,103.190527
+Keywords: BATA005 | Tuol Ta Ek | Battambang | 020301 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA006 | Name: Moung | District: Moung Ruessei | NCDD: 020601 | GPS: 12.775837,103.448387
+Keywords: BATA006 | Moung | Moung Ruessei | 020601
+
+Branch: BATA007 | Name: Snoeng | District: Banan | NCDD: 020107 | GPS: 12.9784,103.0544
+Keywords: BATA007 | Snoeng | Banan | 020107
+
+Branch: BATA008 | Name: Vaot Ta Muem 02 | District: Sangkae | NCDD: 020810 | GPS: 13.03679,103.20173
+Keywords: BATA008 | Vaot Ta Muem 02 | Sangkae | 020810 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA009 | Name: REM SOCHEA | District: Rotonak Mondol | NCDD: 020705 | GPS: 13.265685,102.945134
+Keywords: BATA009 | REM SOCHEA | Rotonak Mondol | 020705 | borey yin mann
+
+Branch: BATA010 | Name: Santepheap | District: Sampov Lun | NCDD: 021004 | GPS: 13.432283,102.366176
+Keywords: BATA010 | Santepheap | Sampov Lun | 021004
+
+Branch: BATA011 | Name: Boeng Reang | District: Kamrieng | NCDD: 021202 | GPS: 13.087139,102.446107
+Keywords: BATA011 | Boeng Reang | Kamrieng | 021202
+
+Branch: BATA012 | Name: Bour | District: Phnum Proek | NCDD: 021103 | GPS: 13.283736,102.615651
+Keywords: BATA012 | Bour | Phnum Proek | 021103
+
+Branch: BATA013 | Name: Pech Chenda 01 | District: Phnum Proek | NCDD: 021102 | GPS: 13.222725,102.391644
+Keywords: BATA013 | Pech Chenda 01 | Phnum Proek | 021102
+
+Branch: BATA014 | Name: Pech Chenda 02 | District: Phnum Proek | NCDD: 021102 | GPS: 13.2117,102.532803
+Keywords: BATA014 | Pech Chenda 02 | Phnum Proek | 021102
+
+Branch: BATA015 | Name: Sdok Pravoek | District: Rukh Kiri | NCDD: 021404 | GPS: 12.603483,103.490935
+Keywords: BATA015 | Sdok Pravoek | Rukh Kiri | 021404
+
+Branch: BATA016 | Name: Ta Kream | District: Banan | NCDD: 020108 | GPS: 13.090324,103.023334
+Keywords: BATA016 | Ta Kream | Banan | 020108
+
+Branch: BATA017 | Name: Ta Sanh | District: Samlout | NCDD: 020907 | GPS: 12.616636,102.858967
+Keywords: BATA017 | Ta Sanh | Samlout | 020907
+
+Branch: BATA018 | Name: Kampong Lpov | District: Samlout | NCDD: 020902 | GPS: 12.543875,102.865274
+Keywords: BATA018 | Kampong Lpov | Samlout | 020902
+
+Branch: BATA019 | Name: Traeng | District: Rotonak Mondol | NCDD: 020704 | GPS: 12.832975,102.894727
+Keywords: BATA019 | Traeng | Rotonak Mondol | 020704
+
+Branch: BATA021 | Name: Preaek Chik | District: Rukh Kiri | NCDD: 021401 | GPS: 12.651708,103.396619
+Keywords: BATA021 | Preaek Chik | Rukh Kiri | 021401
+
+Branch: BATA022 | Name: Bavel | District: Bavel | NCDD: 020401 | GPS: 13.256093,102.875914
+Keywords: BATA022 | Bavel | 020401 | borey yin mann
+
+Branch: BATA023 | Name: Chrey | District: Thma Koul | NCDD: 020204 | GPS: 13.112873,103.136953
+Keywords: BATA023 | Chrey | Thma Koul | 020204 | battambang night market | night market battambang | lucky supermarket | night market?
+
+Branch: BATA024 | Name: Boeng Pring | District: Thma Koul | NCDD: 020207 | GPS: 13.366959,103.034112
+Keywords: BATA024 | Boeng Pring | Thma Koul | 020207
+
+Branch: BATA025 | Name: Ta Pung | District: Thma Koul | NCDD: 020201 | GPS: 13.264179,103.089398
+Keywords: BATA025 | Ta Pung | Thma Koul | 020201
+
